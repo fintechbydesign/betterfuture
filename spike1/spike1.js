@@ -35,3 +35,33 @@ const displayLocation = (position) => {
 };
 
 navigator.geolocation.getCurrentPosition(displayLocation);
+
+
+/* TAKING A PHOTO */
+
+// with thanks to https://www.html5rocks.com/en/tutorials/getusermedia/intro/
+
+const enablePhoto = () => {
+  const button = document.getElementById('takePhoto');
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const photo = document.getElementById('photo');
+  
+  button.onclick = () => {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    const dataURL = canvas.toDataURL('image/png');
+    console.log('dataUrl:', dataURL);
+    photo.src = dataURL;
+  }
+
+  const constraints = { video: true };
+  const handleSuccess = (stream) => video.srcObject = stream;
+  const handleError = (error) => console.error(error);
+
+  navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+}
+
+enablePhoto();
+
