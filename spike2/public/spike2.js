@@ -52,8 +52,8 @@ const enablePhoto = () => {
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0);
     const dataURL = canvas.toDataURL('image/png');
-    console.log('dataUrl:', dataURL);
     photo.src = dataURL;
+    sendPhoto(dataURL);
   }
 
   const constraints = { video: true };
@@ -69,21 +69,22 @@ enablePhoto();
 
 /* SEND DATA */
 
-const enableSendData = () => {
-  const button = document.getElementById('sendData');
+const sendPhoto = (dataURL) => {
+  const url = 'http://localhost:1971/photo';
   const report = (msg) => document.getElementById('sendResult').textContent = msg;
-
-  button.onclick = () => {
-    const url = 'http://localhost:1971/photo';
-    const options = {
-      method: 'POST',
-      body: 'test data'
-    };
-    fetch(url, options)
-      .then(() => report('Send data succeeded'))
-      .catch((error) => report(`Send data failed: ${error}`));
+  const data = {
+    id: getId(),
+    src: dataURL
   }
-  
-}
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'content-type': 'application/json'
+    }
+  };
+  fetch(url, options)
+    .then(() => report('Photo sent successfully,'))
+    .catch((error) => report(`Photo failed to send: ${error}`));
 
-enableSendData();
+}
