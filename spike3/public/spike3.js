@@ -70,7 +70,7 @@ enablePhoto();
 /* SEND DATA */
 
 const sendPhoto = (dataURL) => {
-  const url = 'http://localhost:1971/photo';
+  const url = '/photo';
   const report = (msg) => document.getElementById('sendResult').textContent = msg;
   const data = {
     id: getId(),
