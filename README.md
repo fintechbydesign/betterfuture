@@ -8,15 +8,17 @@ http://localhost:1971
 
 
 SPIKE 2 
+
 Send photos to server to display on 'wonderwall':
-http://localhost:1971
-http://localhost:1971/wonderwall
+- http://localhost:1971
+- http://localhost:1971/wonderwall
 
 
 SPIKE 3
+
 Make wonderwall dynamic so updates when new photos arrive
-http://localhost:1971
-http://localhost:1971/wonderwall.html
+- http://localhost:1971
+- http://localhost:1971/wonderwall.html
 
 
 
