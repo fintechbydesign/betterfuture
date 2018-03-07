@@ -21,7 +21,8 @@ Make wonderwall dynamic so updates when new photos arrive
 - http://localhost:1971/wonderwall.html
 
 
-
+SPIKE 4
+Prettier spike 3 for demo
 
 
 
