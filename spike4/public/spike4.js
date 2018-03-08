@@ -14,27 +14,8 @@ const createId = () => {
   return bfId;
 };
 
-const createIdMessage = () => getId() ? `Existing ID is ${getId()}` : `New ID is ${createId()}`;
-
+const createIdMessage = () => getId() ? `(Existing ID is ${getId()})` : `(New ID is ${createId()})`;
 document.getElementById('idMsg').textContent = createIdMessage();
-
-
-/* GETTING LOCATION FROM DEVICE */
-
-const displayLocation = (position) => {
-  const positionElement = document.getElementById('positionMsg');
-  if (!position) {
-    positionElement.textContent = 'No location available from your device';
-  } else {
-    const { latitude, longitude } = position.coords;
-    positionElement.textContent = `Position is latitude ${latitude}, longitude ${longitude}`;
-    const img = new Image();
-    img.src = `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=13&size=300x300&sensor=false`;
-    positionElement.appendChild(img);
-  }
-};
-
-navigator.geolocation.getCurrentPosition(displayLocation);
 
 
 /* TAKING A PHOTO */
@@ -42,24 +23,55 @@ navigator.geolocation.getCurrentPosition(displayLocation);
 // with thanks to https://www.html5rocks.com/en/tutorials/getusermedia/intro/
 
 const enablePhoto = () => {
-  const button = document.getElementById('takePhoto');
   const video = document.getElementById('video');
   const canvas = document.getElementById('canvas');
   const photo = document.getElementById('photo');
-  
-  button.onclick = () => {
-    canvas.width = video.videoWidth/2;
-    canvas.height = video.videoHeight/2;
+  const send = document.getElementById('send');
+  const remove = document.getElementById('remove');
+
+  const show = (...elements) => {
+    for (element of elements) {
+      element.classList.remove('hide');
+    }
+  };
+
+  const hide = (...elements) => {
+    for (element of elements) {
+      element.classList.add('hide');
+    }
+  };
+
+  const takePhoto = () => {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
     const dataURL = canvas.toDataURL('image/png');
     photo.src = dataURL;
-    sendPhoto(dataURL);
+    return dataURL;
+  };
+
+  const showVideo = () => {
+    hide(photo, send, remove);
+    send.onclick = undefined;
+    show(video);
   }
+
+  const showPhoto = () => {
+    const dataURL = takePhoto();
+    hide(video);
+    show(photo, send, remove);
+    send.onclick = () => {
+      sendPhoto(dataURL);
+      showVideo();
+    };
+  };
+
+  video.onclick = showPhoto;
+  remove.onclick = showVideo;
 
   const constraints = { video: true };
   const handleSuccess = (stream) => video.srcObject = stream;
   const handleError = (error) => console.error(error);
-
   navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
 }
 
@@ -71,7 +83,6 @@ enablePhoto();
 
 const sendPhoto = (dataURL) => {
   const url = '/photo';
-  const report = (msg) => document.getElementById('sendResult').textContent = msg;
   const data = {
     id: getId(),
     src: dataURL

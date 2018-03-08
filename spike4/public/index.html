@@ -2,16 +2,37 @@
 <html>
   <head>
       <meta charset="utf-8">
-      <title>BetterFuture Spike 3</title>
+      <title>BetterFuture Spike 4</title>
+      <style>
+        div, h1 {
+          margin-left: auto;
+          margin-right: auto;
+          font-family: sans-serif;
+          font-size: x-large;
+        }
+        button {
+          font-size: xx-large;
+        }
+        .hide {
+          display: none;
+        }
+        .small {
+          font-size: normal;
+        }
+      </style>
   </head>
   <body>
-    <h1>Better Future Spike 3</h1>
-    <div id='idMsg'></div>
-    <div id='positionMsg'>Fetching your location...</div>
-    <button id='takePhoto'>Take a photo</button>
-    <video id='video' autoplay></video>
-    <canvas id='canvas' style="display:none;"></canvas>
-    <img id='photo' src=''  alt='photo'/>
-    <div id='sendResult'></div>
+    <h1>Better Future Spike 4</h1>
+    <div class='instruction'>Click/press the video to take a picture:</div>
+    <div>
+      <video id='video' autoplay></video>
+      <img id='photo' src='blank.png' alt='photo' class='hide'/>
+    </div>
+    <canvas id='canvas' class='hide'></canvas>
+    <div>
+      <button id='send' class='hide'>Send Photo</button>
+      <button id='remove' class='hide'>Delete Photo</button>
+    </div>
+    <div id='idMsg' class='small'></div>
     <script src='spike4.js'></script>
 </html>
