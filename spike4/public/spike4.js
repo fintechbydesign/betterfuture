@@ -41,33 +41,34 @@ const enablePhoto = () => {
     }
   };
 
-  const takePhoto = () => {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    const dataURL = canvas.toDataURL('image/png');
-    photo.src = dataURL;
-    return dataURL;
+  const captureImage = (src, width, height) => {
+    canvas.width = width;
+    canvas.height = height;
+    canvas.getContext('2d').drawImage(src, 0, 0, width, height);
+    return canvas.toDataURL('image/png');
   };
 
   const showVideo = () => {
     hide(photo, send, remove);
-    send.onclick = undefined;
     show(video);
   }
 
   const showPhoto = () => {
-    const dataURL = takePhoto();
+    const { videoWidth, videoHeight } = video;
+    const dataURL = captureImage(video, videoWidth, videoHeight);
     hide(video);
+    photo.src = dataURL;
     show(photo, send, remove);
-    send.onclick = () => {
-      sendPhoto(dataURL);
-      showVideo();
-    };
   };
 
   video.onclick = showPhoto;
   remove.onclick = showVideo;
+  send.onclick = () => {
+    const { width, height } = photo;
+    const dataURL = captureImage(photo, width/2, height/2);
+    sendPhoto(dataURL);
+    showVideo();
+  };
 
   const constraints = { video: true };
   const handleSuccess = (stream) => video.srcObject = stream;
@@ -95,7 +96,6 @@ const sendPhoto = (dataURL) => {
     }
   };
   fetch(url, options)
-    .then(() => report('Photo sent successfully,'))
-    .catch((error) => report(`Photo failed to send: ${error}`));
-
+    .then(() => console.log('Photo sent successfully,'))
+    .catch((error) => console.error(`Photo failed to send: ${error}`));
 }
