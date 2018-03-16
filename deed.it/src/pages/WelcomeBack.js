@@ -4,6 +4,7 @@ import Header from '../components/Header.js';
 import Instruction from '../components/Instruction.js';
 import { getUserDeedId, getUserWallet } from '../stores/user.js';
 import { getDeedById } from '../stores/deeds.js';
+import './WelcomeBack.css';
 
 const getUserDeed = () => {
   const deedId = getUserDeedId();
@@ -55,7 +56,7 @@ class WelcomeBack extends Component {
         <Header text= 'Welcome back to deed.it' />
         { deedOptions }
         { walletOptions }
-        <div>
+        <div className='WelcomeBack-debugOption'>
           <a onClick={this.props.reset}>reset</a>
         </div>
       </div>
