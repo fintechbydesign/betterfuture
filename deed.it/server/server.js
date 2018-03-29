@@ -39,8 +39,7 @@ app.post('/photo', (request, response) => {
 });
 
 socketsServer.on('connection', (socket) => {
-  console.log('socket client connected');
-  socket.emit('config', config);
+  console.log('wonderwall connected');
 })
 
 httpServer.listen(config.port, () => console.log(`Server listening on port ${config.port}`));
