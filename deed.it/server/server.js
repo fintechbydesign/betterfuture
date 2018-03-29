@@ -12,7 +12,8 @@ const config = {
 };
 
 const certsRoot = path.resolve(__dirname, './.ssl');
-const webRoot = path.resolve(__dirname, '../client/build');
+const clientRoot = path.resolve(__dirname, '../client/build');
+const wonderwallRoot = path.resolve(__dirname, '../wonderwall/build');
 
 const privateKey = fs.readFileSync(path.resolve(certsRoot, 'key.pem'));
 const certificate = fs.readFileSync(path.resolve(certsRoot, 'cert.pem'));
@@ -28,7 +29,8 @@ const httpsServer = https.createServer(credentials, app);
 const socketsServer = require('socket.io')(httpServer);
 
 app.use(bodyParser.json({limit: '2mb'}));
-app.use(express.static(webRoot));
+app.use("/", express.static(clientRoot));
+app.use("/wonderwall", express.static(wonderwallRoot));
 
 app.post('/photo', (request, response) => {
   console.log(`Photo received from id ${request.body.id}`);
