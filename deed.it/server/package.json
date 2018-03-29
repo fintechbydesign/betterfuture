@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "socket.io": "^2.0.4"
   },
   "scripts": {
+    "make-ssl-certs": "sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./.ssl/server.key -out ./.ssl/server.crt"
   }
 }
