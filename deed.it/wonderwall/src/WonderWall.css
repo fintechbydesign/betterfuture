@@ -6,3 +6,7 @@
   margin: auto;
   z-index: -1;
 }
+
+.WonderWall_hide {
+  display: none;
+}
