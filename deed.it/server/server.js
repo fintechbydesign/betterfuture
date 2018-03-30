@@ -24,7 +24,7 @@ const credentials = {
 };
 
 const app = express();
-const httpServer = http.createServer(app);
+// const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 const socketsOptions = {
   serveClient: false
@@ -46,5 +46,5 @@ socketsServer.on('connection', (socket) => {
   socketsServer.emit('news', 'Another WonderWall connected!');
 })
 
-httpServer.listen(config.port, () => console.log(`Server listening on port ${config.port}`));
+// httpServer.listen(config.port, () => console.log(`Server listening on port ${config.port}`));
 httpsServer.listen(config.securePort, () => console.log(`Secure server listening on ${config.securePort}`));
