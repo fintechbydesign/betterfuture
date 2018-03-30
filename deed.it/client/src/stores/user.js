@@ -1,72 +1,53 @@
 /* eslint no-mixed-operators:0 */
+const USER = 'user';
 
 // thanks to https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript#2117523
 const uuidv4 = () => ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(
-  /[018]/g, 
+  /[018]/g,
   c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
 );
 
-const getUserId = () => localStorage.userId;
+const get = (key) => (localStorage[key]) ? JSON.parse(localStorage[key]) : undefined;
 
-const createUserId = () => {
-  const id = uuidv4();
-  localStorage.userId = id;
-  return id;
+const set = (key, obj) => localStorage[key] = JSON.stringify(obj);
+
+const remove = (key) => delete localStorage[key];
+
+const getUser = () => {
+  const user = get(USER);
+  if (!user) {
+    throw new Error('User not created');
+  }
+  return user;
+}
+
+const createUser = () => {
+  if (get(USER)) {
+    throw new Error('User already created');
+  }
+  const user = {
+    id: uuidv4(),
+    wallet: 0
+  };
+  set(USER, user);
+  return user;
 };
 
-const getUserDeedId = () => {
-  return localStorage.deedId;
-}
-
-const setUserDeedId = (deedId) => {
-  localStorage.deedId = deedId;
-}
-
-const removeUser = () => {
-  delete localStorage.deedId;
-  delete localStorage.userId;
-  delete localStorage.wallet;
-}
-
-const removeUserDeed = () => {
-  delete localStorage.deedId;
-}
-
-const incrementUserWallet = (incr) => {
-  let wallet = getUserWallet();
-  if (wallet) {
-    wallet = Number(wallet) + incr;
-  } else {
-    wallet = incr;
+const setUserProps = (newProps) => {
+  const user = getUser();
+  if (!user) {
+    throw new Error('User not defined');
   }
-  localStorage.wallet = wallet;
+  set(USER, {...user, ...newProps });
 }
 
-const decrementUserWallet = (decr) => {
-  let wallet = getUserWallet();
-  if (wallet) {
-    wallet = Number(wallet) - decr;
-  } else {
-    wallet = 0;
-  }
-  localStorage.wallet = wallet;
-}
-
-const getUserWallet = () => { 
-  const wallet = localStorage.wallet;
-
-  return wallet ? (wallet === 'undefined') ? 0 : wallet : 0;
-}
+const removeUser = () => remove(USER);
 
 export {
-  createUserId,
-  getUserId,
-  getUserDeedId,
-  setUserDeedId,
-  removeUser,
-  removeUserDeed,
-  getUserWallet,
-  incrementUserWallet,
-  decrementUserWallet
+  createUser,
+  getUser,
+  setUserProps,
+  removeUser
 }
+
 

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import Button from '../components/Button.js';
 import Header from '../components/Header.js';
 import Instruction from '../components/Instruction.js';
-import { getUserDeedId, getUserWallet } from '../stores/user.js';
-import { getDeedById } from '../stores/deeds.js';
+import { getUser } from '../stores/user.js';
+import { getDeed } from '../stores/deeds.js';
 import './WelcomeBack.css';
 
 const getUserDeed = () => {
-  const deedId = getUserDeedId();
-  return deedId ? getDeedById(deedId): undefined;
+  const deedId = getUser().deedId;
+  return deedId ? getDeed(deedId): undefined;
 };
 
 class WelcomeBack extends Component { 
@@ -49,7 +49,7 @@ class WelcomeBack extends Component {
   render() {
     const deed = getUserDeed();
     const deedOptions = deed ? this.renderDeed(deed) : this.renderNoDeed();
-    const wallet = getUserWallet();
+    const wallet = getUser().wallet;
     const walletOptions = wallet > 0 ? this.renderWallet(wallet) : null;
     return (
       <div>

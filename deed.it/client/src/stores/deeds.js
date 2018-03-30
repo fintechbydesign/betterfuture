@@ -24,9 +24,9 @@ const deeds = [
 
 const getAvailableDeeds = () => deeds;
 
-const getDeedById = (id) => deeds[id - 1];
+const getDeed = (id) => deeds[id - 1];
 
 export {
   getAvailableDeeds,
-  getDeedById
+  getDeed
 }

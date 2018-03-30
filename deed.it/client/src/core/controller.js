@@ -8,10 +8,16 @@ import Register from '../pages/Register.js';
 import ShowWallet from '../pages/ShowWallet.js';
 import Welcome from '../pages/Welcome.js';
 import WelcomeBack from '../pages/WelcomeBack.js';
-import { getUserId, removeUser } from '../stores/user.js';
+import { getUser, removeUser } from '../stores/user.js';
 
 const getInitialState = () => {
-  const stage = getUserId() ? 'welcomeBack' : 'welcome';
+  let stage;
+  try {
+    getUser();
+    stage = 'welcomeBack';
+  } catch (err) {
+    stage = 'welcome';
+  }
   return { stage };
 };
 

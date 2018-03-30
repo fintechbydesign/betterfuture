@@ -5,16 +5,16 @@ import Header from '../components/Header.js';
 import countries from '../data/country.js';
 import genders from '../data/gender.js';
 import ages from '../data/age.js';
-import { createUserId } from '../stores/user.js';
+import { createUser } from '../stores/user.js';
 
 class Register extends Component { 
   render() {
-    const newUserId = createUserId();
+    const newUser = createUser();
     return (
       <div>
         <Header text='Your unique id is:' />
         <div>
-          {newUserId}
+          {newUser.id}
         </div>
         <div>
           though you do not have to remember this!

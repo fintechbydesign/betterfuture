@@ -2,12 +2,20 @@ import React, { Component } from 'react';
 import Button from '../components/Button.js';
 import Header from '../components/Header.js';
 import Instruction from '../components/Instruction.js';
-import { getUserDeedId, incrementUserWallet, removeUserDeed } from '../stores/user.js';
-import { getDeedById } from '../stores/deeds.js';
+import { getUser, setUserProps } from '../stores/user.js';
+import { getDeed } from '../stores/deeds.js';
 
 const getUserDeed = () => {
-  const deedId = getUserDeedId();
-  return deedId ? getDeedById(deedId): undefined;
+  const deedId = getUser().deedId;
+  return deedId ? getDeed(deedId): undefined;
+};
+
+const incrementUserWallet = (reward) => {
+  setUserProps({ wallet: getUser().wallet + reward });
+};
+
+const removeUserDeed = () => {
+  setUserProps({ deedId: undefined });
 };
 
 class ChooseDeed extends Component { 

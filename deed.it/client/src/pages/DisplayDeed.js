@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Button from '../components/Button.js';
 import Header from '../components/Header.js';
-import { getDeedById } from '../stores/deeds.js';
-import { getUserDeedId } from '../stores/user.js';
+import { getDeed } from '../stores/deeds.js';
+import { getUser } from '../stores/user.js';
 
 class DisplayDeed extends Component { 
   render() {
-    const deedId = getUserDeedId();
-    const deed = getDeedById(deedId);
+    const deedId = getUser().deedId;
+    const deed = getDeed(deedId);
     const imageSrc = `${process.env.PUBLIC_URL}/${deed.image}`;
     return (
       <div>
