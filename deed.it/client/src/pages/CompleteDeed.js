@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Button from '../components/Button.js';
 import Header from '../components/Header.js';
 import Instruction from '../components/Instruction.js';
-import './CompleteDeed.css';
 
 class CompleteDeed extends Component { 
 
@@ -18,7 +17,7 @@ class CompleteDeed extends Component {
         <Instruction text='Choose how to report the deed done:' />
         <fieldset>
           <div>
-            <input type='radio' id='takePhoto' onChange={optionChosen}></input>
+            <input type='radio' id='takePhoto' onChange={this.props.takePhoto}></input>
             <label htmlFor='takePhoto'>Take a photo of the done deed</label>
           </div>
           <div>
@@ -47,43 +46,9 @@ class CompleteDeed extends Component {
     );
   }
 
-  renderVideo () {
-    return (
-      <div>
-        <Instruction text='Click the picture to take a photo:' />
-        <div>
-          <video id='video' autoPlay />
-          <img id='photo' alt='what will be submitted' className='CompleteDeed-hide' />
-          <canvas id='canvas' className='CompleteDeed-hide' />
-        </div>
-      </div>);
-  }
-
-  renderPhoto () {
-    const imageSrc = `${process.env.PUBLIC_URL}/placeholder.png`;
-    return (
-      <div>
-        <div>
-          <img src={imageSrc} alt='placeholder' />
-        </div>
-        <div>
-          <Button click={this.props.submit} text='Report deed done' />
-        </div>
-        <div>
-          <Button click={this.props.cancel} text='Not now' />
-        </div>
-    </div>);
-  }
-
   render () {
     let content;
     switch(this.state.stage) {
-      case 'takePhoto':
-        content = this.renderVideo();
-        break;
-      case 'confirmPhoto':
-        content = this.renderPhoto();
-        break;
       case 'declaration':
         content = this.renderDeclaration();
         break;

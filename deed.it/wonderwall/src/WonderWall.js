@@ -7,7 +7,12 @@ class WonderWall extends Component {
     super(props);
     this.state = { photos: [] };
     const socket = io();
+    socket.on('news', this.reportNews.bind(this));
     socket.on('photo', this.addPhoto.bind(this));
+  }
+
+  reportNews (news) {
+    console.log('news received: ', news);
   }
 
   addPhoto (photo) {

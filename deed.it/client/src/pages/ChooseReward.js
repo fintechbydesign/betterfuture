@@ -54,11 +54,11 @@ class ChooseDeed extends Component {
         <fieldset>
           <div>
             <input type='radio' id='donate' onChange={optionChosen} />
-            <label for='donate'>Donate to a mega-deed</label>
+            <label htmlFor='donate'>Donate to a mega-deed</label>
           </div>
           <div>
             <input type='radio' id='store' onChange={optionChosen} />
-            <label for='store'>Store in my wallet</label>
+            <label htmlFor='store'>Store in my wallet</label>
           </div>
         </fieldset>
         <div>

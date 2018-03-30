@@ -26,7 +26,10 @@ const credentials = {
 const app = express();
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
-const socketsServer = require('socket.io')(httpServer);
+const socketsOptions = {
+  serveClient: false
+}
+const socketsServer = require('socket.io')(httpsServer, socketsOptions);
 
 app.use(bodyParser.json({limit: '2mb'}));
 app.use("/", express.static(clientRoot));
@@ -34,12 +37,13 @@ app.use("/wonderwall", express.static(wonderwallRoot));
 
 app.post('/photo', (request, response) => {
   console.log(`Photo received from id ${request.body.id}`);
-  socketsServer.emit('photo', photo);
+  socketsServer.emit('photo', request.body);
   response.status(200).end();
 });
 
 socketsServer.on('connection', (socket) => {
   console.log('wonderwall connected');
+  socketsServer.emit('news', 'Another WonderWall connected!');
 })
 
 httpServer.listen(config.port, () => console.log(`Server listening on port ${config.port}`));
