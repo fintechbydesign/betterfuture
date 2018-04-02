@@ -10,3 +10,23 @@
 .WonderWall_hide {
   display: none;
 }
+
+.WonderWall_menu {
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 25px;
+  z-index: 2;
+  background-color: white;
+  padding: 0 25px;
+}
+
+.WonderWall_menu_icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+}

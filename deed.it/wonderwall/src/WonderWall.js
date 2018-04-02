@@ -12,7 +12,6 @@ const fakeNews = [
   'Six sick sheiks, sitting stiching sheets'
 ];
 
-const debug = true;
 const delay = () => new Promise((resolve) => setTimeout(resolve));
 const randomInt = (max) => Math.floor(Math.random() * (max + 1));
 
@@ -21,9 +20,13 @@ const methods = [
   'generateFakeNews',
   'receiveNews',
   'renderDebugElements',
+  'renderMenu',
   'replayPhotoEvent',
   'reportNews',
-  'resizeImage'];
+  'resizeImage',
+  'toggleDebug',
+  'toggleMenu'
+];
 
 class WonderWall extends Component {
   constructor (props) {
@@ -31,12 +34,18 @@ class WonderWall extends Component {
 
     methods.forEach((method) => this[method] = this[method].bind(this));
 
-    this.state = { photos: [], newNews: [], reportedNews: [] };
+    this.state = {
+      debug: false,
+      photos: [],
+      newNews: [],
+      reportedNews: [],
+      showMenu: false
+    };
 
     this.canvas = createRef();
     this.image = createRef();
 
-    const socketURL = debug ? 'https://localhost' : undefined;
+    const socketURL = this.state.debug ? 'https://localhost' : undefined;
     const socket = io(socketURL);
     socket.on('news', this.receiveNews);
     socket.on('photo', this.addPhoto);
@@ -85,7 +94,7 @@ class WonderWall extends Component {
 
   async addPhoto (photo) {
     console.log('photo received: ', photo);
-    if (debug) {
+    if (this.state.debug) {
       localStorage.setItem('testPhoto', JSON.stringify(photo));
     }
     const img = this.image.current;
@@ -106,25 +115,60 @@ class WonderWall extends Component {
       console.error('no test photo to replay')
     }
   }
+
   renderDebugElements () {
-    return (
-      <div>
-        <button onClick={this.replayPhotoEvent}>Test Photo</button>
-        <button onClick={this.generateFakeNews}>Test News</button>
-      </div>
-    );
+    if (this.state.debug ) {
+      return (
+        <div>
+          <button onClick={this.replayPhotoEvent}>Test Photo</button>
+          <button onClick={this.generateFakeNews}>Test News</button>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  toggleDebug () {
+    this.setState(prevState => ({
+      ...prevState,
+      debug: !prevState.debug,
+      showMenu: false
+    }));
+  }
+
+  toggleMenu () {
+    this.setState(prevState => ({
+      ...prevState,
+      showMenu: !prevState.showMenu
+    }));
+  }
+
+  renderMenu () {
+    if (this.state.showMenu) {
+      return (
+        <div className='WonderWall_menu'>
+          <h3>WonderWall Options</h3>
+          <input type='checkbox' id='debug' onClick={this.toggleDebug} checked={this.state.debug}/>
+          <label for="debug">enable debug elements</label>
+        </div>);
+    } else {
+      return (<img src='menu-icon.png' alt='menu' className='WonderWall_menu_icon' onClick={this.toggleMenu}/>);
+    }
   }
 
   render () {
     const numPhotos = this.state.photos.length;
     const photos = this.state.photos.map((photo, index) => (<Photo src={photo.smallSrc} key={numPhotos - index - 1} />));
-    const debugElements = debug ? this.renderDebugElements() : null;
+    const debugElements = this.renderDebugElements();
+    const menuElements = this.renderMenu();
     return (
       <div>
         <img src='wonderwall.png' alt='wonderwall background' className='WonderWall_background' />
         {photos}
         <Ticker items={this.state.reportedNews} />
         {debugElements}
+        {menuElements}
         <img ref={this.image} alt="for resizing" className='WonderWall_hide'/>
         <canvas ref={this.canvas} className='WonderWall_hide' />
       </div>
