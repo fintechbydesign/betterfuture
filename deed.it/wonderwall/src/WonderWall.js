@@ -13,6 +13,7 @@ const delay = () => new Promise((resolve) => setTimeout(resolve));
 const methods = [
   'addNews',
   'addPhoto',
+  'addTile',
   'addVideo',
   'resizeImage',
   'setPopupContent',
@@ -29,10 +30,9 @@ class WonderWall extends Component {
     this.state = {
       debug: true,
       latestNews: undefined,
-      photos: [],
       popupContent: undefined,
       showMenu: false,
-      videos: []
+      tiles: []
     };
 
     this.canvas = createRef();
@@ -54,17 +54,26 @@ class WonderWall extends Component {
     img.src = photo.src;
     await delay(); // required to allow image to draw (invisibly!)
     photo.smallSrc = this.resizeImage(photo.src, 320, 240);
-    this.setState(prevState => ({
-      ...prevState,
-      photos: [photo, ...prevState.photos]
-    }));
+    const tile = {
+      type: 'photo',
+      ...photo
+    };
+    this.addTile(tile);
   }
 
   addVideo (video) {
     console.log('video received: ', video);
+    const tile = {
+      type: 'video',
+      ...video
+    };
+    this.addTile(tile);
+  }
+
+  addTile (tile) {
     this.setState(prevState => ({
       ...prevState,
-      videos: [video, ...prevState.videos]
+      tiles: [tile, ...prevState.tiles]
     }));
   }
 
@@ -110,22 +119,24 @@ class WonderWall extends Component {
   render () {
     const canPopup = this.state.popupContent && !this.state.showMenu;
 
-    const numPhotos = this.state.photos.length;
-    const photos = this.state.photos.map((photo, index) => {
-      const onClick = canPopup ?
-        null :
-        this.setPopupContent.bind(null, (<Photo src={photo.src} />));
-      const reverseIndex = numPhotos - index - 1;
-      return (<Photo src={photo.smallSrc} key={reverseIndex} onClick={onClick}/>)
-    });
-
-    const numVideos = this.state.videos.length;
-    const videos = this.state.videos.map((video, index) => {
-      const onClick = canPopup ?
-        null :
-        this.setPopupContent.bind(null, (<Video src={video.src} height='480' width='640' />));
-      const reverseIndex = numVideos - index - 1;
-      return (<Video src={video.src} height='240' width='320' key={reverseIndex} onClick={onClick}/>)
+    const numTiles = this.state.tiles.length;
+    const tiles = this.state.tiles.map((tile, index) => {
+      const reverseIndex = numTiles - index - 1;
+      let onClick;
+      switch (tile.type) {
+        case 'photo':
+          onClick = canPopup ?
+            null :
+            this.setPopupContent.bind(null, (<Photo src={tile.src} />));
+          return (<Photo src={tile.smallSrc} key={reverseIndex} onClick={onClick}/>);
+        case 'video':
+          onClick = canPopup ?
+            null :
+            this.setPopupContent.bind(null, (<Video src={tile.src} height='480' width='640' />));
+          return (<Video src={tile.src} height='240' width='320' key={reverseIndex} onClick={onClick}/>);
+        default:
+          return null;
+      }
     });
     
     const menuProps = {
@@ -156,8 +167,7 @@ class WonderWall extends Component {
     return (
       <div>
         <img src='wonderwall.png' alt='wonderwall background' className='WonderWall_background' />
-        {photos}
-        {videos}
+        {tiles}
         <Menu {...menuProps} />
         <Ticker {...tickerProps} />
         <Debug {...debugProps} />
