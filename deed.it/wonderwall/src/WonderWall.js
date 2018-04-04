@@ -26,6 +26,7 @@ const methods = [
   'reportNews',
   'resizeImage',
   'setPopupContent',
+  'addTestVideo',
   'toggleDebug',
   'toggleMenu'
 ];
@@ -42,7 +43,8 @@ class WonderWall extends Component {
       photos: [],
       popupContent: undefined,
       reportedNews: [],
-      showMenu: false
+      showMenu: false,
+      videos: []
     };
 
     this.canvas = createRef();
@@ -119,12 +121,20 @@ class WonderWall extends Component {
     }
   }
 
+  addTestVideo () {
+    this.setState(prevState => ({
+      ...prevState,
+      videos: [{}, ...prevState.videos]
+    }));
+  }
+
   renderDebugElements () {
     if (this.state.debug ) {
       return (
         <div>
           <button onClick={this.replayPhotoEvent}>Test Photo</button>
           <button onClick={this.generateFakeNews}>Test News</button>
+          <button onClick={this.addTestVideo}>Test Video</button>
         </div>
       );
     } else {
@@ -186,6 +196,9 @@ class WonderWall extends Component {
       const reverseIndex = numPhotos - index - 1;
       return (<Photo src={photo.smallSrc} key={reverseIndex} onClick={onClick}/>)
     });
+    const videos = this.state.videos.map((video, index) => {
+      return (<video src='/videos/big_buck_bunny.mp4' autoPlay loop height='240' width='320' key={index}/>)
+    });
     const debugElements = this.renderDebugElements();
     const menuElements = this.renderMenu();
     const popupElements = this.renderPopup();
@@ -193,6 +206,7 @@ class WonderWall extends Component {
       <div>
         <img src='wonderwall.png' alt='wonderwall background' className='WonderWall_background' />
         {photos}
+        {videos}
         <Ticker items={this.state.reportedNews} />
         {debugElements}
         {menuElements}
