@@ -21,9 +21,11 @@ const methods = [
   'receiveNews',
   'renderDebugElements',
   'renderMenu',
+  'renderPopup',
   'replayPhotoEvent',
   'reportNews',
   'resizeImage',
+  'setPopupContent',
   'toggleDebug',
   'toggleMenu'
 ];
@@ -35,9 +37,10 @@ class WonderWall extends Component {
     methods.forEach((method) => this[method] = this[method].bind(this));
 
     this.state = {
-      debug: false,
-      photos: [],
+      debug: true,
       newNews: [],
+      photos: [],
+      popupContent: undefined,
       reportedNews: [],
       showMenu: false
     };
@@ -150,18 +153,42 @@ class WonderWall extends Component {
         <div className='WonderWall_menu'>
           <h3>WonderWall Options</h3>
           <input type='checkbox' id='debug' onClick={this.toggleDebug} checked={this.state.debug}/>
-          <label for="debug">enable debug elements</label>
+          <label htmlFor="debug">enable debug elements</label>
         </div>);
+    } else if (this.state.popupContent) {
+      return null;
     } else {
       return (<img src='menu-icon.png' alt='menu' className='WonderWall_menu_icon' onClick={this.toggleMenu}/>);
     }
   }
 
+  setPopupContent (content) {
+    this.setState({
+      ...this.state,
+      popupContent: content
+    });
+  }
+
+  renderPopup () {
+    if (this.state.popupContent && !this.state.showMenu) {
+      const closePopup = this.setPopupContent.bind(null, null);
+      return (<div className='WonderWall_popup' onClick={closePopup}>{this.state.popupContent}</div>)
+    } else {
+      return null;
+    }
+  }
+
   render () {
     const numPhotos = this.state.photos.length;
-    const photos = this.state.photos.map((photo, index) => (<Photo src={photo.smallSrc} key={numPhotos - index - 1} />));
+    const canPopup = this.state.popupContent && !this.state.showMenu;
+    const photos = this.state.photos.map((photo, index) => {
+      const onClick = canPopup ? null : this.setPopupContent.bind(null, (<Photo src={photo.src} />));
+      const reverseIndex = numPhotos - index - 1;
+      return (<Photo src={photo.smallSrc} key={reverseIndex} onClick={onClick}/>)
+    });
     const debugElements = this.renderDebugElements();
     const menuElements = this.renderMenu();
+    const popupElements = this.renderPopup();
     return (
       <div>
         <img src='wonderwall.png' alt='wonderwall background' className='WonderWall_background' />
@@ -169,6 +196,7 @@ class WonderWall extends Component {
         <Ticker items={this.state.reportedNews} />
         {debugElements}
         {menuElements}
+        {popupElements}
         <img ref={this.image} alt="for resizing" className='WonderWall_hide'/>
         <canvas ref={this.canvas} className='WonderWall_hide' />
       </div>

@@ -1,3 +1,5 @@
+/* with thanks to https://codepen.io/lewismcarey/pen/GJZVoG?editors=1100 */
+
 @keyframes ticker {
   0% {
     transform: translate3d(0, 0, 0);
