@@ -22,10 +22,10 @@ function DisplayDeed (props) {
         {`(Reward is ${deed.reward} betties)`}
       </div>
       <div>
-        <Button click={props.accept} text='Accept this deed' />
+        <Button click={props.welcomeBack} text='Accept this deed' />
       </div>
       <div>
-        <Button click={props.reject} text='Choose another deed instead' />
+        <Button click={props.chooseDeed} text='Choose another deed instead' />
       </div>
     </div>
   );

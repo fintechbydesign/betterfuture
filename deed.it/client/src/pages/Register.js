@@ -5,15 +5,13 @@ import Header from '../components/Header.js';
 import countries from '../data/country.js';
 import genders from '../data/gender.js';
 import ages from '../data/age.js';
-import { createUser } from '../stores/user.js';
 
 function Register (props) {
-  const newUser = createUser();
   return (
     <div>
       <Header text='Your unique id is:' />
       <div>
-        {newUser.id}
+        {props.user.id}
       </div>
       <div>
         though you do not have to remember this!

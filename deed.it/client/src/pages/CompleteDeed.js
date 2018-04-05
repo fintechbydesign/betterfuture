@@ -37,10 +37,10 @@ class CompleteDeed extends Component {
       <div>
         I declare the deed done!
         <div>
-          <Button click={this.props.submit} text='Report deed done' />
+          <Button click={this.props.chooseReward} text='Report deed done' />
         </div>
         <div>
-          <Button click={this.props.cancel} text='Not now' />
+          <Button click={this.props.welcomeBack} text='Not now' />
         </div>
       </div>
     );

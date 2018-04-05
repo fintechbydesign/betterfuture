@@ -67,7 +67,7 @@ class TakePhoto extends Component {
       // show video
       return {
         buttonText: 'Now now',
-        buttonFn: this.props.cancel,
+        buttonFn: this.props.welcomeBack,
         imageClass: 'TakePhoto-hide',
         instruction: 'Click/press the video to take a picture',
         setupFn: this.startVideo,

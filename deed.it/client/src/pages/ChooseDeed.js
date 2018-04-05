@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from '../components/Button.js';
 import Header from '../components/Header.js';
 import { getAvailableDeeds } from '../stores/deeds.js';
-import { setUserProps } from '../stores/user.js';
+import { updateUser } from '../stores/user.js';
 
 
 class ChooseDeed extends Component { 
@@ -13,12 +13,14 @@ class ChooseDeed extends Component {
   }
 
   componentDidMount () {
-    setUserProps({ deedId: undefined })
+    this.props.user.deedId = undefined;
+    updateUser(this.props.user)
   }
 
   createDeedButton (deed) {
     const click = () => {
-      setUserProps({ deedId: deed.id })
+      this.props.user.deedId = deed.id;
+      updateUser(this.props.user)
       this.props.displayDeed();
     };
     return (

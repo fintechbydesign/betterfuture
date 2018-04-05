@@ -3,7 +3,7 @@ import Header from '../components/Header.js';
 import Instruction from '../components/Instruction.js';
 
 function Error (props) {
-  const errMsg = JSON.stringify(this.props.err);
+  const errMsg = JSON.stringify(props.err);
   return (
     <div>
       <Header text='Sad Face :-(' />

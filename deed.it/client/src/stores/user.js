@@ -33,12 +33,8 @@ const createUser = () => {
   return user;
 };
 
-const setUserProps = (newProps) => {
-  const user = getUser();
-  if (!user) {
-    throw new Error('User not defined');
-  }
-  set(USER, {...user, ...newProps });
+const updateUser = (user) => {
+  set(USER, user);
 }
 
 const removeUser = () => remove(USER);
@@ -46,8 +42,8 @@ const removeUser = () => remove(USER);
 export {
   createUser,
   getUser,
-  setUserProps,
-  removeUser
+  removeUser,
+  updateUser
 }
 
 

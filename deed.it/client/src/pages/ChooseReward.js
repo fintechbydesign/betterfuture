@@ -2,20 +2,12 @@ import React, { Component } from 'react';
 import Button from '../components/Button.js';
 import Header from '../components/Header.js';
 import Instruction from '../components/Instruction.js';
-import { getUser, setUserProps } from '../stores/user.js';
+import { getUser, updateUser } from '../stores/user.js';
 import { getDeed } from '../stores/deeds.js';
 
 const getUserDeed = () => {
   const deedId = getUser().deedId;
   return deedId ? getDeed(deedId): undefined;
-};
-
-const incrementUserWallet = (reward) => {
-  setUserProps({ wallet: getUser().wallet + reward });
-};
-
-const removeUserDeed = () => {
-  setUserProps({ deedId: undefined });
 };
 
 class ChooseDeed extends Component { 
@@ -32,15 +24,17 @@ class ChooseDeed extends Component {
     switch (this.state.option) {
       case 'store':
         chooseFn = () => {
-          incrementUserWallet(deed.reward);
-          removeUserDeed();
-          this.props.choose();
+          this.props.user.wallet += deed.reward;
+          this.props.user.deedId = undefined;
+          updateUser(this.props.user);
+          this.props.welcomeBack();
         };
         break;
       case 'donate':
         chooseFn = () => {
-          removeUserDeed();
-          this.props.choose();
+          this.props.user.deedId = undefined;
+          updateUser(this.props.user);
+          this.props.welcomeBack();
         };
         break;
       default:
