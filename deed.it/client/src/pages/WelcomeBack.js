@@ -56,7 +56,7 @@ class WelcomeBack extends Component {
         <Header text= 'Welcome back to deed.it' />
         { deedOptions }
         { walletOptions }
-        <div className='WelcomeBack-debugOption'>
+        <div className='WelcomeBack_debugOption'>
           <a onClick={this.props.reset}>reset</a>
         </div>
       </div>
