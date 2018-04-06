@@ -1,9 +1,10 @@
 import React from 'react';
 
 function Dropdown (props) {
+  const onChange = props.onChange ? (event) => props.onChange(event.target.value) : null;
   return (
-    <select>
-      {props.options.map(option => <option value={option}>{option}</option>)}
+    <select onChange={onChange} >
+      {props.options.map(option => <option value={option} >{option}</option>)}
     </select>
   );
 }
