@@ -28,7 +28,7 @@ class WonderWall extends Component {
     methods.forEach((method) => this[method] = this[method].bind(this));
 
     this.state = {
-      debug: true,
+      debug: false,
       latestNews: undefined,
       popupContent: undefined,
       showMenu: false,

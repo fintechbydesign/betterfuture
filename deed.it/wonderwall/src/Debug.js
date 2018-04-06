@@ -25,7 +25,7 @@ class Debug extends Component {
 
   addTestVideo () {
     this.props.addVideo({
-      src: '/videos/big_buck_bunny.mp4'
+      src: './videos/big_buck_bunny.mp4'
     });
   }
 
