@@ -38,18 +38,12 @@ Dev mode (hot  module replacement etc.), from wonderwall root diractory:
 $ npm start
 ``` 
 
-## To Do (currently 19 days minimum)
+## To Do (currently 20 days minimum)
 
 1. AWS Transfer / Setup (1 day)
 
     ELB / EC2  + domain
     S3 / RDB  
-
-1. Logging (1 day)
-
-   serverside - endpoint, user agent parsing  
-   AWS setup  
-   client-side - error event
    
 1. Feature detection (1 day)
 
@@ -73,32 +67,47 @@ $ npm start
    Additional flow pages  
    Error handling  
    
+1. Deed selection (1 day)
+
+    client side screens
+    server endpoint
+    search..?   
+   
 1. Deed administration (3 days)
 
     server logic
     client screens
-    security   
+    security - basic auth? 
     
 1. Photo/video review (2 days)
 
     Tile logic
     DB updates
     Review page
+    
+1. Logging (1 day)
+
+   serverside - endpoint, user agent parsing  
+   AWS setup to S3   
+   client-side - error event
  
 1. UX redesign (3 days ?)
 
    No spec!  
    Additional pages  
    Reflow client  
-   no grahics!
+   no graphics!
    
 1. Wonderwall: Certificates / User accommplishments / MegaDeed progress (2 days)
 
    server logic  
-   new graphcs tiles    
+   new graphics tiles    
    
 1. Auto photo/video review (2 days)
 
     AWS setup (Rekognition)  
     Store results  
     Update review process logic   
+    
+    
+ 
