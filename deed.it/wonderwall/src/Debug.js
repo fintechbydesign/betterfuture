@@ -8,6 +8,14 @@ const fakeNews = [
   'Six sick sheiks, sitting stiching sheets'
 ];
 
+const videos = [
+  'big_buck_bunny.mp4',
+  'IMG_3184.webm',
+  'IMG_3186.webm',
+  'IMG_3187.webm',
+  'IMG_3573.webm',
+];
+
 const methods = [
   'addTestVideo',
   'generateFakeNews',
@@ -24,8 +32,9 @@ class Debug extends Component {
   }
 
   addTestVideo () {
+    const randomIndex = randomInt(videos.length -1);
     this.props.addVideo({
-      src: './videos/big_buck_bunny.mp4'
+      src: `./videos/${videos[randomIndex]}`
     });
   }
 
