@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 
 const config = {
   port: 80,
-  securePort: 443
+  securePort: Number(process.env.PORT) || 443
 };
 
 const certsRoot = path.resolve(__dirname, './.ssl');
@@ -36,8 +36,14 @@ app.use("/", express.static(clientRoot));
 app.use("/wonderwall", express.static(wonderwallRoot));
 
 app.post('/photo', (request, response) => {
-  console.log(`Photo received from id ${request.body.id}`);
+  console.log(`Photo received from user ${request.body.username}`);
   socketsServer.emit('photo', request.body);
+  response.status(200).end();
+});
+
+app.post('/user', (request, response) => {
+  console.log(`User received from user ${request.body.username}`);
+  socketsServer.emit('user', request.body);
   response.status(200).end();
 });
 

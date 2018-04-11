@@ -2,7 +2,7 @@ import React, { createRef, Component } from 'react';
 import Button from '../components/Button.js';
 import Header from '../components/Header.js';
 import Instruction from '../components/Instruction.js';
-import send from '../send/sendPhoto.js';
+import { sendPhoto } from '../send/send.js';
 
 import './TakePhoto.css';
 
@@ -48,7 +48,7 @@ class TakePhoto extends Component {
   }
 
   sendPhoto () {
-    send(this.state.imageData);
+    sendPhoto(this.props.user, this.state.imageData);
     this.props.chooseReward();
   }
 

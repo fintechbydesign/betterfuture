@@ -8,6 +8,14 @@ Three projects:
 - client: for client-side, mobile first - using [create-react-app](https://github.com/facebook/create-react-app)
 - wonderwall: for client-side, heavy graphics on big screen 
 
+## Installation
+```shell
+git clone https://github.com/fintechbydesign/betterfuture.git
+cd betterfuture/deed.it
+npm run install-all
+npm run build-all
+```
+
 ## Usage
 ### Server
 

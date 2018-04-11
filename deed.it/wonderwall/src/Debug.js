@@ -8,6 +8,14 @@ const fakeNews = [
   'Six sick sheiks, sitting stiching sheets'
 ];
 
+const videos = [
+  'big_buck_bunny.mp4',
+  'IMG_3184.webm',
+  'IMG_3186.webm',
+  'IMG_3187.webm',
+  'IMG_3573.webm',
+];
+
 const methods = [
   'addTestVideo',
   'generateFakeNews',
@@ -24,8 +32,10 @@ class Debug extends Component {
   }
 
   addTestVideo () {
+    const randomIndex = randomInt(videos.length -1);
     this.props.addVideo({
-      src: './videos/big_buck_bunny.mp4'
+      src: `./videos/${videos[randomIndex]}`,
+      username: 'test user'
     });
   }
 
@@ -35,7 +45,7 @@ class Debug extends Component {
   }
 
   replayPhotoEvent () {
-    const photo = localStorage.getItem('testPhoto');
+    const photo = localStorage.getItem('testPhotoTile');
     if (photo) {
       this.props.addPhoto(JSON.parse(photo));
     } else {

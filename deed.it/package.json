@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "sudo -b node ./server/server.js",
-    "stop": "sudo killall node"
+    "stop": "sudo killall node",
+    "build-all": "find ./* -mindepth 1 -maxdepth 1 -name package.json -execdir npm run build \\;",
+    "install-all": "find ./* -maxdepth 1 -name package.json -execdir npm install \\;"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",

@@ -6,6 +6,7 @@ import Input from '../components/Input';
 import countries from '../data/country.js';
 import genders from '../data/gender.js';
 import ages from '../data/age.js';
+import { sendUser } from '../send/send.js';
 import { updateUser } from '../stores/user.js';
 
 class Register extends Component {
@@ -14,6 +15,7 @@ class Register extends Component {
     super(props);
     this.updateUsername = this.updateUsername.bind(this);
     this.updateOption = this.updateOption.bind(this);
+    this.register = this.register.bind(this);
     this.state = {
       complete: false
     }
@@ -31,9 +33,13 @@ class Register extends Component {
     updateUser(this.props.user);
   }
 
-  render () {
+  register () {
+    sendUser(this.props.user);
+    this.props.chooseDeed();
+  }
 
-    const button = this.state.complete ? (<Button click={this.props.chooseDeed} text='Choose a deed'/>) : null;
+  render () {
+    const button = this.state.complete ? (<Button click={this.register} text='Choose a deed'/>) : null;
     return (
       <div>
         <Header text='Your unique id is:'/>

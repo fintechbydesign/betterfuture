@@ -1,5 +1,6 @@
 import io from 'socket.io-client';
 import React, { createRef, Component } from 'react';
+import Badge from './Badge';
 import Debug from './Debug';
 import Menu from './Menu';
 import Photo from './Photo';
@@ -11,9 +12,12 @@ import './WonderWall.css';
 const delay = () => new Promise((resolve) => setTimeout(resolve));
 
 const methods = [
+  'addBadge',
   'addNews',
   'addPhoto',
   'addTile',
+  'addUser',
+  'addUsername',
   'addVideo',
   'resizeImage',
   'setPopupContent',
@@ -21,18 +25,27 @@ const methods = [
   'toggleMenu'
 ];
 
+const badgeMethods = {
+  'addGoldBadge' : './images/gold-badge.png',
+  'addSilverBadge' : './images/silver-badge.png',
+  'addBronzeBadge' : './images/bronze-badge.png',
+}
+
 class WonderWall extends Component {
   constructor (props) {
     super(props);
 
     methods.forEach((method) => this[method] = this[method].bind(this));
+    Object.entries(badgeMethods).forEach(([method, src]) => this[method] = this.addBadge.bind(this, src));
 
     this.state = {
-      debug: false,
+      debug: true,
       latestNews: undefined,
       popupContent: undefined,
       showMenu: false,
-      tiles: []
+      tiles: [],
+      tileFilter: () => true,
+      usernames: new Set()
     };
 
     this.canvas = createRef();
@@ -42,14 +55,21 @@ class WonderWall extends Component {
     const socket = io(socketURL);
     socket.on('news', this.addNews);
     socket.on('photo', this.addPhoto);
+    socket.on('user', this.addUser);
     socket.on('video', this.addVideo);
+  }
+
+  addBadge (src, username) {
+    const tile = {
+      src,
+      type: 'badge',
+      username
+    }
+    this.addTile(tile);
   }
 
   async addPhoto (photo) {
     console.log('photo received: ', photo);
-    if (this.state.debug) {
-      localStorage.setItem('testPhoto', JSON.stringify(photo));
-    }
     const img = this.image.current;
     img.src = photo.src;
     await delay(); // required to allow image to draw (invisibly!)
@@ -58,7 +78,22 @@ class WonderWall extends Component {
       type: 'photo',
       ...photo
     };
+    if (this.state.debug) {
+      localStorage.setItem('testPhotoTile', JSON.stringify(photo));
+    }
     this.addTile(tile);
+  }
+
+  addUser (user) {
+    this.addNews(`Thankyou ${user.username} for registering`);
+  }
+
+  addUsername (username) {
+    if (!this.state.usernames.has(username)) {
+      this.state.usernames.add(username);
+      this.addNews(`Congratulations ${username} on completing your first deed`);
+      this.addBronzeBadge(username);
+    }
   }
 
   addVideo (video) {
@@ -71,6 +106,7 @@ class WonderWall extends Component {
   }
 
   addTile (tile) {
+    this.addUsername(tile.username);
     this.setState(prevState => ({
       ...prevState,
       tiles: [tile, ...prevState.tiles]
@@ -117,23 +153,23 @@ class WonderWall extends Component {
   }
 
   render () {
-    const canPopup = this.state.popupContent && !this.state.showMenu;
-
-    const numTiles = this.state.tiles.length;
-    const tiles = this.state.tiles.map((tile, index) => {
-      const reverseIndex = numTiles - index - 1;
-      let onClick;
+    const filteredTiles = this.state.tiles.filter(this.state.tileFilter);
+    const numTiles = filteredTiles.length;
+    const tiles = filteredTiles.map((tile, index) => {
+      const tileProps = {
+        canPopup: this.state.popupContent && !this.state.showMenu,
+        key: numTiles - index - 1,
+        setPopupContent: this.setPopupContent,
+        src: tile.src
+      }
       switch (tile.type) {
         case 'photo':
-          onClick = canPopup ?
-            null :
-            this.setPopupContent.bind(null, (<Photo src={tile.src} />));
-          return (<Photo src={tile.smallSrc} key={reverseIndex} onClick={onClick}/>);
+          tileProps.smallSrc = tile.smallSrc;
+          return (<Photo {...tileProps} />);
         case 'video':
-          onClick = canPopup ?
-            null :
-            this.setPopupContent.bind(null, (<Video src={tile.src} height='480' width='640' />));
-          return (<Video src={tile.src} height='240' width='320' key={reverseIndex} onClick={onClick}/>);
+          return (<Video {...tileProps} />);
+        case 'badge':
+          return (<Badge {...tileProps} />);
         default:
           return null;
       }
@@ -166,7 +202,7 @@ class WonderWall extends Component {
 
     return (
       <div>
-        <img src='wonderwall.png' alt='wonderwall background' className='WonderWall_background' />
+        <img src='./images/wonderwall.png' alt='wonderwall background' className='WonderWall_background' />
         {tiles}
         <Menu {...menuProps} />
         <Ticker {...tickerProps} />

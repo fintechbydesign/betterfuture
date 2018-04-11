@@ -13,7 +13,7 @@ function Menu(props) {
   } else if (props.popupVisible) {
     return null;
   } else {
-    return (<img src='menu-icon.png' alt='menu' className='Menu_icon' onClick={props.toggleMenu}/>);
+    return (<img src='./images/menu-icon.png' alt='menu' className='Menu_icon' onClick={props.toggleMenu}/>);
   }
 }
 
