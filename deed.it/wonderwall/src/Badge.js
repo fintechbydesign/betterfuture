@@ -1,10 +1,11 @@
 import React from 'react';
 
-function Badge(props) {
-  const onClick = props.canPopup ?
-    null :
-    props.setPopupContent.bind(null, (<img src={props.src} height='480' alt='a badge' />));
-  return (<img src={props.src} height='240' onClick={onClick} alt='a badge' />);
+function Badge (props) {
+  const height = props.isPopup ? '480' : '240';
+  const onClick = props.isPopup
+    ? null
+    : props.setPopupContent.bind(null, (<Badge isPopup src={props.src} />));
+  return (<img src={props.src} height={height} onClick={onClick} alt='a badge' />);
 }
 
 export default Badge;

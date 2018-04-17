@@ -1,3 +1,5 @@
+/* global localStorage */
+
 import io from 'socket.io-client';
 import React, { createRef, Component } from 'react';
 import Badge from './Badge';
@@ -21,22 +23,21 @@ const methods = [
   'addVideo',
   'resizeImage',
   'setPopupContent',
-  'toggleDebug',
-  'toggleMenu'
+  'updateState'
 ];
 
 const badgeMethods = {
-  'addGoldBadge' : './images/gold-badge.png',
-  'addSilverBadge' : './images/silver-badge.png',
-  'addBronzeBadge' : './images/bronze-badge.png',
-}
+  'addGoldBadge': './images/gold-badge.png',
+  'addSilverBadge': './images/silver-badge.png',
+  'addBronzeBadge': './images/bronze-badge.png'
+};
 
 class WonderWall extends Component {
   constructor (props) {
     super(props);
 
-    methods.forEach((method) => this[method] = this[method].bind(this));
-    Object.entries(badgeMethods).forEach(([method, src]) => this[method] = this.addBadge.bind(this, src));
+    methods.forEach((method) => { this[method] = this[method].bind(this); });
+    Object.entries(badgeMethods).forEach(([method, src]) => { this[method] = this.addBadge.bind(this, src); });
 
     this.state = {
       debug: true,
@@ -64,7 +65,7 @@ class WonderWall extends Component {
       src,
       type: 'badge',
       username
-    }
+    };
     this.addTile(tile);
   }
 
@@ -130,25 +131,17 @@ class WonderWall extends Component {
     return canvas.toDataURL('image/png');
   }
 
-  toggleDebug () {
-    this.setState(prevState => ({
-      ...prevState,
-      debug: !prevState.debug,
-      showMenu: false
-    }));
-  }
-
-  toggleMenu () {
-    this.setState(prevState => ({
-      ...prevState,
-      showMenu: !prevState.showMenu
-    }));
-  }
-
   setPopupContent (content) {
     this.setState({
       ...this.state,
       popupContent: content
+    });
+  }
+
+  updateState (newProps) {
+    this.setState({
+      ...this.state,
+      ...newProps
     });
   }
 
@@ -158,10 +151,11 @@ class WonderWall extends Component {
     const tiles = filteredTiles.map((tile, index) => {
       const tileProps = {
         canPopup: this.state.popupContent && !this.state.showMenu,
+        isPopup: false,
         key: numTiles - index - 1,
         setPopupContent: this.setPopupContent,
         src: tile.src
-      }
+      };
       switch (tile.type) {
         case 'photo':
           tileProps.smallSrc = tile.smallSrc;
@@ -174,13 +168,12 @@ class WonderWall extends Component {
           return null;
       }
     });
-    
+
     const menuProps = {
-      debugEnabled: this.state.debug,
-      enable: this.state.showMenu,
+      debug: this.state.debug,
+      showMenu: this.state.showMenu,
       popupVisible: !!this.state.popupContent,
-      toggleDebug: this.toggleDebug,
-      toggleMenu: this.toggleMenu
+      updateState: this.updateState
     };
 
     const tickerProps = {
@@ -191,14 +184,15 @@ class WonderWall extends Component {
       addPhoto: this.addPhoto,
       addVideo: this.addVideo,
       enable: this.state.debug,
-      addNews: this.addNews,
+      addNews: this.addNews
     };
-    
+    Object.keys(badgeMethods).forEach(method => { debugProps[method] = this[method]; });
+
     const popupProps = {
       content: this.state.popupContent,
       menuVisible: this.state.showMenu,
       setPopupContent: this.setPopupContent
-    }
+    };
 
     return (
       <div>
@@ -208,7 +202,7 @@ class WonderWall extends Component {
         <Ticker {...tickerProps} />
         <Debug {...debugProps} />
         <Popup {...popupProps} />
-        <img ref={this.image} alt="for resizing" className='WonderWall_hide'/>
+        <img ref={this.image} alt='for resizing' className='WonderWall_hide' />
         <canvas ref={this.canvas} className='WonderWall_hide' />
       </div>
     );
