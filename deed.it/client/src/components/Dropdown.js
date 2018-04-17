@@ -4,7 +4,7 @@ function Dropdown (props) {
   const onChange = props.onChange ? (event) => props.onChange(event.target.value) : null;
   return (
     <select onChange={onChange} >
-      {props.options.map(option => <option value={option} >{option}</option>)}
+      {props.options.map((option, index) => <option key={index} value={option} >{option}</option>)}
     </select>
   );
 }
