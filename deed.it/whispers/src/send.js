@@ -1,4 +1,4 @@
-const send = (iterations, phrase) => {
+const send = async (iterations, phrase) => {
   const data = { iterations, phrase };
   const options = {
     method: 'POST',
@@ -8,9 +8,15 @@ const send = (iterations, phrase) => {
     }
   };
   const url = '/whispers';
-  return fetch(url, options)
-    .then(() => console.log(`Sent successfully to ${url}`))
-    .catch((error) => console.error(`Failed to send to ${url}: ${error}`));
+    const response = await fetch(url, options);
+    if (response.ok) {
+      const data = response.json();
+      console.log(`Response received`);
+      return data;
+    }
+  const msg = `Failed to send to ${url}: ${response.status}, ${response.statusText}`;
+    console.error(msg);
+    throw new Error(msg);
 }
 
 export default send;
