@@ -1,0 +1,25 @@
+{
+  "name": "cloud-stub",
+  "description": "Cloud Stub for Deed It",
+  "main": "lib/server.js",
+  "scripts": {
+    "start": "nps",
+    "test": "nps test"
+  },
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "concurrently": "3.4.0",
+    "nodemon": "1.11.0",
+    "nps": "5.0.3",
+    "rimraf": "2.5.4"
+  },
+  "dependencies": {
+    "body-parser": "1.15.2",
+    "cookie-parser": "1.4.3",
+    "express": "4.14.0",
+    "express-session": "1.14.0",
+    "http-proxy": "1.16.2",
+    "request": "2.81.0"
+  }
+}
