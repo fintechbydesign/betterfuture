@@ -1,92 +1,15 @@
+const uuidv4 = require('uuid/v4');
+const users = require('./users');
+const deeds = require('./deeds');
+const deedHierarchy = require('./deed-hierarchy');
+const events = require('./events');
+
 const data = {
-  deeds: [
-    {
-      deedId: '1',
-      timestamp: 10000000001,
-      username: 'CrazyWoman',
-      evidenceType: 'photo',
-      src: 'http://i0.kym-cdn.com/photos/images/original/001/316/888/f81.jpeg',
-      status: 'approved'
-    },
-    {
-      deedId: '2',
-      timestamp: 10000000002,
-      username: 'Pablo',
-      evidenceType: 'photo',
-      src: 'http://i0.kym-cdn.com/photos/images/original/001/108/692/bb7.jpg',
-      status: 'approved'
-    },
-    {
-      deedId: '3',
-      timestamp: 10000000003,
-      username: 'John',
-      evidenceType: 'photo',
-      src: 'http://i0.kym-cdn.com/photos/images/original/001/171/854/c6d.png',
-      status: 'approved'
-    },
-    {
-      deedId: '4',
-      timestamp: 10000000005,
-      username: 'Ryan',
-      evidenceType: 'photo',
-      src: 'https://t3.ftcdn.net/jpg/01/59/05/92/240_F_159059230_qQmWBKtapcXlJIbCSO5SOAOQcJumOMD5.jpg',
-      status: 'approved'
-    },
-    {
-      deedId: '5',
-      timestamp: 10000000006,
-      username: 'Pablo',
-      evidenceType: 'photo',
-      src: 'http://budgetstockphoto.com/bamers/stock_photo_spectrum.jpg',
-      status: 'approved'
-    },
-    {
-      deedId: '6',
-      timestamp: 10000000007,
-      username: 'Ryan',
-      evidenceType: 'video',
-      src: 'https://vod-eurosport.akamaized.net/olympics/2018/02/19/Y2JasJikUVW_concat_19061318-1064721-700-512-288.mp4',
-      status: 'approved'
-    },
-    {
-      deedId: '7',
-      timestamp: 10000000008,
-      username: 'CrazyWoman',
-      evidenceType: 'photo',
-      src: 'https://atendesigngroup.com/sites/default/files/styles/very_large/public/array-map-filter-reduce-produce.png?itok=Cj3xTxMY',
-      status: 'unapproved'
-    },
-    {
-      deedId: '8',
-      timestamp: 10000000010,
-      username: 'Kristina',
-      evidenceType: 'photo',
-      src: 'https://c.stocksy.com/a/W9C000/z0/46718.jpg',
-      status: 'approved'
-    },
-    {
-      deedId: '9',
-      timestamp: 10000000011,
-      username: 'Pablo',
-      evidenceType: 'photo',
-      src: 'https://cdn-images-1.medium.com/max/1280/1*W7y0sqiFXo8RBGxGpp7etA.png',
-      status: 'unapproved'
-    }
-  ],
-  events: [
-    {
-      timestamp: 10000000004,
-      username: 'Mike',
-      newsType: 'news',
-      src: 'Mike has just joined us!'
-    },
-    {
-      timestamp: 10000000009,
-      username: 'Mike',
-      newsType: 'badge',
-      src: 'Mike just got the Silver medal'
-    }
-  ]
+  users,
+  deeds,
+  events,
+  deedHierarchy,
+  deedIdSeq: 0
 };
 
 const WONDERWALL_DEFAULT_TILES = 5;
@@ -110,6 +33,73 @@ function getWonderwallTiles() {
     .map(deed => generateTile({ ...deed, type: 'badge' }));
   const results = [ ...videos, ...photos, ...news, ...badges].sort(timestampNewToOld);
   return results;
+}
+
+function getData() {
+  return data;
+}
+
+function getDeedHierarchy() {
+  return data.deedHierarchy;
+}
+
+function createUser(username, country) {
+  data.users.push({username, country});
+}
+
+function addInfoToUser(username, info) {
+  const userIndex = data.users.findIndex(u => u.username === username);
+  if (userIndex > -1) {
+    data.users[userIndex] = {...data.users[userIndex], ...info};
+  }
+}
+
+function getUserProfile(username) {
+  const user = data.users.find(u => u.username === username);
+  if (user) {
+    const deeds = data.deeds.filter(u => u.username === username);
+    const events = data.events.filter(u => u.username === username);
+    return { user, deeds, events };
+  }
+  return {};
+}
+
+
+function removeUserDeeds(username) {
+  let deedIndex = data.deeds.findIndex(u => u.username === username);
+  while (deedIndex > -1) {
+    data.deeds.splice(deedIndex, 1);
+    deedIndex = data.deeds.findIndex(u => u.username === username);
+  }
+}
+
+function removeUserEvents(username) {
+  let eventsIndex = data.events.findIndex(u => u.username === username);
+  while (eventsIndex > -1) {
+    data.events.splice(eventsIndex, 1);
+    eventsIndex = data.events.findIndex(u => u.username === username);
+  }
+}
+
+function removeUser(username) {
+  const userIndex = data.users.findIndex(u => u.username === username);
+  if (userIndex > -1) {
+    data.users.splice(userIndex, 1);
+    removeUserDeeds(username);
+    removeUserEvents(username);
+  }
+}
+
+function createUserDeed(username, deedTypeId) {
+  const deed = {
+    deedId: uuidv4(),
+    username,
+    deedTypeId,
+    status: 'created',
+    timestamp: Date.now(),
+  };
+  data.deeds.push(deed);
+  return deed;
 }
 
 function getWonderwallLatest(n = WONDERWALL_DEFAULT_TILES) {
@@ -138,8 +128,15 @@ function setDeedStatus(deedId, deedStatus) {
 }
 
 module.exports = {
+  addInfoToUser,
+  createUser,
+  createUserDeed,
+  getData,
+  getDeedHierarchy,
+  getUserProfile,
   getWonderwallByStatus,
   getWonderwallLatest,
   getUserWonderwall,
+  removeUser,
   setDeedStatus
 };
