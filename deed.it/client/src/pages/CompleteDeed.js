@@ -21,6 +21,10 @@ class CompleteDeed extends Component {
             <label htmlFor='takePhoto'>Take a photo of the done deed</label>
           </div>
           <div>
+            <input type='radio' id='uploadPhoto' onChange={this.props.uploadPhoto}></input>
+            <label htmlFor='takePhoto'>Upload a photo of the done deed</label>
+          </div>
+          <div>
             <input type='radio' id='declaration' onChange={optionChosen}></input>
             <label htmlFor='declaration'>Simply report it complete</label>
           </div>

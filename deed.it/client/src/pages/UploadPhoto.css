@@ -1,0 +1,17 @@
+.UploadPhoto-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Upload-flexFixed {
+  flex: 0 0 auto;
+  align-self: center;
+}
+
+.UploadPhoto-hide {
+  display: none;
+}
+
+.UploadPhoto-hidden {
+  visibility: hidden;
+}
