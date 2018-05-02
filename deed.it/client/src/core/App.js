@@ -8,6 +8,7 @@ import Error from '../pages/Error.js';
 import Register from '../pages/Register.js';
 import ShowWallet from '../pages/ShowWallet.js';
 import TakePhoto from '../pages/TakePhoto.js';
+import UploadPhoto from '../pages/UploadPhoto.js';
 import Welcome from '../pages/Welcome.js';
 import WelcomeBack from '../pages/WelcomeBack.js';
 import logo from '../images/mercury.jpeg';
@@ -21,6 +22,7 @@ const stages = [
   'register',
   'showWallet',
   'takePhoto',
+  'uploadPhoto',
   'welcome',
   'welcomeBack',
 ];
@@ -83,6 +85,8 @@ class App extends Component {
           return (<ShowWallet {...pageProps} />);
         case 'takePhoto':
           return (<TakePhoto {...pageProps} /> )
+        case 'uploadPhoto':
+          return (<UploadPhoto {...pageProps} /> )
         default:
           throw new Error(`Unknown stage '${this.state.stage}'`);
       }
