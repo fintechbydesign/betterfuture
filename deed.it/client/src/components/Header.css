@@ -1,0 +1,13 @@
+.Header-container {
+  padding: 5px;
+  border: black 1px solid;
+}
+
+.Header-image {
+  height: 15vw;
+  padding-right: 15vw;
+}
+
+.Header-title {
+  font-size: 10vw;
+}

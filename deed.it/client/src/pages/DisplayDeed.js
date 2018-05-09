@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../components/Button.js';
-import Header from '../components/Header.js';
+import Title from '../components/Title.js';
 import { getDeed } from '../stores/deeds.js';
 import { getUser } from '../stores/user.js';
 
@@ -10,7 +10,7 @@ function DisplayDeed (props) {
   const imageSrc = `${process.env.PUBLIC_URL}/${deed.image}`;
   return (
     <div>
-      <Header text='Here is your deed:' />
+      <Title text='Here is your deed:' />
       <div>
         {deed.display}
       </div>

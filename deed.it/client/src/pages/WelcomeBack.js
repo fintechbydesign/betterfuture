@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '../components/Button.js';
-import Header from '../components/Header.js';
+import Title from '../components/Title.js';
 import Instruction from '../components/Instruction.js';
 import { getUser } from '../stores/user.js';
 import { getDeed } from '../stores/deeds.js';
@@ -53,7 +53,7 @@ class WelcomeBack extends Component {
     const walletOptions = wallet > 0 ? this.renderWallet(wallet) : null;
     return (
       <div>
-        <Header text= 'Welcome back to deed.it' />
+        <Title text= 'Welcome back to deed.it' />
         { deedOptions }
         { walletOptions }
         <div className='WelcomeBack_debugOption'>

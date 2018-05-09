@@ -1,6 +1,6 @@
 import React, { createRef, Component } from 'react';
 import Button from '../components/Button.js';
-import Header from '../components/Header.js';
+import Title from '../components/Title.js';
 import Instruction from '../components/Instruction.js';
 import { sendPhoto } from '../send/send.js';
 
@@ -82,7 +82,7 @@ class TakePhoto extends Component {
     setupFn();
     return (
       <div>
-        <Header text='Take a photo of your deed.' />
+        <Title text='Take a photo of your deed.' />
         <Instruction text={instruction} />
         <video ref={this.video} autoPlay onClick={this.captureVideo} className={videoClass} />
         <img ref={this.image} alt='what will be submitted' onClick={this.sendPhoto} className={imageClass} />

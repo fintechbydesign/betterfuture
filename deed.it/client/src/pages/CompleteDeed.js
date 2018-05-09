@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '../components/Button.js';
-import Header from '../components/Header.js';
+import Title from '../components/Title.js';
 import Instruction from '../components/Instruction.js';
 
 class CompleteDeed extends Component { 
@@ -61,7 +61,7 @@ class CompleteDeed extends Component {
     }
     return (
       <div>
-        <Header text='Report your deed done.' />
+        <Title text='Report your deed done.' />
         { content }
       </div>
     );

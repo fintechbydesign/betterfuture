@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '../components/Button.js';
-import Header from '../components/Header.js';
+import Title from '../components/Title.js';
 import { getAvailableDeeds } from '../stores/deeds.js';
 import { updateUser } from '../stores/user.js';
 
@@ -34,7 +34,7 @@ class ChooseDeed extends Component {
     const deeds = getAvailableDeeds();     
     return (
       <div>
-        <Header text='Choose the deed you wish to do:' />
+        <Title text='Choose the deed you wish to do:' />
         { deeds.map(this.createDeedButton) }
       </div>
     );

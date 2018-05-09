@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '../components/Button.js';
 import Dropdown from '../components/Dropdown.js';
-import Header from '../components/Header.js';
+import Title from '../components/Title.js';
 import Input from '../components/Input';
 import countries from '../data/country.js';
 import genders from '../data/gender.js';
@@ -42,19 +42,19 @@ class Register extends Component {
     const button = this.state.complete ? (<Button click={this.register} text='Choose a deed'/>) : null;
     return (
       <div>
-        <Header text='Your unique id is:'/>
+        <Title text='Your unique id is:'/>
         <div>
           {this.props.user.id}
         </div>
         <div>
           You do not have to remember this!
         </div>
-        <Header text='Choose a user name:'/>
+        <Title text='Choose a user name:'/>
         <div>
           Please choose an easier-to-remember user name:
           <Input onChange={this.updateUsername}/>
         </div>
-        <Header text='Tell us (or not) about yourself:'/>
+        <Title text='Tell us (or not) about yourself:'/>
         <div>
           Gender:
           <Dropdown options={genders} onChange={this.updateOption.bind(this, 'gender')} />

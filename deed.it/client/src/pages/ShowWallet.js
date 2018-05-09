@@ -1,7 +1,7 @@
 import React from 'react';
 import QRCode from 'qrcode-react';
 import Button from '../components/Button.js';
-import Header from '../components/Header.js';
+import Title from '../components/Title.js';
 import Instruction from '../components/Instruction.js';
 import { updateUser } from "../stores/user";
 
@@ -13,7 +13,7 @@ function ShowWallet (props) {
   };
   return (
     <div>
-      <Header text='Choose how to spend you rearned betties!' />
+      <Title text='Choose how to spend you rearned betties!' />
       <Instruction text={`You have saved up ${props.user.wallet} betties.  Use the QC code to spend them or donate them to a mega-deed.`} />
       <QRCode value={props.user.id} />
       <div>

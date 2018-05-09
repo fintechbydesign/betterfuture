@@ -1,0 +1,18 @@
+.GlobalNav-container {
+  padding: 5px;
+  border: black 1px solid;
+  justify-content: space-evenly;
+  margin-top: 1em;
+}
+
+.GlobalNav-item {
+  padding: 1px;
+  border: black 1px solid;
+  font-size: 0.5em;
+  text-align: center;
+}
+
+.GlobalNav-image {
+  width: 15vw;
+}
+
