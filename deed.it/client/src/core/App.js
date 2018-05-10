@@ -16,7 +16,7 @@ import TermsAndConditions from '../pages/TermsAndConditions';
 import UploadPhoto from '../pages/UploadPhoto.js';
 import Welcome from '../pages/Welcome.js';
 import WelcomeBack from '../pages/WelcomeBack.js';
-import './App.css';
+import './global.css';
 
 const stages = [
   'aboutUs',

@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import Title from '../components/Title';
 import Video from '../components/Video';
 import WonderWall from '../components/WonderWall';
+import homeVideo from '../videos/big_buck_bunny.mp4';
 
 const randomText = loremIpsum.bind(null,{
   count: 3,
@@ -13,15 +14,15 @@ const randomText = loremIpsum.bind(null,{
 
 function Home (props) {
   return (
-    <div>
+    <div className='page'>
       <Title text='Welcome to Deedit' />
       <WonderWall />
       <Button click={props.register} text='Get involved >' />
-      <div>Small things add up to make a big difference.</div>
-      <div>{randomText()}</div>
-      <div>{randomText()}</div>
-      <div>Watch our short video to see how Deedit works.</div>
-      <Video />
+      <div className='displayText'>Small things add up to make a big difference.</div>
+      <div className='displayText'>{randomText()}</div>
+      <div className='displayText'>{randomText()}</div>
+      <div className='displayText'>Watch our short video to see how Deedit works.</div>
+      <Video src={homeVideo}/>
     </div>
   );
 }

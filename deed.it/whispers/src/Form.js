@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-// import './App.css';
+// import './global.css';
 
 const tongueTwisters = {
   'shells': 'She sells sea shells on the sea shore',

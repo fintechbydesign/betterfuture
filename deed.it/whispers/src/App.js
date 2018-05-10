@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Form from './Form.js';
 import Results from './Results.js';
-// import './App.css';
+// import './global.css';
 
 class App extends Component {
 
