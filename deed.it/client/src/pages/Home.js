@@ -1,6 +1,7 @@
 import React from 'react';
 import loremIpsum from 'lorem-ipsum';
 import Button from '../components/Button';
+import Text from '../components/Text';
 import Title from '../components/Title';
 import Video from '../components/Video';
 import WonderWall from '../components/WonderWall';
@@ -18,10 +19,10 @@ function Home (props) {
       <Title text='Welcome to Deedit' />
       <WonderWall />
       <Button click={props.register} text='Get involved >' />
-      <div className='displayText'>Small things add up to make a big difference.</div>
-      <div className='displayText'>{randomText()}</div>
-      <div className='displayText'>{randomText()}</div>
-      <div className='displayText'>Watch our short video to see how Deedit works.</div>
+      <Text text='Small things add up to make a big difference.' />
+      <Text text={randomText()} />
+      <Text text={randomText()} />
+      <Text text='Watch our short video to see how Deedit works.' />
       <Video src={homeVideo}/>
     </div>
   );

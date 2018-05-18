@@ -1,3 +1,5 @@
+const { megaDeeds } = require('./defaultMegaDeeds');
+
 const deeds = [
   {
     id: 1,
@@ -26,7 +28,10 @@ const getAvailableDeeds = () => deeds;
 
 const getDeed = (id) => deeds[id - 1];
 
+const getDeeds = () => megaDeeds;
+
 export {
   getAvailableDeeds,
-  getDeed
+  getDeed,
+  getDeeds
 }

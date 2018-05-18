@@ -1,0 +1,22 @@
+{
+  "megaDeeds": [
+    {
+      "id": 1,
+      "name" : "Megadeed 1",
+      "description": "the first megadeed",
+      "deeds" : []
+    },
+    {
+      "id": 2,
+      "name" : "Megadeed 2",
+      "description": "the second megadeed",
+      "deeds" : []
+    },
+    {
+      "id": 3,
+      "name" : "Megadeed 3",
+      "description": "the third megadeed",
+      "deeds" : []
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import loremIpsum from 'lorem-ipsum';
-import Title from '../components/Title.js';
+import Text from '../components/Text';
+import Title from '../components/Title';
 
 const randomText = loremIpsum.bind(null,{
   count: 3,
@@ -12,11 +13,11 @@ function AboutUs (props) {
   return (
     <div>
       <Title text='About Us' />
-      <div>{randomText()} </div>
+      <Text text={randomText()} />
       <Title text='The Deedit Team' />
-      <div>{randomText()} </div>
+      <Text text={randomText()} />
       <Title text='Contact Us' />
-      <div>{randomText()} </div>
+      <Text text={randomText()} />
     </div>
   );
 }

@@ -1,13 +1,13 @@
-.Header-container {
+.PageHeader-container {
   padding: 5px;
   border: black 1px solid;
 }
 
-.Header-image {
+.PageHeader-image {
   height: 15vw;
   padding-right: 15vw;
 }
 
-.Header-title {
+.PageHeader-title {
   font-size: 10vw;
 }

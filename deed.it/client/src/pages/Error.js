@@ -1,6 +1,7 @@
 import React from 'react';
-import Title from '../components/Title.js';
-import Instruction from '../components/Instruction.js';
+import Text from '../components/Text';
+import Title from '../components/Title';
+import Instruction from '../components/Instruction';
 
 function Error (props) {
   const errMsg = JSON.stringify(props.err);
@@ -8,9 +9,7 @@ function Error (props) {
     <div>
       <Title text='Sad Face :-(' />
       <Instruction text='Oh dear, this prototype has errored:' />
-      <div>
-         {errMsg}
-      </div>
+      <Text text={errMsg} />
       <div>
         <a onClick={props.reset}>reset</a>
       </div>
