@@ -1,6 +1,7 @@
 module.exports = [
   {
-    deedId: '23412dae-b24e-41f6-9611-e5c56f5c234',
+    id: '23412dae-b24e-41f6-9611-e5c56f5c234',
+    deedTypeId: 'Mugs',
     timestamp: 10000000001,
     username: 'CrazyWoman',
     evidenceType: 'photo',
@@ -8,7 +9,8 @@ module.exports = [
     status: 'approved'
   },
   {
-    deedId: '44412dae-b24e-41f6-9611-e5c56f5c444',
+    id: '44412dae-b24e-41f6-9611-e5c56f5c444',
+    deedTypeId: 'Mugs',
     timestamp: 10000000002,
     username: 'Pablo',
     evidenceType: 'photo',
@@ -16,7 +18,8 @@ module.exports = [
     status: 'approved'
   },
   {
-    deedId: '33312dae-b24e-41f6-9611-e5c56f5c333',
+    id: '33312dae-b24e-41f6-9611-e5c56f5c333',
+    deedTypeId: 'Plastic straws',
     timestamp: 10000000003,
     username: 'John',
     evidenceType: 'photo',
@@ -24,7 +27,8 @@ module.exports = [
     status: 'approved'
   },
   {
-    deedId: '55512dae-b24e-41f6-9611-e5c56f5c555',
+    id: '55512dae-b24e-41f6-9611-e5c56f5c555',
+    deedTypeId: 'Plastic straws',
     timestamp: 10000000005,
     username: 'Ryan',
     evidenceType: 'photo',
@@ -32,7 +36,8 @@ module.exports = [
     status: 'approved'
   },
   {
-    deedId: 'fff12dae-b24e-41f6-9611-e5c56f5cfff',
+    id: 'fff12dae-b24e-41f6-9611-e5c56f5cfff',
+    deedTypeId: 'Plastic straws',
     timestamp: 10000000006,
     username: 'Pablo',
     evidenceType: 'photo',
@@ -40,7 +45,8 @@ module.exports = [
     status: 'approved'
   },
   {
-    deedId: 'bbb12dae-b24e-41f6-9611-e5c56f5cbbb',
+    id: 'bbb12dae-b24e-41f6-9611-e5c56f5cbbb',
+    deedTypeId: 'Mugs',
     timestamp: 10000000007,
     username: 'Ryan',
     evidenceType: 'video',
@@ -48,7 +54,8 @@ module.exports = [
     status: 'approved'
   },
   {
-    deedId: '77712dae-b24e-41f6-9611-e5c56f5c777',
+    id: '77712dae-b24e-41f6-9611-e5c56f5c777',
+    deedTypeId: 'Invite a coffee',
     timestamp: 10000000008,
     username: 'CrazyWoman',
     evidenceType: 'photo',
@@ -56,7 +63,8 @@ module.exports = [
     status: 'unapproved'
   },
   {
-    deedId: '88812dae-b24e-41f6-9611-e5c56f5c888',
+    id: '88812dae-b24e-41f6-9611-e5c56f5c888',
+    deedTypeId: 'Invite a coffee',
     timestamp: 10000000010,
     username: 'Kristina',
     evidenceType: 'photo',
@@ -64,7 +72,8 @@ module.exports = [
     status: 'approved'
   },
   {
-    deedId: '99912dae-b24e-41f6-9611-e5c56f5c999',
+    id: '99912dae-b24e-41f6-9611-e5c56f5c999',
+    deedTypeId: 'Invite a coffee',
     timestamp: 10000000011,
     username: 'Pablo',
     evidenceType: 'photo',

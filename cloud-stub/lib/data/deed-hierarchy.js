@@ -2,6 +2,7 @@ module.exports = [
   {
     superDeed: 'Ecology',
     description: 'Save plastic by using reusable alternatives',
+    image: 'https://cdn.pixabay.com/photo/2018/04/04/13/38/nature-3289812_960_720.jpg',
     deedTypes: [
       {
         deedTypeId: 'Mugs',
@@ -18,6 +19,7 @@ module.exports = [
   {
     superDeed: 'Homeless',
     description: 'Help homeless people',
+    image: 'http://www.crowdfunder.co.uk/uploads/projects/197719.jpg?v=1489159960',
     deedTypes: [
       {
         deedTypeId: 'Paid meal',
