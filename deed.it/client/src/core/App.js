@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
 import { createUser, getUser, removeUser } from "../stores/user";
+import AboutUs from '../pages/AboutUs';
 import ChooseDeed from '../pages/ChooseDeed.js';
 import ChooseReward from '../pages/ChooseReward.js';
 import CompleteDeed from '../pages/CompleteDeed.js';
 import DisplayDeed from '../pages/DisplayDeed.js';
 import Error from '../pages/Error.js';
+import GlobalNav from '../components/GlobalNav';
+import Header from '../components/Header';
+import Home from '../pages/Home';
 import Register from '../pages/Register.js';
 import ShowWallet from '../pages/ShowWallet.js';
 import TakePhoto from '../pages/TakePhoto.js';
+import TermsAndConditions from '../pages/TermsAndConditions';
 import UploadPhoto from '../pages/UploadPhoto.js';
 import Welcome from '../pages/Welcome.js';
 import WelcomeBack from '../pages/WelcomeBack.js';
-import logo from '../images/mercury.jpeg';
 import './App.css';
 
 const stages = [
+  'aboutUs',
   'chooseDeed',
   'chooseReward',
   'completeDeed',
   'displayDeed',
+  'home',
   'register',
   'showWallet',
   'takePhoto',
+  'termsAndConditions',
   'uploadPhoto',
   'welcome',
   'welcomeBack',
@@ -31,9 +38,7 @@ class App extends Component {
 
   constructor (props) {
     super(props);
-
     this.setState = this.setState.bind(this);
-
     this.state = this.createInitialState();
     this.state.navigationMethods = this.createNavigationMethods();
   }
@@ -81,12 +86,18 @@ class App extends Component {
           return (<CompleteDeed {...pageProps} />);
         case 'chooseReward':
           return (<ChooseReward {...pageProps} />);
+        case 'home':
+          return (<Home {...pageProps} />);
         case 'showWallet':
           return (<ShowWallet {...pageProps} />);
         case 'takePhoto':
-          return (<TakePhoto {...pageProps} /> )
+          return (<TakePhoto {...pageProps} /> );
+        case 'termsAndConditions':
+          return (<TermsAndConditions {...pageProps} />);
         case 'uploadPhoto':
           return (<UploadPhoto {...pageProps} /> )
+        case 'aboutUs' :
+          return (<AboutUs {...pageProps} />)
         default:
           throw new Error(`Unknown stage '${this.state.stage}'`);
       }
@@ -98,12 +109,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">deed.it</h1>
-        </header>
-      { this.selectPage() }
+      <div className='flexContainerColumn'>
+        <Header />
+        { this.selectPage() }
+        <GlobalNav { ...this.state.navigationMethods} />
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '../components/Button.js';
-import Header from '../components/Header.js';
+import Title from '../components/Title.js';
 import Instruction from '../components/Instruction.js';
 import { getUser, updateUser } from '../stores/user.js';
 import { getDeed } from '../stores/deeds.js';
@@ -43,7 +43,7 @@ class ChooseDeed extends Component {
     const optionChosen = (event) => this.setState({...this.state, option: event.target.id});
     return (
       <div>
-        <Header text='Well done and thank you on completing your deed!' />
+        <Title text='Well done and thank you on completing your deed!' />
         <Instruction text={instruction} />
         <fieldset>
           <div>
