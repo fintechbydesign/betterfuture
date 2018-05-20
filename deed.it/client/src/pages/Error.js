@@ -10,9 +10,7 @@ function Error (props) {
       <Title text='Sad Face :-(' />
       <Instruction text='Oh dear, this prototype has errored:' />
       <Text text={errMsg} />
-      <div>
-        <a onClick={props.reset}>reset</a>
-      </div>
+      <Text text='Use one of the navigation buttons below to continue' />
     </div>
   );
 }

@@ -1,5 +1,5 @@
-const defaultUser = require('./defaultUser');
-const generateId = require('./generateId');
+import defaultUser from './defaultUser';
+import generateId from'./generateId';
 
 const USER = 'user';
 
@@ -30,6 +30,12 @@ const createUser = () => {
   return user;
 };
 
+const updateCurrentDeed = (deed) => {
+  const user = getUser();
+  user.deeds.current = deed;
+  updateUser(user);
+}
+
 const updateUser = (user) => {
   set(USER, user);
 }
@@ -40,6 +46,7 @@ export {
   createUser,
   getUser,
   removeUser,
+  updateCurrentDeed,
   updateUser
 }
 

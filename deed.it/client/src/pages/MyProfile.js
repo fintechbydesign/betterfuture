@@ -2,7 +2,6 @@ import React from 'react';
 import Button from '../components/Button';
 import Text from '../components/Text';
 import Title from '../components/Title';
-import WonderWall from '../components/WonderWall';
 
 function Home (props) {
   return (

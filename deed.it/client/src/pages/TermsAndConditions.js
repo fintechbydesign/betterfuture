@@ -1,18 +1,18 @@
 import React from 'react';
-import loremIpsum from 'lorem-ipsum';
-import Title from '../components/Title.js';
+import Text from '../components/Text';
+import Title from '../components/Title';
 
-const randomText = loremIpsum.bind(null,{
+const randomTextProps = {
   count: 50,
   units: 'sentences',
   format: 'plain'
-});
+};
 
 function TermsAndConditions (props) {
   return (
     <div>
       <Title text='Deedit Terms and Conditions' />
-      <div>{randomText()} </div>
+      <Text text={randomTextProps} />
     </div>
   );
 }

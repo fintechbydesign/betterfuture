@@ -11,13 +11,14 @@ import PageHeader from '../components/PageHeader';
 import Home from '../pages/Home';
 import MyProfile from '../pages/MyProfile';
 import PickADeed from '../pages/PickADeed';
-import Register from '../pages/Register.js';
-import ShowWallet from '../pages/ShowWallet.js';
-import TakePhoto from '../pages/TakePhoto.js';
+import Register from '../pages/Register';
+import ShowWallet from '../pages/ShowWallet';
+import StartDeed from '../pages/StartDeed';
+import TakePhoto from '../pages/TakePhoto';
 import TermsAndConditions from '../pages/TermsAndConditions';
-import UploadPhoto from '../pages/UploadPhoto.js';
-import Welcome from '../pages/Welcome.js';
-import WelcomeBack from '../pages/WelcomeBack.js';
+import UploadPhoto from '../pages/UploadPhoto';
+import Welcome from '../pages/Welcome';
+import WelcomeBack from '../pages/WelcomeBack';
 import './global.css';
 
 const stages = {
@@ -26,11 +27,13 @@ const stages = {
   'chooseReward': ChooseReward,
   'completeDeed': CompleteDeed,
   'displayDeed': DisplayDeed,
+  'error': Error,
   'home': Home,
   'myProfile': MyProfile,
   'pickADeed' : PickADeed,
   'register': Register,
   'showWallet': ShowWallet,
+  'startDeed': StartDeed,
   'takePhoto': TakePhoto,
   'termsAndConditions': TermsAndConditions,
   'uploadPhoto': UploadPhoto,
@@ -71,7 +74,7 @@ class App extends Component {
     });
     navigationMethods.reset = () => {
       removeUser();
-      navigationMethods.welcome();
+      this.setState(this.createInitialState());
     };
     navigationMethods.notImplemented = () => {
       alert('Not implemented');
@@ -79,10 +82,9 @@ class App extends Component {
     return navigationMethods;
   }
 
-  selectPage () {
+  selectPage (pageProps) {
     const Page = stages[this.state.stage];
     if (Page) {
-      const pageProps = { ...this.state.navigationMethods, user: this.state.user };
       return (<Page {...pageProps} />);
     } else {
       return (<Error err={`Unknown stage '${this.state.stage}'`} reset={this.state.navigationMethods.reset} />)
@@ -90,11 +92,12 @@ class App extends Component {
   };
 
   render() {
+    const pageProps = { ...this.state.navigationMethods, user: this.state.user };
     return (
       <div className='flexContainerColumn'>
         <PageHeader />
-        { this.selectPage() }
-        <GlobalNav { ...this.state.navigationMethods} />
+        { this.selectPage(pageProps) }
+        <GlobalNav {  ...pageProps} />
       </div>
     );
   }

@@ -14,7 +14,7 @@
   text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
   line-height: 33px;
   font-size: 19px;
-  background: linear-gradient(top, #ffffff 1%,#eaeaea 100%);
+  background: linear-gradient(to top, #ffffff 1%,#eaeaea 100%);
   box-shadow:
           0px 0px 0px 1px rgba(155,155,155,0.3),
           1px 0px 0px 0px rgba(255,255,255,0.9) inset,
@@ -86,10 +86,10 @@
   color: #777;
   line-height: 23px;
   font-size: 14px;
-  padding: 20px;
+  padding: 0 20px;
   text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
 }
 
 .Accordion-container input:checked ~ article{
-  height: 200px;
+  height: 500px;
 }

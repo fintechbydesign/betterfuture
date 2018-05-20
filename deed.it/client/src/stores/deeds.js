@@ -1,4 +1,5 @@
-const { megaDeeds } = require('./defaultMegaDeeds');
+import delay from './delay';
+import { megaDeeds } from './defaultMegaDeeds';
 
 const deeds = [
   {
@@ -24,11 +25,17 @@ const deeds = [
   }
 ];
 
+/* PoC API */
 const getAvailableDeeds = () => deeds;
 
+/* PoC API */
 const getDeed = (id) => deeds[id - 1];
 
-const getDeeds = () => megaDeeds;
+/* This is the actual API */
+const getDeeds = async() => {
+  await delay(2000);
+  return megaDeeds;
+}
 
 export {
   getAvailableDeeds,

@@ -1,13 +1,13 @@
 import React from 'react';
-import placeholderImage from '../images/placeholder.svg';
-import wonderwallImage from '../images/wonderwall.png';
+import Image from './Image';
+import wonderwall from '../images/wonderwall.png';
 import './Wonderwall.css';
 
 function WonderWall(props) {
   return (
     <div className='Wonderwall-container'>
-      <img src={wonderwallImage} alt='wonderwall background' className='WonderWall-background' />
-      <img src={placeholderImage} alt='placeholder' className='WonderWall-image' />
+      <Image src={wonderwall} alt='wonderwall background' className='WonderWall-background' />
+      <Image className='WonderWall-image' />
     </div>
   );
 };

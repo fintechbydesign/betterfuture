@@ -1,0 +1,11 @@
+{
+  "id": {id},
+  "deeds" : {
+    "current" : {
+      megaDeed: {id},
+      deed: {id},
+      status: ['selected']
+    },
+    "completed": []
+  }
+}

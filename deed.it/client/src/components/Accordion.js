@@ -6,7 +6,7 @@ function Section (props) {
   const checked = (props.index === 0);
   return (
     <div>
-      <input id={id} name="accordion" type="radio" defaultChecked={checked} />
+      <input id={id} name="accordion" type="radio" defaultChecked={checked} onChange={props.selected} />
       <label htmlFor={id}>{props.label}</label>
       <article>
         {props.content}

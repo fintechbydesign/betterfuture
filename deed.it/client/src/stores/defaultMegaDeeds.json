@@ -2,21 +2,84 @@
   "megaDeeds": [
     {
       "id": 1,
-      "name" : "Megadeed 1",
+      "name": "Megadeed 1",
       "description": "the first megadeed",
-      "deeds" : []
+      "deeds" : [
+        {
+          "id": 11,
+          "name": "Deed 1-1",
+          "image": "deed11.png"
+        },
+        {
+          "id": 12,
+          "name": "Deed 1-2",
+          "image": "deed12.png"
+        },
+        {
+          "id": 13,
+          "name": "Deed 1-3",
+          "image": "deed13.png"
+        },
+        {
+          "id": 14,
+          "name": "Deed 1-4",
+          "image": "deed14.png"
+        }
+      ]
     },
     {
       "id": 2,
       "name" : "Megadeed 2",
       "description": "the second megadeed",
-      "deeds" : []
+      "deeds" : [
+        {
+          "id": 21,
+          "name": "Deed 2-1",
+          "image": "deed21.png"
+        },
+        {
+          "id": 22,
+          "name": "Deed 2-2",
+          "image": "deed22.png"
+        },
+        {
+          "id": 23,
+          "name": "Deed 2-3",
+          "image": "deed23.png"
+        },
+        {
+          "id": 24,
+          "name": "Deed 2-4",
+          "image": "deed24.png"
+        }
+      ]
     },
     {
       "id": 3,
       "name" : "Megadeed 3",
       "description": "the third megadeed",
-      "deeds" : []
+      "deeds" : [
+        {
+          "id": 31,
+          "name": "Deed 3-1",
+          "image": "deed31.png"
+        },
+        {
+          "id": 32,
+          "name": "Deed 3-2",
+          "image": "deed32.png"
+        },
+        {
+          "id": 33,
+          "name": "Deed 3-3",
+          "image": "deed33.png"
+        },
+        {
+          "id": 34,
+          "name": "Deed 3-4",
+          "image": "deed34.png"
+        }
+      ]
     }
   ]
 }

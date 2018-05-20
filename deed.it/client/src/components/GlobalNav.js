@@ -1,23 +1,26 @@
 import React from 'react';
-import placeholder from '../images/placeholder.svg';
+import Image from './Image';
 import './GlobalNav.css';
 
 function NavItem (props) {
+  const { alt, src } = props;
+  const imageProps = { alt, src, className: 'GlobalNav-image'};
   return (
     <div className='GlobalNav-item' onClick={props.click}>
-      <img src={props.src} className='GlobalNav-image' alt={props.alt} />
+      <Image {...imageProps} />
       <div>{props.text}</div>
     </div>
   );
 }
 
 function GlobalNav(props) {
+  const myDeedsAction = props.user.deeds.current ? props.myProfile : props.pickADeed;
   return (
     <footer className='flexContainerRow GlobalNav-container'>
-      <NavItem text='Home' alt='home' src={placeholder} click={props.home} />
-      <NavItem text='My deeds' alt='my deeds' src={placeholder} click={props.myProfile} />
-      <NavItem text='Deedit difference' alt='deedit difference' src={placeholder} click={props.notImplemented} />
-      <NavItem text='About us' alt='about us' src={placeholder} click={props.aboutUs}/>
+      <NavItem text='Home' alt='home' click={props.home} />
+      <NavItem text='My deeds' alt='my deeds' click={myDeedsAction} />
+      <NavItem text='Deedit difference' alt='deedit difference' click={props.notImplemented} />
+      <NavItem text='About us' alt='about us' click={props.aboutUs}/>
     </footer>
   );
 };
