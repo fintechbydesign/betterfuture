@@ -4,12 +4,12 @@ import Button from '../components/Button';
 import Carousel from '../components/Carousel';
 import Image from '../components/Image';
 import Fetching from '../components/Fetching';
-import { getDeeds } from '../stores/deeds';
+import { getDeedHierarchy } from '../data/deeds';
 import { updateCurrentDeed } from '../stores/user';
 import { selected } from '../stores/deedStatus';
 import './PickADeed.css';
 
-const methods = ['renderDeed', 'renderMegaDeed', 'selectDeed', 'selectMegaDeed', 'startDeed'];
+const methods = ['renderDeedType', 'renderSuperDeed', 'selectDeedType', 'selectSuperDeed', 'startDeed'];
 
 
 class PickADeed extends Component {
@@ -18,69 +18,69 @@ class PickADeed extends Component {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
-      deeds: undefined,
-      selectedMegaDeed: undefined,
-      selectedDeed: undefined
+      superDeeds: undefined,
+      selectedSuperDeed: undefined,
+      selectedDeedType: undefined
     };
   }
 
   async componentDidMount () {
     try {
-      const deeds = await getDeeds();
+      const superDeeds = await getDeedHierarchy()
       this.setState({
         ...this.state,
-        deeds,
-        selectedMegaDeed: deeds[0],
-        selectedDeed: deeds[0].deeds[0]
+        superDeeds,
+        selectedSuperDeed: superDeeds[0],
+        selectedDeedType: superDeeds[0].deedTypes[0]
       });
     } catch (err) {
       this.props.error(err);
     }
   }
 
-  selectMegaDeed (selectedMegaDeed) {
+  selectSuperDeed (selectedSuperDeed) {
     this.setState({
       ...this.state,
-      selectedMegaDeed
+      selectedSuperDeed
     });
   }
 
-  selectDeed (selectedDeed) {
+  selectDeedType (selectedDeedType) {
     this.setState({
       ...this.state,
-      selectedDeed
+      selectedDeedType
     });
   }
 
   startDeed () {
-    const { selectedDeed: deed, selectedMegaDeed: megaDeed } = this.state;
+    const { selectedDeedType: deed, selectedSuperDeed: superDeed } = this.state;
     updateCurrentDeed({
-      megaDeed,
+      superDeed,
       deed,
       status: selected
     });
     this.props.startDeed();
   }
 
-  // the innder div is there to fix the height whilst the image is dynamically changed
-  renderDeed (deed, index) {
+  // the inner div is there to fix the height whilst the image is dynamically changed
+  renderDeedType (deedType, index) {
     return (
-      <div key={index}>
+      <div key={index} className='PickADeed-slide-container'>
         <div className='PickADeed-image-container'>
-          <Image src={deed.image} />
+          <Image src={deedType.image} />
         </div>
-        <p>{deed.name}</p>
+        <p>{deedType.description}</p>
       </div>
     );
   }
 
-  renderMegaDeed (megaDeed) {
-    const slides = megaDeed.deeds.map((deed, index) => this.renderDeed(deed, index));
-    const thumbnails = megaDeed.deeds.map((deed) => deed.image);
-    const selected = (index) => this.selectDeed(megaDeed.deeds[index]);
+  renderSuperDeed (superDeed) {
+    const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index));
+    const thumbnails = superDeed.deedTypes.map((deedType) => deedType.image);
+    const selected = (index) => this.selectDeedType(superDeed.deedTypes[index]);
     return (
       <div>
-        <p>{megaDeed.description}</p>
+        <p>{superDeed.description}</p>
         <Carousel selected={selected} slides={slides} thumbnails={thumbnails} />
         <Button text='Find out more >' click={this.startDeed} />
       </div>
@@ -88,13 +88,13 @@ class PickADeed extends Component {
   }
 
   render () {
-    if (!this.state.deeds) {
+    if (!this.state.superDeeds) {
       return ( <Fetching text='Fetching available deeds' />);
     }
-    const sections = this.state.deeds.map((megaDeed) => ({
-      content: this.renderMegaDeed(megaDeed),
-      label: megaDeed.name,
-      selected: this.selectMegaDeed.bind(this, megaDeed)
+    const sections = this.state.superDeeds.map((superDeed) => ({
+      content: this.renderSuperDeed(superDeed),
+      label: superDeed.superDeed,
+      selected: this.selectSuperDeed.bind(this, superDeed)
     }));
     return (
       <div>

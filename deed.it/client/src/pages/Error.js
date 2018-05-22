@@ -4,7 +4,7 @@ import Title from '../components/Title';
 import Instruction from '../components/Instruction';
 
 function Error (props) {
-  const errMsg = JSON.stringify(props.err);
+  const errMsg = (props.err instanceof Error) ? props.err.message : String(props.err);
   return (
     <div>
       <Title text='Sad Face :-(' />

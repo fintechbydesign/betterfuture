@@ -1,23 +1,20 @@
 import React from 'react';
 import Img from 'react-image';
-import './Image.css';
+import rootURLs from '../config/rootURLs';
 import placeholder from '../images/placeholder.svg';
-
-const user = 'user';
-const app = 'app';
-const roots = {
-  user: 'http://aws/',
-  app: '/images/'
-}
+import './Image.css';
 
 function createSrc (props) {
   if (!props.src) {
     return [placeholder];
   }
-  const key = props.origin ? props.origin : 'app';
-  const root = roots[key];
-  if (!root) throw new Error(`Unknown origin '${props.origin}'`);
-  return [`${root}{props.src}`, placeholder];
+  const key = props.type ? props.type : 'webImage';
+  if (key in rootURLs) {
+    return [`${rootURLs[key]}${props.src}`, placeholder];
+  } else {
+    throw new Error(`Unknown image type '${props.type}'`);
+  }
+
 }
 
 function Image (props) {
@@ -31,4 +28,3 @@ function Image (props) {
 }
 
 export default Image;
-export { app, user };

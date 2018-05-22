@@ -21,7 +21,7 @@ import Welcome from '../pages/Welcome';
 import WelcomeBack from '../pages/WelcomeBack';
 import './global.css';
 
-const stages = {
+const pages = {
   'aboutUs': AboutUs,
   'chooseDeed': ChooseDeed,
   'chooseReward': ChooseReward,
@@ -45,33 +45,37 @@ class App extends Component {
 
   constructor (props) {
     super(props);
-    this.setState = this.setState.bind(this);
     this.state = this.createInitialState();
     this.state.navigationMethods = this.createNavigationMethods();
   }
 
   createInitialState () {
-    let stage;
+    let page;
     let user;
     try {
       user = getUser();
-      stage = user.deeds.current ? 'home' : 'pickADeed';
+      page = user.deeds.current ? 'home' : 'pickADeed';
     } catch (err) {
       user = createUser();
-      stage = 'pickADeed';
+      page = 'pickADeed';
     }
-    return { stage, user };
+    return { page, user };
   }
 
   createNavigationMethods () {
-    const baseNavigationMethod = (stage) => {
-      console.log(`Setting stage ${stage}`);
-      this.setState({...this.state, stage});
+    const baseNavigationMethod = (page) => {
+      console.log(`Setting page ${page}`);
+      const { nextPageProps, ...oldState } = this.state;
+      this.setState({...oldState, page});
     }
     const navigationMethods = {};
-    Object.keys(stages).forEach((stage) => {
-      navigationMethods[stage] = baseNavigationMethod.bind(null, stage);
+    Object.keys(pages).forEach((page) => {
+      navigationMethods[page] = baseNavigationMethod.bind(null, page);
     });
+    navigationMethods.error = (err) => {
+      console.log(`Reporting error ${err}`);
+      this.setState({...this.state, page: 'error', nextPageProps: { err } });
+    }
     navigationMethods.reset = () => {
       removeUser();
       this.setState(this.createInitialState());
@@ -83,16 +87,16 @@ class App extends Component {
   }
 
   selectPage (pageProps) {
-    const Page = stages[this.state.stage];
+    const Page = pages[this.state.page];
     if (Page) {
       return (<Page {...pageProps} />);
     } else {
-      return (<Error err={`Unknown stage '${this.state.stage}'`} reset={this.state.navigationMethods.reset} />)
+      return (<Error err={`Unknown page '${this.state.page}'`} />)
     }
   };
 
   render() {
-    const pageProps = { ...this.state.navigationMethods, user: this.state.user };
+    const pageProps = { ...this.state.navigationMethods, ...this.state.nextPageProps, user: this.state.user };
     return (
       <div className='flexContainerColumn'>
         <PageHeader />
