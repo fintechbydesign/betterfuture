@@ -92,7 +92,7 @@ function removeUser(username) {
 
 function createUserDeed(username, deedTypeId) {
   const deed = {
-    deedId: uuidv4(),
+    id: uuidv4(),
     username,
     deedTypeId,
     status: 'created',
@@ -120,7 +120,7 @@ function getWonderwallByStatus(deedStatus) {
 }
 
 function setDeedStatus(deedId, deedStatus) {
-  const deed = data.deeds.find(deed => deed.deedId === deedId);
+  const deed = data.deeds.find(deed => deed.id === deedId);
   console.log('deed', deed);
   if (deed) {
     deed.status = deedStatus;
