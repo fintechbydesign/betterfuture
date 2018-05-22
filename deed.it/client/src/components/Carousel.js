@@ -6,7 +6,7 @@ function Carousel (props) {
   const nukaProps = {
     afterSlide: props.selected,
     dragging: true,
-    heightMode:'max',
+    heightMode: 'max',
     swiping: true
   };
   if (props.thumbnails) {

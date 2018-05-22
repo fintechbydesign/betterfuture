@@ -6,7 +6,6 @@ import Image from '../components/Image';
 import Fetching from '../components/Fetching';
 import { getDeedHierarchy } from '../data/deeds';
 import { updateCurrentDeed } from '../stores/user';
-import { selected } from '../stores/deedStatus';
 import './PickADeed.css';
 
 const methods = ['renderDeedType', 'renderSuperDeed', 'selectDeedType', 'selectSuperDeed', 'startDeed'];
@@ -19,46 +18,40 @@ class PickADeed extends Component {
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
       superDeeds: undefined,
-      selectedSuperDeed: undefined,
-      selectedDeedType: undefined
     };
+    this.selected = {
+      superDeed: undefined,
+      deedType: undefined
+    }
   }
 
   async componentDidMount () {
     try {
-      const superDeeds = await getDeedHierarchy()
+      const superDeeds = await getDeedHierarchy();
+      this.selected = {
+        ...this.selected,
+        superDeed: superDeeds[0],
+        deedType: superDeeds[0].deedTypes[0]
+      };
       this.setState({
         ...this.state,
         superDeeds,
-        selectedSuperDeed: superDeeds[0],
-        selectedDeedType: superDeeds[0].deedTypes[0]
       });
     } catch (err) {
       this.props.error(err);
     }
   }
 
-  selectSuperDeed (selectedSuperDeed) {
-    this.setState({
-      ...this.state,
-      selectedSuperDeed
-    });
+  selectSuperDeed (superDeed) {
+    this.selected = { ...this.selected, superDeed };
   }
 
-  selectDeedType (selectedDeedType) {
-    this.setState({
-      ...this.state,
-      selectedDeedType
-    });
+  selectDeedType (deedType) {
+    this.selected = { ...this.selected, deedType };
   }
 
   startDeed () {
-    const { selectedDeedType: deed, selectedSuperDeed: superDeed } = this.state;
-    updateCurrentDeed({
-      superDeed,
-      deed,
-      status: selected
-    });
+    updateCurrentDeed( this.selected );
     this.props.startDeed();
   }
 
@@ -91,14 +84,14 @@ class PickADeed extends Component {
     if (!this.state.superDeeds) {
       return ( <Fetching text='Fetching available deeds' />);
     }
-    const sections = this.state.superDeeds.map((superDeed) => ({
+    const panels = this.state.superDeeds.map((superDeed) => ({
       content: this.renderSuperDeed(superDeed),
-      label: superDeed.superDeed,
-      selected: this.selectSuperDeed.bind(this, superDeed)
+      label: superDeed.superDeed
     }));
+    const onChange = (index) => this.selectSuperDeed(this.state.superDeeds[index]);
     return (
       <div>
-        <Accordion sections={sections}/>
+        <Accordion panels={panels} onChange={onChange} />
       </div>
     );
   }
