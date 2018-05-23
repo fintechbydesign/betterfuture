@@ -1,0 +1,16 @@
+{
+  "id": {id},
+  "deeds" : {
+    "selected": {
+      "deedType": {deedType},
+      "superDeed": {superDeed}
+    }
+    "current" : null,
+    "completed": []
+  }
+  "personal" : {
+    "age": {age},
+    "country": {country}
+  }
+  "username": {username}
+}

@@ -1,9 +1,11 @@
 import React from 'react';
+import './Dropdown.css';
+import './Input.css';
 
 function Input (props) {
   const onChange = props.onChange ? (event) => props.onChange(event.target.value) : null;
   return (
-    <input type={'text'} minLength='2' maxLength='20' onChange={onChange} />
+    <input className='Input-default Component-default' type={'text'} minLength='2' maxLength='20' onChange={onChange} />
   );
 }
 

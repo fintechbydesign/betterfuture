@@ -1,3 +1,4 @@
+import delay from './delay';
 import rootURLs from '../config/rootURLs';
 
 export const getOptions = {
@@ -11,10 +12,17 @@ export const getOptions = {
 
 const getDeedHierarchy = async() => {
   const endPoint = `${rootURLs.data}/deed-hierarchy`
+  await delay(2000);
   const response = await fetch(endPoint, getOptions);
   return response.json();
 }
 
+const createDeed = async(user, deedType) => {
+  console.log('TODO: createDeed');
+  return {};
+}
+
 export {
+  createDeed,
   getDeedHierarchy
 }

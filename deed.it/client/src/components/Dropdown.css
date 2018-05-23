@@ -1,0 +1,8 @@
+.Dropdown-default {
+  appearance: none;
+  background-image: url(../images/drop-down-arrow.svg);
+  background-position: 99% center;
+  background-size: 11px;
+  background-repeat: no-repeat;
+}
+

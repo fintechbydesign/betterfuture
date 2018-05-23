@@ -1,8 +1,10 @@
 {
   "id": "to be generated",
   "deeds" : {
+    "selected": null,
     "current" : null,
     "completed": []
   },
-  "wallet": 0
+  "personal": null,
+  "username": null
 }

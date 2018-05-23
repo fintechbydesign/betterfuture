@@ -1,3 +1,10 @@
+/*
+  Three scopes used here:
+  - global 'deedHierarchy' so that it is only retrieved once
+  - instance 'deedHierarchy': for React effects
+  - instance 'selected': does not cause React effects
+ */
+
 import React, { Component } from 'react';
 import Accordion from '../components/Accordion';
 import Button from '../components/Button';
@@ -5,11 +12,12 @@ import Carousel from '../components/Carousel';
 import Image from '../components/Image';
 import Fetching from '../components/Fetching';
 import { getDeedHierarchy } from '../data/deeds';
-import { updateCurrentDeed } from '../stores/user';
+import { updateUser} from '../data/user';
 import './PickADeed.css';
 
-const methods = ['renderDeedType', 'renderSuperDeed', 'selectDeedType', 'selectSuperDeed', 'startDeed'];
+const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'startDeed'];
 
+let deedHierarchy = undefined;
 
 class PickADeed extends Component {
 
@@ -17,7 +25,7 @@ class PickADeed extends Component {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
-      superDeeds: undefined,
+      deedHierarchy,
     };
     this.selected = {
       superDeed: undefined,
@@ -25,33 +33,44 @@ class PickADeed extends Component {
     }
   }
 
-  async componentDidMount () {
+  componentDidMount () {
+    if(deedHierarchy) {
+      this.setSelected(deedHierarchy[0], deedHierarchy[0].deedTypes[0]);
+    } else {
+      this.fetchDeeds();
+    }
+  }
+
+  async fetchDeeds () {
     try {
-      const superDeeds = await getDeedHierarchy();
-      this.selected = {
-        ...this.selected,
-        superDeed: superDeeds[0],
-        deedType: superDeeds[0].deedTypes[0]
-      };
+      deedHierarchy = await getDeedHierarchy();
+      this.setSelected( deedHierarchy[0], deedHierarchy[0].deedTypes[0]);
       this.setState({
         ...this.state,
-        superDeeds,
+        deedHierarchy,
       });
     } catch (err) {
       this.props.error(err);
     }
   }
 
-  selectSuperDeed (superDeed) {
-    this.selected = { ...this.selected, superDeed };
+  setSelected (superDeed, deedType) {
+    this.selected = {
+      ...this.selected,
+      superDeed,
+      deedType
+    };
   }
 
-  selectDeedType (deedType) {
-    this.selected = { ...this.selected, deedType };
-  }
-
-  startDeed () {
-    updateCurrentDeed( this.selected );
+  async startDeed () {
+    const user = {
+      ...this.props.user,
+      deeds: {
+        ...this.props.user.deeds,
+        selected: this.selected
+      }
+    }
+    await updateUser(user);
     this.props.startDeed();
   }
 
@@ -70,7 +89,7 @@ class PickADeed extends Component {
   renderSuperDeed (superDeed) {
     const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index));
     const thumbnails = superDeed.deedTypes.map((deedType) => deedType.image);
-    const selected = (index) => this.selectDeedType(superDeed.deedTypes[index]);
+    const selected = (index) => this.setSelected(superDeed, superDeed.deedTypes[index]);
     return (
       <div>
         <p>{superDeed.description}</p>
@@ -81,14 +100,20 @@ class PickADeed extends Component {
   }
 
   render () {
-    if (!this.state.superDeeds) {
+    const { deedHierarchy } = this.state;
+    if (!deedHierarchy) {
       return ( <Fetching text='Fetching available deeds' />);
     }
-    const panels = this.state.superDeeds.map((superDeed) => ({
+    const panels = deedHierarchy.map((superDeed) => ({
       content: this.renderSuperDeed(superDeed),
       label: superDeed.superDeed
     }));
-    const onChange = (index) => this.selectSuperDeed(this.state.superDeeds[index]);
+    const onChange = (index) => {
+      // bug (?) in Collapse that allows undefined active key to be passed
+      if (typeof index !== 'undefined') {
+        this.setSelected(deedHierarchy[index], deedHierarchy[index].deedTypes[0]);
+      }
+    }
     return (
       <div>
         <Accordion panels={panels} onChange={onChange} />

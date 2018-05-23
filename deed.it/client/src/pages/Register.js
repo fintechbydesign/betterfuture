@@ -1,73 +1,95 @@
 import React, { Component } from 'react';
-import Button from '../components/Button.js';
-import Dropdown from '../components/Dropdown.js';
-import Title from '../components/Title.js';
+import Button from '../components/Button';
+import Dropdown from '../components/Dropdown';
+import Image from '../components/Image';
+import Text from '../components/Text';
 import Input from '../components/Input';
-import countries from '../data/country.js';
-import genders from '../data/gender.js';
+import Title from '../components/Title';
+import { createDeed } from '../data/deeds';
+import { createUser, updateUser } from "../data/user";
 import ages from '../data/age.js';
-import { sendUser } from '../send/send.js';
-import { updateUser } from '../stores/user.js';
+import countries from '../data/country.js';
+
+const methods = ['getStarted', 'updateAge', 'updateCountry', 'updateUsername']
 
 class Register extends Component {
 
   constructor (props) {
     super(props);
-    this.updateUsername = this.updateUsername.bind(this);
-    this.updateOption = this.updateOption.bind(this);
-    this.register = this.register.bind(this);
+    methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
-      complete: false
-    }
+      age: undefined,
+      country: undefined,
+      username: undefined
+    };
+  }
+
+  updateAge (age) {
+    this.setState({
+      ...this.state,
+      age
+    });
+  }
+
+  updateCountry (country) {
+    this.setState({
+      ...this.state,
+      country
+    });
   }
 
   updateUsername (username) {
-    this.props.user.username = username;
-    updateUser(this.props.user);
-    this.setState({...this.state, complete: true});
+    this.setState({
+      ...this.state,
+      username
+    });
   }
 
-  updateOption (option, value) {
-    const userValue = (value === 'Prefer not to say') ? undefined : value;
-    this.props.user[option] = userValue;
-    updateUser(this.props.user);
-  }
-
-  register () {
-    sendUser(this.props.user);
-    this.props.chooseDeed();
+  async getStarted () {
+    try {
+      const {age, country, username} = this.state;
+      let user = {
+        ...this.props.user,
+        personal: {age, country},
+        username
+      };
+      user = await createUser(user);
+      const deed = await createDeed(user, user.deed.selected.deedType);
+      user = {
+        ...user,
+        deeds: {
+          ...user.deeds,
+          current: deed,
+          selected: null
+        }
+      }
+      await updateUser(user);
+      this.props.myProfile();
+    } catch (err) {
+      this.props.error(err);
+    }
   }
 
   render () {
-    const button = this.state.complete ? (<Button click={this.register} text='Choose a deed'/>) : null;
+    const { deedType } = this.props.user.deeds.selected;
+    const { age, country, username } = this.state
+    const buttonEnabled = age && country && username;
+
     return (
       <div>
-        <Title text='Your unique id is:'/>
-        <div>
-          {this.props.user.id}
-        </div>
-        <div>
-          You do not have to remember this!
-        </div>
-        <Title text='Choose a user name:'/>
-        <div>
-          Please choose an easier-to-remember user name:
-          <Input onChange={this.updateUsername}/>
-        </div>
-        <Title text='Tell us (or not) about yourself:'/>
-        <div>
-          Gender:
-          <Dropdown options={genders} onChange={this.updateOption.bind(this, 'gender')} />
-        </div>
-        <div>
-          Age:
-          <Dropdown options={ages} onChange={this.updateOption.bind(this, 'age')} />
-        </div>
-        <div>
-          Country:
-          <Dropdown options={countries} onChange={this.updateOption.bind(this, 'country')}/>
-        </div>
-        {button}
+        <Title text='Thank you!'/>
+        <Text text='You have picked:'/>
+        <Image src={deedType.image}/>
+        <Text text={deedType.description}/>
+        <Text text='Before you get started, we just need a few details so we can track the progress of your deeds.'/>
+        <Text text='What can we call you?'/>
+        <Input onChange={this.updateUsername} />
+        <Text text='Where are you from?'/>
+        <Dropdown options={countries} onChange={this.updateCountry}/>
+        <Text text='What age are you?'/>
+        <Dropdown options={ages} onChange={this.updateAge}/>
+        <Button text='Get started >' click={this.getStarted} disabled={!buttonEnabled} />
+        <Text text='Read our terms and conditions if you want to understand how we use your data.'/>
       </div>
     );
   }

@@ -1,14 +1,13 @@
-.Button-normal {
-  width: 70%;
-  margin-left: auto ;
-  margin-right: auto ;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+.Button-default {
   background-color: gray;
   color: white;
   border-radius: 10px;
   font: 400 11px system-ui;
+}
+
+.Button-default:disabled {
+  background-color: white;
+  color: gray;
+  border: gray dotted 2px
 }
 

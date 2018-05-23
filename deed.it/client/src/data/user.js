@@ -1,5 +1,5 @@
+import uuidv4 from 'uuid/v4';
 import defaultUser from './defaultUser';
-import generateId from'./generateId';
 
 const USER = 'user';
 
@@ -9,7 +9,7 @@ const set = (key, obj) => localStorage[key] = JSON.stringify(obj);
 
 const remove = (key) => delete localStorage[key];
 
-const getUser = () => {
+const getLocalUser = () => {
   const user = get(USER);
   if (!user) {
     throw new Error('User not created');
@@ -18,35 +18,35 @@ const getUser = () => {
   return { ...defaultUser, ...user };
 }
 
-const createUser = () => {
+const createLocalUser = () => {
   if (get(USER)) {
     throw new Error('User already created');
   }
   const user = {
     ...defaultUser,
-    id: generateId(),
+    id: uuidv4(),
   };
   set(USER, user);
   return user;
 };
 
-const updateCurrentDeed = (deed) => {
-  const user = getUser();
-  user.deeds.current = deed;
-  updateUser(user);
+const createUser = async(user) => {
+  console.log('TODO: createUser');
+  return updateUser(user);
 }
 
-const updateUser = (user) => {
+const updateUser = async(user) => {
   set(USER, user);
+  return user;
 }
 
 const removeUser = () => remove(USER);
 
 export {
+  createLocalUser,
   createUser,
-  getUser,
+  getLocalUser,
   removeUser,
-  updateCurrentDeed,
   updateUser
 }
 
