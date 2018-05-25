@@ -1,28 +1,40 @@
-import delay from './delay';
-import rootURLs from '../config/rootURLs';
-
-export const getOptions = {
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  },
-  method: 'GET',
-  mode: 'cors'
-};
+import { getData, postData } from './fetchWrapper';
 
 const getDeedHierarchy = async() => {
-  const endPoint = `${rootURLs.data}/deed-hierarchy`
-  await delay(2000);
-  const response = await fetch(endPoint, getOptions);
-  return response.json();
+  return getData('deed-hierarchy');
 }
 
 const createDeed = async(user, deedType) => {
-  console.log('TODO: createDeed');
-  return {};
+  const body = {
+    deedTypeId: deedType.deedTypeId,
+    username: user.username
+  }
+  return postData('create-user-deed', body);
+}
+
+const getUserDeeds = async(user) => {
+  const endpoint = `user-profile/${user.username}`;
+  const profile = await getData(endpoint);
+  const deeds = profile.deeds || [];
+  const events = profile.events || [];
+  let current = deeds.filter((deed) => deed.status === 'created');
+  switch(current.length) {
+    case 0:
+      current = null;
+      break;
+    case 1:
+      current = current[0];
+      break;
+    default:
+      throw new Error(`More than one current deed: ${current}`);
+  };
+  const approved  = deeds.filter((deed) => deed.status === 'approved');
+  const unapproved  = deeds.filter((deed) => deed.status === 'unapproved');
+  return { current, approved, unapproved, events };
 }
 
 export {
   createDeed,
-  getDeedHierarchy
+  getDeedHierarchy,
+  getUserDeeds
 }

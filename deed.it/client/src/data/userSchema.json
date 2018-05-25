@@ -5,9 +5,8 @@
       "deedType": {deedType},
       "superDeed": {superDeed}
     }
-    "current" : null,
-    "completed": []
-  }
+    "current" : {deed}
+  },
   "personal" : {
     "age": {age},
     "country": {country}

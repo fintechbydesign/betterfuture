@@ -2,8 +2,7 @@
   "id": "to be generated",
   "deeds" : {
     "selected": null,
-    "current" : null,
-    "completed": []
+    "current" : null
   },
   "personal": null,
   "username": null

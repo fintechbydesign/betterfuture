@@ -1,10 +1,3 @@
-/*
-  Three scopes used here:
-  - global 'deedHierarchy' so that it is only retrieved once
-  - instance 'deedHierarchy': for React effects
-  - instance 'selected': does not cause React effects
- */
-
 import React, { Component } from 'react';
 import Accordion from '../components/Accordion';
 import Button from '../components/Button';
@@ -12,12 +5,10 @@ import Carousel from '../components/Carousel';
 import Image from '../components/Image';
 import Fetching from '../components/Fetching';
 import { getDeedHierarchy } from '../data/deeds';
-import { updateUser} from '../data/user';
+import { updateLocalUser} from '../data/user';
 import './PickADeed.css';
 
-const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'startDeed'];
-
-let deedHierarchy = undefined;
+const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'selectDeed'];
 
 class PickADeed extends Component {
 
@@ -25,25 +16,25 @@ class PickADeed extends Component {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
-      deedHierarchy,
+      deedHierarchy: null
     };
+    // 'selected' not in state as Accordion/Carousel not correctly redrawing when it is set
     this.selected = {
-      superDeed: undefined,
-      deedType: undefined
+      superDeed: null,
+      deedType: null
     }
   }
 
   componentDidMount () {
-    if(deedHierarchy) {
-      this.setSelected(deedHierarchy[0], deedHierarchy[0].deedTypes[0]);
-    } else {
+    const { deedHierarchy } = this.state;
+    if (!deedHierarchy) {
       this.fetchDeeds();
     }
   }
 
   async fetchDeeds () {
     try {
-      deedHierarchy = await getDeedHierarchy();
+      const deedHierarchy = await getDeedHierarchy();
       this.setSelected( deedHierarchy[0], deedHierarchy[0].deedTypes[0]);
       this.setState({
         ...this.state,
@@ -62,7 +53,7 @@ class PickADeed extends Component {
     };
   }
 
-  async startDeed () {
+  selectDeed () {
     const user = {
       ...this.props.user,
       deeds: {
@@ -70,7 +61,7 @@ class PickADeed extends Component {
         selected: this.selected
       }
     }
-    await updateUser(user);
+    updateLocalUser(user);
     this.props.startDeed();
   }
 
@@ -94,7 +85,7 @@ class PickADeed extends Component {
       <div>
         <p>{superDeed.description}</p>
         <Carousel selected={selected} slides={slides} thumbnails={thumbnails} />
-        <Button text='Find out more >' click={this.startDeed} />
+        <Button text='Find out more >' click={this.selectDeed} />
       </div>
     );
   }

@@ -1,22 +1,9 @@
 import uuidv4 from 'uuid/v4';
 import defaultUser from './defaultUser';
+import { postData } from './fetchWrapper';
+import { get, set, remove } from './localData';
 
 const USER = 'user';
-
-const get = (key) => (localStorage[key]) ? JSON.parse(localStorage[key]) : undefined;
-
-const set = (key, obj) => localStorage[key] = JSON.stringify(obj);
-
-const remove = (key) => delete localStorage[key];
-
-const getLocalUser = () => {
-  const user = get(USER);
-  if (!user) {
-    throw new Error('User not created');
-  }
-  // backwards compatability
-  return { ...defaultUser, ...user };
-}
 
 const createLocalUser = () => {
   if (get(USER)) {
@@ -30,24 +17,34 @@ const createLocalUser = () => {
   return user;
 };
 
-const createUser = async(user) => {
-  console.log('TODO: createUser');
-  return updateUser(user);
+const getLocalUser = () => {
+  const user = get(USER);
+  if (!user) {
+    throw new Error('User not created');
+  }
+  // backwards compatability
+  return { ...defaultUser, ...user };
 }
 
-const updateUser = async(user) => {
+const updateLocalUser = (user) => {
   set(USER, user);
   return user;
+}
+
+const createUser = async(user) => {
+  const { username, personal } = user;
+  const { age, country } = personal;
+  await postData('create-user', { age, country, username });
 }
 
 const removeUser = () => remove(USER);
 
 export {
   createLocalUser,
-  createUser,
   getLocalUser,
-  removeUser,
-  updateUser
+  updateLocalUser,
+  createUser,
+  removeUser
 }
 
 

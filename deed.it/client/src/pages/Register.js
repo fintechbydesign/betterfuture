@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Button from '../components/Button';
 import Dropdown from '../components/Dropdown';
-import Image from '../components/Image';
 import Text from '../components/Text';
 import Input from '../components/Input';
 import Title from '../components/Title';
 import { createDeed } from '../data/deeds';
-import { createUser, updateUser } from "../data/user";
+import { createUser, updateLocalUser } from "../data/user";
 import ages from '../data/age.js';
 import countries from '../data/country.js';
+import DeedSummary from "../components/DeedSummary";
 
 const methods = ['getStarted', 'updateAge', 'updateCountry', 'updateUsername']
 
@@ -48,22 +48,20 @@ class Register extends Component {
   async getStarted () {
     try {
       const {age, country, username} = this.state;
-      let user = {
+      const user = {
         ...this.props.user,
         personal: {age, country},
         username
       };
-      user = await createUser(user);
-      const deed = await createDeed(user, user.deed.selected.deedType);
-      user = {
+      await createUser(user);
+      await createDeed(user, user.deeds.selected.deedType);
+      updateLocalUser({
         ...user,
         deeds: {
           ...user.deeds,
-          current: deed,
           selected: null
         }
-      }
-      await updateUser(user);
+      });
       this.props.myProfile();
     } catch (err) {
       this.props.error(err);
@@ -72,6 +70,7 @@ class Register extends Component {
 
   render () {
     const { deedType } = this.props.user.deeds.selected;
+    const {  description, image } = deedType;
     const { age, country, username } = this.state
     const buttonEnabled = age && country && username;
 
@@ -79,8 +78,7 @@ class Register extends Component {
       <div>
         <Title text='Thank you!'/>
         <Text text='You have picked:'/>
-        <Image src={deedType.image}/>
-        <Text text={deedType.description}/>
+        <DeedSummary description={description} image={image} />
         <Text text='Before you get started, we just need a few details so we can track the progress of your deeds.'/>
         <Text text='What can we call you?'/>
         <Input onChange={this.updateUsername} />

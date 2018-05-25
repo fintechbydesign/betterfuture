@@ -13,11 +13,12 @@ const randomTextProps = {
 };
 
 function Home (props) {
+  const getInvolvedAction = props.user.deeds.current ? props.myProfile : props.pickADeed;
   return (
     <div className='page'>
       <Title text='Welcome to Deedit' />
       <WonderWall />
-      <Button click={props.register} text='Get involved >' />
+      <Button click={getInvolvedAction} text='Get involved >' />
       <Text text='Small things add up to make a big difference.' />
       <Text text={randomTextProps} />
       <Text text={randomTextProps} />

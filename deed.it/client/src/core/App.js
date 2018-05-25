@@ -27,18 +27,16 @@ class App extends Component {
   }
 
   createInitialState () {
+    let user;
     try {
-      const user = getLocalUser();
-      return {
-        pageName: user.deeds.current ? 'home' : 'pickADeed',
-        user
-      };
+      user = getLocalUser();
     } catch (err) {
-      return {
-        pageName: 'pickADeed',
-        user: createLocalUser()
-      };
+      user = createLocalUser()
     }
+    return {
+      pageName: 'home',
+      user
+    };
   }
 
   createNavigationMethods () {
@@ -54,6 +52,7 @@ class App extends Component {
     });
     navigationMethods.error = (err) => {
       console.log(`Reporting error ${err}`);
+      console.trace();
       this.setState({...this.state, nextPageProps: { err }, pageName: 'error', user: getLocalUser()});
     }
     navigationMethods.reset = () => {
