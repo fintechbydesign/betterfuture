@@ -10,7 +10,7 @@ class Evidence extends Component {
     super(props);
     this.nextPage = this.nextPage.bind(this);
     const radioOptions = [
-      { name: 'evidence', text: 'Upload an existing photo or a video', onChange: this.setPage.bind(this, 'upload') },
+      { name: 'evidence', text: 'Upload an existing photo or a video', onChange: this.setPage.bind(this, 'uploadPhoto') },
       { name: 'evidence', text: 'Take a photo and upload', onChange: this.setPage.bind(this, 'takePhoto') },
       { name: 'evidence', text: 'Just report the deeed done', onChange: this.setPage.bind(this, 'pledge') },
     ];
@@ -18,7 +18,7 @@ class Evidence extends Component {
       page: null,
       radioOptions
     }
-  }x
+  }
 
   setPage (page) {
     this.setState({

@@ -1,19 +1,18 @@
 import React, { createRef, Component } from 'react';
-import Button from '../components/Button.js';
-import Title from '../components/Title.js';
-import Instruction from '../components/Instruction.js';
-import { sendPhoto } from '../send/send.js';
-
-import './UploadPhoto.css';
+import Button from '../components/Button';
+import Title from '../components/Title';
+import Text from '../components/Text';
 import '../components/Button.css';
+import '../components/Component.css';
+import './UploadPhoto.css';
+
+const methods = ['fileSelected', 'renderInput', 'sendPhoto', 'showPhoto', 'storeImage', 'getUIProperties'];
 
 class UploadPhoto extends Component {
 
   constructor (props ) {
     super(props);
-    ['fileSelected', 'renderInput', 'sendPhoto', 'showPhoto', 'storeImage', 'getUIProperties'].forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
+    methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {};
     this.canvas = createRef();
     this.image = createRef();
@@ -47,29 +46,25 @@ class UploadPhoto extends Component {
   }
 
   sendPhoto () {
-    sendPhoto(this.props.user, this.state.imageData);
-    this.props.chooseReward();
+    // sendPhoto(this.props.user, this.state.imageData);
+    this.props.notImplemented();
   }
 
   getUIProperties () {
     if (this.state.imageData) {
       // show picture
       return {
-        buttonText: 'Try again',
-        buttonFn: () => this.setState({ ...this.state, imageData: undefined }),
-        imageClass: 'Upload-flexFixed',
-        inputText: 'Select another picture',
-        instruction: 'Click/press the picture to send as evidence',
+        buttonClass: null,
+        imageClass: 'flexFixedSize UploadPhoto-image',
+        inputText: 'Change the picture',
         setupFn: this.showPhoto
       }
     } else {
       // show select button
       return {
-        buttonText: 'Now now',
-        buttonFn: this.props.welcomeBack,
+        buttonClass: 'UploadPhoto-hide',
         imageClass: 'UploadPhoto-hide',
         inputText: 'Select a picture',
-        instruction: 'Click press the button to select a picture',
         setupFn: () => null
       }
     }
@@ -78,7 +73,7 @@ class UploadPhoto extends Component {
   renderInput (text) {
     const labelProps = {
       htmlFor: 'choose',
-      className:'Button-normal',
+      className:'Component-default Button-default',
     }
     const inputProps = {
       accept:'image/*',
@@ -88,7 +83,7 @@ class UploadPhoto extends Component {
       type:"file"
     };
     return (
-      <div className={'UploadPhoto-container'}>
+      <div className={'flexContainerColumn'}>
         <label {...labelProps}>{text}</label>
         <input {...inputProps} />
       </div>
@@ -96,18 +91,17 @@ class UploadPhoto extends Component {
   }
 
   render () {
-    const { buttonText, buttonFn, imageClass, inputText, instruction, setupFn } = this.getUIProperties();
+    const { buttonClass, imageClass, inputText, instruction, setupFn } = this.getUIProperties();
 
     setupFn();
 
     return (
-      <div className={'UploadPhoto-container'}>
+      <div className='flexContainerColumn'>
         <Title text='Upload a photo of your deed.' />
-        <Instruction text={instruction}/>
-        <img ref={this.image} alt='what will be submitted' onClick={this.sendPhoto} className={imageClass} />
-        <canvas ref={this.canvas} className='TakePhoto-hide' />
+        <img ref={this.image} alt='what will be submitted' className={imageClass} />
+        <canvas ref={this.canvas} className='UploadPhoto-hide' />
         {this.renderInput(inputText)}
-        <Button click={buttonFn} text={buttonText} />
+        <Button className={buttonClass} click={this.sendPhoto} text='Send picture as evidence >' />
       </div>
     );
   }

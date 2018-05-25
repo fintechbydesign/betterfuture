@@ -3,8 +3,9 @@ import './Button.css';
 import './Component.css'
 
 function Button (props) {
+  const className = props.className ? props.className : 'Button-default Component-default';
   return (
-    <button className='Button-default Component-default'  disabled={props.disabled} onClick={props.click}>
+    <button className={className}  disabled={props.disabled} onClick={props.click}>
       {props.text}
     </button>
   );

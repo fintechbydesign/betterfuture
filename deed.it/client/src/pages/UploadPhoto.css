@@ -1,0 +1,11 @@
+.UploadPhoto-hide {
+  display: none;
+}
+
+.UploadPhoto-hidden {
+  visibility: hidden;
+}
+
+.UploadPhoto-image {
+  height: 320px;
+}

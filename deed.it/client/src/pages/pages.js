@@ -4,9 +4,12 @@ import Evidence from './Evidence';
 import Home from './Home';
 import MyProfile from './MyProfile';
 import PickADeed from './PickADeed';
+import Pledge from './Pledge';
 import Register from './Register';
 import StartDeed from './StartDeed';
+import TakePhoto from './TakePhoto';
 import TermsAndConditions from './TermsAndConditions';
+import UploadPhoto from './UploadPhoto';
 
 const alwaysOK = () => true;
 
@@ -40,6 +43,10 @@ export default {
     component: PickADeed,
     isStateValid: alwaysOK
   },
+  'pledge': {
+    component: Pledge,
+    isStateValid: containsCurrentDeed
+  },
   'register': {
     component: Register,
     isStateValid: containsSelectedDeed
@@ -48,8 +55,16 @@ export default {
     component: StartDeed,
     isStateValid: containsSelectedDeed
   },
+  'takePhoto': {
+    component: TakePhoto,
+    isStateValid: containsCurrentDeed
+  },
   'termsAndConditions': {
     component: TermsAndConditions,
     isStateValid: alwaysOK
-  }
+  },
+  'uploadPhoto': {
+    component: UploadPhoto,
+    isStateValid: containsCurrentDeed
+  },
 };

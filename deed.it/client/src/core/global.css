@@ -22,6 +22,7 @@ body {
 
 .flexFixedSize {
   flex: 0 0 auto;
+  align-self: center;
 }
 
 .flexDynamicSize {

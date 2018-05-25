@@ -1,20 +1,18 @@
+// with thanks to https://www.html5rocks.com/en/tutorials/getusermedia/intro/
+
 import React, { createRef, Component } from 'react';
 import Button from '../components/Button.js';
+import Text from '../components/Text.js';
 import Title from '../components/Title.js';
-import Instruction from '../components/Instruction.js';
-import { sendPhoto } from '../send/send.js';
-
 import './TakePhoto.css';
 
-// with thanks to https://www.html5rocks.com/en/tutorials/getusermedia/intro/
+const methods = ['captureVideo', 'sendPhoto', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
 
 class TakePhoto extends Component {
 
   constructor (props ) {
     super(props);
-    ['captureVideo', 'sendPhoto', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'].forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
+    methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {};
     this.video = createRef();
     this.canvas = createRef();
@@ -48,26 +46,24 @@ class TakePhoto extends Component {
   }
 
   sendPhoto () {
-    sendPhoto(this.props.user, this.state.imageData);
-    this.props.chooseReward();
+    // sendPhoto(this.props.user, this.state.imageData);
+    this.props.notImplemented();
   }
 
   getUIProperties () {
     if (this.state.imageData) {
       // show picture
       return {
-        buttonText: 'Try again',
-        buttonFn: () => this.setState({ ...this.state, imageData: undefined }),
+        buttonClass: null,
         imageClass: '',
-        instruction: 'Click/press the picture to send as evidence',
+        instruction: 'Click/press the picture to try again',
         setupFn: this.showPhoto,
         videoClass: 'TakePhoto-hide'
       }
     } else {
       // show video
       return {
-        buttonText: 'Now now',
-        buttonFn: this.props.welcomeBack,
+        buttonClass: 'TakePhoto-hide',
         imageClass: 'TakePhoto-hide',
         instruction: 'Click/press the video to take a picture',
         setupFn: this.startVideo,
@@ -77,17 +73,20 @@ class TakePhoto extends Component {
   }
 
   render () {
-    const { buttonText, buttonFn, imageClass, instruction, setupFn, videoClass } = this.getUIProperties();
+    const { buttonClass, imageClass, instruction, setupFn, videoClass } = this.getUIProperties();
 
     setupFn();
+
+    const reset = () => this.setState({ ...this.state, imageData: undefined });
+
     return (
       <div>
         <Title text='Take a photo of your deed.' />
-        <Instruction text={instruction} />
+        <Text text={instruction} />
         <video ref={this.video} autoPlay onClick={this.captureVideo} className={videoClass} />
-        <img ref={this.image} alt='what will be submitted' onClick={this.sendPhoto} className={imageClass} />
+        <img ref={this.image} alt='what will be submitted' onClick={reset} className={imageClass} />
         <canvas ref={this.canvas} className='TakePhoto-hide' />
-        <Button click={buttonFn} text={buttonText} />
+        <Button className={buttonClass} click={this.sendPhoto} text='Send picture as evidence >' />
       </div>
     );
   }

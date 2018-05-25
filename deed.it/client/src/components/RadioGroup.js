@@ -4,7 +4,7 @@ function renderRadio (radioOption, index) {
   const { onChange, name, text } = radioOption;
   const id = `id_${index}`;
   return (
-    <div>
+    <div key={id} >
       <input type='radio' id={id} name={name} onChange={onChange}></input>
       <label htmlFor={id}>{text}</label>
     </div>
