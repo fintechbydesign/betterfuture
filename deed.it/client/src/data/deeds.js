@@ -2,7 +2,7 @@ import { getData, postData } from './fetchWrapper';
 
 let mappedDeedTypes;
 
-const populateDeedTypesMap = async(deedHierarchy) => {
+const populateDeedTypesMap = (deedHierarchy) => {
   mappedDeedTypes = deedHierarchy.reduce(
     (map, superDeed) => {
       superDeed.deedTypes.reduce(
@@ -38,6 +38,9 @@ const createDeed = async(user, deedType) => {
 }
 
 const getUserDeeds = async(user) => {
+  if (!mappedDeedTypes) {
+    await getDeedHierarchy();
+  }
   const endpoint = `user-profile/${user.username}`;
   const profile = await getData(endpoint);
   const deeds = profile.deeds || [];

@@ -61,7 +61,7 @@ class MyProfile extends Component {
       return (
         <div>
           <DeedSummary {...current} />
-          <Button click={this.props.notImplemented} text="I've done it" />
+          <Button click={this.props.evidence} text="I've done it" />
         </div>
       );
     } else {
