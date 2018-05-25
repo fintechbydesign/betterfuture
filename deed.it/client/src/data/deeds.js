@@ -1,7 +1,32 @@
 import { getData, postData } from './fetchWrapper';
 
+let mappedDeedTypes;
+
+const populateDeedTypesMap = async(deedHierarchy) => {
+  mappedDeedTypes = deedHierarchy.reduce(
+    (map, superDeed) => {
+      superDeed.deedTypes.reduce(
+        (map, deedType) => {
+          map[deedType.deedTypeId] = deedType;
+          return map;
+        },
+        map
+      );
+      return map;
+      },
+    {}
+  );
+}
+
+const appendDeedTypeProps = (deed) => ({ ...mappedDeedTypes[deed.deedTypeId], ...deed });
+
 const getDeedHierarchy = async() => {
-  return getData('deed-hierarchy');
+  const deedHierarchy = await getData('deed-hierarchy');
+  // yuk yuk yuk
+  if (!mappedDeedTypes) {
+    populateDeedTypesMap(deedHierarchy);
+  };
+  return deedHierarchy;
 }
 
 const createDeed = async(user, deedType) => {
@@ -23,13 +48,13 @@ const getUserDeeds = async(user) => {
       current = null;
       break;
     case 1:
-      current = current[0];
+      current = appendDeedTypeProps(current[0]);
       break;
     default:
       throw new Error(`More than one current deed: ${current}`);
   };
-  const approved  = deeds.filter((deed) => deed.status === 'approved');
-  const unapproved  = deeds.filter((deed) => deed.status === 'unapproved');
+  const approved  = deeds.filter((deed) => deed.status === 'approved').map(appendDeedTypeProps);
+  const unapproved  = deeds.filter((deed) => deed.status === 'unapproved').map(appendDeedTypeProps);
   return { current, approved, unapproved, events };
 }
 

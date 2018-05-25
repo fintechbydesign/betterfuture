@@ -4,7 +4,11 @@ import loremIpsum from 'lorem-ipsum';
 import './Text.css';
 
 function Text(props) {
-  const text = (typeof props.text === 'string') ? props.text : loremIpsum(props.text);
+  const text = (!props.text)
+    ? 'Missing text'
+    : (typeof props.text === 'string')
+    ? props.text
+    : loremIpsum(props.text);
   return <div className='Text-text'>{text}</div>
 };
 

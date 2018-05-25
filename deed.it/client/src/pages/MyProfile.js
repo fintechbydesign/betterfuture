@@ -58,10 +58,9 @@ class MyProfile extends Component {
   renderInProgress () {
     const { current } = this.state;
     if (current) {
-      const { desciption, image } = current;
       return (
         <div>
-          <DeedSummary description={desciption} image={image} />
+          <DeedSummary {...current} />
           <Button click={this.props.notImplemented} text="I've done it" />
         </div>
       );
