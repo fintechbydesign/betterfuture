@@ -5,12 +5,11 @@ import { createLocalUser, getLocalUser } from './data/user';
 import { getDeedHierarchy, getUserDeeds } from './data/deeds';
 import registerServiceWorker from './core/registerServiceWorker';
 
+getDeedHierarchy();
 try {
   const user = getLocalUser();
   if (user.username && user.deeds.current) {
     getUserDeeds();
-  } else {
-    getDeedHierarchy();
   }
 } catch (err) {
   createLocalUser();
