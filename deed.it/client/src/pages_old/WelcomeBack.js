@@ -8,10 +8,10 @@ import './WelcomeBack.css';
 
 const getUserDeed = () => {
   const deedId = getUser().deedId;
-  return deedId ? getDeed(deedId): undefined;
+  return deedId ? getDeed(deedId) : undefined;
 };
 
-class WelcomeBack extends Component { 
+class WelcomeBack extends Component {
   renderWallet (wallet) {
     return (
       <div>
@@ -45,15 +45,15 @@ class WelcomeBack extends Component {
       </div>
     );
   }
-  
-  render() {
+
+  render () {
     const deed = getUserDeed();
     const deedOptions = deed ? this.renderDeed(deed) : this.renderNoDeed();
     const wallet = getUser().wallet;
     const walletOptions = wallet > 0 ? this.renderWallet(wallet) : null;
     return (
       <div>
-        <Title text= 'Welcome back to deed.it' />
+        <Title text='Welcome back to deed.it' />
         { deedOptions }
         { walletOptions }
         <div className='WelcomeBack_debugOption'>

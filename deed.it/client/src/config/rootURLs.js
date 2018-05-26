@@ -1,6 +1,6 @@
 export default {
-  data: "",
+  data: '',
   appImage: '/images/',
   userImage: 'http://aws/',
   webImage: ''
-}
+};

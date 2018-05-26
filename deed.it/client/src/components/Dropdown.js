@@ -1,5 +1,5 @@
 import React from 'react';
-import './Component.css'
+import './Component.css';
 import './Dropdown.css';
 
 function Dropdown (props) {

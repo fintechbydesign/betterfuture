@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Video.css';
 
 class Video extends Component {
-
   constructor (props) {
     super(props);
     this.state = {
@@ -10,11 +9,10 @@ class Video extends Component {
       height: props.height || '240',
       width: props.width || '320',
       instructionVisible: true
-    }
+    };
   }
 
   render () {
-
     let mediaPlayer;
     let instructionClassName = 'Video-child Video-instruction';
     if (!this.state.instructionVisible) {
@@ -29,7 +27,7 @@ class Video extends Component {
           instructionVisible: !paused
         });
         if (paused) {
-          mediaPlayer.play()
+          mediaPlayer.play();
         } else {
           mediaPlayer.pause();
         }
@@ -46,11 +44,11 @@ class Video extends Component {
           width={this.state.width}
           onClick={togglePlay}
           ref={(element) => {
-            mediaPlayer = element
-          }}/>
+            mediaPlayer = element;
+          }} />
       </div>
     );
   }
-};
+}
 
 export default Video;

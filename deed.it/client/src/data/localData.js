@@ -4,6 +4,4 @@ const set = (key, obj) => localStorage[key] = JSON.stringify(obj);
 
 const remove = (key) => delete localStorage[key];
 
-export { get, set, remove }
-
-
+export { get, set, remove };

@@ -11,7 +11,6 @@ import './PickADeed.css';
 const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'selectDeed'];
 
 class PickADeed extends Component {
-
   constructor (props) {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
@@ -22,7 +21,7 @@ class PickADeed extends Component {
     this.selected = {
       superDeed: null,
       deedType: null
-    }
+    };
   }
 
   componentDidMount () {
@@ -35,10 +34,10 @@ class PickADeed extends Component {
   async fetchDeeds () {
     try {
       const deedHierarchy = await getDeedHierarchy();
-      this.setSelected( deedHierarchy[0], deedHierarchy[0].deedTypes[0]);
+      this.setSelected(deedHierarchy[0], deedHierarchy[0].deedTypes[0]);
       this.setState({
         ...this.state,
-        deedHierarchy,
+        deedHierarchy
       });
     } catch (err) {
       this.props.error(err);
@@ -60,7 +59,7 @@ class PickADeed extends Component {
         ...this.props.user.deeds,
         selected: this.selected
       }
-    }
+    };
     updateLocalUser(user);
     this.props.startDeed();
   }
@@ -93,7 +92,7 @@ class PickADeed extends Component {
   render () {
     const { deedHierarchy } = this.state;
     if (!deedHierarchy) {
-      return ( <Fetching text='Fetching available deeds' />);
+      return (<Fetching text='Fetching available deeds' />);
     }
     const panels = deedHierarchy.map((superDeed) => ({
       content: this.renderSuperDeed(superDeed),
@@ -104,7 +103,7 @@ class PickADeed extends Component {
       if (typeof index !== 'undefined') {
         this.setSelected(deedHierarchy[index], deedHierarchy[index].deedTypes[0]);
       }
-    }
+    };
     return (
       <div>
         <Accordion panels={panels} onChange={onChange} />

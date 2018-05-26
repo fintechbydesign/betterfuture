@@ -23,7 +23,7 @@ function Home (props) {
       <Text text={randomTextProps} />
       <Text text={randomTextProps} />
       <Text text='Watch our short video to see how Deedit works.' />
-      <Video src={homeVideo}/>
+      <Video src={homeVideo} />
     </div>
   );
 }

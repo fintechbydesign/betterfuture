@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import Button from '../components/Button';
-import DeedSummary from "../components/DeedSummary";
+import DeedSummary from '../components/DeedSummary';
 import Fetching from '../components/Fetching';
 import Text from '../components/Text';
 import Title from '../components/Title';
 import Wonderwall from '../components/WonderWall';
-import { getUserDeeds } from "../data/deeds";
-import { updateLocalUser } from "../data/user";
-
+import { getUserDeeds } from '../data/deeds';
+import { updateLocalUser } from '../data/user';
 
 const methods = ['fetchDeeds', 'renderInProgress'];
 
 class MyProfile extends Component {
-
   constructor (props) {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
@@ -34,7 +32,7 @@ class MyProfile extends Component {
     try {
       const { user } = this.props;
       const { current, approved, unapproved, events } = await getUserDeeds(user);
-      updateLocalUser( {
+      updateLocalUser({
         ...user,
         deeds: {
           ...user.deeds,
@@ -77,7 +75,7 @@ class MyProfile extends Component {
   render () {
     const { deeds } = this.state;
     if (!deeds) {
-      return ( <Fetching text='Fetching your deeds' />);
+      return (<Fetching text='Fetching your deeds' />);
     }
     const { username, personal } = this.props.user;
     const { country } = personal;
@@ -85,11 +83,11 @@ class MyProfile extends Component {
       <div className='page'>
         <Title text={username} />
         <Text text={country} />
-        <Text text='Badges'/>
-        <Text text='Trophies'/>
-        <Title text='In Progress'/>
+        <Text text='Badges' />
+        <Text text='Trophies' />
+        <Title text='In Progress' />
         {this.renderInProgress()}
-        <Title text='Previous Deeds'/>
+        <Title text='Previous Deeds' />
         <Wonderwall />
       </div>
     );

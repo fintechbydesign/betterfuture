@@ -4,13 +4,12 @@ import './Accordion.css';
 const Panel = Collapse.Panel;
 
 function Accordion (props) {
-
   const panels = props.panels.map((panel, index) => {
-    return (<Panel key={index} header={panel.label} showArrow={true} >{panel.content}</Panel>);
+    return (<Panel key={index} header={panel.label} showArrow >{panel.content}</Panel>);
   });
 
   return (
-    <Collapse accordion={true} onChange={props.onChange} >
+    <Collapse accordion onChange={props.onChange} >
       {panels}
     </Collapse>
   );

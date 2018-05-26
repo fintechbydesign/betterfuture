@@ -5,15 +5,14 @@ import Text from '../components/Text';
 import Input from '../components/Input';
 import Title from '../components/Title';
 import { createDeed } from '../data/deeds';
-import { createUser, updateLocalUser } from "../data/user";
+import { createUser, updateLocalUser } from '../data/user';
 import ages from '../data/age.js';
 import countries from '../data/country.js';
-import DeedSummary from "../components/DeedSummary";
+import DeedSummary from '../components/DeedSummary';
 
-const methods = ['getStarted', 'updateAge', 'updateCountry', 'updateUsername']
+const methods = ['getStarted', 'updateAge', 'updateCountry', 'updateUsername'];
 
 class Register extends Component {
-
   constructor (props) {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
@@ -70,24 +69,24 @@ class Register extends Component {
 
   render () {
     const { deedType } = this.props.user.deeds.selected;
-    const {  description, image } = deedType;
-    const { age, country, username } = this.state
+    const { description, image } = deedType;
+    const { age, country, username } = this.state;
     const buttonEnabled = age && country && username;
 
     return (
       <div>
-        <Title text='Thank you!'/>
-        <Text text='You have picked:'/>
+        <Title text='Thank you!' />
+        <Text text='You have picked:' />
         <DeedSummary description={description} image={image} />
-        <Text text='Before you get started, we just need a few details so we can track the progress of your deeds.'/>
-        <Text text='What can we call you?'/>
+        <Text text='Before you get started, we just need a few details so we can track the progress of your deeds.' />
+        <Text text='What can we call you?' />
         <Input onChange={this.updateUsername} />
-        <Text text='Where are you from?'/>
-        <Dropdown options={countries} onChange={this.updateCountry}/>
-        <Text text='What age are you?'/>
-        <Dropdown options={ages} onChange={this.updateAge}/>
+        <Text text='Where are you from?' />
+        <Dropdown options={countries} onChange={this.updateCountry} />
+        <Text text='What age are you?' />
+        <Dropdown options={ages} onChange={this.updateAge} />
         <Button text='Get started >' click={this.getStarted} disabled={!buttonEnabled} />
-        <Text text='Read our terms and conditions if you want to understand how we use your data.'/>
+        <Text text='Read our terms and conditions if you want to understand how we use your data.' />
       </div>
     );
   }

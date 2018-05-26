@@ -3,9 +3,8 @@ import Button from '../components/Button.js';
 import Title from '../components/Title.js';
 import Instruction from '../components/Instruction.js';
 
-class CompleteDeed extends Component { 
-
-  constructor (props ) {
+class CompleteDeed extends Component {
+  constructor (props) {
     super(props);
     this.state = { stage: 'choose' };
   }
@@ -17,15 +16,15 @@ class CompleteDeed extends Component {
         <Instruction text='Choose how to report the deed done:' />
         <fieldset>
           <div>
-            <input type='radio' id='takePhoto' onChange={this.props.takePhoto}></input>
+            <input type='radio' id='takePhoto' onChange={this.props.takePhoto} />
             <label htmlFor='takePhoto'>Take a photo of the done deed</label>
           </div>
           <div>
-            <input type='radio' id='uploadPhoto' onChange={this.props.uploadPhoto}></input>
+            <input type='radio' id='uploadPhoto' onChange={this.props.uploadPhoto} />
             <label htmlFor='takePhoto'>Upload a photo of the done deed</label>
           </div>
           <div>
-            <input type='radio' id='declaration' onChange={optionChosen}></input>
+            <input type='radio' id='declaration' onChange={optionChosen} />
             <label htmlFor='declaration'>Simply report it complete</label>
           </div>
         </fieldset>
@@ -52,7 +51,7 @@ class CompleteDeed extends Component {
 
   render () {
     let content;
-    switch(this.state.stage) {
+    switch (this.state.stage) {
       case 'declaration':
         content = this.renderDeclaration();
         break;

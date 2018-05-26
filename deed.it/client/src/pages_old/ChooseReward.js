@@ -7,17 +7,16 @@ import { getDeed } from '../stores/deeds.js';
 
 const getUserDeed = () => {
   const deedId = getUser().deedId;
-  return deedId ? getDeed(deedId): undefined;
+  return deedId ? getDeed(deedId) : undefined;
 };
 
-class ChooseDeed extends Component { 
-
+class ChooseDeed extends Component {
   constructor (props) {
     super(props);
     this.state = {};
   }
 
-  render() {
+  render () {
     const deed = getUserDeed();
     const instruction = `You have ${deed.reward} betties to spend. Choose what to do with them once your deed has been verified:`;
     let chooseFn;
@@ -38,7 +37,7 @@ class ChooseDeed extends Component {
         };
         break;
       default:
-    };
+    }
     const button = chooseFn ? (<Button click={chooseFn} text='Choose' />) : null;
     const optionChosen = (event) => this.setState({...this.state, option: event.target.id});
     return (

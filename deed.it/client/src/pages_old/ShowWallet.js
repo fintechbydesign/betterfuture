@@ -3,7 +3,7 @@ import QRCode from 'qrcode-react';
 import Button from '../components/Button.js';
 import Title from '../components/Title.js';
 import Instruction from '../components/Instruction.js';
-import { updateUser } from "../stores/user";
+import { updateUser } from '../stores/user';
 
 function ShowWallet (props) {
   const donate = () => {

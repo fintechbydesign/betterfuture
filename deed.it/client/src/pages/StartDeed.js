@@ -15,7 +15,7 @@ function StartDeed (props) {
       <Title text='Your Deed' />
       <Image src={deedType.image} />
       <Text text={deedType.description} />
-      <Button text='Do it >' click={props.register}/>
+      <Button text='Do it >' click={props.register} />
       <Button text='< Pick another deed' click={props.pickADeed} />
     </div>
   );

@@ -10,7 +10,6 @@ import { sendUser } from '../send/send.js';
 import { updateUser } from '../stores/user.js';
 
 class Register extends Component {
-
   constructor (props) {
     super(props);
     this.updateUsername = this.updateUsername.bind(this);
@@ -18,7 +17,7 @@ class Register extends Component {
     this.register = this.register.bind(this);
     this.state = {
       complete: false
-    }
+    };
   }
 
   updateUsername (username) {
@@ -39,22 +38,22 @@ class Register extends Component {
   }
 
   render () {
-    const button = this.state.complete ? (<Button click={this.register} text='Choose a deed'/>) : null;
+    const button = this.state.complete ? (<Button click={this.register} text='Choose a deed' />) : null;
     return (
       <div>
-        <Title text='Your unique id is:'/>
+        <Title text='Your unique id is:' />
         <div>
           {this.props.user.id}
         </div>
         <div>
           You do not have to remember this!
         </div>
-        <Title text='Choose a user name:'/>
+        <Title text='Choose a user name:' />
         <div>
           Please choose an easier-to-remember user name:
-          <Input onChange={this.updateUsername}/>
+          <Input onChange={this.updateUsername} />
         </div>
-        <Title text='Tell us (or not) about yourself:'/>
+        <Title text='Tell us (or not) about yourself:' />
         <div>
           Gender:
           <Dropdown options={genders} onChange={this.updateOption.bind(this, 'gender')} />
@@ -65,7 +64,7 @@ class Register extends Component {
         </div>
         <div>
           Country:
-          <Dropdown options={countries} onChange={this.updateOption.bind(this, 'country')}/>
+          <Dropdown options={countries} onChange={this.updateOption.bind(this, 'country')} />
         </div>
         {button}
       </div>

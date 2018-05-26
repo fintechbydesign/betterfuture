@@ -4,9 +4,7 @@ import Title from '../components/Title.js';
 import { getAvailableDeeds } from '../stores/deeds.js';
 import { updateUser } from '../stores/user.js';
 
-
-class ChooseDeed extends Component { 
-
+class ChooseDeed extends Component {
   constructor (props) {
     super(props);
     this.createDeedButton = this.createDeedButton.bind(this);
@@ -14,13 +12,13 @@ class ChooseDeed extends Component {
 
   componentDidMount () {
     this.props.user.deedId = undefined;
-    updateUser(this.props.user)
+    updateUser(this.props.user);
   }
 
   createDeedButton (deed) {
     const click = () => {
       this.props.user.deedId = deed.id;
-      updateUser(this.props.user)
+      updateUser(this.props.user);
       this.props.displayDeed();
     };
     return (
@@ -30,8 +28,8 @@ class ChooseDeed extends Component {
     );
   }
 
-  render() {
-    const deeds = getAvailableDeeds();     
+  render () {
+    const deeds = getAvailableDeeds();
     return (
       <div>
         <Title text='Choose the deed you wish to do:' />

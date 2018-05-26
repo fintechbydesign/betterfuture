@@ -1,7 +1,6 @@
 import React, { createRef, Component } from 'react';
 import Button from '../components/Button';
 import Title from '../components/Title';
-import Text from '../components/Text';
 import '../components/Button.css';
 import '../components/Component.css';
 import './UploadPhoto.css';
@@ -9,8 +8,7 @@ import './UploadPhoto.css';
 const methods = ['fileSelected', 'renderInput', 'sendPhoto', 'showPhoto', 'storeImage', 'getUIProperties'];
 
 class UploadPhoto extends Component {
-
-  constructor (props ) {
+  constructor (props) {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {};
@@ -28,7 +26,7 @@ class UploadPhoto extends Component {
         const height = 480;
         const width = image.width * 480 / image.height;
         this.storeImage(image, width, height);
-      }
+      };
     }
   }
 
@@ -38,8 +36,8 @@ class UploadPhoto extends Component {
     canvas.height = height;
     canvas.getContext('2d').drawImage(src, 0, 0, width, height);
     const imageData = canvas.toDataURL('image/png');
-    this.setState( {...this.state, imageData });
-  };
+    this.setState({...this.state, imageData });
+  }
 
   showPhoto () {
     this.image.current.src = this.state.imageData;
@@ -58,7 +56,7 @@ class UploadPhoto extends Component {
         imageClass: 'flexFixedSize UploadPhoto-image',
         inputText: 'Change the picture',
         setupFn: this.showPhoto
-      }
+      };
     } else {
       // show select button
       return {
@@ -66,21 +64,21 @@ class UploadPhoto extends Component {
         imageClass: 'UploadPhoto-hide',
         inputText: 'Select a picture',
         setupFn: () => null
-      }
+      };
     }
   }
 
   renderInput (text) {
     const labelProps = {
       htmlFor: 'choose',
-      className:'Component-default Button-default',
-    }
+      className: 'Component-default Button-default'
+    };
     const inputProps = {
-      accept:'image/*',
-      className:'UploadPhoto-hidden',
+      accept: 'image/*',
+      className: 'UploadPhoto-hidden',
       id: 'choose',
       onChange: this.fileSelected,
-      type:"file"
+      type: 'file'
     };
     return (
       <div className={'flexContainerColumn'}>
@@ -91,7 +89,7 @@ class UploadPhoto extends Component {
   }
 
   render () {
-    const { buttonClass, imageClass, inputText, instruction, setupFn } = this.getUIProperties();
+    const { buttonClass, imageClass, inputText, setupFn } = this.getUIProperties();
 
     setupFn();
 

@@ -9,8 +9,7 @@ import './TakePhoto.css';
 const methods = ['captureVideo', 'sendPhoto', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
 
 class TakePhoto extends Component {
-
-  constructor (props ) {
+  constructor (props) {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {};
@@ -19,7 +18,7 @@ class TakePhoto extends Component {
     this.image = createRef();
   }
 
-  startVideo() {
+  startVideo () {
     const constraints = { video: true };
     const handleSuccess = (stream) => this.video.current.srcObject = stream;
     const handleError = (error) => console.error(error);
@@ -32,13 +31,13 @@ class TakePhoto extends Component {
     canvas.height = height;
     canvas.getContext('2d').drawImage(src, 0, 0, width, height);
     const imageData = canvas.toDataURL('image/png');
-    this.setState( {...this.state, imageData });
-  };
+    this.setState({...this.state, imageData });
+  }
 
   captureVideo () {
     const video = this.video.current;
     const { videoWidth, videoHeight } = video;
-    this.storeImage(video, videoWidth, videoHeight );
+    this.storeImage(video, videoWidth, videoHeight);
   }
 
   showPhoto () {
@@ -59,7 +58,7 @@ class TakePhoto extends Component {
         instruction: 'Click/press the picture to try again',
         setupFn: this.showPhoto,
         videoClass: 'TakePhoto-hide'
-      }
+      };
     } else {
       // show video
       return {
@@ -68,7 +67,7 @@ class TakePhoto extends Component {
         instruction: 'Click/press the video to take a picture',
         setupFn: this.startVideo,
         videoClass: ''
-      }
+      };
     }
   }
 

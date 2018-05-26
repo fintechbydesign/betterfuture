@@ -66,5 +66,5 @@ export default {
   'uploadPhoto': {
     component: UploadPhoto,
     isStateValid: containsCurrentDeed
-  },
+  }
 };

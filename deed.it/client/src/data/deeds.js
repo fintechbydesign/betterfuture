@@ -13,10 +13,10 @@ const populateDeedTypesMap = (deedHierarchy) => {
         map
       );
       return map;
-      },
+    },
     {}
   );
-}
+};
 
 const appendDeedTypeProps = (deed) => ({ ...mappedDeedTypes[deed.deedTypeId], ...deed });
 
@@ -25,17 +25,17 @@ const getDeedHierarchy = async() => {
   // yuk yuk yuk
   if (!mappedDeedTypes) {
     populateDeedTypesMap(deedHierarchy);
-  };
+  }
   return deedHierarchy;
-}
+};
 
 const createDeed = async(user, deedType) => {
   const body = {
     deedTypeId: deedType.deedTypeId,
     username: user.username
-  }
+  };
   return postData('create-user-deed', body);
-}
+};
 
 const getUserDeeds = async(user) => {
   if (!mappedDeedTypes) {
@@ -46,7 +46,7 @@ const getUserDeeds = async(user) => {
   const deeds = profile.deeds || [];
   const events = profile.events || [];
   let current = deeds.filter((deed) => deed.status === 'created');
-  switch(current.length) {
+  switch (current.length) {
     case 0:
       current = null;
       break;
@@ -55,14 +55,14 @@ const getUserDeeds = async(user) => {
       break;
     default:
       throw new Error(`More than one current deed: ${current}`);
-  };
-  const approved  = deeds.filter((deed) => deed.status === 'approved').map(appendDeedTypeProps);
-  const unapproved  = deeds.filter((deed) => deed.status === 'unapproved').map(appendDeedTypeProps);
+  }
+  const approved = deeds.filter((deed) => deed.status === 'approved').map(appendDeedTypeProps);
+  const unapproved = deeds.filter((deed) => deed.status === 'unapproved').map(appendDeedTypeProps);
   return { current, approved, unapproved, events };
-}
+};
 
 export {
   createDeed,
   getDeedHierarchy,
   getUserDeeds
-}
+};

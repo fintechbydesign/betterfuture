@@ -12,7 +12,7 @@ function Pledge (props) {
       <Title text='Your Deed' />
       <Text text="We'll take you word for it if you just sign this pledge and promise you've done this good deed." />
       <Image />
-      <Text text="I promise that I did my good deed for Edinburgh." className='Pledge-quote' />
+      <Text text='I promise that I did my good deed for Edinburgh.' className='Pledge-quote' />
       <Button text="I promise I've done it >" onClick={onClick} />
     </div>
   );

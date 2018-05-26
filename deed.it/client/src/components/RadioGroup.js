@@ -5,11 +5,11 @@ function renderRadio (radioOption, index) {
   const id = `id_${index}`;
   return (
     <div key={id} >
-      <input type='radio' id={id} name={name} onChange={onChange}></input>
+      <input type='radio' id={id} name={name} onChange={onChange} />
       <label htmlFor={id}>{text}</label>
     </div>
-  )
-};
+  );
+}
 
 function RadioGroup (props) {
   const { radioOptions } = props;

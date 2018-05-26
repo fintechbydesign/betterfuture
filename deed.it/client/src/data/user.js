@@ -11,7 +11,7 @@ const createLocalUser = () => {
   }
   const user = {
     ...defaultUser,
-    id: uuidv4(),
+    id: uuidv4()
   };
   set(USER, user);
   return user;
@@ -24,18 +24,18 @@ const getLocalUser = () => {
   }
   // backwards compatability
   return { ...defaultUser, ...user };
-}
+};
 
 const updateLocalUser = (user) => {
   set(USER, user);
   return user;
-}
+};
 
 const createUser = async(user) => {
   const { username, personal } = user;
   const { age, country } = personal;
   await postData('create-user', { age, country, username });
-}
+};
 
 const removeUser = () => remove(USER);
 
@@ -45,6 +45,4 @@ export {
   updateLocalUser,
   createUser,
   removeUser
-}
-
-
+};

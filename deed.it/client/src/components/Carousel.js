@@ -19,7 +19,7 @@ function Carousel (props) {
           {thumbNails}
         </div>
       );
-    }
+    };
   }
   return (
     <NukaCarousel {...nukaProps} >

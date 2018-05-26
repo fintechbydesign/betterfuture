@@ -14,7 +14,6 @@ function createSrc (props) {
   } else {
     throw new Error(`Unknown image type '${props.type}'`);
   }
-
 }
 
 function Image (props) {

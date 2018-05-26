@@ -3,4 +3,4 @@ export default [
   'Female',
   'Male',
   'Other'
-]
+];
