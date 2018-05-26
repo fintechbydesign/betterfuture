@@ -1,19 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './core/App';
+import registerServiceWorker from './core/registerServiceWorker';
 import { createLocalUser, getLocalUser } from './data/user';
 import { getDeedHierarchy, getUserDeeds } from './data/deeds';
-import registerServiceWorker from './core/registerServiceWorker';
+
+const initUser = () => {
+  try {
+    const user = getLocalUser();
+    if (user.username && user.deeds.current) {
+      getUserDeeds(user);
+    }
+  } catch (err) {
+    createLocalUser();
+  }
+};
 
 getDeedHierarchy();
-try {
-  const user = getLocalUser();
-  if (user.username && user.deeds.current) {
-    getUserDeeds();
-  }
-} catch (err) {
-  createLocalUser();
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
+initUser();
+ReactDOM.render(<App/>, document.getElementById('root'));
 registerServiceWorker();
+
