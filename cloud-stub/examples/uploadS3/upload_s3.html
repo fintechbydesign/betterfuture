@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="./aws-cognito-sdk.min.js"></script>
+    <script src="./amazon-cognito-identity.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.16.0.min.js"></script>
+    <script src="./upload_s3.js"></script>
+    <meta charset="UTF-8">
+    <title>Example uploading an image to Deedit S3</title>
+</head>
+
+<body>
+    <H1>Deedit image uploader</H1>
+    <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
+</body>
+
+<script>
+  document.getElementById("fileToUpload").addEventListener("change", function (event) {
+    processImage("fileToUpload");
+  }, false);
+</script>
+
+</html>

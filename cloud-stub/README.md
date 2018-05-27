@@ -30,6 +30,7 @@ Get a view of the whole database
 Get the latests deeds and events from Wonderwall
 ```
 /wonderwall/latest
+curl -v https://brg39dfup5.execute-api.eu-west-1.amazonaws.com/development/deeditWonderwallLatest
 ```
 
 Get the relevant Wonderwall elements for a user (e.g. Pablo)
