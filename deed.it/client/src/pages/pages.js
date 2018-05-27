@@ -16,7 +16,9 @@ const alwaysOK = () => true;
 const containsSelectedDeed = (user) =>
   user.deeds.selected && user.deeds.selected.deedType && user.deeds.selected.superDeed;
 
-const containsCurrentDeed = (user) => user.deeds.current;
+const containsCurrentDeed = (user) => !!user.deeds.current;
+
+const containsUsername = (user) => !!user.username;
 
 export default {
   'aboutUs': {
@@ -37,7 +39,7 @@ export default {
   },
   'myProfile': {
     component: MyProfile,
-    isStateValid: alwaysOK
+    isStateValid: containsUsername
   },
   'pickADeed': {
     component: PickADeed,

@@ -1,12 +1,12 @@
 // with thanks to https://www.html5rocks.com/en/tutorials/getusermedia/intro/
 
 import React, { createRef, Component } from 'react';
-import Button from '../components/Button.js';
+import CompleteDeed from '../components/CompleteDeed'
 import Text from '../components/Text.js';
 import Title from '../components/Title.js';
 import './TakePhoto.css';
 
-const methods = ['captureVideo', 'sendPhoto', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
+const methods = ['captureVideo', 'reset', 'sendPhoto', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
 
 class TakePhoto extends Component {
   constructor (props) {
@@ -50,10 +50,19 @@ class TakePhoto extends Component {
   }
 
   getUIProperties () {
-    if (this.state.imageData) {
+    const { imageData } = this.state;
+    const { user } = this.props;
+    const { current } = user.deeds;
+    if (imageData) {
       // show picture
       return {
-        buttonClass: null,
+        completeDeedProps: {
+          deed: current,
+          imageData,
+          navigateFn: this.props.notImplemented,
+          text: 'Send picture as evidence >',
+          user
+        },
         imageClass: '',
         instruction: 'Click/press the picture to try again',
         setupFn: this.showPhoto,
@@ -62,7 +71,7 @@ class TakePhoto extends Component {
     } else {
       // show video
       return {
-        buttonClass: 'TakePhoto-hide',
+        completeDeedProps: null,
         imageClass: 'TakePhoto-hide',
         instruction: 'Click/press the video to take a picture',
         setupFn: this.startVideo,
@@ -71,21 +80,22 @@ class TakePhoto extends Component {
     }
   }
 
+  reset () {
+    this.setState({ ...this.state, imageData: undefined });
+  }
+
   render () {
-    const { buttonClass, imageClass, instruction, setupFn, videoClass } = this.getUIProperties();
-
+    const { completeDeedProps, imageClass, instruction, setupFn, videoClass } = this.getUIProperties();
+    const completeDeed = completeDeedProps ? (<CompleteDeed {...completeDeedProps} />) : null;
     setupFn();
-
-    const reset = () => this.setState({ ...this.state, imageData: undefined });
-
     return (
       <div>
         <Title text='Take a photo of your deed.' />
         <Text text={instruction} />
         <video ref={this.video} autoPlay onClick={this.captureVideo} className={videoClass} />
-        <img ref={this.image} alt='what will be submitted' onClick={reset} className={imageClass} />
+        <img ref={this.image} alt='what will be submitted' onClick={this.reset} className={imageClass} />
         <canvas ref={this.canvas} className='TakePhoto-hide' />
-        <Button className={buttonClass} click={this.sendPhoto} text='Send picture as evidence >' />
+        {completeDeed}
       </div>
     );
   }

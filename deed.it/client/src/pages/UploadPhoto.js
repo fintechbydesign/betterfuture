@@ -1,5 +1,5 @@
 import React, { createRef, Component } from 'react';
-import Button from '../components/Button';
+import CompleteDeed from '../components/CompleteDeed'
 import Title from '../components/Title';
 import '../components/Button.css';
 import '../components/Component.css';
@@ -49,10 +49,19 @@ class UploadPhoto extends Component {
   }
 
   getUIProperties () {
-    if (this.state.imageData) {
+    const { imageData } = this.state;
+    const { user } = this.props;
+    const { current } = user.deeds;
+    if (imageData) {
       // show picture
       return {
-        buttonClass: null,
+        completeDeedProps: {
+          deed: current,
+          imageData,
+          navigateFn: this.props.notImplemented,
+          text: 'Send picture as evidence >',
+          user
+        },
         imageClass: 'flexFixedSize UploadPhoto-image',
         inputText: 'Change the picture',
         setupFn: this.showPhoto
@@ -60,7 +69,7 @@ class UploadPhoto extends Component {
     } else {
       // show select button
       return {
-        buttonClass: 'UploadPhoto-hide',
+        completeDeedProps: null,
         imageClass: 'UploadPhoto-hide',
         inputText: 'Select a picture',
         setupFn: () => null
@@ -89,17 +98,16 @@ class UploadPhoto extends Component {
   }
 
   render () {
-    const { buttonClass, imageClass, inputText, setupFn } = this.getUIProperties();
-
+    const { completeDeedProps, imageClass, inputText, setupFn } = this.getUIProperties();
+    const completeDeed = completeDeedProps ? (<CompleteDeed {...completeDeedProps} />) : null;
     setupFn();
-
     return (
       <div className='flexContainerColumn'>
         <Title text='Upload a photo of your deed.' />
         <img ref={this.image} alt='what will be submitted' className={imageClass} />
         <canvas ref={this.canvas} className='UploadPhoto-hide' />
         {this.renderInput(inputText)}
-        <Button className={buttonClass} click={this.sendPhoto} text='Send picture as evidence >' />
+        {completeDeed}
       </div>
     );
   }
