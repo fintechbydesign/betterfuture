@@ -10,7 +10,7 @@ function Pledge (props) {
   const { current } = user.deeds;
   const completeDeedProps = {
     deed: current,
-    navigateFn: props.notImplemented,
+    navigateFns: props,
     text: 'I promise I\'ve done it >',
     user
   };

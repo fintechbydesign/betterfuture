@@ -59,7 +59,7 @@ class TakePhoto extends Component {
         completeDeedProps: {
           deed: current,
           imageData,
-          navigateFn: this.props.notImplemented,
+          navigateFns: this.props,
           text: 'Send picture as evidence >',
           user
         },

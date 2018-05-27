@@ -18,6 +18,8 @@ const postOptions = {
 
 const DELAY = 2000;
 
+const REFRESH = true;
+
 // a cache of Promises per endpoint
 const cache = {};
 
@@ -63,5 +65,6 @@ const postData = async(endpoint, body) => {
 
 export {
   getData,
-  postData
+  postData,
+  REFRESH
 };
