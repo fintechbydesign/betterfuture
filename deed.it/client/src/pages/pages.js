@@ -9,6 +9,7 @@ import Register from './Register';
 import StartDeed from './StartDeed';
 import TakePhoto from './TakePhoto';
 import TermsAndConditions from './TermsAndConditions';
+import Uploading from './Uploading';
 import UploadPhoto from './UploadPhoto';
 
 const alwaysOK = () => true;
@@ -64,6 +65,10 @@ export default {
   'termsAndConditions': {
     component: TermsAndConditions,
     isStateValid: alwaysOK
+  },
+  'uploading': {
+    component: Uploading,
+    isStateValid: alwaysOK,
   },
   'uploadPhoto': {
     component: UploadPhoto,

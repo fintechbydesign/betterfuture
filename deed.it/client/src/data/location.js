@@ -15,7 +15,6 @@ const getLocation = () => new Promise((resolve, reject) => {
     );
   }
 );
-
 const noService = () => Promise.resolve(null);
 
 export default navigator.geolocation ? getLocation : noService;

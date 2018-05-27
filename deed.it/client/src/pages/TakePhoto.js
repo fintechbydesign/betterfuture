@@ -4,6 +4,7 @@ import React, { createRef, Component } from 'react';
 import CompleteDeed from '../components/CompleteDeed'
 import Text from '../components/Text.js';
 import Title from '../components/Title.js';
+import { loadS3 } from '../data/S3';
 import './TakePhoto.css';
 
 const methods = ['captureVideo', 'reset', 'sendPhoto', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
@@ -16,6 +17,10 @@ class TakePhoto extends Component {
     this.video = createRef();
     this.canvas = createRef();
     this.image = createRef();
+  }
+
+  componentDidMount () {
+    loadS3();
   }
 
   startVideo () {

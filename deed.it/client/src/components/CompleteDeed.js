@@ -2,27 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
 import getLocation from '../data/location';
+import { prepareUpload } from '../data/S3';
 import { getUserDeeds, updateDeed, REFRESH } from '../data/deeds';
-import { uploadImage } from '../data/S3';
 
-const recordLocation = async(deed) => {
-  const coords = await getLocation();
-  if (coords) {
-    const updated = {
-      ...deed,
-      location: coords
-    };
-    await updateDeed(updated);
-    return updated;
-  }
-}
+const methods = ['completeDeed', 'createUploadArtifacts', 'toggleRecordLocation'];
 
 class CompleteDeed extends Component {
 
   constructor (props) {
     super(props);
-    this.completeDeed = this.completeDeed.bind(this);
-    this.toggleRecordLocation = this.toggleRecordLocation.bind(this);
+    methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
       recordLocation: true
     }
@@ -35,13 +24,31 @@ class CompleteDeed extends Component {
     });
   }
 
+  async createUploadArtifacts () {
+    const { deed, imageData } = this.props;
+    if (imageData) {
+      const upload = await prepareUpload(deed, imageData);
+      const uploadPromise = upload.promise();
+      return { upload, uploadPromise };
+    } else {
+      return { uploadPromise:  Promise.resolve() };
+    }
+  }
+
   async completeDeed () {
-    const {deed, imageData, navigateFns, user} = this.props;
+    const { deed, imageData, navigateFns, user } = this.props;
+    const { recordLocation } = this.state;
     try {
-      const {recordLocation} = this.state;
-      const uploadPromise = imageData ? uploadImage(deed, imageData) : Promise.resolve(null);
-      const locationPromise = recordLocation();
-      await Promise.all(locationPromise, uploadPromise);
+      const { upload, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
+      const locationPromise = recordLocation ? getLocation(deed) : Promise.resolve();
+      navigateFns.uploading(upload);
+      const [ coords ] = await Promise.all([locationPromise, uploadPromise]);
+      await updateDeed({
+        ...deed,
+        location: coords,
+        status: (imageData) ? 'approved' : 'unapproved'
+      });
+      // update user deeds before showing profile
       await getUserDeeds(user, REFRESH);
       navigateFns.myProfile();
     } catch (err) {
@@ -50,11 +57,12 @@ class CompleteDeed extends Component {
   }
 
   render () {
+    const { recordLocation } = this.state;
     return (
       <div>
         <Button click={this.completeDeed} text={this.props.text} />
         <div>
-          <input type='checkbox' id='location' onChange={this.toggleRecordLocation} checked={this.state.recordLocation} />
+          <input type='checkbox' id='location' onChange={this.toggleRecordLocation} checked={recordLocation} />
           <label htmlFor="location">Record your current location?</label>
         </div>
       </div>
@@ -64,8 +72,8 @@ class CompleteDeed extends Component {
 
 CompleteDeed.propTypes = {
   deed: PropTypes.object.isRequired,
-  imageData: PropTypes.object,
-  navigateFn: PropTypes.object.isRequired,
+  imageData: PropTypes.string,
+  navigateFns: PropTypes.object.isRequired,
   text: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired
 }

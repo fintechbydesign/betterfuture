@@ -56,7 +56,10 @@ const getData = (endpoint, force = false) => {
 const postData = async(endpoint, body) => {
   const endPoint = `${rootURLs.data}/${endpoint}`;
   await delay(DELAY);
-  const options = { ...postOptions, body: JSON.stringify(body) };
+  const options = { ...postOptions };
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
   const response = await fetch(endPoint, options);
   if (!response.ok) {
     throw createError(endPoint, response);

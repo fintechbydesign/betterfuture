@@ -3,17 +3,23 @@ import CompleteDeed from '../components/CompleteDeed'
 import Title from '../components/Title';
 import '../components/Button.css';
 import '../components/Component.css';
+import { loadS3 } from '../data/S3';
 import './UploadPhoto.css';
 
 const methods = ['fileSelected', 'renderInput', 'sendPhoto', 'showPhoto', 'storeImage', 'getUIProperties'];
 
 class UploadPhoto extends Component {
+
   constructor (props) {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {};
     this.canvas = createRef();
     this.image = createRef();
+  }
+
+  componentDidMount () {
+    loadS3();
   }
 
   fileSelected (event) {

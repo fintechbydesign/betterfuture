@@ -6,7 +6,7 @@
     1. clears old page-specific state
     2. updates the user state with the latest from the user repo
     3. setState(...) to redraw
-  - most navigation methods are generic; the error page has its own and there is an additional 'reset' method
+  - most navigation methods are generic; there are some special cases
   - all navigation methods, along with the user state are passed as props to all pages
  */
 
@@ -44,6 +44,10 @@ class App extends Component {
       console.trace();
       this.setState({...this.state, nextPageProps: { err }, pageName: 'error', user: getLocalUser()});
     };
+    navigationMethods.uploading = (uploadProgress) => {
+      console.log(`Setting page uploading with progress: ${uploadProgress}`);
+      this.setState({...this.state, nextPageProps: { uploadProgress }, pageName: 'uploading'});
+    }
     navigationMethods.reset = () => {
       removeUser();
       this.setState(this.createInitialState());

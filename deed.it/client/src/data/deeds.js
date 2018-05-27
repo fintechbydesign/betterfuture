@@ -62,7 +62,10 @@ const getUserDeeds = async(user, force = false) => {
 };
 
 const updateDeed = async(deed) => {
-  console.log('updateDeed not implemented');
+  const { id, status }= deed;
+  const endPoint = `set-deed-status/${id}/${status}`;
+  console.log('WARNING: updateDeed is not correct!');
+  return postData(endPoint);
 }
 
 export {
