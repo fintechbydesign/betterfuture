@@ -1,4 +1,4 @@
-import { getData, postData } from './fetchWrapper';
+import { getData, postData, REFRESH } from './fetchWrapper';
 
 let mappedDeedTypes;
 
@@ -37,12 +37,12 @@ const createDeed = async(user, deedType) => {
   return postData('create-user-deed', body);
 };
 
-const getUserDeeds = async(user) => {
+const getUserDeeds = async(user, force = false) => {
   if (!mappedDeedTypes) {
     await getDeedHierarchy();
   }
   const endpoint = `user-profile/${user.username}`;
-  const profile = await getData(endpoint);
+  const profile = await getData(endpoint, force);
   const deeds = profile.deeds || [];
   const events = profile.events || [];
   let current = deeds.filter((deed) => deed.status === 'created');
@@ -61,8 +61,14 @@ const getUserDeeds = async(user) => {
   return { current, approved, unapproved, events };
 };
 
+const updateDeed = async(deed) => {
+  console.log('updateDeed not implemented');
+}
+
 export {
   createDeed,
   getDeedHierarchy,
-  getUserDeeds
+  getUserDeeds,
+  updateDeed,
+  REFRESH
 };

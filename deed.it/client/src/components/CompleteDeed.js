@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
+import getLocation from '../data/location';
+import { getUserDeeds, updateDeed, REFRESH } from '../data/deeds';
+import { uploadImage } from '../data/S3';
 
-const getLocation = () => new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => resolve(position.coords),
-      (err) => {
-        console.log(`Position error: ${err.code} : ${err.message}`);
-        resolve(null);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0
-      });
+const recordLocation = async(deed) => {
+  const coords = await getLocation();
+  if (coords) {
+    const updated = {
+      ...deed,
+      location: coords
+    };
+    await updateDeed(updated);
+    return updated;
   }
-);
+}
 
 class CompleteDeed extends Component {
 
@@ -36,11 +36,17 @@ class CompleteDeed extends Component {
   }
 
   async completeDeed () {
-    const {deed, imageData, navigateFn, user} = this.props;
-    const { recordLocation }= this.state;
-    const location = recordLocation ? await getLocation() : null;
-    alert( location);
-    navigateFn();
+    const {deed, imageData, navigateFns, user} = this.props;
+    try {
+      const {recordLocation} = this.state;
+      const uploadPromise = imageData ? uploadImage(deed, imageData) : Promise.resolve(null);
+      const locationPromise = recordLocation();
+      await Promise.all(locationPromise, uploadPromise);
+      await getUserDeeds(user, REFRESH);
+      navigateFns.myProfile();
+    } catch (err) {
+      navigateFns.error(err);
+    }
   }
 
   render () {
@@ -59,7 +65,7 @@ class CompleteDeed extends Component {
 CompleteDeed.propTypes = {
   deed: PropTypes.object.isRequired,
   imageData: PropTypes.object,
-  navigateFn: PropTypes.func.isRequired,
+  navigateFn: PropTypes.object.isRequired,
   text: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired
 }

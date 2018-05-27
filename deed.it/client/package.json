@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aws-sdk": "^2.247.1",
     "lorem-ipsum": "^1.0.4",
     "nuka-carousel": "^4.2.1",
     "qrcode-react": "^0.1.16",
