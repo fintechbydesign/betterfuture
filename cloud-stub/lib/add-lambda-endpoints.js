@@ -81,7 +81,7 @@ function addLambdaEndpoints(app) {
     res.send(`deed created ${JSON.stringify(deed)}`);
   });
 
-  app.get('/deed-hierarchy', (req, res, next) => {
+  app.get('/deeditDeedHierarchy', (req, res, next) => {
     info('get deed hierarchy');
     res.json(getDeedHierarchy());
   });

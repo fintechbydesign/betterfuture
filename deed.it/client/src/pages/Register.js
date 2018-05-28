@@ -10,7 +10,7 @@ import ages from '../data/age.js';
 import countries from '../data/country.js';
 import DeedSummary from '../components/DeedSummary';
 
-const methods = ['getStarted', 'updateAge', 'updateCountry', 'updateUsername'];
+const methods = ['getStarted', 'updateAge', 'updateCountry', 'updateNickname'];
 
 class Register extends Component {
   constructor (props) {
@@ -19,7 +19,7 @@ class Register extends Component {
     this.state = {
       age: undefined,
       country: undefined,
-      username: undefined
+      nickname: undefined
     };
   }
 
@@ -37,20 +37,20 @@ class Register extends Component {
     });
   }
 
-  updateUsername (username) {
+  updateNickname (nickname) {
     this.setState({
       ...this.state,
-      username
+      nickname
     });
   }
 
   async getStarted () {
     try {
-      const {age, country, username} = this.state;
+      const {age, country, nickname} = this.state;
       const user = {
         ...this.props.user,
         personal: {age, country},
-        username
+        nickname
       };
       await createUser(user);
       await createDeed(user, user.deeds.selected.deedType);
@@ -70,8 +70,8 @@ class Register extends Component {
   render () {
     const { deedType } = this.props.user.deeds.selected;
     const { description, image } = deedType;
-    const { age, country, username } = this.state;
-    const buttonEnabled = age && country && username;
+    const { age, country, nickname } = this.state;
+    const buttonEnabled = age && country && nickname;
 
     return (
       <div>
@@ -80,7 +80,7 @@ class Register extends Component {
         <DeedSummary description={description} image={image} />
         <Text text='Before you get started, we just need a few details so we can track the progress of your deeds.' />
         <Text text='What can we call you?' />
-        <Input onChange={this.updateUsername} />
+        <Input onChange={this.updateNickname} />
         <Text text='Where are you from?' />
         <Dropdown options={countries} onChange={this.updateCountry} />
         <Text text='What age are you?' />

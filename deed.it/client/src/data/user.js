@@ -11,7 +11,7 @@ const createLocalUser = () => {
   }
   const user = {
     ...defaultUser,
-    id: uuidv4()
+    username: uuidv4()
   };
   set(USER, user);
   return user;
@@ -31,18 +31,24 @@ const updateLocalUser = (user) => {
   return user;
 };
 
+const removeLocalUser = () => remove(USER);
+
 const createUser = async(user) => {
-  const { username, personal } = user;
+  const { nickname, personal, username } = user;
   const { age, country } = personal;
-  await postData('create-user', { age, country, username });
+  await postData('create-user', { age, country, nickname, username });
 };
 
-const removeUser = () => remove(USER);
+const removeUser = async(user) => {
+  const endpoint = `remove-user/${user.username}`;
+  await postData(endpoint);
+}
 
 export {
   createLocalUser,
   getLocalUser,
   updateLocalUser,
+  removeLocalUser,
   createUser,
   removeUser
 };

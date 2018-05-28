@@ -10,7 +10,7 @@ function StartDeed (props) {
 
   return (
     <div>
-      <Title text={superDeed.superDeed} />
+      <Title text={superDeed.id} />
       <Text text={superDeed.description} />
       <Title text='Your Deed' />
       <Image src={deedType.image} />

@@ -1,6 +1,6 @@
 /* global localStorage */
 
-import React, { createRef, Component } from 'react';
+import React, { Component } from 'react';
 import Badge from './Badge';
 import Debug from './Debug';
 import Menu from './Menu';
@@ -11,15 +11,12 @@ import Ticker from './Ticker';
 import Video from './Video';
 import './WonderWall.css';
 
-const delay = () => new Promise((resolve) => setTimeout(resolve));
-
 const methods = [
   'addBadge',
   'addNews',
   'addPhoto',
   'addTile',
   'addVideo',
-  'resizeImage',
   'setPopupContent',
   'updateState'
 ];
@@ -27,9 +24,7 @@ const methods = [
 class WonderWall extends Component {
   constructor (props) {
     super(props);
-
     methods.forEach((method) => { this[method] = this[method].bind(this); });
-
     this.state = {
       debug: true,
       latestNews: undefined,
@@ -39,9 +34,6 @@ class WonderWall extends Component {
       tileFilter: () => true,
       usernames: new Set()
     };
-
-    this.canvas = createRef();
-    this.image = createRef();
   }
 
   componentDidMount () {
@@ -62,12 +54,8 @@ class WonderWall extends Component {
     this.addTile(tile);
   }
 
-  async addPhoto (photo) {
+  addPhoto (photo) {
     console.log('photo received: ', photo);
-    const img = this.image.current;
-    img.src = photo.src;
-    await delay(); // required to allow image to draw (invisibly!)
-    photo.smallSrc = this.resizeImage(photo.src, 320, 240);
     const tile = {
       type: 'photo',
       ...photo
@@ -100,15 +88,6 @@ class WonderWall extends Component {
       ...this.state,
       latestNews: news
     });
-  }
-
-  resizeImage (src, width, height) {
-    const canvas = this.canvas.current;
-    const img = this.image.current;
-    canvas.width = width;
-    canvas.height = height;
-    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-    return canvas.toDataURL('image/png');
   }
 
   setPopupContent (content) {
@@ -181,8 +160,6 @@ class WonderWall extends Component {
         <Ticker {...tickerProps} />
         <Debug {...debugProps} />
         <Popup {...popupProps} />
-        <img ref={this.image} alt='for resizing' className='WonderWall_hide' />
-        <canvas ref={this.canvas} className='WonderWall_hide' />
       </div>
     );
   }

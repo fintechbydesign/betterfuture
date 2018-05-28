@@ -1,14 +1,17 @@
 import React from 'react';
+import './Video.css'
 
 function Video (props) {
-  const height = props.isPopup ? '480' : '240';
-  const width = props.isPopup ? '640' : '320';
-  const onClick = props.isPopup
+  const { isPopup, setPopupContent, src } = props;
+  const className = 'Video_appear';
+  const height = isPopup ? '480' : '240';
+  const width = isPopup ? '640' : '320';
+  const onClick = isPopup
     ? null
-    : props.setPopupContent.bind(null, (<Video isPopup src={props.src} />));
-  const muted = !props.isPopup;
-
-  return (<video src={props.src} autoPlay loop muted={muted} height={height} width={width} onClick={onClick} />);
+    : setPopupContent.bind(null, (<Video isPopup src={props.src} />));
+  const muted = !isPopup;
+  const videoProps = { className, height, width, onClick, muted, src }
+  return (<video autoPlay loop {...videoProps} />);
 }
 
 export default Video;

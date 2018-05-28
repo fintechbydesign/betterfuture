@@ -1,5 +1,5 @@
 {
-  "id": {id},
+  "username": {id},
   "deeds" : {
     "selected": {
       "deedType": {deedType},
@@ -8,8 +8,8 @@
     "current" : {deed}
   },
   "personal" : {
-    "age": {age},
-    "country": {country}
+    "age": {string},
+    "country": {string}
   }
-  "username": {username}
+  "nickname": {string}
 }

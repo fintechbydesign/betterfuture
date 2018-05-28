@@ -77,11 +77,11 @@ class MyProfile extends Component {
     if (!deeds) {
       return (<Fetching text='Fetching your deeds' />);
     }
-    const { username, personal } = this.props.user;
+    const { nickname, personal } = this.props.user;
     const { country } = personal;
     return (
       <div className='page'>
-        <Title text={username} />
+        <Title text={nickname} />
         <Text text={country} />
         <Text text='Badges' />
         <Text text='Trophies' />

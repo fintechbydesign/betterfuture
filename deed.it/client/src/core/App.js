@@ -11,7 +11,7 @@
  */
 
 import React, { Component } from 'react';
-import { getLocalUser, removeUser } from '../data/user';
+import { createLocalUser, getLocalUser, removeLocalUser, removeUser } from '../data/user';
 import Error from '../pages/Error.js';
 import GlobalNav from '../components/GlobalNav';
 import PageHeader from '../components/PageHeader';
@@ -21,11 +21,28 @@ import './global.css';
 class App extends Component {
   constructor (props) {
     super(props);
-    this.state = {
+    this.reset = this.reset.bind(this);
+    this.state = this.createInitialState();
+    this.state.navigationMethods = this.createNavigationMethods();
+  }
+
+  createInitialState () {
+    return {
       pageName: 'home',
       user: getLocalUser()
     };
-    this.state.navigationMethods = this.createNavigationMethods();
+  }
+
+  async reset () {
+    try {
+      const { user } = this.state;
+      await removeUser(user);
+      removeLocalUser();
+      createLocalUser();
+      this.setState(this.createInitialState());
+    } catch (err) {
+      this.state.navigationMethods.error(err);
+    }
   }
 
   createNavigationMethods () {
@@ -48,10 +65,7 @@ class App extends Component {
       console.log(`Setting page uploading with progress: ${uploadProgress}`);
       this.setState({...this.state, nextPageProps: { uploadProgress }, pageName: 'uploading'});
     }
-    navigationMethods.reset = () => {
-      removeUser();
-      this.setState(this.createInitialState());
-    };
+    navigationMethods.reset = this.reset;
     navigationMethods.notImplemented = () => {
       alert('Not implemented');
     };
