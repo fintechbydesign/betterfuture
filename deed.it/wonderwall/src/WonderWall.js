@@ -6,6 +6,7 @@ import Debug from './Debug';
 import Menu from './Menu';
 import Photo from './Photo';
 import startPolling from './poller';
+import fetchUnapprovedEvidence from './fetchUnapprovedEvidence';
 import Popup from './Popup';
 import Ticker from './Ticker';
 import Video from './Video';
@@ -38,16 +39,17 @@ class WonderWall extends Component {
   }
 
   componentDidMount () {
+    const callbackEvents = {
+      'badge': this.addBadge,
+      'news': this.addNews,
+      'photo': this.addPhoto,
+      'video': this.addVideo
+    };
     if (this.state.admin) {
       this.addNews({src: 'IN ADMIN MODE'});
-      console.log('IN ADMIN');
+      fetchUnapprovedEvidence(callbackEvents);
     } else {
-      startPolling({
-        'badge': this.addBadge,
-        'news': this.addNews,
-        'photo': this.addPhoto,
-        'video': this.addVideo
-      });
+      startPolling(callbackEvents);
     }
   }
 

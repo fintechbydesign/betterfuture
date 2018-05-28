@@ -2,7 +2,7 @@ const BASE_URL = '';
 const URL = `${BASE_URL}/wonderwall/latest`
 const ONE_HOUR = 60 * 60 * 1000;
 const POLL_INTERVAL = 5 * ONE_HOUR;  // just for dev!
-const MINIMUM_TILES_TO_START = 5;
+const MINIMUM_TILES_TO_START = 20;
 
 const fetchOptions = {
   headers: {
