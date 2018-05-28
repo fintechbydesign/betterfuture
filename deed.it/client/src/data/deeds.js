@@ -21,7 +21,7 @@ const populateDeedTypesMap = (deedHierarchy) => {
 const appendDeedTypeProps = (deed) => ({ ...mappedDeedTypes[deed.deedTypeId], ...deed });
 
 const getDeedHierarchy = async() => {
-  const deedHierarchy = await getData('deed-hierarchy');
+  const deedHierarchy = await getData('deeditDeedHierarchy');
   // yuk yuk yuk
   if (!mappedDeedTypes) {
     populateDeedTypesMap(deedHierarchy);

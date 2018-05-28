@@ -36,9 +36,11 @@ const createGetPromise = (endpoint) => {
         const json = await response.json();
         resolve(json);
       } else {
+        delete cache[endpoint];
         reject(createError(endPoint, response));
       }
     } catch (err) {
+      delete cache[endpoint];
       reject(err);
     }
   });
