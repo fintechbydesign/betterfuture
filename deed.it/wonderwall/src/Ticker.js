@@ -60,12 +60,12 @@ class Ticker extends Component {
         update: false
       });
     }
-    setTimeout(this.reportNews, 15 * 1000);
+    setTimeout(this.reportNews, 10 * 1000);
   }
 
   render () {
     const tickerItems = this.state.currentNews.map((news, index) =>
-      (<div key={index} className={'Ticker-item'}>{news}</div>));
+      (<div key={index} className={'Ticker-item'}>{news.src}</div>));
     return (
       <div className='Ticker-wrap'>
         <div className='Ticker'>

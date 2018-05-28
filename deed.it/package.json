@@ -1,10 +1,9 @@
 {
-  "name": "deed.it",
+  "name": "deedit",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "sudo -b node ./server/server.js",
-    "stop": "sudo killall node",
+    "start": "echo \"Wrong directory - goto child directories 'client' and 'wonderwall\" && exit 1",
     "build-all": "find ./* -mindepth 1 -maxdepth 1 -name package.json -execdir npm run build \\;",
     "install-all": "find ./* -maxdepth 1 -name package.json -execdir npm install \\;"
   },
