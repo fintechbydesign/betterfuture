@@ -3,7 +3,7 @@ import CompleteDeed from '../components/CompleteDeed'
 import Title from '../components/Title';
 import '../components/Button.css';
 import '../components/Component.css';
-import { loadS3 } from '../data/S3';
+import { initS3 } from '../data/S3';
 import './UploadPhoto.css';
 
 const methods = ['fileSelected', 'renderInput', 'sendPhoto', 'showPhoto', 'storeImage', 'getUIProperties'];
@@ -19,7 +19,7 @@ class UploadPhoto extends Component {
   }
 
   componentDidMount () {
-    loadS3();
+    initS3();
   }
 
   fileSelected (event) {

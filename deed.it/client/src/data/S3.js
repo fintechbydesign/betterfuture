@@ -3,6 +3,8 @@ const region = 'eu-west-1';
 const IdentityPoolId = 'eu-west-1:38d36f69-6926-4e31-9d57-b56861af58b6';
 const Bucket = 'deedit-evidence-upload';
 
+let loadedS3;
+
 const loadS3 = () => import (/* webpackChunkName: "aws" */ 'aws-sdk').then(AWS => {
   AWS.config.update({
     region,
@@ -16,39 +18,35 @@ const loadS3 = () => import (/* webpackChunkName: "aws" */ 'aws-sdk').then(AWS =
   });
 });
 
-const uploadImage = (deed, image) => new Promise((resolve, reject) => {
-  const fileName = `${deed.id}.png`;
-  const params = {
-    ACL: 'public-read',
-    Body: image,
-    Key: fileName
-  };
-  loadS3().then(S3 => {
-    const upload = S3.upload(params, (err, data) => {
-      err ? reject(err) : resolve();
-    });
-    upload.on('httpUploadProgress', (progress) => {
-      const { loaded, total } = progress;
-      const msg = total ? `Uploaded ${loaded} of ${total} bytes` : `Uploaded ${loaded} bytes`;
-      console.log(msg);
-    })
-  })
-});
+const initS3 = async() => {
+  if (!loadedS3) {
+    loadedS3 = await loadS3();
+  }
+  return loadedS3;
+}
+
+// with thanks to https://stackoverflow.com/questions/13198131/how-to-save-an-html5-canvas-as-an-image-on-a-server
+const b64ToUint8Array = async(image) => {
+  const img = atob(image.split(',')[1]);
+  const imgBuffer = [];
+  for (let i=0 ; i < img.length; i++) {
+    imgBuffer.push(img.charCodeAt(i));
+  }
+  return new Uint8Array(imgBuffer);
+}
 
 const prepareUpload = async(deed, image) => {
-  const fileName = `${deed.id}.png`;
+  const [S3, Body] = await Promise.all([initS3(), b64ToUint8Array(image)]);
   const params = {
     ACL: 'public-read',
-    Body: image,
-    Key: fileName
+    Body,
+    Key: `${deed.id}.png`
   };
-  const S3 = await loadS3();
   return S3.upload(params);
 }
 
 export {
-  loadS3,
-  prepareUpload,
-  uploadImage
+  initS3,
+  prepareUpload
 };
 
