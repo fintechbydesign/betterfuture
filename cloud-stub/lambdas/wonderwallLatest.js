@@ -15,14 +15,12 @@ const composeResponse = (statusCode, body) => ({
 const generateTile = ({username, src, timestamp, type}) => ({username, src, timestamp, type});
 const timestampNewToOld = (a, b) => b.timestamp - a.timestamp;
 
-function createWonderwall(completedDeeds, recentNews, recentBadges) {
-  const videos = completedDeeds
-    .filter(deed => deed.evidenceType === 'video')
-    .map(deed => generateTile({ ...deed, timestamp: deed.completedTimestamp, type: 'video' }));
+function createWonderwall(recentDeeds, deedStatus, recentNews, recentBadges) {
+  const videos = recentDeeds.filter(deed => deed.evidenceType === 'video')
+    .map(deed => generateTile({ ...deed, timestamp: deed[`${deedStatus}Timestamp`], type: 'video' }));
 
-  const photos = completedDeeds
-    .filter(deed => deed.evidenceType === 'photo')
-    .map(deed => generateTile({ ...deed, timestamp: deed.completedTimestamp, type: 'photo' }));
+  const photos = recentDeeds.filter(deed => deed.evidenceType === 'photo')
+    .map(deed => generateTile({ ...deed, timestamp: deed[`${deedStatus}Timestamp`], type: 'photo' }));
 
   const news = recentNews
     .map(event => generateTile({ ...event, timestamp: event.eventTimestamp, type: 'news' }));
@@ -30,47 +28,76 @@ function createWonderwall(completedDeeds, recentNews, recentBadges) {
   const badges = recentBadges
     .map(event => generateTile({ ...event, timestamp: event.eventTimestamp, type: 'badge' }));
 
-  const results = [ ...videos, ...photos, ...news, ...badges].sort(timestampNewToOld);
-  return results;
+  return [ ...videos, ...photos, ...news, ...badges].sort(timestampNewToOld);
 }
 
-// deeditWonderwallLatest
-exports.handler = function (event, ctx, callback) {
-  const oldestTimestamp = `${Date.now() - (HOUR * 24)}`;
-  const queryCompletedDeeds = {
-    TableName : 'deeds',
-    IndexName: 'deedStatus-index',
-    KeyConditionExpression: 'deedStatus = :deedStatus',
-    ExpressionAttributeValues: {
-      ':deedStatus': 'completed'
-    }
-  };
-  const queryRecentNews = {
-    TableName : 'events',
-    IndexName: 'eventType-eventTimestamp-index',
-    KeyConditionExpression: 'eventType = :eventType AND eventTimestamp > :oldestTS',
-    ExpressionAttributeValues: {
-      ':eventType': 'news',
-      ':oldestTS': oldestTimestamp
-    }
-  };
+function getRecentDeeds(deedStatus, oldestTimestamp) {
+  return new Promise((resolve, reject) => {
+    const queryRecentCompletedDeeds = {
+      TableName : 'deeds',
+      IndexName: `deedStatus-${deedStatus}Timestamp-index`,
+      KeyConditionExpression: `deedStatus = :deedStatus AND ${deedStatus}Timestamp > :oldestTS`,
+      ExpressionAttributeValues: {
+        ':deedStatus': deedStatus,
+        ':oldestTS': oldestTimestamp
+      }
+    };
 
-  docClient.query(queryCompletedDeeds, function (err, completedDeedsResponse) {
-    if (err) {
-      callback(err, null);
-    } else {
-      docClient.query(queryRecentNews, function (err, recentNewsResponse) {
-        if (err) {
-          callback(err, null);
-        } else {
-          // Merge the result
-          const completedDeeds = completedDeedsResponse.Items;
-          const recentNews = recentNewsResponse.Items;
-          const wonderwall = createWonderwall(completedDeeds, recentNews, []);
-
-          callback(null, composeResponse(200, JSON.stringify(wonderwall)));
-        }
-      });
-    }
+    docClient.query(queryRecentCompletedDeeds, function (err, recentCompletedDeeds) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(recentCompletedDeeds.Items);
+      }
+    });
   });
+}
+
+
+function getRecentEvents(eventType, oldestTimestamp) {
+  return new Promise((resolve, reject) => {
+    const queryRecentNews = {
+      TableName : 'events',
+      IndexName: 'eventType-eventTimestamp-index',
+      KeyConditionExpression: 'eventType = :eventType AND eventTimestamp > :oldestTS',
+      ExpressionAttributeValues: {
+        ':eventType': eventType,
+        ':oldestTS': oldestTimestamp
+      }
+    };
+
+    docClient.query(queryRecentNews, function (err, recentEvents) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(recentEvents.Items);
+      }
+    });
+  });
+}
+
+// deeditWonderwallLatest?oldestTimestamp=12341234123?deedStatus=pending
+exports.handler = async function (event, ctx, callback) {
+  let oldestTimestamp = `${Date.now() - (HOUR * 24)}`;
+  let deedStatus = 'completed';
+
+  if (event.queryStringParameters) {
+    if (event.queryStringParameters.oldestTimestamp) {
+      oldestTimestamp = event.queryStringParameters.oldestTimestamp;
+    }
+    if (event.queryStringParameters.deedStatus) {
+      deedStatus = event.queryStringParameters.deedStatus;
+    }
+  }
+
+  try {
+    const deeds = await getRecentDeeds(deedStatus, oldestTimestamp);
+    const recentNews = await getRecentEvents('news', oldestTimestamp);
+    const recentBadges = await getRecentEvents('badge', oldestTimestamp);
+    const wonderwall = createWonderwall(deeds, deedStatus, recentNews, recentBadges);
+
+    callback(null, composeResponse(200, JSON.stringify(wonderwall)));
+  } catch (error) {
+    callback(null, composeResponse(500, error.message));
+  }
 };

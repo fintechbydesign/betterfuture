@@ -11,29 +11,10 @@ const composeResponse = (statusCode, body) => ({
   statusCode
 });
 
-// deeditUserProfile?username=xxx
-exports.handler = function (event, ctx, callback) {
-  const username = event.queryStringParameters.username;
-
-  if (username) {
+function getUser(username) {
+  return new Promise((resolve, reject) => {
     const queryUser = {
       TableName: 'users',
-      KeyConditionExpression: 'username = :username',
-      ExpressionAttributeValues: {
-        ':username': username
-      }
-    };
-    const queryUserDeeds = {
-      TableName : 'deeds',
-      IndexName: 'username-index',
-      KeyConditionExpression: 'username = :username',
-      ExpressionAttributeValues: {
-        ':username': username
-      }
-    };
-    const queryUserEvents = {
-      TableName : 'event',
-      IndexName: 'username-index',
       KeyConditionExpression: 'username = :username',
       ExpressionAttributeValues: {
         ':username': username
@@ -42,33 +23,72 @@ exports.handler = function (event, ctx, callback) {
 
     docClient.query(queryUser, function(err, userResponse){
       if (err) {
-        callback(err, null);
-      } else if (userResponse.Count !== 1) {
-        callback(null, composeResponse(404, 'No unique data found for username'));
+        reject(err);
       } else {
-        // Got the user, now getting its deeds
-        docClient.query(queryUserDeeds, function(err, deedsResponse){
-          if (err) {
-            callback(err, null);
-          } else {
-            // now getting its events
-            docClient.query(queryUserEvents, function(err, eventsResponse){
-              if (err) {
-                callback(err, null);
-              } else {
-                // merging the response
-                const response = {
-                  user: userResponse.Items[0],
-                  deeds: deedsResponse.Items,
-                  events: eventsResponse.Items
-                };
-                callback(null, composeResponse(200, JSON.stringify(response)));
-              }
-            });
-          }
-        });
+        resolve(userResponse.Items[0]);
       }
     });
+  });
+}
+
+function getUserDeeds(username) {
+  return new Promise((resolve, reject) => {
+    const queryUserDeeds = {
+      TableName: 'deeds',
+      IndexName: 'username-index',
+      KeyConditionExpression: 'username = :username',
+      ExpressionAttributeValues: {
+        ':username': username
+      }
+    };
+
+    docClient.query(queryUserDeeds, function (err, userDeeds) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(userDeeds.Items);
+      }
+    });
+  });
+}
+
+function getUserEvents(username) {
+  return new Promise((resolve, reject) => {
+    const queryUserEvents = {
+      TableName : 'events',
+      IndexName: 'username-index',
+      KeyConditionExpression: 'username = :username',
+      ExpressionAttributeValues: {
+        ':username': username
+      }
+    };
+
+    docClient.query(queryUserEvents, function (err, userEvents) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(userEvents.Items);
+      }
+    });
+  });
+}
+
+// deeditUserProfile?username=xxx
+exports.handler = async function (event, ctx, callback) {
+  const username = event.queryStringParameters.username;
+
+  if (username) {
+    try {
+      const user = await getUser(username);
+      const deeds = await getUserDeeds(username);
+      const events = await getUserEvents(username);
+
+      // merging the response
+      const response = { user, deeds, events };
+      callback(null, composeResponse(200, JSON.stringify(response)));
+    } catch (error) {
+      callback(null, composeResponse(500, error.message));
+    }
   }
   else {
     callback(null, composeResponse(404, 'No username provided'));

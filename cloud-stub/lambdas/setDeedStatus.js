@@ -8,25 +8,29 @@ const parametersError = {
   headers: {
     'Content-Type': 'application/json'
   },
-  body: 'Missing deedId or status'
+  body: 'Missing deedId or deedStatus'
 };
 
 // setDeedStatus
 exports.handler = function (event, ctx, callback) {
   const eventBody = JSON.parse(event.body);
-  const { deedId, status } = eventBody;
+  const { deedId, deedStatus, ...extraAttribs } = eventBody;
 
-  if (deedId && status) {
+  if (deedId && deedStatus) {
+    // The basic attributes update is are status
     const AttributeUpdates = {
-      status: {
+      deedStatus: {
         Action: 'PUT',
-        Value: status
+        Value: deedStatus
       },
-      [`${status}Timestamp`]: {
+      [`${deedStatus}Timestamp`]: {
         Action: 'PUT',
         Value: Date.now()
       }
     };
+    Object.keys(extraAttribs).forEach(attrib => {
+      AttributeUpdates[attrib] = { Action: 'PUT', Value: eventBody[attrib] };
+    });
 
     const updateParams = {
       TableName: 'deeds',
