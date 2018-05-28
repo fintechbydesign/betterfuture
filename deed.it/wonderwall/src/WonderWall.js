@@ -26,6 +26,7 @@ class WonderWall extends Component {
     super(props);
     methods.forEach((method) => { this[method] = this[method].bind(this); });
     this.state = {
+      admin: !!window.ADMIN_MODE,
       debug: true,
       latestNews: undefined,
       popupContent: undefined,
@@ -37,12 +38,17 @@ class WonderWall extends Component {
   }
 
   componentDidMount () {
-    startPolling({
-      'badge': this.addBadge,
-      'news': this.addNews,
-      'photo': this.addPhoto,
-      'video': this.addVideo
-    });
+    if (this.state.admin) {
+      this.addNews({src: 'IN ADMIN MODE'});
+      console.log('IN ADMIN');
+    } else {
+      startPolling({
+        'badge': this.addBadge,
+        'news': this.addNews,
+        'photo': this.addPhoto,
+        'video': this.addVideo
+      });
+    }
   }
 
   addBadge (src, username) {

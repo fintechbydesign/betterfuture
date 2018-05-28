@@ -19,7 +19,12 @@ const setLatestTileTimestamp = (millis) => {
   latestTileTimestamp = millis;
 }
 
-const createError = (response) => new Error(`fetch error: HTTP code  ${response.status} : ${response.statusText}`);
+const reportError = (errMsg) => {
+  console.log(errMsg);
+  if (callbackEvents) {
+    callbackEvents.news({ src: errMsg });
+  }
+}
 
 const getLatestTiles = async(timestamp) => {
   console.log(`Polling for tiles since ${new Date(timestamp).toLocaleString()}`);
@@ -30,10 +35,10 @@ const getLatestTiles = async(timestamp) => {
       const json = await response.json();
       return json.results;
     } else {
-      console.log(createError(response));
+      reportError(`fetch error: HTTP code  ${response.status} : ${response.statusText}`);
     }
   } catch (err) {
-    console.log(err);
+    reportError(err.message);
   }
   return [];
 }
@@ -43,7 +48,7 @@ const processTile = (tile) => {
   if (type in callbackEvents) {
     callbackEvents[type](tile);
   } else {
-    console.log(`Unknown tile type '${type}`);
+    reportError(`Unknown tile type '${type}`);
   }
   setLatestTileTimestamp(timestamp);
 }
@@ -68,7 +73,7 @@ const start = async(events) => {
     tiles = await getLatestTiles(timestamp); 
   }
   if (tiles.length < MINIMUM_TILES_TO_START ) {
-    console.log('Error: Insufficient tiles to display');
+    reportError('Error: Insufficient tiles to display');
   } else {
     processTiles(tiles);
   }
