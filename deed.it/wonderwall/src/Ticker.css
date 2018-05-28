@@ -29,7 +29,7 @@
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   animation-name: ticker;
-  animation-duration: 15s;
+  animation-duration: 10s;
 }
 .Ticker-wrap .Ticker-item {
   display: inline-block;

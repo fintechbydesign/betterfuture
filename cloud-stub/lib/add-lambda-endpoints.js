@@ -19,9 +19,10 @@ function addLambdaEndpoints(app) {
     res.json(getData());
   });
 
-  app.get('/wonderwall/latest', (req, res, next) => {
-    info('Latest from Wonderwall');
-    res.json({ results: getWonderwallLatest() });
+  app.get('/wonderwall/latest/:timestamp', (req, res, next) => {
+    const timestamp = req.params.timestamp;
+    info('Latest from Wonderwall since ' + timestamp);
+    res.json({ results: getWonderwallLatest(timestamp) });
   });
 
   app.get('/wonderwall/user/:username', (req, res, next) => {

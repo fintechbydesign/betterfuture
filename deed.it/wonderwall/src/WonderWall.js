@@ -1,11 +1,11 @@
 /* global localStorage */
 
-import io from 'socket.io-client';
 import React, { createRef, Component } from 'react';
 import Badge from './Badge';
 import Debug from './Debug';
 import Menu from './Menu';
 import Photo from './Photo';
+import startPolling from './poller';
 import Popup from './Popup';
 import Ticker from './Ticker';
 import Video from './Video';
@@ -18,26 +18,17 @@ const methods = [
   'addNews',
   'addPhoto',
   'addTile',
-  'addUser',
-  'addUsername',
   'addVideo',
   'resizeImage',
   'setPopupContent',
   'updateState'
 ];
 
-const badgeMethods = {
-  'addGoldBadge': './images/gold-badge.png',
-  'addSilverBadge': './images/silver-badge.png',
-  'addBronzeBadge': './images/bronze-badge.png'
-};
-
 class WonderWall extends Component {
   constructor (props) {
     super(props);
 
     methods.forEach((method) => { this[method] = this[method].bind(this); });
-    Object.entries(badgeMethods).forEach(([method, src]) => { this[method] = this.addBadge.bind(this, src); });
 
     this.state = {
       debug: true,
@@ -51,13 +42,15 @@ class WonderWall extends Component {
 
     this.canvas = createRef();
     this.image = createRef();
+  }
 
-    const socketURL = this.state.debug ? 'https://localhost' : undefined;
-    const socket = io(socketURL);
-    socket.on('news', this.addNews);
-    socket.on('photo', this.addPhoto);
-    socket.on('user', this.addUser);
-    socket.on('video', this.addVideo);
+  componentDidMount () {
+    startPolling({
+      'badge': this.addBadge,
+      'news': this.addNews,
+      'photo': this.addPhoto,
+      'video': this.addVideo
+    });
   }
 
   addBadge (src, username) {
@@ -85,18 +78,6 @@ class WonderWall extends Component {
     this.addTile(tile);
   }
 
-  addUser (user) {
-    this.addNews(`Thankyou ${user.username} for registering`);
-  }
-
-  addUsername (username) {
-    if (!this.state.usernames.has(username)) {
-      this.state.usernames.add(username);
-      this.addNews(`Congratulations ${username} on completing your first deed`);
-      this.addBronzeBadge(username);
-    }
-  }
-
   addVideo (video) {
     console.log('video received: ', video);
     const tile = {
@@ -107,7 +88,6 @@ class WonderWall extends Component {
   }
 
   addTile (tile) {
-    this.addUsername(tile.username);
     this.setState(prevState => ({
       ...prevState,
       tiles: [tile, ...prevState.tiles]
@@ -186,7 +166,6 @@ class WonderWall extends Component {
       enable: this.state.debug,
       addNews: this.addNews
     };
-    Object.keys(badgeMethods).forEach(method => { debugProps[method] = this[method]; });
 
     const popupProps = {
       content: this.state.popupContent,
