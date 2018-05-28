@@ -34,6 +34,7 @@ class PickADeed extends Component {
   async fetchDeeds () {
     try {
       const deedHierarchy = await getDeedHierarchy();
+      console.log('pickADeed', 'fetchDeeds', deedHierarchy);
       this.setSelected(deedHierarchy[0], deedHierarchy[0].deedTypes[0]);
       this.setState({
         ...this.state,
@@ -45,6 +46,7 @@ class PickADeed extends Component {
   }
 
   setSelected (superDeed, deedType) {
+    console.log('setSelected', superDeed, deedType);
     this.selected = {
       ...this.selected,
       superDeed,
@@ -96,7 +98,7 @@ class PickADeed extends Component {
     }
     const panels = deedHierarchy.map((superDeed) => ({
       content: this.renderSuperDeed(superDeed),
-      label: superDeed.superDeed
+      label: superDeed.id
     }));
     const onChange = (index) => {
       // bug (?) in Collapse that allows undefined active key to be passed

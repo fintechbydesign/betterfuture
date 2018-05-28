@@ -46,10 +46,10 @@ class Register extends Component {
 
   async getStarted () {
     try {
-      const {age, country, username} = this.state;
+      const { age, country, username } = this.state;
       const user = {
         ...this.props.user,
-        personal: {age, country},
+        personal: { age, country },
         username
       };
       await createUser(user);

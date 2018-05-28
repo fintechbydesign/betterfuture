@@ -47,7 +47,7 @@ class App extends Component {
     navigationMethods.uploading = (uploadProgress) => {
       console.log(`Setting page uploading with progress: ${uploadProgress}`);
       this.setState({...this.state, nextPageProps: { uploadProgress }, pageName: 'uploading'});
-    }
+    };
     navigationMethods.reset = () => {
       removeUser();
       this.setState(this.createInitialState());

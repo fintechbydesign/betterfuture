@@ -8,20 +8,20 @@ const parametersError = {
   headers: {
     'Content-Type': 'application/json'
   },
-  body: 'Missing username, country or ageRange'
+  body: 'Missing username, country or age'
 };
 
 exports.handler = function (event, ctx, callback) {
   const eventBody = JSON.parse(event.body);
-  const { username, country, ageRange } = eventBody;
+  const { username, country, age } = eventBody;
 
   // Ignoring any other non mandatory field
-  if (username && country && ageRange) {
+  if (username && country && age) {
     const putParams = {
       Item: {
         username,
         country,
-        ageRange,
+        age,
         creationTimestamp: Date.now()
       },
       TableName: 'users'
