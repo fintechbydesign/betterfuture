@@ -6,20 +6,21 @@ const parametersError = {
   isBase64Encoded: false,
   statusCode: 422,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'
   },
-  body: 'Missing username, country or age'
+  body: 'Missing userid, username, country or age'
 };
 
 exports.handler = function (event, ctx, callback) {
   const eventBody = JSON.parse(event.body);
-  const { username, country, age } = eventBody;
+  const { username, nickname, country, age } = eventBody;
 
   // Ignoring any other non mandatory field
-  if (username && country && age) {
+  if (username && nickname && country && age) {
     const putParams = {
       Item: {
         username,
+        nickname,
         country,
         age,
         creationTimestamp: Date.now()

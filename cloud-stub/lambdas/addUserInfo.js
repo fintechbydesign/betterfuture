@@ -6,7 +6,7 @@ const parametersError = {
   isBase64Encoded: false,
   statusCode: 422,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'
   },
   body: 'Missing username'
 };

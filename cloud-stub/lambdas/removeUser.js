@@ -5,7 +5,7 @@ const docClient = new AWS.DynamoDB.DocumentClient({ region: 'eu-west-1' });
 const composeResponse = (statusCode, body) => ({
   isBase64Encoded: false,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'
   },
   body,
   statusCode
@@ -37,6 +37,10 @@ const updateDeedsParams = (deedId) => ({
   },
   AttributeUpdates: {
     username: {
+      Action: 'PUT',
+      Value: 'Anonymous'
+    },
+    nickname: {
       Action: 'PUT',
       Value: 'Anonymous'
     }
