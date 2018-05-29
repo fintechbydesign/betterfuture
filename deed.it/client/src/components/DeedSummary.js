@@ -9,7 +9,7 @@ import './DeedSummary.css';
 function DeedSummary (props) {
   return (
     <header className='flexContainerRow'>
-      <Image className='DeedSummary-image' alt='logo' src={props.image} />
+      <Image className='DeedSummary-image' alt='logo' src={props.image} type='userImage' />
       <Text text={props.description} />
     </header>
   );

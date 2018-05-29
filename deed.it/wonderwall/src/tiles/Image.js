@@ -32,7 +32,13 @@ class Image extends Component {
     const onClick = isPopup
       ? null
       : setPopupContent.bind(null, (<Image isPopup {...this.props} />));
-    const imgProps = { alt, className, height, width, onClick, onLoad, src };
+
+    const imgSrc = (typeof src !== 'string')
+      ? src
+      : (src.startsWith('http')  || src.startsWith('/static'))
+        ? src
+        : `https://assets.deedit.org/${src}`;
+    const imgProps = { alt, className, height, width, onClick, onLoad, src: imgSrc };
     return (<img {...imgProps} />);
   }
 }

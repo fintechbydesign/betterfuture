@@ -66,7 +66,7 @@ class WonderWall extends Component {
 
   addBadge (src, username) {
     const tile = {
-      src,
+        ...src,
       type: 'badge',
       username
     };
