@@ -7,8 +7,8 @@ import {createSelectedDeed} from "../data/deeds";
 
 function StartDeed (props) {
   const { error, myProfile, register, user } = props;
-  const { deeds, registered } = user;
-  const { superDeed, deedType } = deeds.selected;
+  const { selected, registered } = user;
+  const { superDeed, deedType } = selected;
 
   const startDeed = async() => {
     try {

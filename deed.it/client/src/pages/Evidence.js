@@ -11,7 +11,7 @@ class Evidence extends Component {
     const radioOptions = [
       { name: 'evidence', text: 'Upload an existing photo or a video', onChange: this.setPage.bind(this, 'uploadPhoto') },
       { name: 'evidence', text: 'Take a photo and upload', onChange: this.setPage.bind(this, 'takePhoto') },
-      { name: 'evidence', text: 'Just report the deeed done', onChange: this.setPage.bind(this, 'pledge') }
+      { name: 'evidence', text: 'Just report the deed done', onChange: this.setPage.bind(this, 'pledge') }
     ];
     this.state = {
       page: null,

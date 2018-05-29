@@ -4,6 +4,7 @@ import Button from './Button';
 import getLocation from '../data/location';
 import { prepareUpload } from '../data/S3';
 import { getUserDeeds, updateDeed, REFRESH } from '../data/deeds';
+import {updateLocalUser} from "../data/user";
 
 const methods = ['completeDeed', 'createUploadArtifacts', 'toggleRecordLocation'];
 
@@ -47,6 +48,10 @@ class CompleteDeed extends Component {
         ...deed,
         location: coords,
         status: (imageData) ? 'approved' : 'unapproved'
+      });
+      updateLocalUser({
+        ...user,
+        selected: null
       });
       // update user deeds before showing profile
       await getUserDeeds(user, REFRESH);

@@ -57,12 +57,12 @@ class TakePhoto extends Component {
   getUIProperties () {
     const { imageData } = this.state;
     const { user } = this.props;
-    const { current } = user.deeds;
+    const { deed } = user.selected;
     if (imageData) {
       // show picture
       return {
         completeDeedProps: {
-          deed: current,
+          deed,
           imageData,
           navigateFns: this.props,
           text: 'Send picture as evidence >',

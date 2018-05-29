@@ -57,10 +57,7 @@ class PickADeed extends Component {
   selectDeed () {
     const user = {
       ...this.props.user,
-      deeds: {
-        ...this.props.user.deeds,
-        selected: this.selected
-      }
+      selected: this.selected
     };
     updateLocalUser(user);
     this.props.startDeed();

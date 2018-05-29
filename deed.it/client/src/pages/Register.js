@@ -61,7 +61,7 @@ class Register extends Component {
   }
 
   render () {
-    const { deedType } = this.props.user.deeds.selected;
+    const { deedType } = this.props.user.selected;
     const { description, image } = deedType;
     const { age, country, nickname } = this.state;
     const buttonEnabled = age && country && nickname;
