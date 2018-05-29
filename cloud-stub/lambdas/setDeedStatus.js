@@ -2,14 +2,14 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient({region: 'eu-west-1'});
 
-const parametersError = {
+const composeResponse = (statusCode, body) => ({
   isBase64Encoded: false,
-  statusCode: 422,
   headers: {
     'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'
   },
-  body: 'Missing deedId or deedStatus'
-};
+  body,
+  statusCode
+});
 
 // setDeedStatus
 exports.handler = function (event, ctx, callback) {
@@ -40,16 +40,15 @@ exports.handler = function (event, ctx, callback) {
       AttributeUpdates
     };
 
-    docClient.update(updateParams, function (err, data) {
-      if (err) {
-        callback(err, null);
+    docClient.update(updateParams, function (error, data) {
+      if (error) {
+        callback(null, composeResponse(500, error.message));
       } else {
-        callback(null, data);
+        callback(null, composeResponse(200, JSON.stringify(data)));
       }
     });
-  }
-  else {
-    callback(null, parametersError);
+  } else {
+    callback(null, composeResponse(422, 'Missing deedId or deedStatus'));
   }
 };
 

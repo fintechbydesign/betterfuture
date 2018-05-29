@@ -72,6 +72,7 @@ function anonymizeUserDeeds(username) {
             }
           });
         });
+        resolve(null);
       }
     });
   });
@@ -109,6 +110,7 @@ function deleteUserEvents(username) {
             }
           });
         });
+        resolve(null);
       }
     });
   });
@@ -121,10 +123,10 @@ exports.handler = async function (event, ctx, callback) {
   // Ignoring any other non mandatory field
   if (username) {
     try {
-      await deleteUser(username);
       await anonymizeUserDeeds(username, callback);
       await deleteUserEvents(username, callback);
-      callback(null, composeResponse(200, "user deleted"));
+      const response = await deleteUser(username);
+      callback(null, composeResponse(200, JSON.stringify(response)));
     } catch (error) {
       callback(null, composeResponse(500, error.message));
     }

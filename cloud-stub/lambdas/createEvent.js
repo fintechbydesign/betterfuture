@@ -2,14 +2,14 @@
 const AWS = require("aws-sdk");
 const docClient = new AWS.DynamoDB.DocumentClient({ region: 'eu-west-1' });
 
-const parametersError = {
+const composeResponse = (statusCode, body) => ({
   isBase64Encoded: false,
-  statusCode: 422,
   headers: {
     'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'
   },
-  body: 'Missing id, username, nickname, eventType or src'
-};
+  body,
+  statusCode
+});
 
 exports.handler = function (event, ctx, callback) {
   const eventBody = JSON.parse(event.body);
@@ -29,14 +29,14 @@ exports.handler = function (event, ctx, callback) {
       TableName: 'events'
     };
 
-    docClient.put(putParams, function (err, data) {
-      if (err) {
-        callback(err, null);
+    docClient.put(putParams, function (error, data) {
+      if (error) {
+        callback(null, composeResponse(500, error.message));
       } else {
-        callback(null, data);
+        callback(null, composeResponse(200, JSON.stringify(data)));
       }
     });
   } else {
-    callback(null, parametersError);
+    callback(null, composeResponse(422, 'Missing id, username, nickname, eventType or src'));
   }
 };
