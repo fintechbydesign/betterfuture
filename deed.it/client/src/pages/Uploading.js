@@ -23,8 +23,11 @@ class Uploading extends Component {
   }
 
   render () {
+    const { uploadMsg } = this.props;
     const { percentage } = this.state;
-    const msg = percentage ? `Uploaded ${percentage}%` : 'Uploading...';
+    const prefix = uploadMsg ? uploadMsg : 'Uploading data...';
+    const suffix = percentage ? `${percentage}%` : '';
+    const msg = `${prefix}${suffix}`;
     return (
       <div>
         <Fetching text={msg}/>

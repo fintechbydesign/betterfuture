@@ -30,11 +30,12 @@ class MyProfile extends Component {
   async fetchDeeds () {
     const { error, user } = this.props;
     try {
-      const { approved, unapproved, events, inProgress } = await getUserDeeds(user);
+      const { completed, rejected, unapproved, events, inProgress } = await getUserDeeds(user);
       this.setState({
         ...this.state,
         deeds: {
-          approved,
+          completed,
+          rejected,
           unapproved,
           inProgress
         },
@@ -82,8 +83,8 @@ class MyProfile extends Component {
   }
 
   renderPrevious () {
-    const { approved, unapproved } = this.state.deeds;
-    const all = [...unapproved, ...approved];
+    const { completed, rejected, unapproved } = this.state.deeds;
+    const all = [...unapproved, ...completed, ...rejected];
     const summaries = all.map((deed, index) => (<DeedSummary key={index} {...deed} />));
     return summaries;
   }

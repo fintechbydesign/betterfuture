@@ -40,14 +40,14 @@ class CompleteDeed extends Component {
     const { deed, imageData, navigateFns, user } = this.props;
     const { recordLocation } = this.state;
     try {
-      const { upload, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
+      const { uploadProgress, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
       const locationPromise = recordLocation ? getLocation(deed) : Promise.resolve();
-      navigateFns.uploading({upload});
+      navigateFns.uploading({uploadProgress});
       const [ coords ] = await Promise.all([locationPromise, uploadPromise]);
       await updateDeed({
         ...deed,
         location: coords,
-        status: (imageData) ? 'approved' : 'unapproved'
+        status: (imageData) ? 'unapproved' : 'completed'
       });
       updateLocalUser({
         ...user,

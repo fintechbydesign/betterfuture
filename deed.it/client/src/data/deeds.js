@@ -1,5 +1,4 @@
 import { getData, postData, REFRESH } from './fetchWrapper';
-import { updateLocalUser } from "./user";
 
 let mappedDeedTypes;
 
@@ -44,10 +43,6 @@ const createSelectedDeed = async(user) => {
     throw new Error('No selected deed type');
   }
   await createDeed(user, user.selected.deedType)
-  updateLocalUser({
-    ...user,
-    selected: null
-  });
 };
 
 const getUserDeeds = async(user, force = false) => {
@@ -63,9 +58,10 @@ const getUserDeeds = async(user, force = false) => {
   const inProgress = (created.lehgth === 0)
     ? null
     : created.map(appendDeedTypeProps);
-  const approved = deeds.filter((deed) => deed.deedStatus === 'approved').map(appendDeedTypeProps);
+  const completed = deeds.filter((deed) => deed.deedStatus === 'completed').map(appendDeedTypeProps);
   const unapproved = deeds.filter((deed) => deed.deedStatus === 'unapproved').map(appendDeedTypeProps);
-  return { inProgress, approved, unapproved, events };
+  const rejected = deeds.filter((deed) => deed.deedStatus === 'rejected').map(appendDeedTypeProps);
+  return { inProgress, completed, rejected, unapproved, events };
 };
 
 const updateDeed = async(deed) => {

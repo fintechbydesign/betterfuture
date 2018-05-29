@@ -50,7 +50,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "lint": "eslint ./src"
   },
-  "proxy": "http://localhost:11111",
+  "proxy": "https://brg39dfup5.execute-api.eu-west-1.amazonaws.com/development/",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
