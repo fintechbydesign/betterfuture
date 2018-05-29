@@ -53,6 +53,10 @@ class Register extends Component {
         nickname
       };
       await createUser(user);
+      updateLocalUser({
+        ...user,
+        registered: true
+      });
       await createDeed(user, user.deeds.selected.deedType);
       updateLocalUser({
         ...user,

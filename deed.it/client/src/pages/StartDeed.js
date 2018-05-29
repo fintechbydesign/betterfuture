@@ -6,7 +6,8 @@ import Title from '../components/Title';
 
 function StartDeed (props) {
   const { user } = props;
-  const { superDeed, deedType } = user.deeds.selected;
+  const { deeds, registered } = user;
+  const { superDeed, deedType } = deeds.selected;
 
   return (
     <div>

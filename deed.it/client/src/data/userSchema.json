@@ -1,4 +1,5 @@
 {
+  "registered" : true/false,
   "username": {id},
   "deeds" : {
     "selected": {

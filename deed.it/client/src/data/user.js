@@ -40,8 +40,9 @@ const createUser = async(user) => {
 };
 
 const removeUser = async(user) => {
-  const endpoint = `remove-user/${user.username}`;
-  await postData(endpoint);
+  const { username } = user;
+  const endpoint = 'deeditRemoveUser';
+  await postData(endpoint, { username });
 }
 
 export {
