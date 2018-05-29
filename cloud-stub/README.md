@@ -72,6 +72,7 @@ curl -v -X POST -H "Content-Type: application/json" -d '{"usernameMore":"PabloMo
 Remove a user (and its data)
 ```
 curl -X POST http://localhost:11111/remove-user/Mike
+curl -v -X POST -H "Content-Type: application/json" -d '{"username":"1e10868e-eadf-44bf-b958-553ac0c7a27d"}' https://brg39dfup5.execute-api.eu-west-1.amazonaws.com/development/deeditRemoveUser
 ```
 
 Assign a deed to a user (instantiate a deed)
