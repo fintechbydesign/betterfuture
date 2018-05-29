@@ -35,13 +35,13 @@ const b64ToUint8Array = async(image) => {
   return new Uint8Array(imgBuffer);
 }
 
-const prepareUpload = async(deed, image) => {
+const prepareUpload = async(deed, imageName, image) => {
   const [S3, Body] = await Promise.all([initS3(), b64ToUint8Array(image)]);
   const params = {
     ACL: 'public-read',
     ContentType: 'image/png',
     Body,
-    Key: `${deed.id}.png`
+    Key: imageName
   };
   return S3.upload(params);
 }

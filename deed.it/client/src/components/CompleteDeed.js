@@ -28,9 +28,10 @@ class CompleteDeed extends Component {
   async createUploadArtifacts () {
     const { deed, imageData } = this.props;
     if (imageData) {
-      const upload = await prepareUpload(deed, imageData);
+      const imageName = `${deed.id}.png`;
+      const upload = await prepareUpload(deed, imageName, imageData);
       const uploadPromise = upload.promise();
-      return { upload, uploadPromise };
+      return { imageName, upload, uploadPromise };
     } else {
       return { uploadPromise:  Promise.resolve() };
     }
@@ -40,13 +41,15 @@ class CompleteDeed extends Component {
     const { deed, imageData, navigateFns, user } = this.props;
     const { recordLocation } = this.state;
     try {
-      const { uploadProgress, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
+      const { imageName, uploadProgress, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
       const locationPromise = recordLocation ? getLocation(deed) : Promise.resolve();
       navigateFns.uploading({uploadProgress});
       const [ coords ] = await Promise.all([locationPromise, uploadPromise]);
       await updateDeed({
         ...deed,
         location: coords,
+        evidenceType: (imageData) ? 'photo' : '',
+        src: imageName,
         status: (imageData) ? 'unapproved' : 'completed'
       });
       updateLocalUser({
