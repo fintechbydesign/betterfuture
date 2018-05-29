@@ -23,7 +23,7 @@ exports.handler = function (event, ctx, callback) {
         nickname,
         country,
         age,
-        creationTimestamp: Date.now()
+        creationTimestamp: `${Date.now()}`
       },
       TableName: 'users'
     };
