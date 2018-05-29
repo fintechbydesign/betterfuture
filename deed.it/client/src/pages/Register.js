@@ -56,7 +56,7 @@ class Register extends Component {
       await createSelectedDeed(user);
       this.props.myProfile();
     } catch (err) {
-      this.props.error(err);
+      this.props.error({err});
     }
   }
 

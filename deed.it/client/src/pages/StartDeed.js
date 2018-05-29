@@ -15,7 +15,7 @@ function StartDeed (props) {
       await createSelectedDeed(user);
       myProfile();
     } catch (err) {
-      error(err);
+      error({err});
     }
   }
 

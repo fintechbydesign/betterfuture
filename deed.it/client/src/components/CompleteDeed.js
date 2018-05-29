@@ -42,7 +42,7 @@ class CompleteDeed extends Component {
     try {
       const { upload, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
       const locationPromise = recordLocation ? getLocation(deed) : Promise.resolve();
-      navigateFns.uploading(upload);
+      navigateFns.uploading({upload});
       const [ coords ] = await Promise.all([locationPromise, uploadPromise]);
       await updateDeed({
         ...deed,
@@ -57,7 +57,7 @@ class CompleteDeed extends Component {
       await getUserDeeds(user, REFRESH);
       navigateFns.myProfile();
     } catch (err) {
-      navigateFns.error(err);
+      navigateFns.error({err});
     }
   }
 

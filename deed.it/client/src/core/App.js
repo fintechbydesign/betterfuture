@@ -5,7 +5,8 @@
   - this method:
     1. clears old page-specific state
     2. updates the user state with the latest from the user repo
-    3. setState(...) to redraw
+    3. records any properties to be passed
+    4. setState(...) to redraw
   - most navigation methods are generic; there are some special cases
   - all navigation methods, along with the user state are passed as props to all pages
  */
@@ -41,30 +42,19 @@ class App extends Component {
       createLocalUser();
       this.setState(this.createInitialState());
     } catch (err) {
-      this.state.navigationMethods.error(err);
+      this.state.navigationMethods.error({err});
     }
   }
 
   createNavigationMethods () {
-    const baseNavigationMethod = (pageName) => {
+    const baseNavigationMethod = (pageName, nextPageProps) => {
       console.log(`Setting page ${pageName}`);
-      // remove nextPageProps and update user
-      const { nextPageProps, ...oldState } = this.state;
-      this.setState({...oldState, pageName, user: getLocalUser()});
+      this.setState({...this.state, nextPageProps, pageName, user: getLocalUser()});
     };
     const navigationMethods = {};
     Object.keys(pages).forEach((pageName) => {
       navigationMethods[pageName] = baseNavigationMethod.bind(null, pageName);
     });
-    navigationMethods.error = (err) => {
-      console.log(`Reporting error ${err}`);
-      console.trace();
-      this.setState({...this.state, nextPageProps: { err }, pageName: 'error', user: getLocalUser()});
-    };
-    navigationMethods.uploading = (uploadProgress) => {
-      console.log(`Setting page uploading with progress: ${uploadProgress}`);
-      this.setState({...this.state, nextPageProps: { uploadProgress }, pageName: 'uploading'});
-    }
     navigationMethods.reset = this.reset;
     navigationMethods.notImplemented = () => {
       alert('Not implemented');
@@ -73,21 +63,23 @@ class App extends Component {
   }
 
   selectPage (pageProps) {
-    const pageMetaData = pages[this.state.pageName];
+    const { pageName, user } = this.state;
+    const pageMetaData = pages[pageName];
     if (pageMetaData) {
-      if (pageMetaData.isStateValid(this.state.user)) {
+      if (pageMetaData.isStateValid(user)) {
         const Page = pageMetaData.component;
         return (<Page {...pageProps} />);
       } else {
-        return (<Error err={`Invalid page state: '${this.state.pageName}': '${JSON.stringify(this.state, null, 2)}'`} />);
+        return (<Error err={`Invalid page state: '${pageName}': '${JSON.stringify(this.state, null, 2)}'`} />);
       }
     } else {
-      return (<Error err={`Unknown page: '${this.state.pageName}'`} />);
+      return (<Error err={`Unknown page: '${pageName}'`} />);
     }
   }
 
   render () {
-    const pageProps = { ...this.state.navigationMethods, ...this.state.nextPageProps, user: this.state.user };
+    const { navigationMethods, nextPageProps, user } = this.state;
+    const pageProps = { ...navigationMethods, ...nextPageProps, user };
     return (
       <div className='flexContainerColumn'>
         <PageHeader />

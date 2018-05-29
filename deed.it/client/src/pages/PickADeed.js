@@ -41,7 +41,7 @@ class PickADeed extends Component {
         deedHierarchy
       });
     } catch (err) {
-      this.props.error(err);
+      this.props.error({err});
     }
   }
 

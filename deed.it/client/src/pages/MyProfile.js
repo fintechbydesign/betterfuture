@@ -28,8 +28,8 @@ class MyProfile extends Component {
   }
 
   async fetchDeeds () {
+    const { error, user } = this.props;
     try {
-      const { user } = this.props;
       const { approved, unapproved, events, inProgress } = await getUserDeeds(user);
       this.setState({
         ...this.state,
@@ -41,7 +41,7 @@ class MyProfile extends Component {
         events
       });
     } catch (err) {
-      this.props.error(err);
+      error({err});
     }
   }
 
