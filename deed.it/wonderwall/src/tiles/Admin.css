@@ -1,0 +1,30 @@
+.Admin_Show {
+  display: flex;
+  position: relative;
+  float: left;
+  flex-direction: column;
+
+  border: white 1px solid;
+  padding: 5px;
+  margin: 5px;
+  width: 320px;
+}
+
+.Admin_Hide {
+   display: none;
+}
+
+.Admin_ButtonRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 5px;
+}
+
+.Admin_Approve {
+  background-color: green;
+}
+
+.Admin_Disapprove {
+  background-color: red;
+}

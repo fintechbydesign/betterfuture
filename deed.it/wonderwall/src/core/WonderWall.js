@@ -1,18 +1,20 @@
 /* global localStorage */
 
 import React, { Component } from 'react';
-import Badge from './Badge';
-import Debug from './Debug';
-import Menu from './Menu';
-import Photo from './Photo';
-import startPolling from './poller';
-import fetchUnapprovedEvidence from './fetchUnapprovedEvidence';
-import Popup from './Popup';
-import Ticker from './Ticker';
-import Video from './Video';
+import Admin from '../tiles/Admin';
+import Badge from '../tiles/Badge';
+import Debug from '../components/Debug';
+import Menu from '../components/Menu';
+import Photo from '../tiles/Photo';
+import Popup from '../components/Popup';
+import Ticker from '../components/Ticker';
+import Video from '../tiles/Video';
+import startPolling from '../data/poller';
+import { fetchUnapprovedEvidence } from "../data/approvals";
 import './WonderWall.css';
 
 const methods = [
+  'addAdmin',
   'addBadge',
   'addNews',
   'addPhoto',
@@ -28,7 +30,7 @@ class WonderWall extends Component {
     methods.forEach((method) => { this[method] = this[method].bind(this); });
     this.state = {
       admin: !!window.ADMIN_MODE,
-      debug: true,
+      debug: false,
       latestNews: undefined,
       popupContent: undefined,
       showMenu: false,
@@ -40,6 +42,7 @@ class WonderWall extends Component {
 
   componentDidMount () {
     const callbackEvents = {
+      'admin': this.addAdmin,
       'badge': this.addBadge,
       'news': this.addNews,
       'photo': this.addPhoto,
@@ -53,6 +56,14 @@ class WonderWall extends Component {
     }
   }
 
+  addAdmin (photo) {
+    const tile = {
+      ...photo,
+      type: 'admin'
+    };
+    this.addTile(tile);
+  }
+
   addBadge (src, username) {
     const tile = {
       src,
@@ -63,7 +74,6 @@ class WonderWall extends Component {
   }
 
   addPhoto (photo) {
-    console.log('photo received: ', photo);
     const tile = {
       type: 'photo',
       ...photo
@@ -75,7 +85,6 @@ class WonderWall extends Component {
   }
 
   addVideo (video) {
-    console.log('video received: ', video);
     const tile = {
       type: 'video',
       ...video
@@ -113,11 +122,12 @@ class WonderWall extends Component {
   }
 
   render () {
-    const filteredTiles = this.state.tiles.filter(this.state.tileFilter);
+    const { admin, debug, latestNews, showMenu, popupContent, tiles, tileFilter } = this.state;
+    const filteredTiles = tiles.filter(tileFilter);
     const numTiles = filteredTiles.length;
-    const tiles = filteredTiles.map((tile, index) => {
+    const mappedTiles = filteredTiles.map((tile, index) => {
       const tileProps = {
-        canPopup: this.state.popupContent && !this.state.showMenu,
+        canPopup: popupContent && !showMenu,
         isPopup: false,
         key: numTiles - index - 1,
         setPopupContent: this.setPopupContent,
@@ -125,46 +135,55 @@ class WonderWall extends Component {
       };
       switch (tile.type) {
         case 'photo':
-          tileProps.smallSrc = tile.smallSrc;
           return (<Photo {...tileProps} />);
         case 'video':
           return (<Video {...tileProps} />);
         case 'badge':
           return (<Badge {...tileProps} />);
+        case 'admin':
+          return (<Admin {...tileProps} />);
         default:
           return null;
       }
     });
 
     const menuProps = {
-      debug: this.state.debug,
-      showMenu: this.state.showMenu,
-      popupVisible: !!this.state.popupContent,
+      debug,
+      showMenu,
+      popupVisible: !!popupContent,
       updateState: this.updateState
     };
 
     const tickerProps = {
-      latestNews: this.state.latestNews
+      latestNews
     };
 
     const debugProps = {
       addPhoto: this.addPhoto,
       addVideo: this.addVideo,
-      enable: this.state.debug,
+      enable: debug,
       addNews: this.addNews
     };
 
     const popupProps = {
-      content: this.state.popupContent,
-      menuVisible: this.state.showMenu,
+      content: popupContent,
+      menuVisible: showMenu,
       setPopupContent: this.setPopupContent
     };
 
+    const background = (admin)
+      ? null
+      : (<img src='./images/wonderwall.png' alt='wonderwall background' className='WonderWall_background' />);
+
+    const menu = (admin)
+      ? null
+      : (<Menu {...menuProps} />);
+
     return (
       <div>
-        <img src='./images/wonderwall.png' alt='wonderwall background' className='WonderWall_background' />
-        {tiles}
-        <Menu {...menuProps} />
+        {background}
+        {mappedTiles}
+        {menu}
         <Ticker {...tickerProps} />
         <Debug {...debugProps} />
         <Popup {...popupProps} />

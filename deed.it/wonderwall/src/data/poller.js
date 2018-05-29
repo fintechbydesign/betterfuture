@@ -1,16 +1,9 @@
-const BASE_URL = '';
-const URL = `${BASE_URL}/wonderwall/latest`
+import { getData } from './fetchWrapper';
+
+const URL = 'wonderwall/latest'
 const ONE_HOUR = 60 * 60 * 1000;
 const POLL_INTERVAL = 5 * ONE_HOUR;  // just for dev!
-const MINIMUM_TILES_TO_START = 20;
-
-const fetchOptions = {
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  },
-  method: 'GET'
-};
+const PREFERRED_INITIAL_NUMBER_OF_TILES = 20;
 
 let latestTileTimestamp;
 let callbackEvents;
@@ -30,17 +23,12 @@ const getLatestTiles = async(timestamp) => {
   console.log(`Polling for tiles since ${new Date(timestamp).toLocaleString()}`);
   const endpoint = `${URL}/${timestamp}`;
   try {
-    const response = await fetch(endpoint, fetchOptions);
-    if (response.ok) {
-      const json = await response.json();
-      return json.results;
-    } else {
-      reportError(`fetch error: HTTP code  ${response.status} : ${response.statusText}`);
-    }
+    const { results } = await getData(endpoint);
+    return results;
   } catch (err) {
     reportError(err.message);
+    return [];
   }
-  return [];
 }
 
 const processTile = (tile) => {
@@ -68,15 +56,11 @@ const start = async(events) => {
   const oneDayAgo = Date.now() - 24 * ONE_HOUR;
   let tiles = [];
   let timestamp = Date.now();
-  while (tiles.length < MINIMUM_TILES_TO_START && timestamp > oneDayAgo) {
+  while (tiles.length < PREFERRED_INITIAL_NUMBER_OF_TILES && timestamp > oneDayAgo) {
     timestamp = timestamp - ONE_HOUR;
     tiles = await getLatestTiles(timestamp); 
   }
-  if (tiles.length < MINIMUM_TILES_TO_START ) {
-    reportError('Error: Insufficient tiles to display');
-  } else {
-    processTiles(tiles);
-  }
+  processTiles(tiles);
 }
 
 export default start;
