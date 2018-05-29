@@ -6,21 +6,21 @@ const HOUR = 3600000;
 const composeResponse = (statusCode, body) => ({
   isBase64Encoded: false,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'
   },
   body,
   statusCode
 });
 
-const generateTile = ({username, src, timestamp, type}) => ({username, src, timestamp, type});
+const generateTile = ({deedId, username, src, timestamp, type, ...extraFields}) => ({deedId, username, src, timestamp, type, ...extraFields});
 const timestampNewToOld = (a, b) => b.timestamp - a.timestamp;
 
 function createWonderwall(recentDeeds, deedStatus, recentNews, recentBadges) {
   const videos = recentDeeds.filter(deed => deed.evidenceType === 'video')
-    .map(deed => generateTile({ ...deed, timestamp: deed[`${deedStatus}Timestamp`], type: 'video' }));
+    .map(deed => generateTile({ ...deed, deedId: deed.id, timestamp: deed[`${deedStatus}Timestamp`], type: 'video' }));
 
   const photos = recentDeeds.filter(deed => deed.evidenceType === 'photo')
-    .map(deed => generateTile({ ...deed, timestamp: deed[`${deedStatus}Timestamp`], type: 'photo' }));
+    .map(deed => generateTile({ ...deed, deedId: deed.id, timestamp: deed[`${deedStatus}Timestamp`], type: 'photo' }));
 
   const news = recentNews
     .map(event => generateTile({ ...event, timestamp: event.eventTimestamp, type: 'news' }));

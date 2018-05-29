@@ -16,7 +16,7 @@ const postOptions = {
   method: 'POST'
 };
 
-const DELAY = 2000;
+const DELAY = 0;
 
 const REFRESH = true;
 
@@ -31,9 +31,12 @@ const createGetPromise = (endpoint) => {
     const endPoint = `${rootURLs.data}/${endpoint}`;
     try {
       await delay(DELAY);
+      console.log('fetch', endPoint);
       const response = await fetch(endPoint, getOptions);
       if (response.ok) {
+        console.log('OK');
         const json = await response.json();
+        console.log('json', json);
         resolve(json);
       } else {
         delete cache[endpoint];
@@ -44,10 +47,12 @@ const createGetPromise = (endpoint) => {
       reject(err);
     }
   });
-}
+};
 
 const getData = (endpoint, force = false) => {
+  console.log('getData', endpoint);
   if (endpoint in cache && !force) {
+    console.log('cached');
     return cache[endpoint];
   }
   const cachePromise = createGetPromise(endpoint);

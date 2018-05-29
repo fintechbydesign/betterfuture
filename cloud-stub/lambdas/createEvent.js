@@ -8,24 +8,25 @@ const parametersError = {
   headers: {
     'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'
   },
-  body: 'Missing username, nickname, country or age'
+  body: 'Missing id, username, nickname, eventType or src'
 };
 
 exports.handler = function (event, ctx, callback) {
   const eventBody = JSON.parse(event.body);
-  const { username, nickname, country, age } = eventBody;
+  const { id, username, nickname, eventType, src } = eventBody;
 
   // Ignoring any other non mandatory field
-  if (username && nickname && country && age) {
+  if (id && username && nickname && eventType && src) {
     const putParams = {
       Item: {
+        id,
         username,
         nickname,
-        country,
-        age,
-        creationTimestamp: Date.now()
+        eventType,
+        src,
+        eventTimestamp: `${Date.now()}`
       },
-      TableName: 'users'
+      TableName: 'events'
     };
 
     docClient.put(putParams, function (err, data) {

@@ -30,18 +30,20 @@ const getDeedHierarchy = async() => {
 };
 
 const createDeed = async(user, deedType) => {
+  console.log('CREATE DEED, user:', user, 'deedType:', deedType);
   const body = {
-    deedTypeId: deedType.deedTypeId,
+    deedTypeId: deedType.id,
     username: user.username
   };
-  return postData('create-user-deed', body);
+  return postData('deeditCreateUserDeed', body);
 };
 
 const getUserDeeds = async(user, force = false) => {
   if (!mappedDeedTypes) {
     await getDeedHierarchy();
   }
-  const endpoint = `user-profile/${user.username}`;
+
+  const endpoint = `deeditUserProfile?username=${user.username}`;
   const profile = await getData(endpoint, force);
   const deeds = profile.deeds || [];
   const events = profile.events || [];
