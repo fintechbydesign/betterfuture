@@ -4,8 +4,8 @@ import Dropdown from '../components/Dropdown';
 import Text from '../components/Text';
 import Input from '../components/Input';
 import Title from '../components/Title';
-import { createDeed } from '../data/deeds';
-import { createUser, updateLocalUser } from '../data/user';
+import { createSelectedDeed } from '../data/deeds';
+import { registerUser } from '../data/user';
 import ages from '../data/age.js';
 import countries from '../data/country.js';
 import DeedSummary from '../components/DeedSummary';
@@ -46,25 +46,14 @@ class Register extends Component {
 
   async getStarted () {
     try {
-      const {age, country, nickname} = this.state;
-      const user = {
+      const { age, country, nickname } = this.state;
+      let user = {
         ...this.props.user,
-        personal: {age, country},
+        personal: { age, country },
         nickname
       };
-      await createUser(user);
-      updateLocalUser({
-        ...user,
-        registered: true
-      });
-      await createDeed(user, user.deeds.selected.deedType);
-      updateLocalUser({
-        ...user,
-        deeds: {
-          ...user.deeds,
-          selected: null
-        }
-      });
+      user = await registerUser(user);
+      await createSelectedDeed(user);
       this.props.myProfile();
     } catch (err) {
       this.props.error(err);

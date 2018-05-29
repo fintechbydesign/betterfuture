@@ -39,6 +39,15 @@ const createUser = async(user) => {
   await postData('deeditCreateUser', { age, country, nickname, username });
 };
 
+const registerUser = async(user) => {
+  await createUser(user);
+  updateLocalUser({
+    ...user,
+    registered: true
+  });
+  return getLocalUser();
+}
+
 const removeUser = async(user) => {
   const { username } = user;
   const endpoint = 'deeditRemoveUser';
@@ -51,5 +60,6 @@ export {
   updateLocalUser,
   removeLocalUser,
   createUser,
+  registerUser,
   removeUser
 };
