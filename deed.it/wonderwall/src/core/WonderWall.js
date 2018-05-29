@@ -126,12 +126,14 @@ class WonderWall extends Component {
     const filteredTiles = tiles.filter(tileFilter);
     const numTiles = filteredTiles.length;
     const mappedTiles = filteredTiles.map((tile, index) => {
+      const { deedId, src } = tile;
       const tileProps = {
         canPopup: popupContent && !showMenu,
+        deedId,
         isPopup: false,
         key: numTiles - index - 1,
         setPopupContent: this.setPopupContent,
-        src: tile.src
+        src
       };
       switch (tile.type) {
         case 'photo':

@@ -8,7 +8,7 @@ import { getDeedHierarchy, getUserDeeds } from './data/deeds';
 const initUser = () => {
   try {
     const user = getLocalUser();
-    if (user.username && user.deeds.current) {
+    if (user.nickname) {
       getUserDeeds(user);
     }
   } catch (err) {

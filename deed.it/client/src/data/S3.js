@@ -39,6 +39,7 @@ const prepareUpload = async(deed, image) => {
   const [S3, Body] = await Promise.all([initS3(), b64ToUint8Array(image)]);
   const params = {
     ACL: 'public-read',
+    ContentType: 'image/png',
     Body,
     Key: `${deed.id}.png`
   };

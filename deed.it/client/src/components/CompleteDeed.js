@@ -4,6 +4,7 @@ import Button from './Button';
 import getLocation from '../data/location';
 import { prepareUpload } from '../data/S3';
 import { getUserDeeds, updateDeed, REFRESH } from '../data/deeds';
+import {updateLocalUser} from "../data/user";
 
 const methods = ['completeDeed', 'createUploadArtifacts', 'toggleRecordLocation'];
 
@@ -39,20 +40,24 @@ class CompleteDeed extends Component {
     const { deed, imageData, navigateFns, user } = this.props;
     const { recordLocation } = this.state;
     try {
-      const { upload, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
+      const { uploadProgress, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
       const locationPromise = recordLocation ? getLocation(deed) : Promise.resolve();
-      navigateFns.uploading(upload);
+      navigateFns.uploading({uploadProgress});
       const [ coords ] = await Promise.all([locationPromise, uploadPromise]);
       await updateDeed({
         ...deed,
         location: coords,
-        status: (imageData) ? 'approved' : 'unapproved'
+        status: (imageData) ? 'unapproved' : 'completed'
+      });
+      updateLocalUser({
+        ...user,
+        selected: null
       });
       // update user deeds before showing profile
       await getUserDeeds(user, REFRESH);
       navigateFns.myProfile();
     } catch (err) {
-      navigateFns.error(err);
+      navigateFns.error({err});
     }
   }
 

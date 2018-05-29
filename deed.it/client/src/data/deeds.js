@@ -1,5 +1,4 @@
 import { getData, postData, REFRESH } from './fetchWrapper';
-import { updateLocalUser } from "./user";
 
 let mappedDeedTypes;
 
@@ -40,17 +39,10 @@ const createDeed = async(user, deedType) => {
 };
 
 const createSelectedDeed = async(user) => {
-  if (!user.deeds.selected.deedType) {
+  if (!user.selected.deedType) {
     throw new Error('No selected deed type');
   }
-  await createDeed(user, user.deeds.selected.deedType)
-  updateLocalUser({
-    ...user,
-    deeds: {
-      ...user.deeds,
-      selected: null
-    }
-  });
+  await createDeed(user, user.selected.deedType)
 };
 
 const getUserDeeds = async(user, force = false) => {
@@ -62,28 +54,20 @@ const getUserDeeds = async(user, force = false) => {
   const profile = await getData(endpoint, force);
   const deeds = profile.deeds || [];
   const events = profile.events || [];
-  const unhydratedCurrent = deeds.filter((deed) => deed.deedStatus === 'created');
-  let current;
-  switch (unhydratedCurrent.length) {
-    case 0:
-      current = null;
-      break;
-    case 1:
-      current = appendDeedTypeProps(unhydratedCurrent[0]);
-      break;
-    default:
-      throw new Error(`More than one current deed: ${unhydratedCurrent}`);
-  }
-  const approved = deeds.filter((deed) => deed.deedStatus === 'approved').map(appendDeedTypeProps);
+  const created = deeds.filter((deed) => deed.deedStatus === 'created');
+  const inProgress = (created.lehgth === 0)
+    ? null
+    : created.map(appendDeedTypeProps);
+  const completed = deeds.filter((deed) => deed.deedStatus === 'completed').map(appendDeedTypeProps);
   const unapproved = deeds.filter((deed) => deed.deedStatus === 'unapproved').map(appendDeedTypeProps);
-  return { current, approved, unapproved, events };
+  const rejected = deeds.filter((deed) => deed.deedStatus === 'rejected').map(appendDeedTypeProps);
+  return { inProgress, completed, rejected, unapproved, events };
 };
 
 const updateDeed = async(deed) => {
-  const { id, status }= deed;
-  const endPoint = `set-deed-status/${id}/${status}`;
-  console.log('WARNING: updateDeed is not correct!');
-  return postData(endPoint);
+  const { id: deedId, status: deedStatus, location }= deed;
+  const endPoint = 'deeditSetDeedStatus';
+  return postData(endPoint, { deedStatus, deedId, location });
 }
 
 export {

@@ -8,14 +8,13 @@ import Wonderwall from '../components/WonderWall';
 import { getUserDeeds } from '../data/deeds';
 import { updateLocalUser } from '../data/user';
 
-const methods = ['fetchDeeds', 'renderInProgress'];
+const methods = ['fetchDeeds', 'renderInProgress', 'renderInProgressDeed', 'renderPrevious'];
 
 class MyProfile extends Component {
   constructor (props) {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
-      current: null,
       deeds: null,
       events: null
     };
@@ -29,47 +28,65 @@ class MyProfile extends Component {
   }
 
   async fetchDeeds () {
+    const { error, user } = this.props;
     try {
-      const { user } = this.props;
-      const { current, approved, unapproved, events } = await getUserDeeds(user);
-      updateLocalUser({
-        ...user,
-        deeds: {
-          ...user.deeds,
-          current
-        }
-      });
+      const { completed, rejected, unapproved, events, inProgress } = await getUserDeeds(user);
       this.setState({
         ...this.state,
-        current,
         deeds: {
-          approved,
-          unapproved
+          completed,
+          rejected,
+          unapproved,
+          inProgress
         },
         events
       });
     } catch (err) {
-      this.props.error(err);
+      error({err});
     }
   }
 
+  renderInProgressDeed (deed, index) {
+    const { evidence, user } = this.props;
+    const click = () => {
+      updateLocalUser({
+        ...user,
+        selected: {
+          deed
+        }
+      })
+      evidence();
+    };
+    return (
+      <div>
+        <DeedSummary key={index} {...deed} />
+        <Button click={click} text="I've done it" />
+      </div>
+    )
+  }
+
+
   renderInProgress () {
-    const { current } = this.state;
-    if (current) {
-      return (
-        <div>
-          <DeedSummary {...current} />
-          <Button click={this.props.evidence} text="I've done it" />
-        </div>
-      );
+    const { pickADeed } = this.props;
+    const { inProgress } = this.state.deeds;
+    if (inProgress && inProgress.length > 0) {
+      const summaries = inProgress.map(this.renderInProgressDeed);
+      return summaries;
     } else {
       return (
         <div>
           <Text text='You have no current deed' />
-          <Button click={this.props.pickADeed} text='Pick a deed' />
+          <Button click={pickADeed} text='Pick a deed' />
         </div>
       );
     }
+  }
+
+  renderPrevious () {
+    const { completed, rejected, unapproved } = this.state.deeds;
+    const all = [...unapproved, ...completed, ...rejected];
+    const summaries = all.map((deed, index) => (<DeedSummary key={index} {...deed} />));
+    return summaries;
   }
 
   render () {
@@ -88,6 +105,7 @@ class MyProfile extends Component {
         <Title text='In Progress' />
         {this.renderInProgress()}
         <Title text='Previous Deeds' />
+        {this.renderPrevious()}
         <Wonderwall />
       </div>
     );

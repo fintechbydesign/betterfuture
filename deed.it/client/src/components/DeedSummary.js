@@ -8,7 +8,7 @@ import './DeedSummary.css';
 
 function DeedSummary (props) {
   return (
-    <header className='flexContainerRow PageHeader-container'>
+    <header className='flexContainerRow'>
       <Image className='DeedSummary-image' alt='logo' src={props.image} />
       <Text text={props.description} />
     </header>

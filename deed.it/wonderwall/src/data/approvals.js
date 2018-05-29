@@ -1,8 +1,7 @@
 import { getData, postData } from './fetchWrapper';
 
-// const fetchEndpoint = 'deeditWonderwallLatest?deedStatus=unapproved';
-const fetchEndpoint = 'wonderwall/latest/' + Date.now();
-const setEndpoint = 'set-deed-status';
+const fetchEndpoint = 'deeditWonderwallLatest?deedStatus=unapproved';
+const setEndpoint = 'deeditSetDeedStatus';
 
 const fetchUnapprovedEvidence = async(events) => {
 
@@ -15,21 +14,15 @@ const fetchUnapprovedEvidence = async(events) => {
     reportNews(errMsg);
   }
 
-  const processTile = (tile) => {
-    const { type } = tile;
-    if ( type === 'photo') {
-      events.admin(tile);
-    }
-  }
-
   try {
-    const { results } = await getData(fetchEndpoint);
-    const numDeeds = results.length;
+    const unapprovedDeeds = await getData(fetchEndpoint);
+    const photoDeeds = unapprovedDeeds.filter((tile) => tile.type === 'photo');
+    const numDeeds = photoDeeds.length;
     if (numDeeds === 0) {
-      reportNews('No unapproved deeds');
+      reportNews('No unapproved photo deeds');
     } else {
       reportNews(`${numDeeds} unapproved deeds`);
-      results.forEach(processTile);
+      photoDeeds.forEach(events.admin);
     }
   } catch (err) {
     reportError(err.message, events);
@@ -38,14 +31,12 @@ const fetchUnapprovedEvidence = async(events) => {
 
 const approve = async(deedId) => {
   console.log(`Approve deed ${deedId}`);
-  const endpoint = `${setEndpoint}/${deedId}/approved`
-  return postData(endpoint);
+  return postData(setEndpoint, { deedId, deedStatus: 'completed' });
 }
 
 const disapprove = async(deedId) => {
   console.log(`Disapprove of deed ${deedId}`);
-  const endpoint = `${setEndpoint}/${deedId}/unapproved`
-  return postData(endpoint);
+  return postData(setEndpoint, { deedId, deedStatus: 'rejected' });
 }
 
 export {

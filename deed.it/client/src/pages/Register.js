@@ -5,7 +5,7 @@ import Text from '../components/Text';
 import Input from '../components/Input';
 import Title from '../components/Title';
 import { createSelectedDeed } from '../data/deeds';
-import { registerUser } from '../data/user';
+import {registerUser, updateLocalUser} from '../data/user';
 import ages from '../data/age.js';
 import countries from '../data/country.js';
 import DeedSummary from '../components/DeedSummary';
@@ -45,23 +45,29 @@ class Register extends Component {
   }
 
   async getStarted () {
+    const { error, myProfile, uploading, user } = this.props;
+    const { age, country, nickname } = this.state;
     try {
-      const { age, country, nickname } = this.state;
-      let user = {
-        ...this.props.user,
+      uploading({ uploadMsg: 'Registering you as a deedit do-er!' });
+      let updatedUser = {
+        ...user,
         personal: { age, country },
         nickname
       };
-      user = await registerUser(user);
-      await createSelectedDeed(user);
-      this.props.myProfile();
+      updatedUser = await registerUser(updatedUser);
+      await createSelectedDeed(updatedUser);
+      updateLocalUser({
+        ...updatedUser,
+        selected: null
+      });
+      myProfile();
     } catch (err) {
-      this.props.error(err);
+      error({err});
     }
   }
 
   render () {
-    const { deedType } = this.props.user.deeds.selected;
+    const { deedType } = this.props.user.selected;
     const { description, image } = deedType;
     const { age, country, nickname } = this.state;
     const buttonEnabled = age && country && nickname;

@@ -7,9 +7,9 @@ import './Pledge.css';
 
 function Pledge (props) {
   const { user } = props;
-  const { current } = user.deeds;
+  const { deed } = user.selected;
   const completeDeedProps = {
-    deed: current,
+    deed,
     navigateFns: props,
     text: 'I promise I\'ve done it >',
     user

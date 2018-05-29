@@ -41,7 +41,7 @@ class PickADeed extends Component {
         deedHierarchy
       });
     } catch (err) {
-      this.props.error(err);
+      this.props.error({err});
     }
   }
 
@@ -57,10 +57,7 @@ class PickADeed extends Component {
   selectDeed () {
     const user = {
       ...this.props.user,
-      deeds: {
-        ...this.props.user.deeds,
-        selected: this.selected
-      }
+      selected: this.selected
     };
     updateLocalUser(user);
     this.props.startDeed();

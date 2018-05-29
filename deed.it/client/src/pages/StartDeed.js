@@ -3,19 +3,27 @@ import Button from '../components/Button';
 import Image from '../components/Image';
 import Text from '../components/Text';
 import Title from '../components/Title';
-import {createSelectedDeed} from "../data/deeds";
+import {createSelectedDeed, getUserDeeds, REFRESH} from "../data/deeds";
+import {updateLocalUser} from "../data/user";
 
 function StartDeed (props) {
-  const { error, myProfile, register, user } = props;
-  const { deeds, registered } = user;
-  const { superDeed, deedType } = deeds.selected;
+  const { error, myProfile, register, uploading, user } = props;
+  const { selected, registered } = user;
+  const { superDeed, deedType } = selected;
 
   const startDeed = async() => {
     try {
+      uploading({ uploadMsg: 'Assigning the deed to you...' });
       await createSelectedDeed(user);
+      updateLocalUser({
+        ...user,
+        selected: null
+      });
+      // update user deeds before showing profile
+      await getUserDeeds(user, REFRESH);
       myProfile();
     } catch (err) {
-      error(err);
+      error({err});
     }
   }
 

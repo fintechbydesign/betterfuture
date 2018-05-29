@@ -13,7 +13,8 @@ const randomTextProps = {
 };
 
 function Home (props) {
-  const getInvolvedAction = props.user.deeds.current ? props.myProfile : props.pickADeed;
+  const { myProfile, pickADeed, user } = props;
+  const getInvolvedAction = user.registered ? myProfile : pickADeed;
   return (
     <div className='page'>
       <Title text='Welcome to Deedit' />
