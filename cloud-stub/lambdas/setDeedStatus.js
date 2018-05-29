@@ -25,7 +25,7 @@ exports.handler = function (event, ctx, callback) {
       },
       [`${deedStatus}Timestamp`]: {
         Action: 'PUT',
-        Value: Date.now()
+        Value: `${Date.now()}`
       }
     };
     Object.keys(extraAttribs).forEach(attrib => {
