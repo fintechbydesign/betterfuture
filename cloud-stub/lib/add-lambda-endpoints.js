@@ -64,15 +64,15 @@ function addLambdaEndpoints(app) {
     res.send(`info appended to user ${req.params.username}`);
   });
 
-  app.get('/user-profile/:username', (req, res, next) => {
+  app.get('/deeditUserProfile', (req, res, next) => {
     info('get user profile');
-    res.json(getUserProfile(req.params.username));
+    res.json(getUserProfile(req.body.username));
   });
 
-  app.post('/remove-user/:username', (req, res, next) => {
+  app.post('/deeditRemoveUser', (req, res, next) => {
     info('remove user');
-    removeUser(req.params.username);
-    res.send(`user removed ${req.params.username}`);
+    removeUser(req.body.username);
+    res.send(`user removed ${req.body.username}`);
   });
 
   app.post('/create-user-deed', (req, res, next) => {

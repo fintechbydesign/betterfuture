@@ -6,14 +6,13 @@
 
 .Video-child {
   width: 100%;
-  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
 }
 
 .Video-instruction {
-  top: 80%;
+  top: 70%;
   color: white;
   text-align: center;
   z-index: 2;

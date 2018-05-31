@@ -1,0 +1,13 @@
+@keyframes fadein {
+    from { max-height: 0; }
+    to   { max-height: 200px; }
+}
+
+.Register-hide {
+    display: none;
+}
+
+.Register-show {
+    overflow: hidden;
+    animation: fadein 1s;
+}

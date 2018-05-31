@@ -108,7 +108,7 @@ class UploadPhoto extends Component {
     const completeDeed = completeDeedProps ? (<CompleteDeed {...completeDeedProps} />) : null;
     setupFn();
     return (
-      <div className='flexContainerColumn'>
+      <div className='page'>
         <Title text='Upload a photo of your deed.' />
         <img ref={this.image} alt='what will be submitted' className={imageClass} />
         <canvas ref={this.canvas} className='UploadPhoto-hide' />

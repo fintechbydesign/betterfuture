@@ -5,11 +5,19 @@ import registerServiceWorker from './core/registerServiceWorker';
 import { createLocalUser, getLocalUser } from './data/user';
 import { getDeedHierarchy, getUserDeeds } from './data/deeds';
 
+const asyncWrapper = async(fn) => {
+  try {
+    await fn();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 const initUser = () => {
   try {
     const user = getLocalUser();
     if (user.nickname) {
-      getUserDeeds(user);
+      asyncWrapper(getUserDeeds.bind(null, user));
     }
   } catch (err) {
     createLocalUser();

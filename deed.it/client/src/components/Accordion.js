@@ -5,7 +5,14 @@ const Panel = Collapse.Panel;
 
 function Accordion (props) {
   const panels = props.panels.map((panel, index) => {
-    return (<Panel key={index} header={panel.label} showArrow >{panel.content}</Panel>);
+    const { label, className, headerClass, content } = panel;
+    const props = {
+      key: index,
+      header: label,
+      className,
+      headerClass
+    }
+    return (<Panel {...props} showArrow >{content}</Panel>);
   });
 
   return (

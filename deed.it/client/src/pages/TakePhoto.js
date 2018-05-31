@@ -94,7 +94,7 @@ class TakePhoto extends Component {
     const completeDeed = completeDeedProps ? (<CompleteDeed {...completeDeedProps} />) : null;
     setupFn();
     return (
-      <div>
+      <div className='page'>
         <Title text='Take a photo of your deed.' />
         <Text text={instruction} />
         <video ref={this.video} autoPlay onClick={this.captureVideo} className={videoClass} />

@@ -1,12 +1,13 @@
 import React from 'react';
 import Image from './Image';
+import logo from '../images/logo.png';
 import './PageHeader.css';
 
 function PageHeader () {
   return (
-    <header className='flexContainerRow PageHeader-container'>
-      <Image className='PageHeader-image' alt='logo' />
-      <div className='PageHeader-title'>DEEDIT</div>
+    <header className='flexContainerRow PageHeader_container'>
+      <Image className='PageHeader_image' alt='logo' src={logo} type='appImage' />
+      <div className='PageHeader_title'>Small actions, big impact</div>
     </header>
   );
 }

@@ -6,7 +6,7 @@ import Instruction from '../components/Instruction';
 function Error (props) {
   const errMsg = (props.err instanceof Error) ? props.err.message : String(props.err);
   return (
-    <div>
+    <div className='page'>
       <Title text='Sad Face :-(' />
       <Instruction text='Oh dear, this prototype has errored:' />
       <Text text={errMsg} />

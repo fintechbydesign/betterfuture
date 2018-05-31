@@ -29,7 +29,7 @@ class Uploading extends Component {
     const suffix = percentage ? `${percentage}%` : '';
     const msg = `${prefix}${suffix}`;
     return (
-      <div>
+      <div className='page'>
         <Fetching text={msg}/>
       </div>
     );

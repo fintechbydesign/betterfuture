@@ -7,10 +7,13 @@ import Title from '../components/Title';
 import { createSelectedDeed } from '../data/deeds';
 import {registerUser, updateLocalUser} from '../data/user';
 import ages from '../data/age.js';
+import cities from '../data/city';
 import countries from '../data/country.js';
 import DeedSummary from '../components/DeedSummary';
+import './Register.css';
 
-const methods = ['getStarted', 'updateAge', 'updateCountry', 'updateNickname'];
+const isScotland = (country) => country === 'Scotland';
+const methods = ['getStarted', 'updateAge', 'updateCity', 'updateCountry', 'updateNickname'];
 
 class Register extends Component {
   constructor (props) {
@@ -18,6 +21,7 @@ class Register extends Component {
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
       age: undefined,
+      city: undefined,
       country: undefined,
       nickname: undefined
     };
@@ -30,9 +34,18 @@ class Register extends Component {
     });
   }
 
-  updateCountry (country) {
+  updateCity (city) {
     this.setState({
       ...this.state,
+      city
+    });
+  }
+
+  updateCountry (country) {
+    const city = isScotland(country) ? this.state.city : undefined;
+    this.setState({
+      ...this.state,
+      city,
       country
     });
   }
@@ -46,12 +59,12 @@ class Register extends Component {
 
   async getStarted () {
     const { error, myProfile, uploading, user } = this.props;
-    const { age, country, nickname } = this.state;
+    const { age, city, country, nickname } = this.state;
     try {
       uploading({ uploadMsg: 'Registering you as a deedit do-er!' });
       let updatedUser = {
         ...user,
-        personal: { age, country },
+        personal: { age, city, country },
         nickname
       };
       updatedUser = await registerUser(updatedUser);
@@ -70,10 +83,12 @@ class Register extends Component {
     const { deedType } = this.props.user.selected;
     const { description, image } = deedType;
     const { age, country, nickname } = this.state;
+
+    const cityClassName = isScotland(country) ? 'Register-show' : 'Register-hide';
     const buttonEnabled = age && country && nickname;
 
     return (
-      <div>
+      <div className='page'>
         <Title text='Thank you!' />
         <Text text='You have picked:' />
         <DeedSummary description={description} image={image} />
@@ -82,6 +97,10 @@ class Register extends Component {
         <Input onChange={this.updateNickname} />
         <Text text='Where are you from?' />
         <Dropdown options={countries} onChange={this.updateCountry} />
+        <div className={cityClassName} >
+          <Text text='Which is your nearest city?' />
+          <Dropdown options={cities} onChange={this.updateCity} />
+        </div>
         <Text text='What age are you?' />
         <Dropdown options={ages} onChange={this.updateAge} />
         <Button text='Get started >' click={this.getStarted} disabled={!buttonEnabled} />

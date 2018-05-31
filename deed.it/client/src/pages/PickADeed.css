@@ -5,3 +5,19 @@
 .PickADeed-image-container {
     height: 240px;
 }
+
+.PickADeed-default {
+    color: white;
+}
+
+.PickADeed-green {
+    background-color: #20BCA4;
+}
+
+.PickADeed-happy {
+    background-color: #0E88FC;
+}
+
+.PickADeed-homeless {
+    background-color: #FF6112;
+}
