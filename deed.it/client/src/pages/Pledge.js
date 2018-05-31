@@ -15,7 +15,7 @@ function Pledge (props) {
     user
   };
   return (
-    <div>
+    <div className='page'>
       <Title text='Your Deed' />
       <Text text="We'll take you word for it if you just sign this pledge and promise you've done this good deed." />
       <Image />

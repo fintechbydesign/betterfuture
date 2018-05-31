@@ -1,13 +1,14 @@
 .Button-default {
-  background-color: gray;
-  color: white;
-  border-radius: 10px;
-  font: 400 11px system-ui;
+  border-radius: 15px;
+  font-family: 'Bungee Inline', cursive;
+  font-size: 18px;
   text-align: center;
+  color: #002E4A;
+  background-color: white;
+  border: #002E4A solid 2px;
 }
 
 .Button-default:disabled {
-  background-color: white;
   color: gray;
   border: gray dotted 2px
 }

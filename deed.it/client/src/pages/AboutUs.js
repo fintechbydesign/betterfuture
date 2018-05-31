@@ -11,7 +11,7 @@ const randomTextProps = {
 
 function AboutUs (props) {
   return (
-    <div>
+    <div className='page'>
       <Title text='About Us' />
       <Text text={randomTextProps} />
       <Title text='The Deedit Team' />

@@ -73,7 +73,7 @@ class Register extends Component {
     const buttonEnabled = age && country && nickname;
 
     return (
-      <div>
+      <div className='page'>
         <Title text='Thank you!' />
         <Text text='You have picked:' />
         <DeedSummary description={description} image={image} />

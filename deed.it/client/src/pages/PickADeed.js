@@ -9,6 +9,7 @@ import { updateLocalUser} from '../data/user';
 import './PickADeed.css';
 
 const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'selectDeed'];
+const panelClasses = ['PickADeed-green', 'PickADeed-happy', 'PickADeed-homeless'];
 
 class PickADeed extends Component {
   constructor (props) {
@@ -71,19 +72,19 @@ class PickADeed extends Component {
           <Image src={deedType.image} />
         </div>
         <p>{deedType.description}</p>
+        <Button text='Find out more >' click={this.selectDeed} />
       </div>
     );
   }
 
   renderSuperDeed (superDeed) {
     const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index));
-    const thumbnails = superDeed.deedTypes.map((deedType) => deedType.image);
+    const thumbnails = superDeed.deedTypes.map(() => ({}));
     const selected = (index) => this.setSelected(superDeed, superDeed.deedTypes[index]);
     return (
       <div>
         <p>{superDeed.description}</p>
-        <Carousel selected={selected} slides={slides} thumbnails={thumbnails} />
-        <Button text='Find out more >' click={this.selectDeed} />
+        <Carousel selected={selected} slides={slides} boxThumbnails={thumbnails} />
       </div>
     );
   }
@@ -93,9 +94,11 @@ class PickADeed extends Component {
     if (!deedHierarchy) {
       return (<Fetching text='Fetching available deeds' />);
     }
-    const panels = deedHierarchy.map((superDeed) => ({
+    const panels = deedHierarchy.map((superDeed, index) => ({
       content: this.renderSuperDeed(superDeed),
-      label: superDeed.id
+      label: superDeed.id,
+      className: `PickADeed-default ${panelClasses[index]}`,
+      headerClass: `PickADeed-default ${panelClasses[index]}`
     }));
     const onChange = (index) => {
       // bug (?) in Collapse that allows undefined active key to be passed

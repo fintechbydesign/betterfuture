@@ -10,7 +10,7 @@ const randomTextProps = {
 
 function TermsAndConditions (props) {
   return (
-    <div>
+    <div className='page'>
       <Title text='Deedit Terms and Conditions' />
       <Text text={randomTextProps} />
     </div>

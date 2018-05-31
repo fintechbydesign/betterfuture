@@ -6,7 +6,6 @@
     "aws-sdk": "^2.247.1",
     "lorem-ipsum": "^1.0.4",
     "nuka-carousel": "^4.2.1",
-    "qrcode-react": "^0.1.16",
     "rc-collapse": "^1.9.2",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
@@ -22,5 +21,5 @@
     "lint": "eslint ./src",
     "publish": "npm run build && node ../publish.js build deedit.org"
   },
-  "proxy": "https://brg39dfup5.execute-api.eu-west-1.amazonaws.com/development/"
+  "proxy": "http://localhost:11111"
 }

@@ -30,7 +30,7 @@ function StartDeed (props) {
   const doIt = (registered) ? startDeed : register;
 
   return (
-    <div>
+    <div className='page'>
       <Title text={superDeed.id} />
       <Text text={superDeed.description} />
       <Title text='Your Deed' />

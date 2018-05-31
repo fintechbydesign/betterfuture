@@ -19,7 +19,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "publish": "npm run build && node ../publish.js build deedit.org"
   },
-  "proxy": "https://brg39dfup5.execute-api.eu-west-1.amazonaws.com/development/"
+  "proxy": "http://localhost:11111"
 }
