@@ -58,7 +58,7 @@ class MyProfile extends Component {
       evidence();
     };
     return (
-      <div>
+      <div key={index}>
         <DeedSummary key={index} {...deed} />
         <Button click={click} text="I've done it" />
       </div>
