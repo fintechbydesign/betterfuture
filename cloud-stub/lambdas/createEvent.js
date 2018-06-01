@@ -13,13 +13,14 @@ const composeResponse = (statusCode, body) => ({
 
 exports.handler = function (event, ctx, callback) {
   const eventBody = JSON.parse(event.body);
-  const { id, username, nickname, eventType, src } = eventBody;
+  const { id, deedId, username, nickname, eventType, src } = eventBody;
 
   // Ignoring any other non mandatory field
-  if (id && username && nickname && eventType && src) {
+  if (id && deedId && username && nickname && eventType && src) {
     const putParams = {
       Item: {
         id,
+        deedId,
         username,
         nickname,
         eventType,
@@ -37,6 +38,6 @@ exports.handler = function (event, ctx, callback) {
       }
     });
   } else {
-    callback(null, composeResponse(422, 'Missing id, username, nickname, eventType or src'));
+    callback(null, composeResponse(422, 'Missing id, deedId, username, nickname, eventType or src'));
   }
 };
