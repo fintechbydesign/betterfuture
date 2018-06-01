@@ -1,8 +1,9 @@
 import { getData } from './fetchWrapper';
 
-const URL = 'deeditWonderwallLatest'
+const URL = 'deeditWonderwallLatest';
+const ONE_SECOND = 1000;
 const ONE_HOUR = 60 * 60 * 1000;
-const POLL_INTERVAL = 5 * ONE_HOUR;  // just for dev!
+const POLL_INTERVAL = 15 * ONE_SECOND;
 const PREFERRED_INITIAL_NUMBER_OF_TILES = 20;
 
 let latestTileTimestamp;
