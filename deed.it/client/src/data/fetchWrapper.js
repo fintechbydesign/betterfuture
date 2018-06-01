@@ -28,7 +28,7 @@ const createError = (endPoint, response) =>
 
 const createGetPromise = (endpoint) => {
   return new Promise(async(resolve, reject) => {
-    const endPoint = `${rootURLs.data}/${endpoint}`;
+    const endPoint = `${rootURLs.data}${endpoint}`;
     try {
       await delay(DELAY);
       console.log('fetch', endPoint);
@@ -61,7 +61,7 @@ const getData = (endpoint, force = false) => {
 };
 
 const postData = async(endpoint, body) => {
-  const endPoint = `${rootURLs.data}/${endpoint}`;
+  const endPoint = `${rootURLs.data}${endpoint}`;
   await delay(DELAY);
   const options = { ...postOptions };
   if (body) {

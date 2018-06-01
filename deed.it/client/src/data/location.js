@@ -6,7 +6,10 @@ const positionsObject = {
 
 const getLocation = () => new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
-      (position) => resolve(position.coords),
+      (position) => {
+        console.log(`Position found: ${JSON.stringify(position,null, 2)}`);
+        resolve(position.coords);
+      },
       (err) => {
         console.log(`Position error: ${err.code} : ${err.message}`);
         resolve(null);

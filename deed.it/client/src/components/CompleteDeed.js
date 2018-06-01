@@ -44,7 +44,7 @@ class CompleteDeed extends Component {
       const { imageName, uploadProgress, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
       const locationPromise = recordLocation ? getLocation(deed) : Promise.resolve();
       navigateFns.uploading({uploadProgress});
-      const [ coords ] = await Promise.all([locationPromise, uploadPromise]);
+      const [coords, upload] = await Promise.all([locationPromise, uploadPromise]);
       await updateDeed({
         ...deed,
         location: coords,

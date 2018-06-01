@@ -13,11 +13,11 @@ function AboutUs (props) {
   return (
     <div className='page'>
       <Title text='About Us' />
-      <Text text={randomTextProps} />
+      <Text dummyText={randomTextProps} />
       <Title text='The Deedit Team' />
-      <Text text={randomTextProps} />
+      <Text dummyText={randomTextProps} />
       <Title text='Contact Us' />
-      <Text text={randomTextProps} />
+      <Text dummyText={randomTextProps} />
       <Title text='Forget about me' />
       <Text text='You have the right to be forgotten' />
       <Button text='Forget about me' click={props.reset} />

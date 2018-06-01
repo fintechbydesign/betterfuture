@@ -1,5 +1,5 @@
 export default {
-  data: '', // https://brg39dfup5.execute-api.eu-west-1.amazonaws.com/development',
+  data: 'https://api.deedit.org/v1/',
   appImage: '',
   userImage: 'https://assets.deedit.org/',
   webImage: ''

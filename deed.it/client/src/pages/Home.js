@@ -21,8 +21,8 @@ function Home (props) {
       <WonderWall />
       <Button click={getInvolvedAction} text='Get involved >' />
       <Text text='Small things add up to make a big difference.' />
-      <Text text={randomTextProps} />
-      <Text text={randomTextProps} />
+      <Text dummyText={randomTextProps} />
+      <Text dummyText={randomTextProps} />
       <Text text='Watch our short video to see how Deedit works.' />
       <Video src={homeVideo} />
     </div>

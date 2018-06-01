@@ -11,3 +11,8 @@
     overflow: hidden;
     animation: fadein 1s;
 }
+
+.Register-link {
+    text-decoration: underline;
+    color: blue;
+}

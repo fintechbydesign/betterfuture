@@ -95,11 +95,12 @@ class MyProfile extends Component {
       return (<Fetching text='Fetching your deeds' />);
     }
     const { nickname, personal } = this.props.user;
-    const { country } = personal;
+    const { city, country } = personal;
+    const location = (city) ? `${city}, ${country}` : country;
     return (
       <div className='page'>
         <Title text={nickname} />
-        <Text text={country} />
+        <Text text={location} />
         <Text text='Badges' />
         <Text text='Trophies' />
         <Title text='In Progress' />

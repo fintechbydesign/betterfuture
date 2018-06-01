@@ -12,7 +12,7 @@ function TermsAndConditions (props) {
   return (
     <div className='page'>
       <Title text='Deedit Terms and Conditions' />
-      <Text text={randomTextProps} />
+      <Text dummyText={randomTextProps} />
     </div>
   );
 }

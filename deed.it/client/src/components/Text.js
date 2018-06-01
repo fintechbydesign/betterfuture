@@ -1,23 +1,29 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import loremIpsum from 'lorem-ipsum';
 import './Text.css';
 
-function Text (props) {
-  const className = props.className ? `Text-text ${props.className}` : 'Text-text';
-  const text = (!props.text)
-    ? 'Missing text'
-    : (typeof props.text === 'string')
-    ? props.text
-    : loremIpsum(props.text);
-  return <div className={className}>{text}</div>;
-}
+const getText = (text) => text;
 
-Text.propTypes = {
-  text: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ]).isRequired
-};
+const getDummyText = (dummyText) => loremIpsum(dummyText);
+
+const getContent = (content, index) => {
+  return (typeof content === 'string')
+    ? (<span key={index}>{content}</span>)
+    : content;
+}
+const getContents = (contents) => contents.map(getContent);
+
+function Text (props) {
+  const { className, contents, text, dummyText } = props;
+  const divClassName = className ? `Text-text ${className}` : 'Text-text';
+  const divContents = (contents)
+    ? getContents(contents)
+    : (dummyText)
+    ? getDummyText(dummyText)
+    : (text)
+    ? getText(text)
+    : 'Missing Text';
+  return <div className={divClassName}>{divContents}</div>;
+}
 
 export default Text;

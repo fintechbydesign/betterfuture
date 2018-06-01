@@ -29,7 +29,8 @@ function publish (srcFolder, targetBucket){
     'ico': 'image/x-icon',
     'map': 'text/plain',
     'css': 'text/css',
-    'js': 'application/javascript'
+    'js': 'application/javascript',
+    'svg': 'image/svg+xml'
   };
 
   function uploadFileToS3(file) {

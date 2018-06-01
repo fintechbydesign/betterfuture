@@ -1,4 +1,5 @@
 import AboutUs from './AboutUs';
+import DeeditDifference from './DeeditDifference';
 import Error from './Error';
 import Evidence from './Evidence';
 import Home from './Home';
@@ -25,6 +26,10 @@ const containsUsername = (user) => !!user.username;
 export default {
   'aboutUs': {
     component: AboutUs,
+    isStateValid: alwaysOK
+  },
+  'deeditDifference': {
+    component: DeeditDifference,
     isStateValid: alwaysOK
   },
   'evidence': {

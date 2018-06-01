@@ -80,12 +80,19 @@ class Register extends Component {
   }
 
   render () {
-    const { deedType } = this.props.user.selected;
+    const { termsAndConditions, user } = this.props;
+    const { deedType } = user.selected;
     const { description, image } = deedType;
     const { age, country, nickname } = this.state;
 
     const cityClassName = isScotland(country) ? 'Register-show' : 'Register-hide';
     const buttonEnabled = age && country && nickname;
+
+    const tandcs = [
+      'Read our ',
+      (<a className='Register-link' onClick={termsAndConditions}>terms and conditions</a>),
+      ' if you want to understand how we use your data.'
+    ];
 
     return (
       <div className='page'>
@@ -104,7 +111,7 @@ class Register extends Component {
         <Text text='What age are you?' />
         <Dropdown options={ages} onChange={this.updateAge} />
         <Button text='Get started >' click={this.getStarted} disabled={!buttonEnabled} />
-        <Text text='Read our terms and conditions if you want to understand how we use your data.' />
+        <Text contents={tandcs} />
       </div>
     );
   }
