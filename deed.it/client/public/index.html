@@ -20,21 +20,40 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>deedit</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      .intro-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        height: 100vh;
+        background-color: #002E4A;
+      }
+      .intro-text {
+        margin: 10vh 5vw;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: xx-large;
+        color: white;
+      }
+    </style>
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root">Fetching deedit data</div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <div id="root">
+      <div class="intro-container">
+        <div class="intro-text">
+          Thank you for choosing to be a deedit do-er!
+        </div>
+        <div class="intro-text">
+          Downloading the app now...
+        </div>
+      </div>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    </div>
   </body>
 </html>

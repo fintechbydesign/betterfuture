@@ -35,8 +35,8 @@ const removeLocalUser = () => remove(USER);
 
 const createUser = async(user) => {
   const { nickname, personal, username } = user;
-  const { age, country } = personal;
-  await postData('deeditCreateUser', { age, country, nickname, username });
+  const { age, city, country } = personal;
+  await postData('deeditCreateUser', { age, city, country, nickname, username });
 };
 
 const registerUser = async(user) => {

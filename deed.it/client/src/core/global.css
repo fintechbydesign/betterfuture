@@ -7,7 +7,11 @@
 body {
   margin: 0;
   padding: 0;
+<<<<<<< HEAD
   font-family: Helvetica;
+=======
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+>>>>>>> client-eject
   font-size: 3vh;
   color: #002E4A;
 }
