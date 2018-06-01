@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from './Image';
-import Text from './Text';
 import communityFirst from '../images/community_first.png';
 import communitySecond from '../images/community_second.png';
 import greenFirst from '../images/green_first.png';

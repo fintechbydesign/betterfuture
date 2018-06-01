@@ -55,6 +55,8 @@ class CompleteDeed extends Component {
       case 1: // second deed of this type
         newEvents.push({ src: `${superDeedId}_second`, ...eventProps });
         break;
+      default:
+        // do nothing
     }
     return Promise.all(newEvents.map(createEvent));
   }

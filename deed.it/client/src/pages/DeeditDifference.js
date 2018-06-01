@@ -2,7 +2,7 @@ import React from 'react';
 import Title from '../components/Title';
 import './DeeditDifference.css';
 
-const url = 'https://www.theregister.co.uk/';
+const url = 'https://s3-eu-west-1.amazonaws.com/deedit-smallscreen-dashboard/mini_screen.png';
 
 function DeeditDifference (props) {
   return (
