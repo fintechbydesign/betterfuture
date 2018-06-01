@@ -8,6 +8,7 @@
   },
   "personal" : {
     "age": {string},
+    "city": {string},
     "country": {string}
   }
   "nickname": {string}
