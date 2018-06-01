@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Badge from '../components/Badge';
 import Button from '../components/Button';
 import DeedSummary from '../components/DeedSummary';
 import Fetching from '../components/Fetching';
@@ -8,7 +9,7 @@ import Wonderwall from '../components/WonderWall';
 import { getUserDeeds } from '../data/deeds';
 import { updateLocalUser } from '../data/user';
 
-const methods = ['fetchDeeds', 'renderInProgress', 'renderInProgressDeed', 'renderPrevious'];
+const methods = ['fetchDeeds', 'renderBadges', 'renderInProgress', 'renderInProgressDeed', 'renderPrevious'];
 
 class MyProfile extends Component {
   constructor (props) {
@@ -65,6 +66,15 @@ class MyProfile extends Component {
     )
   }
 
+  renderBadges () {
+    const { events } = this.state;
+    const badges = events.filter((event) => event.type = 'badge').map((event) => (<Badge {...event} />));
+    return (
+      <div className='flexContainerRow'>
+        {badges}
+      </div>
+    );
+  }
 
   renderInProgress () {
     const { pickADeed } = this.props;
@@ -102,7 +112,7 @@ class MyProfile extends Component {
         <Title text={nickname} />
         <Text text={location} />
         <Text text='Badges' />
-        <Text text='Trophies' />
+        {this.renderBadges()}
         <Title text='In Progress' />
         {this.renderInProgress()}
         <Title text='Previous Deeds' />

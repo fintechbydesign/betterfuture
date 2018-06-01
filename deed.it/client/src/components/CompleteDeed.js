@@ -4,9 +4,10 @@ import Button from './Button';
 import getLocation from '../data/location';
 import { prepareUpload } from '../data/S3';
 import { getUserDeeds, updateDeed, REFRESH } from '../data/deeds';
-import {updateLocalUser} from "../data/user";
+import { createEvent } from '../data/events';
+import { updateLocalUser } from "../data/user";
 
-const methods = ['completeDeed', 'createUploadArtifacts', 'toggleRecordLocation'];
+const methods = ['completeDeed', 'createNewEvents', 'createUploadArtifacts', 'toggleRecordLocation'];
 
 class CompleteDeed extends Component {
 
@@ -37,6 +38,27 @@ class CompleteDeed extends Component {
     }
   }
 
+  async createNewEvents()  {
+    const { deed, user } = this.props;
+    const { nickname, username } = user;
+    const { id: deedId, superDeedId } = deed;
+    const profile = await getUserDeeds(user);
+    const { completed, rejected, unapproved } = profile;
+    const all = [...unapproved, ...completed, ...rejected];
+    const filtered = all.filter((deed) => deed.superDeedId === superDeedId);
+    const newEvents = [];
+    const eventProps = { deedId, eventType: 'badge', nickname, username };
+    switch (filtered.length) {
+      case 0: // first deed of this type
+        newEvents.push({ src: `${superDeedId}_first`, ...eventProps });
+        break;
+      case 1: // second deed of this type
+        newEvents.push({ src: `${superDeedId}_second`, ...eventProps });
+        break;
+    }
+    return Promise.all(newEvents.map(createEvent));
+  }
+
   /* eslint no-unused-vars:0 */
   async completeDeed () {
     const { deed, imageData, navigateFns, user } = this.props;
@@ -57,6 +79,7 @@ class CompleteDeed extends Component {
         ...user,
         selected: null
       });
+      await this.createNewEvents();
       // update user deeds before showing profile
       await getUserDeeds(user, REFRESH);
       navigateFns.myProfile();

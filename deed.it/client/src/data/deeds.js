@@ -55,7 +55,7 @@ const getUserDeeds = async(user, force = false) => {
   const deeds = profile.deeds || [];
   const events = profile.events || [];
   const created = deeds.filter((deed) => deed.deedStatus === 'created');
-  const inProgress = (created.lehgth === 0)
+  const inProgress = (created.length === 0)
     ? null
     : created.map(appendDeedTypeProps);
   const completed = deeds.filter((deed) => deed.deedStatus === 'completed').map(appendDeedTypeProps);
