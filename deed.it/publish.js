@@ -27,7 +27,8 @@ function publish (srcFolder, targetBucket){
     'jpeg': 'image/jpeg',
     'png': 'image/png',
     'ico': 'image/x-icon',
-    'map': 'test/plain',
+    'map': 'text/plain',
+    'css': 'text/css',
     'js': 'application/javascript'
   };
 
