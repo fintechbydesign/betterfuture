@@ -37,6 +37,7 @@ class CompleteDeed extends Component {
     }
   }
 
+  /* eslint no-unused-vars:0 */
   async completeDeed () {
     const { deed, imageData, navigateFns, user } = this.props;
     const { recordLocation } = this.state;
@@ -44,10 +45,10 @@ class CompleteDeed extends Component {
       const { imageName, uploadProgress, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
       const locationPromise = recordLocation ? getLocation(deed) : Promise.resolve();
       navigateFns.uploading({uploadProgress});
-      const [coords, upload] = await Promise.all([locationPromise, uploadPromise]);
+      const [location, upload] = await Promise.all([locationPromise, uploadPromise]);
       await updateDeed({
         ...deed,
-        location: coords,
+        ...location,
         evidenceType: (imageData) ? 'photo' : '',
         src: imageName,
         status: (imageData) ? 'unapproved' : 'completed'

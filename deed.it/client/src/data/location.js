@@ -8,7 +8,11 @@ const getLocation = () => new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log(`Position found: ${JSON.stringify(position,null, 2)}`);
-        resolve(position.coords);
+        const location = {
+          longitude: position.coords.longitude,
+          latitude: position.coords.latitude
+        }
+        resolve(location);
       },
       (err) => {
         console.log(`Position error: ${err.code} : ${err.message}`);
