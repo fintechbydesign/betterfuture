@@ -13,18 +13,23 @@ const composeResponse = (statusCode, body) => ({
 
 exports.handler = function (event, ctx, callback) {
   const eventBody = JSON.parse(event.body);
-  const { username, nickname, country, age } = eventBody;
+  const { username, nickname, country, age, ...extraAttribs } = eventBody;
 
   // Ignoring any other non mandatory field
   if (username && nickname && country && age) {
+    const Item = {
+      username,
+      nickname,
+      country,
+      age,
+      creationTimestamp: `${Date.now()}`
+    };
+    Object.keys(extraAttribs).forEach(attrib => {
+      Item[attrib] = eventBody[attrib];
+    });
+
     const putParams = {
-      Item: {
-        username,
-        nickname,
-        country,
-        age,
-        creationTimestamp: `${Date.now()}`
-      },
+      Item,
       TableName: 'users'
     };
 
