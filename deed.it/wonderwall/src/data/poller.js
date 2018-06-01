@@ -21,7 +21,6 @@ const reportError = (errMsg) => {
 }
 
 const getLatestTiles = async(timestamp) => {
-  console.log(`Polling for tiles since ${new Date(timestamp).toLocaleString()}`);
   const endpoint = `${URL}?oldestTimestamp=${timestamp}`;
   try {
     return await getData(endpoint);
@@ -48,6 +47,7 @@ const processTiles = (tiles) => {
 
 const poll = async() => {
   const tiles = await getLatestTiles(latestTileTimestamp);
+  console.log(`Poll for tiles after ${latestTileTimestamp} - number of tiles = ${tiles.length}`);
   processTiles(tiles);
 }
 
