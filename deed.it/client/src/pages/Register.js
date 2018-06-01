@@ -9,7 +9,7 @@ import {registerUser, updateLocalUser} from '../data/user';
 import ages from '../data/age.js';
 import cities from '../data/city';
 import countries from '../data/country.js';
-import DeedSummary from '../components/DeedSummary';
+import DeedTypeSummary from '../components/DeedTypeSummary';
 import './Register.css';
 
 const isScotland = (country) => country === 'Scotland';
@@ -98,7 +98,7 @@ class Register extends Component {
       <div className='page'>
         <Title text='Thank you!' />
         <Text text='You have picked:' />
-        <DeedSummary description={description} image={image} />
+        <DeedTypeSummary description={description} image={image} />
         <Text text='Before you get started, we just need a few details so we can track the progress of your deeds.' />
         <Text text='What can we call you?' />
         <Input onChange={this.updateNickname} />
