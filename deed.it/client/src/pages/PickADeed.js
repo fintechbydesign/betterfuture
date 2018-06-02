@@ -4,12 +4,12 @@ import Button from '../components/Button';
 import Carousel from '../components/Carousel';
 import Image from '../components/Image';
 import Fetching from '../components/Fetching';
+import superDeedStyling from '../components/superDeed';
 import { getDeedHierarchy } from '../data/deeds';
 import { updateLocalUser} from '../data/user';
 import './PickADeed.css';
 
 const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'selectDeed'];
-const panelClasses = ['PickADeed-green', 'PickADeed-happy', 'PickADeed-homeless'];
 
 class PickADeed extends Component {
   constructor (props) {
@@ -79,9 +79,7 @@ class PickADeed extends Component {
   }
 
   renderSuperDeed (superDeed, index) {
-    const callout = (index === 2)
-      ? (<div className='PickADeed-callout'>In partnership with Social Bite</div>)
-      : null;
+    const { callout } = superDeedStyling[index];
     const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index, callout));
     const thumbnails = superDeed.deedTypes.map(() => ({}));
     const selected = (index) => this.setSelected(superDeed, superDeed.deedTypes[index]);
@@ -101,8 +99,8 @@ class PickADeed extends Component {
     const panels = deedHierarchy.map((superDeed, index) => ({
       content: this.renderSuperDeed(superDeed, index),
       header: superDeed.id,
-      className: `PickADeed-panel ${panelClasses[index]}`,
-      headerClass: `PickADeed-header ${panelClasses[index]}`
+      className: `PickADeed-panel ${superDeedStyling[index].className}`,
+      headerClass: `PickADeed-header ${superDeedStyling[index].className}`
     }));
     const onChange = (index) => {
       // bug (?) in Collapse that allows undefined active key to be passed
@@ -110,9 +108,16 @@ class PickADeed extends Component {
         this.setSelected(deedHierarchy[index], deedHierarchy[index].deedTypes[0]);
       }
     };
+    const defaultActiveKey = String(2);
+    /*
+    const activeKey = this.selected.superDeed
+      ? deedHierarchy.findIndex((superdeed) => superdeed === this.selected.superDeed)
+      : 2;
+      */
+    const accordionProps = { defaultActiveKey, onChange, panels }
     return (
       <div>
-        <Accordion panels={panels} onChange={onChange} />
+        <Accordion {...accordionProps} />
       </div>
     );
   }

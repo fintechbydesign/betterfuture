@@ -6,10 +6,10 @@ import './DeedTypeSummary.css';
 function DeedTypeSummary(props) {
   const { image, description } = props;
   return (
-    <header className='flexContainerRow'>
+    <div className='flexContainerRow'>
       <Image className='DeedTypeSummary-image' alt='logo' src={image} type='appImage' />
       <Text text={description} />
-    </header>
+    </div>
   );
 }
 

@@ -1,15 +1,17 @@
 import React from 'react';
 import Image from './Image';
+import superDeedStyling from '../components/superDeed';
 import Text from './Text';
 import './DeedSummary.css';
 
 function DeedSummary (props) {
-  const { src, description } = props;
+  const { src, description, superDeedId } = props;
+  const className = `flexContainerRow ${superDeedStyling[superDeedId].className}`
   return (
-    <header className='flexContainerRow'>
+    <div className={className}>
       <Image className='DeedSummary-image' alt='logo' src={src} type='userImage' />
       <Text text={description} />
-    </header>
+    </div>
   );
 }
 

@@ -4,20 +4,21 @@ import './Accordion.css';
 const Panel = Collapse.Panel;
 
 function Accordion (props) {
-  const panels = props.panels.map((panel, index) => {
+  const { defaultActiveKey, onChange, panels} = props;
+  const renderedPanels = panels.map((panel, index) => {
     const { header, className, headerClass, content } = panel;
-    const props = {
+    const panelProps = {
       key: index,
       header,
       className,
       headerClass
     }
-    return (<Panel {...props} showArrow >{content}</Panel>);
+    return (<Panel {...panelProps} showArrow >{content}</Panel>);
   });
 
   return (
-    <Collapse accordion defaultActiveKey='2' onChange={props.onChange} >
-      {panels}
+    <Collapse accordion defaultActiveKey={defaultActiveKey} onChange={onChange} >
+      {renderedPanels}
     </Collapse>
   );
 }

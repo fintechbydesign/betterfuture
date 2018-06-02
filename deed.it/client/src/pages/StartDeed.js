@@ -1,10 +1,11 @@
 import React from 'react';
 import Button from '../components/Button';
 import Image from '../components/Image';
+import superDeedStyling from '../components/superDeed';
 import Text from '../components/Text';
 import Title from '../components/Title';
-import {createSelectedDeed, getUserDeeds, REFRESH} from "../data/deeds";
-import {updateLocalUser} from "../data/user";
+import { createSelectedDeed, getUserDeeds, REFRESH } from '../data/deeds';
+import { updateLocalUser } from '../data/user';
 
 function StartDeed (props) {
   const { error, myProfile, register, uploading, user } = props;
@@ -28,9 +29,10 @@ function StartDeed (props) {
   }
 
   const doIt = (registered) ? startDeed : register;
+  const pageClassName = `page ${superDeedStyling[superDeed.id].className}`
 
   return (
-    <div className='page'>
+    <div className={pageClassName}>
       <Title text={superDeed.id} />
       <Text text={superDeed.description} />
       <Title text='Your Deed' />

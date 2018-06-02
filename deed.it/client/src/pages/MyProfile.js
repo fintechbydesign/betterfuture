@@ -111,7 +111,7 @@ class MyProfile extends Component {
       <div className='page'>
         <Title text={nickname} />
         <Text text={location} />
-        <Text text='Badges' />
+        <Title text='Badges' />
         {this.renderBadges()}
         <Title text='In Progress' />
         {this.renderInProgress()}
