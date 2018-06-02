@@ -5,10 +5,10 @@ const Panel = Collapse.Panel;
 
 function Accordion (props) {
   const panels = props.panels.map((panel, index) => {
-    const { label, className, headerClass, content } = panel;
+    const { header, className, headerClass, content } = panel;
     const props = {
       key: index,
-      header: label,
+      header,
       className,
       headerClass
     }
@@ -16,7 +16,7 @@ function Accordion (props) {
   });
 
   return (
-    <Collapse accordion onChange={props.onChange} >
+    <Collapse accordion defaultActiveKey='2' onChange={props.onChange} >
       {panels}
     </Collapse>
   );

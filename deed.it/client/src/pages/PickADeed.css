@@ -6,8 +6,23 @@
     height: 240px;
 }
 
-.PickADeed-default {
+.PickADeed-panel {
     color: white;
+}
+
+.PickADeed-header {
+    color: white;
+}
+
+.PickADeed-description {
+    margin: 2vh 3vw;
+}
+
+.PickADeed-callout {
+    margin: 0 3vw;
+    padding: 3vw 2vw;
+    background-color: white;
+    color: #FF6112
 }
 
 .PickADeed-green {

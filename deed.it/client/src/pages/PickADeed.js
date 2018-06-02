@@ -65,25 +65,29 @@ class PickADeed extends Component {
   }
 
   // the inner div is there to fix the height whilst the image is dynamically changed
-  renderDeedType (deedType, index) {
+  renderDeedType (deedType, index, callout) {
     return (
       <div key={index} className='PickADeed-slide-container'>
+        {callout}
         <div className='PickADeed-image-container'>
           <Image src={deedType.image} />
         </div>
-        <p>{deedType.description}</p>
+        <div className='PickADeed-description'>{deedType.description}</div>
         <Button text='Find out more >' click={this.selectDeed} />
       </div>
     );
   }
 
-  renderSuperDeed (superDeed) {
-    const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index));
+  renderSuperDeed (superDeed, index) {
+    const callout = (index === 2)
+      ? (<div className='PickADeed-callout'>In partnership with Social Bite</div>)
+      : null;
+    const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index, callout));
     const thumbnails = superDeed.deedTypes.map(() => ({}));
     const selected = (index) => this.setSelected(superDeed, superDeed.deedTypes[index]);
     return (
       <div>
-        <p>{superDeed.description}</p>
+        <div className='PickADeed-description'>{superDeed.description}</div>
         <Carousel selected={selected} slides={slides} boxThumbnails={thumbnails} />
       </div>
     );
@@ -95,10 +99,10 @@ class PickADeed extends Component {
       return (<Fetching text='Fetching available deeds' />);
     }
     const panels = deedHierarchy.map((superDeed, index) => ({
-      content: this.renderSuperDeed(superDeed),
-      label: superDeed.id,
-      className: `PickADeed-default ${panelClasses[index]}`,
-      headerClass: `PickADeed-default ${panelClasses[index]}`
+      content: this.renderSuperDeed(superDeed, index),
+      header: superDeed.id,
+      className: `PickADeed-panel ${panelClasses[index]}`,
+      headerClass: `PickADeed-header ${panelClasses[index]}`
     }));
     const onChange = (index) => {
       // bug (?) in Collapse that allows undefined active key to be passed

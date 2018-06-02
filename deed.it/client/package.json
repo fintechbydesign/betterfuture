@@ -59,6 +59,7 @@
     "lint": "eslint ./src",
     "publish": "npm run build && node ../publish.js build deedit.org"
   },
+  "proxy": "http://localhost:11111",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
