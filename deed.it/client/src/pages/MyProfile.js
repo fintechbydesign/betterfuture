@@ -108,7 +108,7 @@ class MyProfile extends Component {
   render () {
     const { deeds } = this.state;
     if (!deeds) {
-      return (<Fetching text='Fetching your deeds' />);
+      return (<Fetching text='Fetching your deeds...' />);
     }
     const { user } = this.props;
     return (

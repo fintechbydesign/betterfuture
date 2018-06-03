@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
+import FetchingProgress from './FetchingProgress';
 import getLocation from '../data/location';
 import { prepareUpload } from '../data/S3';
 import { getUserDeeds, updateDeed, REFRESH } from '../data/deeds';
@@ -8,6 +9,23 @@ import { createEvent } from '../data/events';
 import { updateLocalUser } from "../data/user";
 
 const methods = ['completeDeed', 'createNewEvents', 'createUploadArtifacts', 'toggleRecordLocation'];
+
+class CompleteDeedProgress extends FetchingProgress {
+
+  constructor (uploadProgress) {
+    super();
+    this.updateProgress = this.updateProgress.bind(this);
+    if (uploadProgress) {
+      uploadProgress.on('httpUploadProgress', this.updateProgress);
+    }
+  }
+
+  updateProgress (progress) {
+    const { loaded, total } = progress;
+    const percentage = Math.round( 60 * loaded / total );  // max 60%
+    this.setProgress(percentage, 'Uploading your evidence...');
+  }
+}
 
 class CompleteDeed extends Component {
 
@@ -30,9 +48,9 @@ class CompleteDeed extends Component {
     const { deed, imageData } = this.props;
     if (imageData) {
       const imageName = `${deed.id}.png`;
-      const upload = await prepareUpload(deed, imageName, imageData);
-      const uploadPromise = upload.promise();
-      return { imageName, upload, uploadPromise };
+      const uploadProgress = await prepareUpload(deed, imageName, imageData);
+      const uploadPromise = uploadProgress.promise();
+      return { imageName, uploadProgress, uploadPromise };
     } else {
       return { uploadPromise:  Promise.resolve() };
     }
@@ -68,8 +86,10 @@ class CompleteDeed extends Component {
     try {
       const { imageName, uploadProgress, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
       const locationPromise = recordLocation ? getLocation(deed) : Promise.resolve();
-      navigateFns.uploading({uploadProgress});
+      const progress = new CompleteDeedProgress(uploadProgress);
+      navigateFns.uploading({progress});
       const [location, upload] = await Promise.all([locationPromise, uploadPromise]);
+      progress.setProgress(60, 'Updating deed...');
       await updateDeed({
         ...deed,
         ...location,
@@ -81,9 +101,11 @@ class CompleteDeed extends Component {
         ...user,
         selected: null
       });
+      progress.setProgress(70, 'Awarding badges...');
       await this.createNewEvents();
       // update user deeds before showing profile
       await getUserDeeds(user, REFRESH);
+      progress.setProgress(80, 'Updating your profile...');
       navigateFns.myProfile();
     } catch (err) {
       navigateFns.error({err});
