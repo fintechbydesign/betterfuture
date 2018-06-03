@@ -27,5 +27,5 @@ const initUser = () => {
 getDeedHierarchy();
 initUser();
 ReactDOM.render(<App/>, document.getElementById('root'));
-// registerServiceWorker();
+registerServiceWorker();
 

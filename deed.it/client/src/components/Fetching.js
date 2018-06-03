@@ -3,7 +3,7 @@ import Circular from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Text from './Text';
 import './Fetching.css';
-import FetchingProgress, { DefaultProgress } from "./FetchingProgress";
+import { DefaultProgress } from "./FetchingProgress";
 
 class Fetching extends Component {
 
