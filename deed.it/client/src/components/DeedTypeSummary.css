@@ -1,8 +1,11 @@
 .DeedTypeSummary-container {
-  padding: 5px;
+  padding: 2vw;
+  color: white;
+  border: white 2px solid;
 }
 
 .DeedTypeSummary-image {
   width: 15vw;
-  padding-right: 15vw;
+  height: 15vw;
+  margin: 0 5vw 2vw 0;
 }

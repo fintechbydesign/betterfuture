@@ -1,6 +1,7 @@
 .GlobalNav-container {
   background-color: #002E4A;
   padding: 1vh;
+  justify-content: space-evenly;
 }
 
 .GlobalNav-item {

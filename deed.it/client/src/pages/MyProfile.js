@@ -5,9 +5,11 @@ import DeedSummary from '../components/DeedSummary';
 import Fetching from '../components/Fetching';
 import Text from '../components/Text';
 import Title from '../components/Title';
+import UserSummary from '../components/UserSummary';
 import Wonderwall from '../components/WonderWall';
 import { getUserDeeds } from '../data/deeds';
 import { updateLocalUser } from '../data/user';
+import './MyProfile.css';
 
 const methods = ['fetchDeeds', 'renderBadges', 'renderInProgress', 'renderInProgressDeed', 'renderPrevious'];
 
@@ -59,7 +61,7 @@ class MyProfile extends Component {
       evidence();
     };
     return (
-      <div key={index}>
+      <div key={index} className='MyProfile-InProgress'>
         <DeedSummary key={index} {...deed} />
         <Button click={click} text="I've done it" />
       </div>
@@ -69,11 +71,15 @@ class MyProfile extends Component {
   renderBadges () {
     const { events } = this.state;
     const badges = events.filter((event) => event.type = 'badge').map((event) => (<Badge {...event} />));
-    return (
-      <div className='flexContainerRow'>
-        {badges}
-      </div>
-    );
+    if (badges.length === 0) {
+      return (<Text text='None yet!' />);
+    } else {
+      return (
+        <div className='flexContainerRow'>
+          {badges}
+        </div>
+      );
+    }
   }
 
   renderInProgress () {
@@ -104,13 +110,10 @@ class MyProfile extends Component {
     if (!deeds) {
       return (<Fetching text='Fetching your deeds' />);
     }
-    const { nickname, personal } = this.props.user;
-    const { city, country } = personal;
-    const location = (city) ? `${city}, ${country}` : country;
+    const { user } = this.props;
     return (
       <div className='page'>
-        <Title text={nickname} />
-        <Text text={location} />
+        <UserSummary {...user} />
         <Title text='Badges' />
         {this.renderBadges()}
         <Title text='In Progress' />

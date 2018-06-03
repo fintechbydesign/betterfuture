@@ -53,7 +53,7 @@ class Register extends Component {
   updateNickname (nickname) {
     this.setState({
       ...this.state,
-      nickname
+      nickname: nickname.trim()
     });
   }
 
@@ -82,11 +82,10 @@ class Register extends Component {
   render () {
     const { termsAndConditions, user } = this.props;
     const { deedType } = user.selected;
-    const { description, image } = deedType;
     const { age, country, nickname } = this.state;
 
     const cityClassName = isScotland(country) ? 'Register-show' : 'Register-hide';
-    const buttonEnabled = age && country && nickname;
+    const buttonEnabled = age && country && nickname  && nickname.trim().length > 2;
 
     const tandcs = [
       'Read our ',
@@ -94,22 +93,29 @@ class Register extends Component {
       ' if you want to understand how we use your data.'
     ];
 
+    const nickNameProps = {
+      onChange: this.updateNickname,
+      minLength: 3,
+      maxLength: 30,
+      placeholder: 'Please enter between 3 and 30 characters'
+    };
+
     return (
       <div className='page'>
         <Title text='Thank you!' />
-        <Text text='You have picked:' />
-        <DeedTypeSummary description={description} image={image} />
+        <Text text='You have picked:'/>
+        <DeedTypeSummary {...deedType} />
         <Text text='Before you get started, we just need a few details so we can track the progress of your deeds.' />
-        <Text text='What can we call you?' />
-        <Input onChange={this.updateNickname} />
-        <Text text='Where are you from?' />
-        <Dropdown options={countries} onChange={this.updateCountry} />
+        <Text text='What can we call you?' className='Text-label'/>
+        <Input {...nickNameProps} />
+        <Text text='Where are you from?' className='Text-label' />
+        <Dropdown options={countries} onChange={this.updateCountry} placeholder='Please select your country...' />
         <div className={cityClassName} >
-          <Text text='Which is your nearest city?' />
-          <Dropdown options={cities} onChange={this.updateCity} />
+          <Text text='Which is your nearest city?' className='Text-label' />
+          <Dropdown options={cities} onChange={this.updateCity} placeholder='Please select your city...' />
         </div>
-        <Text text='What age are you?' />
-        <Dropdown options={ages} onChange={this.updateAge} />
+        <Text text='What age are you?' className='Text-label' />
+        <Dropdown options={ages} onChange={this.updateAge} placeholder='Please select your age...'/>
         <Button text='Get started >' click={this.getStarted} disabled={!buttonEnabled} />
         <Text contents={tandcs} />
       </div>

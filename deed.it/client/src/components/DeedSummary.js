@@ -6,7 +6,7 @@ import './DeedSummary.css';
 
 function DeedSummary (props) {
   const { src, description, superDeedId } = props;
-  const className = `flexContainerRow ${superDeedStyling[superDeedId].className}`
+  const className = `flexContainerRow DeedSummary-container ${superDeedStyling[superDeedId].className}`
   return (
     <div className={className}>
       <Image className='DeedSummary-image' alt='logo' src={src} type='userImage' />

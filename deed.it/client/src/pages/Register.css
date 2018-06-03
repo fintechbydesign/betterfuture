@@ -10,6 +10,8 @@
 .Register-show {
     overflow: hidden;
     animation: fadein 1s;
+    text-align: center;
+    width: 100%;
 }
 
 .Register-link {

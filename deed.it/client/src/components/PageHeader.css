@@ -2,16 +2,14 @@
   background-color: #002E4A;
   justify-content: space-around;
   align-items: flex-end;
-  padding: 1vh;
 }
 
 .PageHeader_image {
-  padding-right: 5vw;
   width: 40vw;
 }
 
 .PageHeader_title {
   color: white;
   font-size: 4vw;
-  padding-bottom: 1vh;
+  padding-bottom: 2vh;
 }

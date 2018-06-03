@@ -2,3 +2,10 @@
   margin-bottom: 1vh;
   text-align: justify;
 }
+
+.Text-label {
+  font-weight: bold;
+  margin-top: 1vh;
+  margin-bottom: 0;
+  text-align: center;
+}
