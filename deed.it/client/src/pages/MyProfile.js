@@ -90,7 +90,7 @@ class MyProfile extends Component {
       return summaries;
     } else {
       return (
-        <div>
+        <div  className='MyProfile-InProgress'>
           <Text text='You have no current deed' />
           <Button click={pickADeed} text='Pick a deed' />
         </div>

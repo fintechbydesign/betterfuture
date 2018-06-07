@@ -26,9 +26,11 @@ class Fetching extends Component {
   }
 
   render() {
+    const { className } = this.props;
     const { percentage, text } = this.state;
+    const containerClass = (className) ? `Fetching-container ${className}` : 'Fetching-container';
     return (
-      <div className='Fetching-container'>
+      <div className={containerClass} >
         <Circular percentage={percentage} className='Fetching-progress'/>
         <Text text={text} className='Fetching-text'/>
       </div>

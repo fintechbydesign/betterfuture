@@ -1,4 +1,7 @@
-.DeeditDifference-iframe {
-    height: 100vh;
+.DeeditDifference-show {
     width: 90vw;
+}
+
+.DeeditDifference-hide {
+    display: none;
 }
