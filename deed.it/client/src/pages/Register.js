@@ -84,7 +84,7 @@ class Register extends Component {
     const { deedType } = user.selected;
     const { age, country, nickname } = this.state;
 
-    const cityClassName = isScotland(country) ? 'Register-show' : 'Register-hide';
+    const cityClassName = isScotland(country) ? 'Register-show' : 'hidden';
     const buttonEnabled = age && country && nickname  && nickname.trim().length > 2;
 
     const tandcs = [

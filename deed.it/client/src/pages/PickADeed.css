@@ -1,3 +1,16 @@
+@keyframes disappear {
+    from { max-height: 200px; }
+    to   { max-height: 0; }
+}
+
+.PickADeed-text {
+    padding: 16px;
+}
+
+.PickADeed-text-hidden {
+    display: none;
+}
+
 .PickADeed-slide-container {
     text-align: center;
 }

@@ -10,19 +10,25 @@ class Fetching extends Component {
   constructor(props) {
     super(props);
     this.setProgress = this.setProgress.bind(this);
+    this.progress = (props.progress) ? props.progress: new DefaultProgress();
+    this.progress.setProgress = this.setProgress;
     this.state = {
       percentage: 0,
       text: props.text ? props.text : 'Fetching...'
     };
-    const progress = (props.progress) ? props.progress: new DefaultProgress();
-    progress.setProgress = this.setProgress;
+
   }
 
   setProgress(percentage, text) {
     this.setState({
+      ...this.state,
       percentage,
       text: (text) ? text : this.state.text
     });
+  }
+
+  componentWillUnmount() {
+    this.progress.setProgress = () => null;
   }
 
   render() {

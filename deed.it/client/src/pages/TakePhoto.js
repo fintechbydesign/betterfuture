@@ -5,7 +5,6 @@ import CompleteDeed from '../components/CompleteDeed'
 import Text from '../components/Text.js';
 import Title from '../components/Title.js';
 import { initS3 } from '../data/S3';
-import './TakePhoto.css';
 
 const methods = ['captureVideo', 'reset', 'sendPhoto', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
 
@@ -71,13 +70,13 @@ class TakePhoto extends Component {
         imageClass: '',
         instruction: 'Click/press the picture to try again',
         setupFn: this.showPhoto,
-        videoClass: 'TakePhoto-hide'
+        videoClass: 'hidden'
       };
     } else {
       // show video
       return {
         completeDeedProps: null,
-        imageClass: 'TakePhoto-hide',
+        imageClass: 'hidden',
         instruction: 'Click/press the video to take a picture',
         setupFn: this.startVideo,
         videoClass: ''
@@ -99,7 +98,7 @@ class TakePhoto extends Component {
         <Text text={instruction} />
         <video ref={this.video} autoPlay onClick={this.captureVideo} className={videoClass} />
         <img ref={this.image} alt='what will be submitted' onClick={this.reset} className={imageClass} />
-        <canvas ref={this.canvas} className='TakePhoto-hide' />
+        <canvas ref={this.canvas} className='hidden' />
         {completeDeed}
       </div>
     );

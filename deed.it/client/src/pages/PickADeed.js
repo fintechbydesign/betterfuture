@@ -5,23 +5,26 @@ import Carousel from '../components/Carousel';
 import Image from '../components/Image';
 import Fetching from '../components/Fetching';
 import superDeedStyling from '../components/superDeed';
+import Text from '../components/Text';
 import { getDeedHierarchy } from '../data/deeds';
 import { updateLocalUser} from '../data/user';
 import './PickADeed.css';
 
 const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'selectDeed'];
 
+const randomTextProps = {
+  count: 3,
+  units: 'sentences',
+  format: 'plain'
+};
+
 class PickADeed extends Component {
   constructor (props) {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
-      deedHierarchy: null
-    };
-    // 'selected' not in state as Accordion/Carousel not correctly redrawing when it is set
-    this.selected = {
-      superDeed: null,
-      deedType: null
+      deedHierarchy: null,
+      selected: null
     };
   }
 
@@ -35,8 +38,6 @@ class PickADeed extends Component {
   async fetchDeeds () {
     try {
       const deedHierarchy = await getDeedHierarchy();
-      console.log('pickADeed', 'fetchDeeds', deedHierarchy);
-      this.setSelected(deedHierarchy[0], deedHierarchy[0].deedTypes[0]);
       this.setState({
         ...this.state,
         deedHierarchy
@@ -47,18 +48,17 @@ class PickADeed extends Component {
   }
 
   setSelected (superDeed, deedType) {
-    console.log('setSelected', superDeed, deedType);
-    this.selected = {
-      ...this.selected,
-      superDeed,
-      deedType
-    };
+    const selected = (superDeed && deedType) ? { superDeed, deedType } : null;
+    this.setState({
+      ...this.state,
+      selected
+    });
   }
 
   selectDeed () {
     const user = {
       ...this.props.user,
-      selected: this.selected
+      selected: this.state.selected
     };
     updateLocalUser(user);
     this.props.startDeed();
@@ -92,10 +92,11 @@ class PickADeed extends Component {
   }
 
   render () {
-    const { deedHierarchy } = this.state;
+    const { deedHierarchy, selected } = this.state;
     if (!deedHierarchy) {
       return (<Fetching text='Fetching available deeds' />);
     }
+    const textClassName = (selected) ? 'PickADeed-text-hidden' : 'PickADeed-text';
     const panels = deedHierarchy.map((superDeed, index) => ({
       content: this.renderSuperDeed(superDeed, index),
       header: superDeed.id,
@@ -103,20 +104,16 @@ class PickADeed extends Component {
       headerClass: `PickADeed-header ${superDeedStyling[index].className}`
     }));
     const onChange = (index) => {
-      // bug (?) in Collapse that allows undefined active key to be passed
-      if (typeof index !== 'undefined') {
+      if (typeof index === 'undefined') {
+        this.setSelected();
+      } else {
         this.setSelected(deedHierarchy[index], deedHierarchy[index].deedTypes[0]);
       }
     };
-    const defaultActiveKey = String(2);
-    /*
-    const activeKey = this.selected.superDeed
-      ? deedHierarchy.findIndex((superdeed) => superdeed === this.selected.superDeed)
-      : 2;
-      */
-    const accordionProps = { defaultActiveKey, onChange, panels }
+    const accordionProps = { onChange, panels }
     return (
       <div>
+        <Text className={textClassName} dummyText={randomTextProps} />
         <Accordion {...accordionProps} />
       </div>
     );

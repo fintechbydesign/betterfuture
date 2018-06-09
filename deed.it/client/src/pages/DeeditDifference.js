@@ -23,8 +23,8 @@ class DeeditDifference extends Component {
 
   render () {
     const { hidden } = this.state;
-    const fetchingClass = hidden ? 'DeeditDifference-show' : 'DeeditDifference-hide';
-    const imageClass = hidden? 'DeeditDifference-hide' : 'DeeditDifference-show';
+    const fetchingClass = hidden ? 'DeeditDifference-show' : 'hidden';
+    const imageClass = hidden? 'hidden' : 'DeeditDifference-show';
 
     return (
       <div className='page'>
