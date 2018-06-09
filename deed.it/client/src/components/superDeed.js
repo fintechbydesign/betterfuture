@@ -11,24 +11,24 @@ import './superDeed.css';
 
 const happy = {
   'background-color': '#0E88FC',
+  color: '#0E88FC',
   className: 'SuperDeed-happy',
-  callout: null,
   id: 'Community Spirit',
   icon: happyIcon
 };
 
 const green = {
   'background-color': '#20BCA4',
+  color: '#20BCA4',
   className: 'SuperDeed-green',
-  callout: null,
   id: 'Make Edinburgh Green',
   icon: greenIcon
 };
 
 const homeless = {
   'background-color': '#FF6112',
+  color: '#FF6112',
   className: 'SuperDeed-homeless',
-  callout: (<div className='PickADeed-callout'>In partnership with Social Bite</div>),
   id: 'Support SocialBite',
   icon: homelessIcon
 };

@@ -60,7 +60,32 @@ class PickADeed extends Component {
   }
 
   // the inner div is there to fix the height whilst the image is dynamically changed
-  renderDeedType (deedType, index, callout) {
+  renderDeedType (deedType, styling) {
+    const { description, id } = deedType;
+    const { className, color, icon } = styling;
+    const style = { color };
+    return (
+      <div>
+        <div className='PickADeed-image'>
+          <Image src={icon} className='PickADeed-image' />
+        </div>
+        <Text text={id} className='PickADeed-bold' />
+        <Text text={description} />
+        <div className='PickADeed-callout' >
+          <div className='PickADeed-when flexContainerRow'>
+            <Text text='When' className='PickADeed-callout-text PickADeed-transform' style={style} />
+            <Text text='Monday 6th' className='PickADeed-callout-text'/>
+            <Text text='22:00' className='PickADeed-callout-text'/>
+          </div>
+          <div className='PickADeed-where flexContainerRow'>
+            <Text text='Where' className='PickADeed-callout-text PickADeed-transform' style={style} />
+            <Text text='George Street' className='PickADeed-callout-text' />
+          </div>
+        </div>
+        <Button text='Do this deed' click={this.selectDeed} />
+      </div>
+    );
+    /*
     return (
       <div key={index} className='PickADeed-slide-container'>
         {callout}
@@ -71,18 +96,16 @@ class PickADeed extends Component {
         <Button text='Find out more >' click={this.selectDeed} />
       </div>
     );
+    */
   }
 
   renderSuperDeed (superDeed, index) {
-    const { callout } = superDeedStyling[index];
-    const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index, callout));
+    const styling = superDeedStyling[index];
+    const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, styling));
     const thumbnails = superDeed.deedTypes.map(() => ({}));
     const selected = (index) => this.setSelected(superDeed, superDeed.deedTypes[index]);
     return (
-      <div>
-        <div className='PickADeed-description'>{superDeed.description}</div>
-        <Carousel selected={selected} slides={slides} boxThumbnails={thumbnails} />
-      </div>
+      <Carousel selected={selected} slides={slides} boxThumbnails={thumbnails} />
     );
   }
 
@@ -95,7 +118,8 @@ class PickADeed extends Component {
     const items = deedHierarchy.map((superDeed, index) => ({
       content: this.renderSuperDeed(superDeed, index),
       title: superDeed.id,
-      bodyClassName: `PickADeed-item ${superDeedStyling[index].className}`,
+      className: 'PickADeed-root',
+      bodyClassName: `PickADeed-body ${superDeedStyling[index].className}`,
       titleClassName: `PickADeed-header ${superDeedStyling[index].className}`
     }));
     const onChange = ({activeItems}) => {

@@ -1,27 +1,10 @@
-@keyframes disappear {
-    from { max-height: 200px; }
-    to   { max-height: 0; }
-}
-
 .PickADeed-title {
     padding-left: 16px;
     margin: 1vh;
 }
 
-.PickADeed-text {
-    padding: 16px;
-}
-
-.PickADeed-slide-container {
-    text-align: center;
-}
-
-.PickADeed-image-container {
-    height: 240px;
-}
-
-.PickADeed-item {
-    color: white;
+.PickADeed-root {
+    margin: 0 16px 0 16px;
 }
 
 .PickADeed-header {
@@ -29,13 +12,44 @@
     padding: 1vh;
 }
 
-.PickADeed-description {
-    margin: 2vh 3vw;
+.PickADeed-body {
+    color: white;
+    padding: 1vh 1vh 0 1vh;
+}
+
+.PickADeed-image {
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+}
+
+.PickADeed-bold {
+    font-weight: bold;
 }
 
 .PickADeed-callout {
-    margin: 0 3vw;
-    padding: 3vw 2vw;
     background-color: white;
-    color: #FF6112
+    color: #002E4A;
+    margin: 8px;
+    padding: 8px;
+}
+
+.PickADeed-callout-text {
+    margin: 0 1vh 0 1vh;
+}
+
+.PickADeed-when {
+    padding-bottom: 1vh;
+    border-bottom: 1px #002E4A solid;
+}
+
+.PickADeed-where {
+    padding-top: 1vh;
+}
+
+.PickADeed-transform {
+    font-family: 'Bungee Inline', cursive;
+    transform: rotate(180deg);
+    writing-mode: vertical-lr;
 }
