@@ -5,18 +5,13 @@ import Carousel from '../components/Carousel';
 import Image from '../components/Image';
 import Fetching from '../components/Fetching';
 import superDeedStyling from '../components/superDeed';
+import Title from '../components/Title';
 import Text from '../components/Text';
 import { getDeedHierarchy } from '../data/deeds';
 import { updateLocalUser} from '../data/user';
 import './PickADeed.css';
 
 const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'selectDeed'];
-
-const randomTextProps = {
-  count: 3,
-  units: 'sentences',
-  format: 'plain'
-};
 
 class PickADeed extends Component {
   constructor (props) {
@@ -94,26 +89,28 @@ class PickADeed extends Component {
   render () {
     const { deedHierarchy, selected } = this.state;
     if (!deedHierarchy) {
-      return (<Fetching text='Fetching available deeds' />);
+      return (<Fetching text='Fetching available deeds...' />);
     }
-    const textClassName = (selected) ? 'PickADeed-text-hidden' : 'PickADeed-text';
-    const panels = deedHierarchy.map((superDeed, index) => ({
+    const textClassName = (selected) ? 'hidden' : 'PickADeed-text';
+    const items = deedHierarchy.map((superDeed, index) => ({
       content: this.renderSuperDeed(superDeed, index),
-      header: superDeed.id,
-      className: `PickADeed-panel ${superDeedStyling[index].className}`,
-      headerClass: `PickADeed-header ${superDeedStyling[index].className}`
+      title: superDeed.id,
+      bodyClassName: `PickADeed-item ${superDeedStyling[index].className}`,
+      titleClassName: `PickADeed-header ${superDeedStyling[index].className}`
     }));
-    const onChange = (index) => {
-      if (typeof index === 'undefined') {
-        this.setSelected();
-      } else {
+    const onChange = ({activeItems}) => {
+      if(activeItems.length) {
+        const index = activeItems[0];
         this.setSelected(deedHierarchy[index], deedHierarchy[index].deedTypes[0]);
+      } else {
+        this.setSelected();
       }
     };
-    const accordionProps = { onChange, panels }
+    const accordionProps = { items, onChange }
     return (
       <div>
-        <Text className={textClassName} dummyText={randomTextProps} />
+        <Title text='Pick A Deed' className='PickADeed-title' />
+        <Text className={textClassName} text='Choose which megadeed you would like to contribute to.' />
         <Accordion {...accordionProps} />
       </div>
     );
