@@ -62,7 +62,7 @@ class PickADeed extends Component {
   // the inner div is there to fix the height whilst the image is dynamically changed
   renderDeedType (deedType, styling) {
     const { description, id } = deedType;
-    const { className, color, icon } = styling;
+    const { color, icon } = styling;
     const style = { color };
     return (
       <div>
@@ -73,30 +73,24 @@ class PickADeed extends Component {
         <Text text={description} />
         <div className='PickADeed-callout' >
           <div className='PickADeed-when flexContainerRow'>
-            <Text text='When' className='PickADeed-callout-text PickADeed-transform' style={style} />
-            <Text text='Monday 6th' className='PickADeed-callout-text'/>
-            <Text text='22:00' className='PickADeed-callout-text'/>
+            <Text text='When' className='PickADeed-callout-text PickADeed-vertical' style={style} />
+            <div>
+              <Text text='Monday 6th' className='PickADeed-callout-text PickADeed-emphasis'/>
+              <Text text='August 2018' className='PickADeed-callout-text'/>
+            </div>
+            <Text text='22:00' className='PickADeed-callout-text PickADeed-time'/>
           </div>
           <div className='PickADeed-where flexContainerRow'>
-            <Text text='Where' className='PickADeed-callout-text PickADeed-transform' style={style} />
-            <Text text='George Street' className='PickADeed-callout-text' />
+            <Text text='Where' className='PickADeed-callout-text PickADeed-vertical' style={style} />
+            <div>
+              <Text text='George Street' className='PickADeed-callout-text PickADeed-emphasis' />
+              <Text text='Edinburgh' className='PickADeed-callout-text' />
+            </div>
           </div>
         </div>
         <Button text='Do this deed' click={this.selectDeed} />
       </div>
     );
-    /*
-    return (
-      <div key={index} className='PickADeed-slide-container'>
-        {callout}
-        <div className='PickADeed-image-container'>
-          <Image src={deedType.image} />
-        </div>
-        <div className='PickADeed-description'>{deedType.description}</div>
-        <Button text='Find out more >' click={this.selectDeed} />
-      </div>
-    );
-    */
   }
 
   renderSuperDeed (superDeed, index) {
@@ -105,7 +99,7 @@ class PickADeed extends Component {
     const thumbnails = superDeed.deedTypes.map(() => ({}));
     const selected = (index) => this.setSelected(superDeed, superDeed.deedTypes[index]);
     return (
-      <Carousel selected={selected} slides={slides} boxThumbnails={thumbnails} />
+      <Carousel selected={selected} slides={slides} circleThumbnails={thumbnails} />
     );
   }
 

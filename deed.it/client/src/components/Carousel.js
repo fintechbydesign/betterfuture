@@ -1,26 +1,16 @@
 import React from 'react';
 import NukaCarousel from 'nuka-carousel';
 import BoxThumbnail from './BoxThumbnail';
+import CircleThumbnail from './CircleThumbnail';
 import ImageThumbnail from './ImageThumbnail';
 import './Carousel.css';
 
 const left = '<';
 const right = '>';
 
-const renderImageThumbnails = (thumbnails) => ({currentSlide}) => {
+const renderThumbnails = (thumbnails, ThumbnailClass) => ({currentSlide}) => {
   const thumbNails = thumbnails.map((thumbnail, index) => {
-    return (<ImageThumbnail src={thumbnail} active={(currentSlide === index)} key={index}/>);
-  });
-  return (
-    <div>
-      {thumbNails}
-    </div>
-  );
-};
-
-const renderBoxThumbnails = (thumbnails) => ({currentSlide}) => {
-  const thumbNails = thumbnails.map((thumbnail, index) => {
-    return (<BoxThumbnail active={(currentSlide === index)} key={index}/>);
+    return (<ThumbnailClass active={(currentSlide === index)} key={index}/>);
   });
   return (
     <div>
@@ -30,7 +20,7 @@ const renderBoxThumbnails = (thumbnails) => ({currentSlide}) => {
 };
 
 function Carousel (props) {
-  const { boxThumbnails, imageThumbnails } = props;
+  const { boxThumbnails, circleThumbnails, imageThumbnails } = props;
   const nukaProps = {
     afterSlide: props.selected,
     dragging: true,
@@ -45,10 +35,13 @@ function Carousel (props) {
     <button className='Carousel-nav-button'onClick={nextSlide}>{right}</button>
   );
   if (boxThumbnails) {
-    nukaProps.renderBottomCenterControls = renderBoxThumbnails(boxThumbnails);
+    nukaProps.renderBottomCenterControls = renderThumbnails(boxThumbnails, BoxThumbnail);
+  }
+  if (circleThumbnails) {
+    nukaProps.renderBottomCenterControls = renderThumbnails(circleThumbnails, CircleThumbnail);
   }
   if (imageThumbnails) {
-    nukaProps.renderBottomCenterControls = renderImageThumbnails(imageThumbnails);
+    nukaProps.renderBottomCenterControls = renderThumbnails(imageThumbnails, ImageThumbnail);
   }
   return (
     <NukaCarousel {...nukaProps} >

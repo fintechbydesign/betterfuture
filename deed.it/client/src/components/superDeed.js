@@ -2,7 +2,6 @@
  not a component but metadata about superdeeds
  COMPLETELY coupled to deed hierarchy from database!
 */
-import React from 'react';
 import greenIcon from '../images/green-deed-small.svg';
 import happyIcon from '../images/happy-deed-small.svg';
 import homelessIcon from '../images/socialbite-small.svg';

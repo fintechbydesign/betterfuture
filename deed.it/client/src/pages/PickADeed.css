@@ -31,8 +31,7 @@
 .PickADeed-callout {
     background-color: white;
     color: #002E4A;
-    margin: 8px;
-    padding: 8px;
+    padding: 1vh;
 }
 
 .PickADeed-callout-text {
@@ -48,7 +47,17 @@
     padding-top: 1vh;
 }
 
-.PickADeed-transform {
+.PickADeed-emphasis {
+    font-weight: bold;
+}
+
+.PickADeed-time {
+    font-family: 'Bungee Inline', cursive;
+    font-size: x-large;
+    margin-left: 3vh;
+}
+
+.PickADeed-vertical {
     font-family: 'Bungee Inline', cursive;
     transform: rotate(180deg);
     writing-mode: vertical-lr;
