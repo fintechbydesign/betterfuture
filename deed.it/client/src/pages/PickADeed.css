@@ -24,8 +24,14 @@
     width: 100px;
 }
 
-.PickADeed-bold {
+.PickADeed-1-line {
     font-weight: bold;
+    max-height: 1.4em;
+    overflow: hidden;
+}
+
+.PickADeed-2-lines {
+    min-height: 2.8em;
 }
 
 .PickADeed-callout {

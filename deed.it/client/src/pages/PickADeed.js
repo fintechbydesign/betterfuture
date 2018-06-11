@@ -60,17 +60,17 @@ class PickADeed extends Component {
   }
 
   // the inner div is there to fix the height whilst the image is dynamically changed
-  renderDeedType (deedType, styling) {
+  renderDeedType (deedType, index, styling) {
     const { description, id } = deedType;
     const { color, icon } = styling;
     const style = { color };
     return (
-      <div>
+      <div key={index} >
         <div className='PickADeed-image'>
           <Image src={icon} className='PickADeed-image' />
         </div>
-        <Text text={id} className='PickADeed-bold' />
-        <Text text={description} />
+        <Text text={id} className='PickADeed-1-line' />
+        <Text text={description} className='PickADeed-2-lines'/>
         <div className='PickADeed-callout' >
           <div className='PickADeed-when flexContainerRow'>
             <Text text='When' className='PickADeed-callout-text PickADeed-vertical' style={style} />
@@ -95,11 +95,11 @@ class PickADeed extends Component {
 
   renderSuperDeed (superDeed, index) {
     const styling = superDeedStyling[index];
-    const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, styling));
-    const thumbnails = superDeed.deedTypes.map(() => ({}));
+    const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index, styling));
     const selected = (index) => this.setSelected(superDeed, superDeed.deedTypes[index]);
+    const props = { selected, slides };
     return (
-      <Carousel selected={selected} slides={slides} circleThumbnails={thumbnails} />
+      <Carousel {...props} />
     );
   }
 
