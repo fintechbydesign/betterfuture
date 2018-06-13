@@ -1,11 +1,51 @@
-.DeedTypeSummary-container {
-  padding: 2vw;
-  color: white;
-  border: white 2px solid;
+.DeedTypeSummary-image {
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
 }
 
-.DeedTypeSummary-image {
-  width: 15vw;
-  height: 15vw;
-  margin: 0 5vw 2vw 0;
+.DeedTypeSummary-1-line {
+  font-weight: bold;
+  max-height: 1.4em;
+  overflow: hidden;
+}
+
+.DeedTypeSummary-2-lines {
+  min-height: 2.8em;
+}
+
+.DeedTypeSummary-callout {
+  background-color: white;
+  color: #002E4A;
+  padding: 1vh;
+}
+
+.DeedTypeSummary-callout-text {
+  margin: 0 1vh 0 0;
+}
+
+.DeedTypeSummary-when {
+  padding-bottom: 1vh;
+  border-bottom: 1px #002E4A solid;
+}
+
+.DeedTypeSummary-where {
+  padding-top: 1vh;
+}
+
+.DeedTypeSummary-emphasis {
+  font-weight: bold;
+}
+
+.DeedTypeSummary-time {
+  font-family: 'Bungee Inline', cursive;
+  font-size: x-large;
+  margin-left: 3vh;
+}
+
+.DeedTypeSummary-vertical {
+  font-family: 'Bungee Inline', cursive;
+  transform: rotate(180deg);
+  writing-mode: vertical-lr;
 }

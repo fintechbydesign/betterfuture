@@ -37,7 +37,7 @@ class App extends Component {
   async reset () {
     const { error, uploading } = this.state.navigationMethods;
     try {
-      uploading({ uploadMsg: 'Clearing all your user data...' });
+      uploading({ text: 'Clearing all your user data...' });
       const { user } = this.state;
       if (user.nickname) {
         await removeUser(user);

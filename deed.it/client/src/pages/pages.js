@@ -7,7 +7,6 @@ import MyProfile from './MyProfile';
 import PickADeed from './PickADeed';
 import Pledge from './Pledge';
 import Register from './Register';
-import StartDeed from './StartDeed';
 import TakePhoto from './TakePhoto';
 import TermsAndConditions from './TermsAndConditions';
 import Uploading from './Uploading';
@@ -58,10 +57,6 @@ export default {
   },
   'register': {
     component: Register,
-    isStateValid: containsSelectedDeedType
-  },
-  'startDeed': {
-    component: StartDeed,
     isStateValid: containsSelectedDeedType
   },
   'takePhoto': {

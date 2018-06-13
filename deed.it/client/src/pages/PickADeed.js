@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Accordion from '../components/Accordion';
-import Button from '../components/Button';
 import Carousel from '../components/Carousel';
-import Image from '../components/Image';
+import DeedTypeSummary from '../components/DeedTypeSummary';
 import Fetching from '../components/Fetching';
-import superDeedStyling from '../components/superDeed';
+import startDeed from '../components/startDeed';
 import Title from '../components/Title';
 import Text from '../components/Text';
 import { getDeedHierarchy } from '../data/deeds';
@@ -42,8 +41,8 @@ class PickADeed extends Component {
     }
   }
 
-  setSelected (superDeed, deedType) {
-    const selected = (superDeed && deedType) ? { superDeed, deedType } : null;
+  setSelected (deedType) {
+    const selected = (deedType) ? { deedType } : null;
     this.setState({
       ...this.state,
       selected
@@ -51,52 +50,31 @@ class PickADeed extends Component {
   }
 
   selectDeed () {
-    const user = {
-      ...this.props.user,
-      selected: this.state.selected
-    };
-    updateLocalUser(user);
-    this.props.startDeed();
+    const {  error, myProfile, register, uploading, user } = this.props;
+    const { registered } = user;
+    const { selected } = this.state;
+    const updatedUser = { ...user, selected } ;
+    if (registered) {
+      startDeed(updatedUser, { error, myProfile, uploading });
+    } else {
+      updateLocalUser(updatedUser);
+      register();
+    }
   }
 
-  // the inner div is there to fix the height whilst the image is dynamically changed
-  renderDeedType (deedType, index, styling) {
-    const { description, id } = deedType;
-    const { color, icon } = styling;
-    const style = { color };
-    return (
-      <div key={index} >
-        <div className='PickADeed-image'>
-          <Image src={icon} className='PickADeed-image' />
-        </div>
-        <Text text={id} className='PickADeed-1-line' />
-        <Text text={description} className='PickADeed-2-lines'/>
-        <div className='PickADeed-callout' >
-          <div className='PickADeed-when flexContainerRow'>
-            <Text text='When' className='PickADeed-callout-text PickADeed-vertical' style={style} />
-            <div>
-              <Text text='Monday 6th' className='PickADeed-callout-text PickADeed-emphasis'/>
-              <Text text='August 2018' className='PickADeed-callout-text'/>
-            </div>
-            <Text text='22:00' className='PickADeed-callout-text PickADeed-time'/>
-          </div>
-          <div className='PickADeed-where flexContainerRow'>
-            <Text text='Where' className='PickADeed-callout-text PickADeed-vertical' style={style} />
-            <div>
-              <Text text='George Street' className='PickADeed-callout-text PickADeed-emphasis' />
-              <Text text='Edinburgh' className='PickADeed-callout-text' />
-            </div>
-          </div>
-        </div>
-        <Button text='Do this deed' click={this.selectDeed} />
-      </div>
-    );
+  renderDeedType (deedType, index) {
+    const props = {
+      buttonText:'Do this deed',
+      deedType,
+      key: index,
+      onClick: this.selectDeed
+    };
+    return (<DeedTypeSummary {...props} />);
   }
 
   renderSuperDeed (superDeed, index) {
-    const styling = superDeedStyling[index];
-    const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index, styling));
-    const selected = (index) => this.setSelected(superDeed, superDeed.deedTypes[index]);
+    const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index));
+    const selected = (index) => this.setSelected(superDeed.deedTypes[index]);
     const props = { selected, slides };
     return (
       <Carousel {...props} />
@@ -108,13 +86,13 @@ class PickADeed extends Component {
     if (!deedHierarchy) {
       return (<Fetching text='Fetching available deeds...' />);
     }
-    const textClassName = (selected) ? 'hidden' : 'PickADeed-text';
+    const textClassName = (selected) ? 'hidden' : '';
     const items = deedHierarchy.map((superDeed, index) => ({
       content: this.renderSuperDeed(superDeed, index),
       title: superDeed.id,
       className: 'PickADeed-root',
-      bodyClassName: `PickADeed-body ${superDeedStyling[index].className}`,
-      titleClassName: `PickADeed-header ${superDeedStyling[index].className}`
+      bodyClassName: `PickADeed-body ${superDeed.style.className}`,
+      titleClassName: `PickADeed-header ${superDeed.style.className}`
     }));
     const onChange = ({activeItems}) => {
       if(activeItems.length) {

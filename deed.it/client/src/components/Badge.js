@@ -13,10 +13,7 @@ const getSrc = (src) => {
 }
 
 function Badge (props) {
-  const { src } = props;
-  return (
-      <Image className='Badge-image' alt='badge' src={getSrc(src)} type='appImage' />
-  );
+  return (<Image className='Badge-image' alt='badge' src={getSrc(props.src)} type='appImage' />);
 }
 
 export default Badge;

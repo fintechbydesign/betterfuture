@@ -9,3 +9,9 @@
   margin-bottom: 0;
   text-align: center;
 }
+
+.Text-text a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}

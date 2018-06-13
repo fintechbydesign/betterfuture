@@ -20,9 +20,8 @@ function Image (props) {
   const alt = props.alt ? props.alt : 'placeholder';
   const className = props.className ? props.className : 'Image-default';
   const src = createSrc(props);
-  const onLoad = props.onLoad;
   return (
-    <Img src={src} className={className} alt={alt} onLoad={onLoad} />
+    <Img src={src} className={className} alt={alt} onClick={props.onClick} onLoad={props.onLoad} />
   );
 }
 
