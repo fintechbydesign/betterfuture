@@ -95,7 +95,6 @@ class MyProfile extends Component {
     const { pickADeed } = this.props;
     const { inProgress } = this.state.deeds;
     if (inProgress && inProgress.length > 0) {
-      const expand = inProgress.length === 1;
       const summaries = inProgress.map(this.renderInProgressDeed);
       return summaries;
     } else {

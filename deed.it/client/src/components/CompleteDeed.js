@@ -8,7 +8,7 @@ import { getUserDeeds, updateDeed, REFRESH } from '../data/deeds';
 import { createEvent } from '../data/events';
 import { updateLocalUser } from "../data/user";
 
-const methods = ['completeDeed', 'createNewEvents', 'createUploadArtifacts', 'toggleRecordLocation'];
+const methods = ['completeDeed', 'createNewEvents', 'createUploadArtifacts'];
 
 class CompleteDeedProgress extends FetchingProgress {
 
@@ -32,16 +32,6 @@ class CompleteDeed extends Component {
   constructor (props) {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
-    this.state = {
-      recordLocation: true
-    }
-  }
-
-  toggleRecordLocation () {
-    this.setState({
-      ...this.state,
-      recordLocation: !this.state.recordLocation
-    });
   }
 
   async createUploadArtifacts () {
@@ -81,18 +71,16 @@ class CompleteDeed extends Component {
 
   /* eslint no-unused-vars:0 */
   async completeDeed () {
-    const { deed, imageData, navigateFns, user } = this.props;
-    const { recordLocation } = this.state;
+    const { deed, imageData, location, navigateFns, user } = this.props;
     try {
       const { imageName, uploadProgress, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
-      const locationPromise = recordLocation ? getLocation(deed) : Promise.resolve();
       const progress = new CompleteDeedProgress(uploadProgress);
       navigateFns.uploading({progress});
-      const [location, upload] = await Promise.all([locationPromise, uploadPromise]);
+      const [locationResult, uploadResult] = await Promise.all([location, uploadPromise]);
       progress.setProgress(60, 'Updating deed...');
       await updateDeed({
         ...deed,
-        ...location,
+        ...locationResult,
         evidenceType: (imageData) ? 'photo' : '',
         src: imageName,
         status: (imageData) ? 'unapproved' : 'completed'
@@ -113,15 +101,8 @@ class CompleteDeed extends Component {
   }
 
   render () {
-    const { recordLocation } = this.state;
     return (
-      <div>
-        <Button click={this.completeDeed} text={this.props.text} />
-        <div>
-          <input type='checkbox' id='location' onChange={this.toggleRecordLocation} checked={recordLocation} />
-          <label htmlFor="location">Record your current location?</label>
-        </div>
-      </div>
+      <Button click={this.completeDeed} text={this.props.text} />
     );
   }
 }
