@@ -17,7 +17,7 @@ function DeedTypeSummary(props) {
   const { description, id, style } = deedType;
   const { color, icon } = style;
   const textStyle = { color };
-  const button = (hideButton) ? null :  <Button text={buttonText} click={onClick} />;
+  const button = (hideButton) ? null :  <Button text={buttonText} onClick={onClick} />;
   const { date, month, time, address, town } = hardcoded;
   return (
     <div className={className} key={key} >

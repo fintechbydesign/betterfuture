@@ -15,7 +15,7 @@ function Home (props) {
   return (
     <div className='page'>
       <Title text='Welcome to Deedit' />
-      <Button click={getInvolvedAction} text='Get involved >' />
+      <Button onClick={getInvolvedAction} text='Get involved >' />
       <Text text='Small things add up to make a big difference.' />
       <Text dummyText={randomTextProps} />
       <Text dummyText={randomTextProps} />

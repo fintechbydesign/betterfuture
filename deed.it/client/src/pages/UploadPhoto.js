@@ -1,8 +1,6 @@
 import React, { createRef, Component } from 'react';
-import CompleteDeed from '../components/CompleteDeed'
+import Button from '../components/Button';
 import Title from '../components/Title';
-import '../components/Button.css';
-import '../components/Component.css';
 import { initS3 } from '../data/S3';
 import './UploadPhoto.css';
 
@@ -56,17 +54,14 @@ class UploadPhoto extends Component {
 
   getUIProperties () {
     const { imageData } = this.state;
-    const { user } = this.props;
+    const { completeDeed, locationPromise, user } = this.props;
     const { deed } = user.selected;
     if (imageData) {
       // show picture
       return {
-        completeDeedProps: {
-          deed,
-          imageData,
-          navigateFns: this.props,
-          text: 'Send picture as evidence >',
-          user
+        buttonProps: {
+          onClick: completeDeed.bind(null, { deed, imageData, locationPromise } ),
+          text: 'Send picture as evidence >'
         },
         imageClass: 'flexFixedSize UploadPhoto-image',
         inputText: 'Change the picture',
@@ -75,7 +70,7 @@ class UploadPhoto extends Component {
     } else {
       // show select button
       return {
-        completeDeedProps: null,
+        buttonProps: null,
         imageClass: 'hidden',
         inputText: 'Select a picture',
         setupFn: () => null
@@ -104,8 +99,8 @@ class UploadPhoto extends Component {
   }
 
   render () {
-    const { completeDeedProps, imageClass, inputText, setupFn } = this.getUIProperties();
-    const completeDeed = completeDeedProps ? (<CompleteDeed {...completeDeedProps} />) : null;
+    const { buttonProps, imageClass, inputText, setupFn } = this.getUIProperties();
+    const button = buttonProps ? (<Button {...buttonProps} />) : null;
     setupFn();
     return (
       <div className='page'>
@@ -113,7 +108,7 @@ class UploadPhoto extends Component {
         <img ref={this.image} alt='what will be submitted' className={imageClass} />
         <canvas ref={this.canvas} className='hidden' />
         {this.renderInput(inputText)}
-        {completeDeed}
+        {button}
       </div>
     );
   }

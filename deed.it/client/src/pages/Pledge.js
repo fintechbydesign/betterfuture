@@ -1,18 +1,16 @@
 import React from 'react';
-import CompleteDeed from '../components/CompleteDeed'
+import Button from '../components/Button';
 import Image from '../components/Image';
 import Text from '../components/Text';
 import Title from '../components/Title';
 import './Pledge.css';
 
 function Pledge (props) {
-  const { user } = props;
+  const { completeDeed, locationPromise, user } = props;
   const { deed } = user.selected;
-  const completeDeedProps = {
-    deed,
-    navigateFns: props,
+  const buttonProps = {
+    onClick: completeDeed.bind(null, { deed, locationPromise } ),
     text: 'I promise I\'ve done it >',
-    user
   };
   return (
     <div className='page'>
@@ -20,7 +18,7 @@ function Pledge (props) {
       <Text text="We'll take you word for it if you just sign this pledge and promise you've done this good deed." />
       <Image />
       <Text text='I promise that I did my good deed for Edinburgh.' className='Pledge-quote' />
-      <CompleteDeed {...completeDeedProps} />
+      <Button {...buttonProps} />
     </div>
   );
 }

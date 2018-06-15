@@ -9,19 +9,22 @@ export default [
     color: '#0E88FC',
     className: 'SuperDeed-happy',
     id: 'Community Spirit',
-    icon: happyIcon
+    icon: happyIcon,
+    index: 0
   },
   {
     'background-color': '#20BCA4',
     color: '#20BCA4',
     className: 'SuperDeed-green',
     id: 'Make Edinburgh Green',
-    icon: greenIcon
+    icon: greenIcon,
+    index: 1
   },
   {
     'background-color': '#FF6112',
     color: '#FF6112',
     className: 'SuperDeed-homeless',
     id: 'Support SocialBite',
-    icon: homelessIcon
+    icon: homelessIcon,
+    index: 2
   }];

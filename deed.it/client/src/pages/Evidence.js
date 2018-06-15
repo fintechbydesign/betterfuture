@@ -39,8 +39,8 @@ class Evidence extends Component {
 
   nextPage () {
     const { page, recordLocation } = this.state;
-    const location = (recordLocation) ? getLocation() : Promise.resolve();
-    this.props[page]({ location });
+    const locationPromise = (recordLocation) ? getLocation() : Promise.resolve();
+    this.props[page]({ locationPromise });
   }
 
   render () {
@@ -56,7 +56,7 @@ class Evidence extends Component {
           <label htmlFor='location'>We would like to capture your location so that we can show where the good deeds are being done.  Let us know if you're OK with that.</label>
           <input type='checkbox' id='location' onChange={this.toggleRecordLocation} checked={recordLocation} />
         </div>
-        <Button click={this.nextPage} disabled={buttonDisabled} text="Next" />
+        <Button onClick={this.nextPage} disabled={buttonDisabled} text="Next" />
       </div>
     );
   }

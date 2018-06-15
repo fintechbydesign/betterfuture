@@ -17,6 +17,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2vw;
 }
 
 .flexContainerRow {
@@ -40,9 +41,5 @@ body {
 
 .hidden {
   display: none;
-}
-
-.page {
-  padding: 1em;
 }
 

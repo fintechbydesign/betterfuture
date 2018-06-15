@@ -1,0 +1,9 @@
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.CompleteDeed-image {
+    animation: fadein 1s;
+    width: 70vw;
+}

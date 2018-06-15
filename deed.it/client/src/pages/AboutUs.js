@@ -20,7 +20,7 @@ function AboutUs (props) {
       <Text dummyText={randomTextProps} />
       <Title text='Forget about me' />
       <Text text='You have the right to be forgotten' />
-      <Button text='Forget about me' click={props.reset} />
+      <Button text='Forget about me' onClick={props.reset} />
     </div>
   );
 }

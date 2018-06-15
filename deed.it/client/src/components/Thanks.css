@@ -1,0 +1,18 @@
+.Thanks-container {
+  margin: 5px 0;
+  padding: 2vw;
+}
+
+.Thanks-title {
+  align-items: center;
+}
+
+.Thanks-image {
+  width: 30vw;
+  animation: fadein 2s;
+}
+
+.Thanks-title-text {
+  color: white;
+  font-weight: bold;
+}

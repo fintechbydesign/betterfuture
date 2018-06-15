@@ -1,4 +1,5 @@
 import AboutUs from './AboutUs';
+import CompleteDeed from './CompleteDeed';
 import DeeditDifference from './DeeditDifference';
 import Error from './Error';
 import Evidence from './Evidence';
@@ -15,7 +16,7 @@ import UploadPhoto from './UploadPhoto';
 const alwaysOK = () => true;
 
 const containsSelectedDeedType = (user) =>
-  user.selected && user.selected.deedType && user.selected.superDeed;
+  user.selected && user.selected.deedType;
 
 const containsSelectedDeed = (user) =>
   user.selected && user.selected.deed;
@@ -26,6 +27,10 @@ export default {
   'aboutUs': {
     component: AboutUs,
     isStateValid: alwaysOK
+  },
+  'completeDeed': {
+    component: CompleteDeed,
+    isStateValid: containsSelectedDeed
   },
   'deeditDifference': {
     component: DeeditDifference,

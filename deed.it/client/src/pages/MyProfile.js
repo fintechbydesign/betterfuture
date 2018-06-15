@@ -101,7 +101,7 @@ class MyProfile extends Component {
       return (
         <div  className='MyProfile-InProgress'>
           <Text text='You have no current deed' />
-          <Button click={pickADeed} text='Pick a deed' />
+          <Button onClick={pickADeed} text='Pick a deed' />
         </div>
       );
     }

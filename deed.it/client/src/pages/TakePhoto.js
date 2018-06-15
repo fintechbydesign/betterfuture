@@ -1,7 +1,7 @@
 // with thanks to https://www.html5rocks.com/en/tutorials/getusermedia/intro/
 
 import React, { createRef, Component } from 'react';
-import CompleteDeed from '../components/CompleteDeed'
+import Button from '../components/Button';
 import Text from '../components/Text.js';
 import Title from '../components/Title.js';
 import { initS3 } from '../data/S3';
@@ -55,17 +55,14 @@ class TakePhoto extends Component {
 
   getUIProperties () {
     const { imageData } = this.state;
-    const { user } = this.props;
+    const { completeDeed, locationPromise, user } = this.props;
     const { deed } = user.selected;
     if (imageData) {
       // show picture
       return {
-        completeDeedProps: {
-          deed,
-          imageData,
-          navigateFns: this.props,
-          text: 'Send picture as evidence >',
-          user
+        buttonProps: {
+          onClick: completeDeed.bind(null, { deed, imageData, locationPromise } ),
+          text: 'Send picture as evidence >'
         },
         imageClass: '',
         instruction: 'Click/press the picture to try again',
@@ -75,7 +72,7 @@ class TakePhoto extends Component {
     } else {
       // show video
       return {
-        completeDeedProps: null,
+        buttonProps: null,
         imageClass: 'hidden',
         instruction: 'Click/press the video to take a picture',
         setupFn: this.startVideo,
@@ -89,8 +86,8 @@ class TakePhoto extends Component {
   }
 
   render () {
-    const { completeDeedProps, imageClass, instruction, setupFn, videoClass } = this.getUIProperties();
-    const completeDeed = completeDeedProps ? (<CompleteDeed {...completeDeedProps} />) : null;
+    const { buttonProps, imageClass, instruction, setupFn, videoClass } = this.getUIProperties();
+    const button = buttonProps ? (<Button {...buttonProps} />) : null;
     setupFn();
     return (
       <div className='page'>
@@ -99,7 +96,7 @@ class TakePhoto extends Component {
         <video ref={this.video} autoPlay onClick={this.captureVideo} className={videoClass} />
         <img ref={this.image} alt='what will be submitted' onClick={this.reset} className={imageClass} />
         <canvas ref={this.canvas} className='hidden' />
-        {completeDeed}
+        {button}
       </div>
     );
   }

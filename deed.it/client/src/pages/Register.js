@@ -84,7 +84,7 @@ class Register extends Component {
 
     const tandcs = [
       'Read our ',
-      (<a className='Register-link' onClick={termsAndConditions}>terms and conditions</a>),
+      (<a onClick={termsAndConditions}>terms and conditions</a>),
       ' if you want to understand how we use your data.'
     ];
 
@@ -111,7 +111,7 @@ class Register extends Component {
         </div>
         <Text text='What age are you?' className='Text-label' />
         <Dropdown options={ages} onChange={this.updateAge} placeholder='Please select your age...'/>
-        <Button text='Get started >' click={this.getStarted} disabled={!buttonEnabled} />
+        <Button text='Get started >' onClick={this.getStarted} disabled={!buttonEnabled} />
         <Text contents={tandcs} />
       </div>
     );
