@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Fetching from '../components/Fetching';
 import Image from '../components/Image'
+import ProgressBar from '../components/ProgressBar';
 import Title from '../components/Title';
 import './DeeditDifference.css';
 
@@ -23,14 +23,25 @@ class DeeditDifference extends Component {
 
   render () {
     const { hidden } = this.state;
-    const fetchingClass = hidden ? 'DeeditDifference-show' : 'hidden';
-    const imageClass = hidden? 'hidden' : 'DeeditDifference-show';
-
+    const progressProps = {
+      className: hidden ? 'DeeditDifference-show' : 'hidden',
+      duration: 3000,
+      style: {
+        'font-size': 'large'
+      },
+      text: 'Fetching latest statistics...'
+    };
+    const imageProps = {
+      alt: 'Deedit statistics',
+      className: hidden? 'hidden' : 'DeeditDifference-show',
+      onLoad: this.show,
+      src: url
+    };
     return (
       <div className='page'>
         <Title text='Small deeds make a big difference'/>
-        <Fetching className={fetchingClass} text='Fetching latest statistics...' />
-        <Image src={url} alt='Deedit statistics' className={imageClass} onLoad={this.show} />
+        <ProgressBar { ...progressProps } />
+        <Image { ...imageProps } />
       </div>
     );
   }

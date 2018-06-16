@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Badge from '../components/Badge';
 import Button from '../components/Button';
 import DeedSummary from '../components/DeedSummary';
-import Fetching from '../components/Fetching';
+import ProgressBar from '../components/ProgressBar';
 import  startDeed from '../components/startDeed';
 import Text from '../components/Text';
 import Title from '../components/Title';
@@ -146,7 +146,14 @@ class MyProfile extends Component {
   render () {
     const { deeds } = this.state;
     if (!deeds) {
-      return (<Fetching text='Fetching your deeds...' />);
+      const progressProps = {
+        duration: 3000,
+        style: {
+          'font-size': 'large'
+        },
+        text: 'Fetching your deeds...'
+      };
+      return (<ProgressBar { ...progressProps } />);
     }
     const { user } = this.props;
     return (

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Accordion from '../components/Accordion';
 import Carousel from '../components/Carousel';
 import DeedTypeSummary from '../components/DeedTypeSummary';
-import Fetching from '../components/Fetching';
+import ProgressBar from '../components/ProgressBar';
 import startDeed from '../components/startDeed';
 import Title from '../components/Title';
 import Text from '../components/Text';
@@ -84,7 +84,14 @@ class PickADeed extends Component {
   render () {
     const { deedHierarchy, selected } = this.state;
     if (!deedHierarchy) {
-      return (<Fetching text='Fetching available deeds...' />);
+      const progressProps = {
+        duration: 3000,
+        style: {
+          'font-size': 'large'
+        },
+        text: 'Fetching available deeds...'
+      };
+      return (<ProgressBar { ...progressProps } />);
     }
     const textClassName = (selected) ? 'hidden' : '';
     const items = deedHierarchy.map((superDeed, index) => ({

@@ -40,10 +40,10 @@ class ProgressBar extends Component {
   }
 
   render () {
-    const {className, color, percent, text} = this.state;
+    const {className, color, percent, style, text} = this.state;
     const containerProps = {
       className: (className) ? `ProgressBar-container ${className}` : 'ProgressBar-container',
-      style: {color}
+      style: { ...style, color }
     };
     const lineProps = {
       percent,
