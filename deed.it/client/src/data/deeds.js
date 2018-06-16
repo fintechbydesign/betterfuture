@@ -73,7 +73,7 @@ const getUserDeeds = async(user, force = false) => {
 };
 
 const updateDeed = async(deed) => {
-  const { id: deedId, status: deedStatus, evidenceType, latitude, longitude, src }= deed;
+  const { id: deedId, status: deedStatus, evidenceType, latitude, longitude, src } = deed;
   const endPoint = 'deeditSetDeedStatus';
   return postData(endPoint, { deedId, deedStatus, evidenceType, latitude, longitude, src });
 }

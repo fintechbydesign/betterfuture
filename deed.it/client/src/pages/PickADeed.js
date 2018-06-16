@@ -97,7 +97,7 @@ class PickADeed extends Component {
     const onChange = ({activeItems}) => {
       if(activeItems.length) {
         const index = activeItems[0];
-        this.setSelected(deedHierarchy[index], deedHierarchy[index].deedTypes[0]);
+        this.setSelected(deedHierarchy[index].deedTypes[0]);
       } else {
         this.setSelected();
       }

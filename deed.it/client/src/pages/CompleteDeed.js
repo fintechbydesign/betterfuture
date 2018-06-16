@@ -6,6 +6,7 @@ import ProgressBar from '../components/ProgressBar';
 import Text from '../components/Text';
 import Thanks from '../components/Thanks';
 import Title from '../components/Title';
+import badgeImages from '../../../common/src/images/badgeImages';
 import { prepareUpload } from "../data/S3";
 import { getUserDeeds, REFRESH, updateDeed } from "../data/deeds";
 import { updateLocalUser } from "../data/user";
@@ -17,25 +18,36 @@ const texts = [
   'You\'re on a roll... there are still more deeds to be done!'
 ];
 
-const methods = ['createNewEvents', 'createUploadArtifacts'];
+const methods = ['createNewEvents', 'createUploadArtifacts', 'setProgress', 'updateImage'];
 
 class CompleteDeed extends Component {
 
   constructor (props) {
     super(props);
+    const { deed, imageData } = this.props;
+    const { icon } = deed.style;
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
-      percent: 50
+      imageSrc: (imageData) ? imageData : icon,
+      imageClass: 'CompleteDeed-fadein',
+      progressPercent: 0,
+      progressText: 'Reporting deed done...'
     }
   }
 
   async createUploadArtifacts () {
-    const { deed, imageData } = this.props;
+    const { props, setProgress } = this;
+    const { deed, imageData } = props;
     if (imageData) {
       const imageName = `${deed.id}.png`;
       const uploadProgress = await prepareUpload(deed, imageName, imageData);
+      uploadProgress.on('httpUploadProgress', (progress) => {
+        const { loaded, total } = progress;
+        const percentage = Math.round( 100 * loaded / total );
+        setProgress(null, percentage);
+      });
       const uploadPromise = uploadProgress.promise();
-      return { imageName, uploadProgress, uploadPromise };
+      return { imageName, uploadPromise };
     } else {
       return { uploadPromise:  Promise.resolve() };
     }
@@ -64,10 +76,11 @@ class CompleteDeed extends Component {
     return Promise.all(newEvents.map(createEvent));
   }
 
-  async XcomponentDidMount () {
-    const { deed, error, imageData, locationPromise, myProfile, user } = this.props;
+  async componentDidMount () {
+    const { props, setProgress } = this;
+    const { deed, error, imageData, locationPromise, user } = props;
     try {
-      const { imageName, uploadProgress, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
+      const { imageName, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
       const location = await locationPromise;
       await updateDeed({
         ...deed,
@@ -80,28 +93,70 @@ class CompleteDeed extends Component {
         ...user,
         selected: null
       });
-      await this.createNewEvents();
+      setProgress('Awarding badges...');
+      const events = await this.createNewEvents();
+      /*
+      if (events.length > 0) {
+        this.updateImage(badgeImages[events[0].src]);
+      }
+      */
+      events.forEach((event, index) => {
+        setTimeout(this.updateImage.bind(this, badgeImages[event.src]), index * 2000 );
+      })
+      setProgress('Updating your profile...');
       // update user deeds before showing profile
       await getUserDeeds(user, REFRESH);
-      myProfile();
+      if (imageData) {
+        setProgress('Uploading your photo...');
+        await uploadPromise;
+      }
     } catch (err) {
       error({err});
     }
   }
 
+  setProgress (text, percent) {
+    const { state } = this;
+    const progressPercent = (percent) ? percent : state.progressPercent;
+    const progressText = (progressPercent === 100)
+      ? 'All done'
+      : (text)
+        ? text
+        : state.progressText;
+    this.setState({
+      ...state,
+      progressPercent,
+      progressText
+    });
+  }
+
+  updateImage (imageSrc) {
+    this.setState({
+      ...this.state,
+      imageSrc
+    });
+  }
+
   render () {
-    const { deed, deeditDifference, imageData, pickADeed } = this.props;
-    const { color, icon } = deed.style;
-    const { percent } = this.state;
+    const { props, state } = this;
+    const { deed, deeditDifference, pickADeed } = props;
+    const { color } = deed.style;
+    const { progressPercent, progressText, imageClass, imageSrc } = state;
     const imageProps = {
-      className: 'CompleteDeed-image',
-      src: (imageData) ? imageData : icon
+      className: `CompleteDeed-image ${imageClass}`,
+      src: imageSrc,
+      type: 'appImage'
+    };
+    const progressProps = {
+      color,
+      percent: progressPercent,
+      text: progressText
     };
     return (
       <div className='page'>
         <Title text='You Deed It!' />
         <Image {...imageProps} />
-        <ProgressBar percent={percent} color={color} />
+        <ProgressBar {...progressProps} />
         <Text text={texts[0]} />
         <Button text='See how it all adds up' onClick={deeditDifference} />
         <Thanks deed={deed} />

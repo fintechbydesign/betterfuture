@@ -5,6 +5,7 @@ const createEvent = async(event) => {
   const { deedId, eventType, nickname, src, username } = event;
   const id = uuidv4();
   await postData('deeditCreateEvent', { deedId, eventType, id, nickname, src, username });
+  return event;
 };
 
 export {

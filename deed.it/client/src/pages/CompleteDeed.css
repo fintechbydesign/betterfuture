@@ -3,7 +3,19 @@
     to   { opacity: 1; }
 }
 
+@keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
 .CompleteDeed-image {
-    animation: fadein 1s;
     width: 70vw;
+}
+
+.CompleteDeed-fadein {
+    animation: fadein 1s;
+}
+
+.CompleteDeed-fadeout {
+    animation: fadeout 1s;
 }

@@ -76,8 +76,9 @@ class Register extends Component {
 
   render () {
     const { termsAndConditions, user } = this.props;
-    const { deedType } = user.selected;
     const { age, country, nickname } = this.state;
+    const { deedType } = user.selected;
+    const { className } = deedType.style;
 
     const cityClassName = isScotland(country) ? 'Register-show' : 'hidden';
     const buttonEnabled = age && country && nickname  && nickname.trim().length > 2;
@@ -95,11 +96,22 @@ class Register extends Component {
       placeholder: 'Please enter between 3 and 30 characters'
     };
 
+    const summaryContainerProps = {
+      className: `Register-deed-type ${className}`
+    };
+
+    const summaryProps = {
+      deedType,
+      hideButton: true
+    };
+
     return (
       <div className='page'>
         <Title text='Thank you!' />
         <Text text='You have picked:'/>
-        <DeedTypeSummary {...deedType} />
+        <div {...summaryContainerProps} >
+          <DeedTypeSummary {...summaryProps} />
+        </div>
         <Text text='Before you get started, we just need a few details so we can track the progress of your deeds.' />
         <Text text='What can we call you?' className='Text-label'/>
         <Input {...nickNameProps} />
