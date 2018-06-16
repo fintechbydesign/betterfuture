@@ -3,7 +3,7 @@ import Badge from '../components/Badge';
 import Button from '../components/Button';
 import DeedSummary from '../components/DeedSummary';
 import Fetching from '../components/Fetching';
-import startDeed from '../components/startDeed';
+import  startDeed from '../components/startDeed';
 import Text from '../components/Text';
 import Title from '../components/Title';
 import UserSummary from '../components/UserSummary';

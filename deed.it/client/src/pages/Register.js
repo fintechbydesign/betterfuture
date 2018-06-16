@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Button from '../components/Button';
 import Dropdown from '../components/Dropdown';
-import Text from '../components/Text';
 import Input from '../components/Input';
+import ProgressBar from '../components/ProgressBar';
 import startDeed from '../components/startDeed';
+import Text from '../components/Text';
 import Title from '../components/Title';
 import { registerUser } from '../data/user';
 import ages from '../data/age.js';
@@ -13,7 +14,7 @@ import DeedTypeSummary from '../components/DeedTypeSummary';
 import './Register.css';
 
 const isScotland = (country) => country === 'Scotland';
-const methods = ['getStarted', 'updateAge', 'updateCity', 'updateCountry', 'updateNickname'];
+const methods = ['getStarted', 'updateAge', 'updateCity', 'updateCountry', 'updateNickname', 'updateProgress'];
 
 class Register extends Component {
   constructor (props) {
@@ -23,7 +24,8 @@ class Register extends Component {
       age: undefined,
       city: undefined,
       country: undefined,
-      nickname: undefined
+      nickname: undefined,
+      progress: null
     };
   }
 
@@ -57,17 +59,28 @@ class Register extends Component {
     });
   }
 
+  updateProgress (text) {
+    this.setState({
+      ...this.state,
+      progress: {
+        duration: 3000,
+        text
+      }
+    });
+  }
+
   async getStarted () {
     const { error, myProfile, uploading, user } = this.props;
     const { age, city, country, nickname } = this.state;
     try {
-      uploading({ text: 'Registering you as a deedit do-er!' });
+      this.updateProgress('Registering you as a deedit do-er!');
       let updatedUser = {
         ...user,
         personal: { age, city, country },
         nickname
       };
       updatedUser = await registerUser(updatedUser);
+      this.updateProgress('Assigning the deed to you...');
       startDeed(updatedUser, { error, myProfile, uploading });
     } catch (err) {
       error({err});
@@ -76,9 +89,9 @@ class Register extends Component {
 
   render () {
     const { termsAndConditions, user } = this.props;
-    const { age, country, nickname } = this.state;
+    const { age, country, nickname, progress } = this.state;
     const { deedType } = user.selected;
-    const { className } = deedType.style;
+    const { className, color } = deedType.style;
 
     const cityClassName = isScotland(country) ? 'Register-show' : 'hidden';
     const buttonEnabled = age && country && nickname  && nickname.trim().length > 2;
@@ -105,6 +118,10 @@ class Register extends Component {
       hideButton: true
     };
 
+    const progressBar = (progress)
+      ? (<ProgressBar {...progress} color={color} />)
+      : null;
+
     return (
       <div className='page'>
         <Title text='Thank you!' />
@@ -124,6 +141,7 @@ class Register extends Component {
         <Text text='What age are you?' className='Text-label' />
         <Dropdown options={ages} onChange={this.updateAge} placeholder='Please select your age...'/>
         <Button text='Get started >' onClick={this.getStarted} disabled={!buttonEnabled} />
+        {progressBar}
         <Text contents={tandcs} />
       </div>
     );

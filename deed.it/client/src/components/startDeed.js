@@ -8,7 +8,7 @@ async function startDeed (user, pages) {
     throw new Error('No selected deedType for user');
   }
   try {
-    uploading({ text: 'Assigning the deed to you...' });
+    // uploading({ text: 'Assigning the deed to you...' });
     await createDeed(user, deedType.id);
     updateLocalUser({
       ...user,
