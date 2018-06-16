@@ -108,7 +108,7 @@ class MyProfile extends Component {
   }
 
   doDeedAgain (deed) {
-    const { error, myProfile, uploading, user } = this.props;
+    const { error, myProfile, user } = this.props;
     const updatedUser = {
       ...user,
       selected: {
@@ -117,7 +117,7 @@ class MyProfile extends Component {
         }
       }
     };
-    startDeed(updatedUser, { error, myProfile, uploading });
+    startDeed(updatedUser, { error, myProfile });
   }
 
   renderPreviousDeed (deed, index) {

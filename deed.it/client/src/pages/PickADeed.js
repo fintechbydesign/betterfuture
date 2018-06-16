@@ -50,12 +50,12 @@ class PickADeed extends Component {
   }
 
   selectDeed () {
-    const {  error, myProfile, register, uploading, user } = this.props;
+    const {  error, myProfile, register, user } = this.props;
     const { registered } = user;
     const { selected } = this.state;
     const updatedUser = { ...user, selected } ;
     if (registered) {
-      startDeed(updatedUser, { error, myProfile, uploading });
+      startDeed(updatedUser, { error, myProfile });
     } else {
       updateLocalUser(updatedUser);
       register();
