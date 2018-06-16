@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
-import FetchingProgress from './FetchingProgress';
 import getLocation from '../data/location';
 import { prepareUpload } from '../data/S3';
 import { getUserDeeds, updateDeed, REFRESH } from '../data/deeds';
@@ -10,7 +9,7 @@ import { updateLocalUser } from "../data/user";
 
 const methods = ['completeDeed', 'createNewEvents', 'createUploadArtifacts'];
 
-class CompleteDeedProgress extends FetchingProgress {
+class CompleteDeedProgress extends Component {
 
   constructor (uploadProgress) {
     super();

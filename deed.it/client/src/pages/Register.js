@@ -104,9 +104,9 @@ class Register extends Component {
 
     const nickNameProps = {
       onChange: this.updateNickname,
-      minLength: 3,
+      minLength: 2,
       maxLength: 30,
-      placeholder: 'Please enter between 3 and 30 characters'
+      placeholder: 'Please enter between 2 and 30 characters'
     };
 
     const summaryContainerProps = {

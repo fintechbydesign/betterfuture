@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Button from '../components/Button';
 import ProgressBar from '../components/ProgressBar';
 import Text from '../components/Text';
 import Title from '../components/Title';
@@ -31,6 +30,13 @@ class AboutUs extends Component {
   render () {
     const { progress } = this.state;
     const progressBar = (progress) ? (<ProgressBar {...progress} />) : null;
+
+    const forgetme = [
+      'You have the right to be forgotten. Clicking ',
+      (<a onClick={this.reset}>here</a>),
+      ' will delete all data sent from this device, including uploaded images.'
+    ];
+
     return (
       <div className='page'>
         <Title text='About Us'/>
@@ -40,8 +46,7 @@ class AboutUs extends Component {
         <Title text='Contact Us'/>
         <Text dummyText={randomTextProps}/>
         <Title text='Forget about me'/>
-        <Text text='You have the right to be forgotten'/>
-        <Button text='Forget about me' onClick={this.reset}/>
+        <Text contents={forgetme}/>
         {progressBar}
       </div>
     );
