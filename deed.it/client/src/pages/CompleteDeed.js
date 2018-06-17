@@ -9,7 +9,6 @@ import Title from '../components/Title';
 import badgeImages from '../../../common/src/images/badgeImages';
 import { prepareUpload } from "../data/S3";
 import { getUserDeeds, REFRESH, updateDeed } from "../data/deeds";
-import { updateLocalUser } from "../data/user";
 import { createEvent } from "../data/events";
 import './CompleteDeed.css';
 
@@ -88,10 +87,6 @@ class CompleteDeed extends Component {
         evidenceType: (imageData) ? 'photo' : '',
         src: imageName,
         status: (imageData) ? 'unapproved' : 'completed'
-      });
-      updateLocalUser({
-        ...user,
-        selected: null
       });
       setProgress('Awarding badges...');
       const events = await this.createNewEvents();

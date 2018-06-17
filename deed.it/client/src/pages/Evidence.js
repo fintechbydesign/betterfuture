@@ -38,9 +38,10 @@ class Evidence extends Component {
   }
 
   nextPage () {
+    const { deed } = this.props;
     const { page, recordLocation } = this.state;
     const locationPromise = (recordLocation) ? getLocation() : Promise.resolve();
-    this.props[page]({ locationPromise });
+    this.props[page]({ deed, locationPromise });
   }
 
   render () {

@@ -84,10 +84,6 @@ class CompleteDeed extends Component {
         src: imageName,
         status: (imageData) ? 'unapproved' : 'completed'
       });
-      updateLocalUser({
-        ...user,
-        selected: null
-      });
       progress.setProgress(70, 'Awarding badges...');
       await this.createNewEvents();
       // update user deeds before showing profile

@@ -55,8 +55,7 @@ class TakePhoto extends Component {
 
   getUIProperties () {
     const { imageData } = this.state;
-    const { completeDeed, locationPromise, user } = this.props;
-    const { deed } = user.selected;
+    const { completeDeed, deed, locationPromise } = this.props;
     if (imageData) {
       // show picture
       return {

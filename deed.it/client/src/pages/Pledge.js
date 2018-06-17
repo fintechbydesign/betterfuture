@@ -6,8 +6,7 @@ import Title from '../components/Title';
 import './Pledge.css';
 
 function Pledge (props) {
-  const { completeDeed, locationPromise, user } = props;
-  const { deed } = user.selected;
+  const { completeDeed, deed, locationPromise } = props;
   const buttonProps = {
     onClick: completeDeed.bind(null, { deed, locationPromise } ),
     text: 'I promise I\'ve done it >',

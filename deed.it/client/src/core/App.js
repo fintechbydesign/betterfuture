@@ -51,7 +51,6 @@ class App extends Component {
 
   createNavigationMethods () {
     const baseNavigationMethod = (pageName, nextPageProps) => {
-      console.log(`Setting page ${pageName}`);
       this.setState({...this.state, nextPageProps, pageName, user: getLocalUser()});
     };
     const navigationMethods = {};

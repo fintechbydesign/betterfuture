@@ -14,12 +14,6 @@ import UploadPhoto from './UploadPhoto';
 
 const alwaysOK = () => true;
 
-const containsSelectedDeedType = (user) =>
-  user.selected && user.selected.deedType;
-
-const containsSelectedDeed = (user) =>
-  user.selected && user.selected.deed;
-
 const containsUsername = (user) => !!user.username;
 
 export default {
@@ -29,7 +23,7 @@ export default {
   },
   'completeDeed': {
     component: CompleteDeed,
-    isStateValid: containsSelectedDeed
+    isStateValid: alwaysOK
   },
   'deeditDifference': {
     component: DeeditDifference,
@@ -37,7 +31,7 @@ export default {
   },
   'evidence': {
     component: Evidence,
-    isStateValid: containsSelectedDeed
+    isStateValid: alwaysOK
   },
   'error': {
     component: Error,
@@ -57,15 +51,15 @@ export default {
   },
   'pledge': {
     component: Pledge,
-    isStateValid: containsSelectedDeed
+    isStateValid: alwaysOK
   },
   'register': {
     component: Register,
-    isStateValid: containsSelectedDeedType
+    isStateValid: alwaysOK
   },
   'takePhoto': {
     component: TakePhoto,
-    isStateValid: containsSelectedDeed
+    isStateValid: alwaysOK
   },
   'termsAndConditions': {
     component: TermsAndConditions,
@@ -73,6 +67,6 @@ export default {
   },
   'uploadPhoto': {
     component: UploadPhoto,
-    isStateValid: containsSelectedDeed
+    isStateValid: alwaysOK
   }
 };

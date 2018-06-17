@@ -7,7 +7,6 @@ import startDeed from '../components/startDeed';
 import Title from '../components/Title';
 import Text from '../components/Text';
 import { getDeedHierarchy } from '../data/deeds';
-import { updateLocalUser} from '../data/user';
 import './PickADeed.css';
 
 const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'selectDeed'];
@@ -18,7 +17,7 @@ class PickADeed extends Component {
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
       deedHierarchy: null,
-      selected: null
+      deedType: null
     };
   }
 
@@ -42,23 +41,20 @@ class PickADeed extends Component {
   }
 
   setSelected (deedType) {
-    const selected = (deedType) ? { deedType } : null;
     this.setState({
       ...this.state,
-      selected
+      deedType
     });
   }
 
   selectDeed () {
     const {  error, myProfile, register, user } = this.props;
     const { registered } = user;
-    const { selected } = this.state;
-    const updatedUser = { ...user, selected } ;
+    const { deedType } = this.state;
     if (registered) {
-      startDeed(updatedUser, { error, myProfile });
+      startDeed(user, deedType, { error, myProfile });
     } else {
-      updateLocalUser(updatedUser);
-      register();
+      register({ deedType });
     }
   }
 
@@ -82,7 +78,7 @@ class PickADeed extends Component {
   }
 
   render () {
-    const { deedHierarchy, selected } = this.state;
+    const { deedHierarchy, deedType } = this.state;
     if (!deedHierarchy) {
       const progressProps = {
         duration: 3000,
@@ -93,7 +89,7 @@ class PickADeed extends Component {
       };
       return (<ProgressBar { ...progressProps } />);
     }
-    const textClassName = (selected) ? 'hidden' : '';
+    const textClassName = (deedType) ? 'hidden' : '';
     const items = deedHierarchy.map((superDeed, index) => ({
       content: this.renderSuperDeed(superDeed, index),
       title: superDeed.id,

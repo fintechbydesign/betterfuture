@@ -8,7 +8,6 @@ import Text from '../components/Text';
 import Title from '../components/Title';
 import UserSummary from '../components/UserSummary';
 import { getUserDeeds } from '../data/deeds';
-import { updateLocalUser } from '../data/user';
 import './MyProfile.css';
 
 const methods = [
@@ -74,17 +73,11 @@ class MyProfile extends Component {
   }
 
   renderInProgressDeed (deed, index) {
-    const { evidence, user } = this.props;
+    const { evidence } = this.props;
     const { inProgress } = this.state.deeds;
     const expand = (inProgress.length === 1);
     const onClick = () => {
-      updateLocalUser({
-        ...user,
-        selected: {
-          deed
-        }
-      })
-      evidence();
+      evidence({ deed });
     };
     return (
       <DeedSummary buttonText="I've done it" deed={deed} expand={expand} key={index} onClick={onClick} />
@@ -107,17 +100,14 @@ class MyProfile extends Component {
     }
   }
 
-  doDeedAgain (deed) {
+  async doDeedAgain (deed) {
     const { error, myProfile, user } = this.props;
-    const updatedUser = {
-      ...user,
-      selected: {
-        deedType: {
-          id: deed.deedTypeId
-        }
-      }
+    const fakeDeedType = {
+      id: deed.deedTypeId
     };
-    startDeed(updatedUser, { error, myProfile });
+    await startDeed(user, fakeDeedType, { error, myProfile });
+    // TODO - minimise state
+    this.fetchDeeds();
   }
 
   renderPreviousDeed (deed, index) {

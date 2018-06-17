@@ -70,7 +70,7 @@ class Register extends Component {
   }
 
   async getStarted () {
-    const { error, myProfile, user } = this.props;
+    const { deedType, error, myProfile, user } = this.props;
     const { age, city, country, nickname } = this.state;
     try {
       this.updateProgress('Registering you as a deedit do-er!');
@@ -81,16 +81,15 @@ class Register extends Component {
       };
       updatedUser = await registerUser(updatedUser);
       this.updateProgress('Assigning the deed to you...');
-      startDeed(updatedUser, { error, myProfile });
+      startDeed(updatedUser, deedType,  { error, myProfile });
     } catch (err) {
       error({err});
     }
   }
 
   render () {
-    const { termsAndConditions, user } = this.props;
+    const { deedType, termsAndConditions } = this.props;
     const { age, country, nickname, progress } = this.state;
-    const { deedType } = user.selected;
     const { className, color } = deedType.style;
 
     const cityClassName = isScotland(country) ? 'Register-show' : 'hidden';
