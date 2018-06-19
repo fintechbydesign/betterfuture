@@ -78,6 +78,7 @@ class PickADeed extends Component {
   }
 
   render () {
+    throw new Error('SOMETHING IN THE RAIN');
     const { deedHierarchy, deedType } = this.state;
     if (!deedHierarchy) {
       const progressProps = {

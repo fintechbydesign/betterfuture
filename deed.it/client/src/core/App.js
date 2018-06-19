@@ -16,6 +16,7 @@ import { createLocalUser, getLocalUser, removeLocalUser, removeUser } from '../d
 import Error from '../pages/Error.js';
 import GlobalNav from '../components/GlobalNav';
 import PageHeader from '../components/PageHeader';
+import ErrorBoundary from '../components/ErrorBoundary';
 import pages from '../pages/pages';
 import './global.css';
 
@@ -83,11 +84,13 @@ class App extends Component {
     const { navigationMethods, nextPageProps, user } = this.state;
     const pageProps = { ...navigationMethods, ...nextPageProps, user };
     return (
-      <div className='flexContainerColumn'>
-        <PageHeader />
-        { this.selectPage(pageProps) }
-        <GlobalNav {...pageProps} />
-      </div>
+        <div className='flexContainerColumn'>
+          <PageHeader />
+            <ErrorBoundary>
+            { this.selectPage(pageProps) }
+            </ErrorBoundary>
+          <GlobalNav {...pageProps} />
+        </div>
     );
   }
 }
