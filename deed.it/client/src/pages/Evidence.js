@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Button from '../components/Button';
+import Image from '../components/Image';
 import RadioGroup from '../components/RadioGroup';
 import Text from '../components/Text';
-import Title from '../components/Title';
+import TitleWithImage from '../components/TitleWithImage';
 import getLocation from '../data/location';
+import thumbsup from '../images/thumbs-up.svg';
 import './Evidence.css';
 
 class Evidence extends Component {
@@ -56,7 +58,7 @@ class Evidence extends Component {
     const buttonDisabled = !page;
     return (
       <div className='page'>
-        <Title text='Good Work' />
+        <TitleWithImage src={thumbsup} text='Good Work' />
         <Text text='All you need to do now is send us some evidence to prove your deed is done.' />
         <RadioGroup radioOptions={this.state.radioOptions} />
         <div className='Evidence-privacy-container' >

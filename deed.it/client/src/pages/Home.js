@@ -4,12 +4,14 @@ import Image from '../components/Image';
 import superdeedStyles from '../components/superDeedStyles';
 import Text from '../components/Text';
 import Title from '../components/Title';
+import TitleWithImage from '../components/TitleWithImage';
 import chevron from '../images/chevron.svg';
+import wavingHand from '../images/waving-hand.svg';
 import './Home.css';
 
 function renderHomeless (getInvolvedAction) {
   return (
-    <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[2].className}`}>
+    <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[0].className}`}>
       <div className={`Home-superdeed-description-container flexContainerRow`}>
         <div className='flexContainerColumn'>
           <Text className='Home-text Home-x-large-plain-font' text='More than' />
@@ -17,7 +19,7 @@ function renderHomeless (getInvolvedAction) {
           <Text className='Home-text Home-x-large-font' text='people' />
           <Text className='Home-text Home-large-plain-font' text='will sleep rough tonight in Edinburgh' />
         </div>
-        <Image className='Home-superdeed-icon' src={superdeedStyles[2].icon} />
+        <Image className='Home-superdeed-icon' src={superdeedStyles[0].icon} />
       </div>
       <div className={`Home-call-to-action-container flexContainerRow`} onClick={getInvolvedAction}>
         <Text className='Home-text Home-large-font' text="You can help Edinburgh's homeless" />
@@ -50,7 +52,7 @@ function renderGreen (getInvolvedAction) {
 
 function renderHappy (getInvolvedAction) {
   return (
-    <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[0].className}`}>
+    <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[2].className}`}>
       <div className={`Home-superdeed-description-container flexContainerRow`}>
         <div className='flexContainerColumn'>
           <Text className='Home-text Home-x-large-plain-font' text='More than' />
@@ -59,7 +61,7 @@ function renderHappy (getInvolvedAction) {
           <Text className='Home-text Home-x-large-plain-font' text='in Scotland feel' />
           <Text className='Home-text Home-large-plain-font' text='lonely all the time' />
         </div>
-        <Image className='Home-superdeed-icon' src={superdeedStyles[0].icon} />
+        <Image className='Home-superdeed-icon' src={superdeedStyles[2].icon} />
       </div>
       <div className={`Home-call-to-action-container flexContainerRow`} onClick={getInvolvedAction}>
         <Text className='Home-text Home-large-font' text="You can build community spirit in Edinburgh" />
@@ -86,7 +88,7 @@ function Home (props) {
     : { onClick: pickADeed, text: 'Get Involved Now' };
   return (
     <div className='page'>
-      <Title text='Hi There' />
+      <TitleWithImage src={wavingHand} text='Hi There' />
       <Text text={introText} />
       <Title text='Did you know?' />
       {renderHomeless(pickADeed)}

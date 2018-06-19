@@ -5,11 +5,11 @@ import './superDeedStyles.css';
 
 export default [
   {
-    'background-color': '#0E88FC',
-    color: '#0E88FC',
-    className: 'SuperDeed-happy',
-    id: 'Community Spirit',
-    icon: happyIcon,
+    'background-color': '#FF6112',
+    color: '#FF6112',
+    className: 'SuperDeed-homeless',
+    id: 'Support SocialBite',
+    icon: homelessIcon,
     index: 0
   },
   {
@@ -21,10 +21,11 @@ export default [
     index: 1
   },
   {
-    'background-color': '#FF6112',
-    color: '#FF6112',
-    className: 'SuperDeed-homeless',
-    id: 'Support SocialBite',
-    icon: homelessIcon,
+    'background-color': '#0E88FC',
+    color: '#0E88FC',
+    className: 'SuperDeed-happy',
+    id: 'Community Spirit',
+    icon: happyIcon,
     index: 2
-  }];
+  }
+  ];
