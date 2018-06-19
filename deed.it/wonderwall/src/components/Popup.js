@@ -41,6 +41,7 @@ function Popup (props) {
   const closePopup = setPopupContent.bind(null, null);
   return (
     <div className='Popup' onClick={closePopup}>
+      <div className='Popup_close'>X</div>
       <div className='Popup_deed-type'>{deedTypeId}</div>
       {content}
       {/*<div className='Popup_time-labels'>*/}

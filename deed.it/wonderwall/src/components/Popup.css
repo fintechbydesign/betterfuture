@@ -53,3 +53,9 @@
   font: 400 40px system-ui;
   text-align: center;
 }
+
+.Popup_close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
