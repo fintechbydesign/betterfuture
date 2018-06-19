@@ -5,6 +5,7 @@ import Button from '../components/Button';
 import Text from '../components/Text.js';
 import Title from '../components/Title.js';
 import { initS3 } from '../data/S3';
+import './TakePhoto.css';
 
 const methods = ['captureVideo', 'reset', 'sendPhoto', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
 
@@ -63,7 +64,7 @@ class TakePhoto extends Component {
           onClick: completeDeed.bind(null, { deed, imageData, locationPromise } ),
           text: 'Send picture as evidence >'
         },
-        imageClass: '',
+        imageClass: 'TakePhoto-image',
         instruction: 'Click/press the picture to try again',
         setupFn: this.showPhoto,
         videoClass: 'hidden'
