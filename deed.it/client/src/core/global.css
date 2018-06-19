@@ -8,15 +8,24 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 3vh;
   color: #002E4A;
+}
+
+/* to be able to anchor to the bottom */
+.fullHeight {
+  min-height: 100vh;
+}
+
+.anchor-bottom {
+  margin-top: auto;
 }
 
 .page {
   display: flex;
   flex-direction: column;
   padding: 2vw;
+  flex: 50; /* all the inner vertical space */
 }
 
 .flexContainerRow {
