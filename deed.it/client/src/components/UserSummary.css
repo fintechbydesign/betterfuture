@@ -6,6 +6,7 @@
 .UserSummary-image {
   height: 15vw;
   margin: 0 5vw 2vw 0;
+  border: 1px solid lightgrey;
 }
 
 .UserSummary-nickname {

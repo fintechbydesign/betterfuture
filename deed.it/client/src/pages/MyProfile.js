@@ -72,11 +72,14 @@ class MyProfile extends Component {
       return (<div key={index}><Badge {...event} /></div>);
     });
     if (badges.length === 0) {
-      return (<Text text='None yet!' />);
+      return null;
     } else {
       return (
-        <div className='flexContainerRow'>
-          {badges}
+        <div>
+          <Title text='Badges' />
+          <div className='flexContainerRow'>
+            {badges}
+          </div>
         </div>
       );
     }
@@ -92,10 +95,10 @@ class MyProfile extends Component {
       expand,
       key: index,
       onButtonClick: evidence.bind(null, { deed })
-    }
+    };
     return (
       <DeedSummary {...props} />
-    )
+    );
   }
 
   renderInProgress () {
@@ -129,13 +132,21 @@ class MyProfile extends Component {
     };
     return (
       <DeedSummary {...props} />
-    )
+    );
   }
 
   renderPrevious () {
     const { completed, rejected, unapproved } = this.state.deeds;
     const all = [...unapproved, ...completed, ...rejected];
-    return all.map(this.renderPreviousDeed);
+    if (all.length === 0) {
+      return null;
+    }
+    const previousDeeds = all.map(this.renderPreviousDeed);
+
+    return (<div>
+      <Title text='Previous Deeds' />
+      {previousDeeds}
+      </div>);
   }
 
   render () {
@@ -151,14 +162,13 @@ class MyProfile extends Component {
       return (<ProgressBar { ...progressProps } />);
     }
     const { user } = this.props;
+
     return (
       <div className='page'>
         <UserSummary {...user} />
-        <Title text='Badges' />
         {this.renderBadges()}
         <Title text='In Progress' />
         {this.renderInProgress()}
-        <Title text='Previous Deeds' />
         {this.renderPrevious()}
       </div>
     );
