@@ -24,7 +24,6 @@ body {
 .page {
   display: flex;
   flex-direction: column;
-  /*align-items: center;*/
   padding: 2vw;
   flex: 50; /* all the inner vertical space */
 }
