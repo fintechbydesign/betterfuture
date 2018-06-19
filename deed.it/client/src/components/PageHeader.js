@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from './Image';
-import logo from '../images/logo.png';
+import logo from '../images/logo.svg';
 import './PageHeader.css';
 
 function PageHeader () {

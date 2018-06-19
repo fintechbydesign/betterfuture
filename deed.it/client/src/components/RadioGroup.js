@@ -1,4 +1,5 @@
 import React from 'react';
+import './RadioGroup.css';
 
 function renderRadio (radioOption, index) {
   const { onChange, name, text } = radioOption;
@@ -15,7 +16,7 @@ function RadioGroup (props) {
   const { radioOptions } = props;
   const radios = radioOptions.map(renderRadio);
   return (
-    <fieldset>
+    <fieldset className='RadioGroup_container'>
       {radios}
     </fieldset>
   );

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Button from '../components/Button';
 import Dropdown from '../components/Dropdown';
-import Text from '../components/Text';
 import Input from '../components/Input';
+import ProgressBar from '../components/ProgressBar';
+import startDeed from '../components/startDeed';
+import Text from '../components/Text';
 import Title from '../components/Title';
-import { createSelectedDeed } from '../data/deeds';
-import {registerUser, updateLocalUser} from '../data/user';
+import { registerUser } from '../data/user';
 import ages from '../data/age.js';
 import cities from '../data/city';
 import countries from '../data/country.js';
@@ -13,7 +14,7 @@ import DeedTypeSummary from '../components/DeedTypeSummary';
 import './Register.css';
 
 const isScotland = (country) => country === 'Scotland';
-const methods = ['getStarted', 'updateAge', 'updateCity', 'updateCountry', 'updateNickname'];
+const methods = ['getStarted', 'updateAge', 'updateCity', 'updateCountry', 'updateNickname', 'updateProgress'];
 
 class Register extends Component {
   constructor (props) {
@@ -23,7 +24,8 @@ class Register extends Component {
       age: undefined,
       city: undefined,
       country: undefined,
-      nickname: undefined
+      nickname: undefined,
+      progress: null
     };
   }
 
@@ -53,64 +55,92 @@ class Register extends Component {
   updateNickname (nickname) {
     this.setState({
       ...this.state,
-      nickname
+      nickname: nickname.trim()
+    });
+  }
+
+  updateProgress (text) {
+    this.setState({
+      ...this.state,
+      progress: {
+        duration: 3000,
+        text
+      }
     });
   }
 
   async getStarted () {
-    const { error, myProfile, uploading, user } = this.props;
+    const { deedType, error, myProfile, user } = this.props;
     const { age, city, country, nickname } = this.state;
     try {
-      uploading({ uploadMsg: 'Registering you as a deedit do-er!' });
+      this.updateProgress('Registering you as a deedit do-er!');
       let updatedUser = {
         ...user,
         personal: { age, city, country },
         nickname
       };
       updatedUser = await registerUser(updatedUser);
-      await createSelectedDeed(updatedUser);
-      updateLocalUser({
-        ...updatedUser,
-        selected: null
-      });
-      myProfile();
+      this.updateProgress('Assigning the deed to you...');
+      startDeed(updatedUser, deedType,  { error, myProfile });
     } catch (err) {
       error({err});
     }
   }
 
   render () {
-    const { termsAndConditions, user } = this.props;
-    const { deedType } = user.selected;
-    const { description, image } = deedType;
-    const { age, country, nickname } = this.state;
+    const { deedType, termsAndConditions } = this.props;
+    const { age, country, nickname, progress } = this.state;
+    const { className, color } = deedType.style;
 
-    const cityClassName = isScotland(country) ? 'Register-show' : 'Register-hide';
-    const buttonEnabled = age && country && nickname;
+    const cityClassName = isScotland(country) ? 'Register-show' : 'hidden';
+    const buttonEnabled = age && country && nickname  && nickname.trim().length > 2;
 
     const tandcs = [
       'Read our ',
-      (<a className='Register-link' onClick={termsAndConditions}>terms and conditions</a>),
+      (<a onClick={termsAndConditions}>terms and conditions</a>),
       ' if you want to understand how we use your data.'
     ];
+
+    const nickNameProps = {
+      onChange: this.updateNickname,
+      minLength: 2,
+      maxLength: 30,
+      placeholder: 'Please enter between 2 and 30 characters'
+    };
+
+    const summaryContainerProps = {
+      className: `Register-deed-type ${className}`
+    };
+
+    const summaryProps = {
+      deedType,
+      hideButton: true
+    };
+
+    const progressBar = (progress)
+      ? (<ProgressBar {...progress} color={color} />)
+      : null;
 
     return (
       <div className='page'>
         <Title text='Thank you!' />
-        <Text text='You have picked:' />
-        <DeedTypeSummary description={description} image={image} />
-        <Text text='Before you get started, we just need a few details so we can track the progress of your deeds.' />
-        <Text text='What can we call you?' />
-        <Input onChange={this.updateNickname} />
-        <Text text='Where are you from?' />
-        <Dropdown options={countries} onChange={this.updateCountry} />
-        <div className={cityClassName} >
-          <Text text='Which is your nearest city?' />
-          <Dropdown options={cities} onChange={this.updateCity} />
+        <Text text='You have picked:'/>
+        <div {...summaryContainerProps} >
+          <DeedTypeSummary {...summaryProps} />
         </div>
-        <Text text='What age are you?' />
-        <Dropdown options={ages} onChange={this.updateAge} />
-        <Button text='Get started >' click={this.getStarted} disabled={!buttonEnabled} />
+        <Text text='Before you get started, we just need a few details so we can track the progress of your deeds.' />
+        <Text text='What can we call you?' className='Text-label'/>
+        <Input {...nickNameProps} />
+        <Text text='Where are you from?' className='Text-label' />
+        <Dropdown options={countries} onChange={this.updateCountry} placeholder='Please select your country...' />
+        <div className={cityClassName} >
+          <Text text='Which is your nearest city?' className='Text-label' />
+          <Dropdown options={cities} onChange={this.updateCity} placeholder='Please select your city...' />
+        </div>
+        <Text text='What age are you?' className='Text-label' />
+        <Dropdown options={ages} onChange={this.updateAge} placeholder='Please select your age...'/>
+        <Button text='Get started >' onClick={this.getStarted} disabled={!buttonEnabled} />
+        {progressBar}
         <Text contents={tandcs} />
       </div>
     );

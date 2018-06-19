@@ -3,10 +3,13 @@ import './Component.css';
 import './Dropdown.css';
 
 function Dropdown (props) {
-  const onChange = props.onChange ? (event) => props.onChange(event.target.value) : null;
+  const placeholder = (props.placeholder) ? props.placeholder : 'Select yor option';
+  const onChange = (props.onChange) ? (event) => props.onChange(event.target.value) : null;
+  const options = props.options.map((option, index) => <option key={index+1} value={option} >{option}</option>);
+  options.unshift((<option value="" disabled selected>{placeholder}</option>));
   return (
     <select className='Dropdown-default Component-default' onChange={onChange} >
-      {props.options.map((option, index) => <option key={index} value={option} >{option}</option>)}
+      {options}
     </select>
   );
 }

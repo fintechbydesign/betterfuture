@@ -1,4 +1,5 @@
 import AboutUs from './AboutUs';
+import CompleteDeed from './CompleteDeed';
 import DeeditDifference from './DeeditDifference';
 import Error from './Error';
 import Evidence from './Evidence';
@@ -7,19 +8,11 @@ import MyProfile from './MyProfile';
 import PickADeed from './PickADeed';
 import Pledge from './Pledge';
 import Register from './Register';
-import StartDeed from './StartDeed';
 import TakePhoto from './TakePhoto';
 import TermsAndConditions from './TermsAndConditions';
-import Uploading from './Uploading';
 import UploadPhoto from './UploadPhoto';
 
 const alwaysOK = () => true;
-
-const containsSelectedDeedType = (user) =>
-  user.selected && user.selected.deedType && user.selected.superDeed;
-
-const containsSelectedDeed = (user) =>
-  user.selected && user.selected.deed;
 
 const containsUsername = (user) => !!user.username;
 
@@ -28,13 +21,17 @@ export default {
     component: AboutUs,
     isStateValid: alwaysOK
   },
+  'completeDeed': {
+    component: CompleteDeed,
+    isStateValid: alwaysOK
+  },
   'deeditDifference': {
     component: DeeditDifference,
     isStateValid: alwaysOK
   },
   'evidence': {
     component: Evidence,
-    isStateValid: containsSelectedDeed
+    isStateValid: alwaysOK
   },
   'error': {
     component: Error,
@@ -54,30 +51,22 @@ export default {
   },
   'pledge': {
     component: Pledge,
-    isStateValid: containsSelectedDeed
+    isStateValid: alwaysOK
   },
   'register': {
     component: Register,
-    isStateValid: containsSelectedDeedType
-  },
-  'startDeed': {
-    component: StartDeed,
-    isStateValid: containsSelectedDeedType
+    isStateValid: alwaysOK
   },
   'takePhoto': {
     component: TakePhoto,
-    isStateValid: containsSelectedDeed
+    isStateValid: alwaysOK
   },
   'termsAndConditions': {
     component: TermsAndConditions,
     isStateValid: alwaysOK
   },
-  'uploading': {
-    component: Uploading,
-    isStateValid: alwaysOK,
-  },
   'uploadPhoto': {
     component: UploadPhoto,
-    isStateValid: containsSelectedDeed
+    isStateValid: alwaysOK
   }
 };

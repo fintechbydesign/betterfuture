@@ -1,25 +1,25 @@
 import React from 'react';
-import Collapse from 'rc-collapse';
-import './Accordion.css';
-const Panel = Collapse.Panel;
+import { Accordion, AccordionItem } from 'react-sanfona';
 
-function Accordion (props) {
-  const panels = props.panels.map((panel, index) => {
-    const { label, className, headerClass, content } = panel;
-    const props = {
-      key: index,
-      header: label,
+function MyAccordion (props) {
+  const { items, onChange} = props;
+  const accordionItems = items.map((item, index) => {
+    const { bodyClassName, className, content, title, titleClassName } = item;
+    const itemProps = {
+      title,
+      titleTag: 'div',
       className,
-      headerClass
+      bodyClassName,
+      titleClassName
     }
-    return (<Panel {...props} showArrow >{content}</Panel>);
+    return (<AccordionItem {...itemProps} >{content}</AccordionItem>);
   });
 
   return (
-    <Collapse accordion onChange={props.onChange} >
-      {panels}
-    </Collapse>
+    <Accordion onChange={onChange} >
+      {accordionItems}
+    </Accordion>
   );
 }
 
-export default Accordion;
+export default MyAccordion;

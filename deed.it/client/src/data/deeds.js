@@ -1,8 +1,15 @@
+import superDeedStyles from '../components/superDeedStyles';
 import { getData, postData, REFRESH } from './fetchWrapper';
 
 let mappedDeedTypes;
 
 const populateDeedTypesMap = (deedHierarchy) => {
+  // add styles to each superdeed and to their child deed types
+  for (let index = 0 ; index < deedHierarchy.length; index++) {
+    deedHierarchy[index].style = superDeedStyles[index];
+    deedHierarchy[index].deedTypes.forEach((deedType) => deedType.style = superDeedStyles[index]);
+  }
+  // create map: key=deedType.id value=deedType
   mappedDeedTypes = deedHierarchy.reduce(
     (map, superDeed) => {
       superDeed.deedTypes.reduce(
@@ -29,21 +36,22 @@ const getDeedHierarchy = async() => {
   return deedHierarchy;
 };
 
-const createDeed = async(user, deedType) => {
-  console.log('CREATE DEED, user:', user, 'deedType:', deedType);
+const createDeed = async(user, deedTypeId) => {
   const body = {
-    deedTypeId: deedType.id,
+    deedTypeId,
     username: user.username
   };
   return postData('deeditCreateUserDeed', body);
 };
 
+/*
 const createSelectedDeed = async(user) => {
   if (!user.selected.deedType) {
     throw new Error('No selected deed type');
   }
-  await createDeed(user, user.selected.deedType)
+  await createDeed(user, user.selected.deedType.id)
 };
+*/
 
 const getUserDeeds = async(user, force = false) => {
   if (!mappedDeedTypes) {
@@ -55,7 +63,7 @@ const getUserDeeds = async(user, force = false) => {
   const deeds = profile.deeds || [];
   const events = profile.events || [];
   const created = deeds.filter((deed) => deed.deedStatus === 'created');
-  const inProgress = (created.lehgth === 0)
+  const inProgress = (created.length === 0)
     ? null
     : created.map(appendDeedTypeProps);
   const completed = deeds.filter((deed) => deed.deedStatus === 'completed').map(appendDeedTypeProps);
@@ -65,13 +73,13 @@ const getUserDeeds = async(user, force = false) => {
 };
 
 const updateDeed = async(deed) => {
-  const { id: deedId, status: deedStatus, evidenceType, latitude, longitude, src }= deed;
+  const { id: deedId, status: deedStatus, evidenceType, latitude, longitude, src } = deed;
   const endPoint = 'deeditSetDeedStatus';
   return postData(endPoint, { deedId, deedStatus, evidenceType, latitude, longitude, src });
 }
 
 export {
-  createSelectedDeed,
+  createDeed,
   getDeedHierarchy,
   getUserDeeds,
   updateDeed,

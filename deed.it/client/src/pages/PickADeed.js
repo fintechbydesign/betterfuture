@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
 import Accordion from '../components/Accordion';
-import Button from '../components/Button';
 import Carousel from '../components/Carousel';
-import Image from '../components/Image';
-import Fetching from '../components/Fetching';
+import DeedTypeSummary from '../components/DeedTypeSummary';
+import ProgressBar from '../components/ProgressBar';
+import startDeed from '../components/startDeed';
+import Title from '../components/Title';
+import Text from '../components/Text';
 import { getDeedHierarchy } from '../data/deeds';
-import { updateLocalUser} from '../data/user';
 import './PickADeed.css';
 
 const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'selectDeed'];
-const panelClasses = ['PickADeed-green', 'PickADeed-happy', 'PickADeed-homeless'];
 
 class PickADeed extends Component {
   constructor (props) {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
-      deedHierarchy: null
-    };
-    // 'selected' not in state as Accordion/Carousel not correctly redrawing when it is set
-    this.selected = {
-      superDeed: null,
+      deedHierarchy: null,
       deedType: null
     };
   }
@@ -35,8 +31,6 @@ class PickADeed extends Component {
   async fetchDeeds () {
     try {
       const deedHierarchy = await getDeedHierarchy();
-      console.log('pickADeed', 'fetchDeeds', deedHierarchy);
-      this.setSelected(deedHierarchy[0], deedHierarchy[0].deedTypes[0]);
       this.setState({
         ...this.state,
         deedHierarchy
@@ -46,69 +40,77 @@ class PickADeed extends Component {
     }
   }
 
-  setSelected (superDeed, deedType) {
-    console.log('setSelected', superDeed, deedType);
-    this.selected = {
-      ...this.selected,
-      superDeed,
+  setSelected (deedType) {
+    this.setState({
+      ...this.state,
       deedType
-    };
+    });
   }
 
   selectDeed () {
-    const user = {
-      ...this.props.user,
-      selected: this.selected
-    };
-    updateLocalUser(user);
-    this.props.startDeed();
+    const {  error, myProfile, register, user } = this.props;
+    const { registered } = user;
+    const { deedType } = this.state;
+    if (registered) {
+      startDeed(user, deedType, { error, myProfile });
+    } else {
+      register({ deedType });
+    }
   }
 
-  // the inner div is there to fix the height whilst the image is dynamically changed
   renderDeedType (deedType, index) {
-    return (
-      <div key={index} className='PickADeed-slide-container'>
-        <div className='PickADeed-image-container'>
-          <Image src={deedType.image} />
-        </div>
-        <p>{deedType.description}</p>
-        <Button text='Find out more >' click={this.selectDeed} />
-      </div>
-    );
+    const props = {
+      buttonText:'Do this deed',
+      deedType,
+      key: index,
+      onClick: this.selectDeed
+    };
+    return (<DeedTypeSummary {...props} />);
   }
 
-  renderSuperDeed (superDeed) {
+  renderSuperDeed (superDeed, index) {
     const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index));
-    const thumbnails = superDeed.deedTypes.map(() => ({}));
-    const selected = (index) => this.setSelected(superDeed, superDeed.deedTypes[index]);
+    const selected = (index) => this.setSelected(superDeed.deedTypes[index]);
+    const props = { selected, slides };
     return (
-      <div>
-        <p>{superDeed.description}</p>
-        <Carousel selected={selected} slides={slides} boxThumbnails={thumbnails} />
-      </div>
+      <Carousel {...props} />
     );
   }
 
   render () {
-    const { deedHierarchy } = this.state;
+    const { deedHierarchy, deedType } = this.state;
     if (!deedHierarchy) {
-      return (<Fetching text='Fetching available deeds' />);
+      const progressProps = {
+        duration: 3000,
+        style: {
+          'font-size': 'large'
+        },
+        text: 'Fetching available deeds...'
+      };
+      return (<ProgressBar { ...progressProps } />);
     }
-    const panels = deedHierarchy.map((superDeed, index) => ({
-      content: this.renderSuperDeed(superDeed),
-      label: superDeed.id,
-      className: `PickADeed-default ${panelClasses[index]}`,
-      headerClass: `PickADeed-default ${panelClasses[index]}`
+    const textClassName = (deedType) ? 'hidden' : '';
+    const items = deedHierarchy.map((superDeed, index) => ({
+      content: this.renderSuperDeed(superDeed, index),
+      title: superDeed.id,
+      className: 'PickADeed-root',
+      bodyClassName: `PickADeed-body ${superDeed.style.className}`,
+      titleClassName: `PickADeed-header ${superDeed.style.className}`
     }));
-    const onChange = (index) => {
-      // bug (?) in Collapse that allows undefined active key to be passed
-      if (typeof index !== 'undefined') {
-        this.setSelected(deedHierarchy[index], deedHierarchy[index].deedTypes[0]);
+    const onChange = ({activeItems}) => {
+      if(activeItems.length) {
+        const index = activeItems[0];
+        this.setSelected(deedHierarchy[index].deedTypes[0]);
+      } else {
+        this.setSelected();
       }
     };
+    const accordionProps = { items, onChange }
     return (
       <div>
-        <Accordion panels={panels} onChange={onChange} />
+        <Title text='Pick A Deed' className='PickADeed-title' />
+        <Text className={textClassName} text='Choose which megadeed you would like to contribute to.' />
+        <Accordion {...accordionProps} />
       </div>
     );
   }

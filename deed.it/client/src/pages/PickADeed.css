@@ -1,23 +1,18 @@
-.PickADeed-slide-container {
-    text-align: center;
+.PickADeed-root {
+    margin: 0 16px 0 16px;
 }
 
-.PickADeed-image-container {
-    height: 240px;
-}
-
-.PickADeed-default {
+.PickADeed-body {
     color: white;
+    padding: 1vh 1vh 0 1vh;
 }
 
-.PickADeed-green {
-    background-color: #20BCA4;
+.PickADeed-header {
+    color: white;
+    padding: 1vh;
 }
 
-.PickADeed-happy {
-    background-color: #0E88FC;
-}
-
-.PickADeed-homeless {
-    background-color: #FF6112;
+.PickADeed-title {
+    padding-left: 16px;
+    margin: 1vh;
 }

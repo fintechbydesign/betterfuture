@@ -20,9 +20,8 @@ function Image (props) {
   const alt = props.alt ? props.alt : 'placeholder';
   const className = props.className ? props.className : 'Image-default';
   const src = createSrc(props);
-  const loader = (<div>To be replaced with loading image</div>);
   return (
-    <Img src={src} loader={loader} className={className} alt={alt} />
+    <Img src={src} className={className} alt={alt} onClick={props.onClick} onLoad={props.onLoad} />
   );
 }
 

@@ -57,7 +57,6 @@ const removeUser = async(user) => {
 export {
   createLocalUser,
   getLocalUser,
-  updateLocalUser,
   removeLocalUser,
   createUser,
   registerUser,

@@ -16,7 +16,7 @@ class Video extends Component {
     let mediaPlayer;
     let instructionClassName = 'Video-child Video-instruction';
     if (!this.state.instructionVisible) {
-      instructionClassName = `${instructionClassName} Video-hide`;
+      instructionClassName = `${instructionClassName} hidden`;
     }
 
     const togglePlay = () => {

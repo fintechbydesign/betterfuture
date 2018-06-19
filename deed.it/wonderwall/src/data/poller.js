@@ -1,8 +1,9 @@
 import { getData } from './fetchWrapper';
 
-const URL = 'deeditWonderwallLatest'
+const URL = 'deeditWonderwallLatest';
+const ONE_SECOND = 1000;
 const ONE_HOUR = 60 * 60 * 1000;
-const POLL_INTERVAL = 5 * ONE_HOUR;  // just for dev!
+const POLL_INTERVAL = 15 * ONE_SECOND;
 const PREFERRED_INITIAL_NUMBER_OF_TILES = 20;
 
 let latestTileTimestamp;
@@ -20,7 +21,6 @@ const reportError = (errMsg) => {
 }
 
 const getLatestTiles = async(timestamp) => {
-  console.log(`Polling for tiles since ${new Date(timestamp).toLocaleString()}`);
   const endpoint = `${URL}?oldestTimestamp=${timestamp}`;
   try {
     return await getData(endpoint);
@@ -47,6 +47,7 @@ const processTiles = (tiles) => {
 
 const poll = async() => {
   const tiles = await getLatestTiles(latestTileTimestamp);
+  console.log(`Poll for tiles after ${latestTileTimestamp} - number of tiles = ${tiles.length}`);
   processTiles(tiles);
 }
 

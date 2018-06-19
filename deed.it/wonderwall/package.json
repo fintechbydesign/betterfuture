@@ -51,7 +51,6 @@
     "lint": "eslint ./src",
     "publish": "npm run build && node ../publish.js build wonderwall.deedit.org"
   },
-  "proxy": "https://brg39dfup5.execute-api.eu-west-1.amazonaws.com/development/",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"

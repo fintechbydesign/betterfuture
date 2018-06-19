@@ -1,0 +1,21 @@
+.UserSummary-container {
+  width: 100%;
+  padding: 1vw;
+}
+
+.UserSummary-image {
+  width: 15vw;
+  height: 15vw;
+  margin: 0 5vw 2vw 0;
+}
+
+.UserSummary-nickname {
+  font-size: 8vw;
+  font-weight: bold;
+  margin-bottom: 0;
+ }
+
+.UserSummary-location {
+  font-weight: bold;
+  margin-bottom: 0;
+}

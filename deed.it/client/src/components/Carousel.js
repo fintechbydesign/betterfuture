@@ -1,59 +1,36 @@
 import React from 'react';
-import NukaCarousel from 'nuka-carousel';
-import BoxThumbnail from './BoxThumbnail';
-import ImageThumbnail from './ImageThumbnail';
+import Slider from "react-slick";
 import './Carousel.css';
+// import './slick.css';
+// import './slick-theme.css';
 
-const left = '<';
-const right = '>';
-
-const renderImageThumbnails = (thumbnails) => ({currentSlide}) => {
-  const thumbNails = thumbnails.map((thumbnail, index) => {
-    return (<ImageThumbnail src={thumbnail} active={(currentSlide === index)} key={index}/>);
-  });
-  return (
-    <div>
-      {thumbNails}
-    </div>
-  );
+const defaultProps = {
+  arrows: false,
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
 };
 
-const renderBoxThumbnails = (thumbnails) => ({currentSlide}) => {
-  const thumbNails = thumbnails.map((thumbnail, index) => {
-    return (<BoxThumbnail active={(currentSlide === index)} key={index}/>);
-  });
-  return (
-    <div>
-      {thumbNails}
-    </div>
-  );
-};
+const defaultAnimateProps = {
+  autoplay: true,
+  autoplaySpeed: 0
+}
 
 function Carousel (props) {
-  const { boxThumbnails, imageThumbnails } = props;
-  const nukaProps = {
-    afterSlide: props.selected,
-    dragging: true,
-    heightMode: 'current',
-    initialSlideHeight: 200,
-    swiping: true
-  };
-  nukaProps.renderCenterLeftControls = ({ previousSlide }) => (
-    <button className='Carousel-nav-button' onClick={previousSlide}>{left}</button>
-  );
-  nukaProps.renderCenterRightControls= ({ nextSlide }) => (
-    <button className='Carousel-nav-button'onClick={nextSlide}>{right}</button>
-  );
-  if (boxThumbnails) {
-    nukaProps.renderBottomCenterControls = renderBoxThumbnails(boxThumbnails);
-  }
-  if (imageThumbnails) {
-    nukaProps.renderBottomCenterControls = renderImageThumbnails(imageThumbnails);
+  const { animate, selected, slides, ...theRest } = props;
+  const animateProps = (animate) ? defaultAnimateProps : {};
+  const sliderProps = {
+    ...defaultProps,
+    ...animateProps,
+    ...theRest,
+    afterChange: selected
   }
   return (
-    <NukaCarousel {...nukaProps} >
-      {props.slides}
-    </NukaCarousel>
+    <Slider {...sliderProps} >
+      {slides}
+    </Slider>
   );
 }
 

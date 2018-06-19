@@ -46,23 +46,51 @@ Dev mode (hot  module replacement etc.), from wonderwall root diractory:
 $ npm start
 ``` 
 
-## PABLO TODO
-* Cloud Stub
-* S3 stub
-* S3 for real (STS workflow)
-* S3 for static assets < require TLS + cloudfront
-* Lambda
- - wonderwall get latest first
- - wonderwall get individuals
- - wonderwall get unapproved
- - approval lambda(s) - deed completion, S3 move, assign points, assign badges
- - add user (username, country of origin)
- - update user (append extra info..?) 
- - get Deeds heirarchy
- - create instance of deed
- - update deed status
- - get user profile - 
- - kill user / update status
+## Tuesday 19th TODO
+
+### Server
+* pledge completion error
+* location fields for deed type
+* location coordinates for deed type?
+* all address options: http[s]://[wwww].deedit.org
+
+### Client
+* refresh for Do Deed Again ✓
+* click on home page call to action ✓
+* Navbar - remove option ✓
+* icons
+  - nav bar
+  - deed type (remove white background)
+  - avatar
+  - handy wavey
+  - nav bar
+* deed photo - pre/post approval
+* click area size
+* map/directions for Social Bite deed type
+* build optimisation
+
+### UX / Icons
+* expand/contract icons
+* getInvolvedAction on Home 
+* right arrow or '>'
+* Deedit difference links (about page?)
+
+### Wonderwall
+* popup content
+  - deed details
+  - location
+  
+### Nice to have
+* client deed photo expansion
+* client error logging (client/server)
+* client device logging (client/server)
+* wonderwall stats..?
+* wonderwall videos (wonderwall/server)
+* wonderwall manual push content
+
+
+
+
 
 
 

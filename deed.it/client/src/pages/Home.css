@@ -1,0 +1,43 @@
+.Home-superdeed-container {
+    color: white;
+    margin-bottom: 2vw;
+    padding: 2vw;
+}
+
+.Home-superdeed-icon {
+    width: 30vw;
+}
+
+.Home-call-to-action-container {
+    margin-top: 2vh;
+}
+
+
+.Home-text {
+    margin: 0;
+    text-align: left;
+}
+
+.Home-xx-large-font {
+    font-family: 'Bungee Inline';
+    font-size: 16vw;
+}
+
+.Home-x-large-font {
+    font-family: 'Bungee Inline';
+    font-size: 8vw;
+}
+
+.Home-x-large-plain-font {
+    color: black;
+    font-size: 8vw;
+}
+
+.Home-large-font {
+    font-family: 'Bungee Inline';
+}
+
+.Home-large-plain-font {
+    color: black;
+    font-size: 6vw;
+}

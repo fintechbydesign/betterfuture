@@ -1,11 +1,5 @@
 {
   "registered" : true/false,
-  "username": {id},
-  "selected": {
-    "deed": {deed},
-    "deedType": {deedType},
-    "superDeed": {superDeed}
-  },
   "personal" : {
     "age": {string},
     "city": {string},
