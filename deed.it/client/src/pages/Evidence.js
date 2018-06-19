@@ -45,7 +45,14 @@ class Evidence extends Component {
   }
 
   render () {
+    const { privacy } = this.props;
     const { page, recordLocation } = this.state;
+    const labelText="We would like to capture your location so that we can show where the good deeds are being done." +
+      "  You can let us know if you're OK with that.";
+    const privacyContents = [
+      'We care about your privacy. You can read more in our',
+      (<a key='link' onClick={privacy} >Privacy Notice</a> )
+    ];
     const buttonDisabled = !page;
     return (
       <div className='page'>
@@ -54,8 +61,9 @@ class Evidence extends Component {
         <RadioGroup radioOptions={this.state.radioOptions} />
         <div>
           <Text text="Where's your deed at" className='Evidence-bold' />
-          <label htmlFor='location'>We would like to capture your location so that we can show where the good deeds are being done.  Let us know if you're OK with that.</label>
+          <label htmlFor='location'>{labelText}</label>
           <input type='checkbox' id='location' onChange={this.toggleRecordLocation} checked={recordLocation} />
+          <Text contents={privacyContents} />
         </div>
         <Button onClick={this.nextPage} disabled={buttonDisabled} text="Next" />
       </div>

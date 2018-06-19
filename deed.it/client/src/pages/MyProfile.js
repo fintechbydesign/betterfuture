@@ -111,16 +111,22 @@ class MyProfile extends Component {
   }
 
   renderPreviousDeed (deed, index) {
+    const { picture } = this.props;
     const { inProgress } = this.state.deeds;
-    const props = {
+    const { src } = deed;
+    const userHasInProgressDeed = (inProgress && inProgress.length > 0);
+    let props = {
       deed,
+      hideButton: userHasInProgressDeed,
+      onImageClick: (src) ? picture.bind(null, { src, type: 'userImage' }) : null,
       key: index
     };
-    if (inProgress && inProgress.length > 0) {
-      props.hideButton = true;
-    } else {
-      props.buttonText = "Do it again!";
-      props.onClick = this.doDeedAgain.bind(this, deed);
+    if (userHasInProgressDeed) {
+      props = {
+        ...props,
+        buttonText: 'Do it again',
+        onButtonClick: this.doDeedAgain.bind(this, deed)
+      }
     }
     return (
       <DeedSummary {...props} />
@@ -139,7 +145,7 @@ class MyProfile extends Component {
       const progressProps = {
         duration: 3000,
         style: {
-          'font-size': 'large'
+          fontSize: 'large'
         },
         text: 'Fetching your deeds...'
       };

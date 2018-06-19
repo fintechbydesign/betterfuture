@@ -97,7 +97,7 @@ class Register extends Component {
 
     const tandcs = [
       'Read our ',
-      (<a onClick={termsAndConditions}>terms and conditions</a>),
+      (<a key='link' onClick={termsAndConditions}>terms and conditions</a>),
       ' if you want to understand how we use your data.'
     ];
 

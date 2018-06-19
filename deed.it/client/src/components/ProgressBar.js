@@ -10,13 +10,22 @@ class ProgressBar extends Component {
 
   constructor (props) {
     super(props);
+    this.autoIncrement = this.autoIncrement.bind(this);
     this.autoIncrementProgress = this.autoIncrementProgress.bind(this);
     const { duration } = props;
     if (duration) {
       const autoIncrementInterval = duration / 20;
       this.state = { autoIncrementInterval, percent: 0 }
-      setTimeout(this.autoIncrementProgress, autoIncrementInterval);
+      setTimeout(this.autoIncrement, autoIncrementInterval);
     }
+  }
+
+  componentWillUnmount () {
+    this.autoIncrementProgress = () => undefined;
+  }
+
+  autoIncrement () {
+    this.autoIncrementProgress();
   }
 
   autoIncrementProgress () {
@@ -35,7 +44,7 @@ class ProgressBar extends Component {
         ...this.state,
         percent: newPercent
       });
-      setTimeout(this.autoIncrementProgress, autoIncrementInterval);
+      setTimeout(this.autoIncrement, autoIncrementInterval);
     }
   }
 

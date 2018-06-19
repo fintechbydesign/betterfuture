@@ -11,7 +11,6 @@ class DeedSummary extends Component {
   constructor (props) {
     super(props);
     this.toggleExpansion = this.toggleExpansion.bind(this);
-    // const expanded = (expand in props) ? props.expand: false;
     this.state = {
       expanded: props.expand
     }
@@ -25,15 +24,23 @@ class DeedSummary extends Component {
   }
 
   render () {
-    const { buttonText, deed, hideButton, key, onClick } = this.props;
+    const { buttonText, deed, hideButton, key, onButtonClick, onImageClick } = this.props;
     const { expanded } = this.state;
-    const { deedTypeId, description, style} = deed;
-    const divClassName = `DeedSummary-container ${style.className}`;
-    const imageProps = {
+    const { deedTypeId, description, src, style } = deed;
+    const { className } = style;
+    const divClassName = `DeedSummary-container ${className}`;
+    const toggleImageProps = {
       className: 'DeedSummary-image',
       src: (expanded) ? contract : expand,
       type: 'appImage'
     };
+    const deedImageProps = (src)
+      ? {
+          onClick: onImageClick,
+          src,
+          type: 'userImage'
+        }
+      : null;
     const deedTypeProps = {
       buttonText,
       className: 'Deed-Summary-dropin',
@@ -42,8 +49,9 @@ class DeedSummary extends Component {
         id: deedTypeId,
         style},
       hideButton,
+      imageProps: deedImageProps,
       onClick: async() => {
-        await onClick();
+        await onButtonClick();
         this.toggleExpansion();
       }
     };
@@ -51,7 +59,7 @@ class DeedSummary extends Component {
     return (
       <div className={divClassName} key={key}>
         <div onClick={this.toggleExpansion}>
-          <Image {...imageProps} />
+          <Image {...toggleImageProps} />
           <Text text={deedTypeId}/>
         </div>
         {expandedContents}

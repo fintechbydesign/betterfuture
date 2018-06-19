@@ -6,7 +6,6 @@ import Text from '../components/Text';
 import Title from '../components/Title';
 import './Home.css';
 
-
 function renderHomeless (getInvolvedAction) {
   return (
     <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[2].className}`}>
@@ -71,14 +70,17 @@ function renderHappy (getInvolvedAction) {
 
 function Home (props) {
   const { aboutUs, myProfile, pickADeed, user } = props;
-  const getInvolvedAction = user.registered ? myProfile : pickADeed;
+  const introText = 'Deedit is a social experiment running in Edinburgh throughout August.  ' +
+    'We want to find out if encouraging lots of people to do small good deeds can add up to a much bigger positive outcome.';
   const aboutUsContents = [
     'If you want to know more about Deedit, who we are and what we do, ',
-    (<a onClick={aboutUs}>visit our About Us page.</a>)
+    (<a key='link' onClick={aboutUs}>visit our About Us page.</a>)
   ];
+  const getInvolvedAction = user.registered ? myProfile : pickADeed;
   return (
     <div className='page'>
       <Title text='Hi There' />
+      <Text text={introText} />
       <Title text='Did you know?' />
       {renderHomeless(getInvolvedAction)}
       {renderGreen(getInvolvedAction)}

@@ -21,7 +21,7 @@ function Image (props) {
   const className = props.className ? props.className : 'Image-default';
   const src = createSrc(props);
   return (
-    <Img src={src} className={className} alt={alt} onClick={props.onClick} onLoad={props.onLoad} />
+    <Img alt={alt} className={className} loader={props.loader} onClick={props.onClick} onLoad={props.onLoad} src={src} />
   );
 }
 

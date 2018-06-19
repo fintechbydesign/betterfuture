@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import ProgressBar from '../components/ProgressBar';
+import React from 'react';
 import Text from '../components/Text';
 import Title from '../components/Title';
 
@@ -9,48 +8,36 @@ const randomTextProps = {
   format: 'plain'
 };
 
-class AboutUs extends Component {
 
-  constructor (props) {
-    super(props);
-    this.reset = this.reset.bind(this);
-    this.state = { progress: null };
-  }
 
-  reset () {
-    this.setState({
-      progress: {
-        duration: 3000,
-        text: 'Clearing all your user data...'
-      }
-    });
-    this.props.reset();
-  }
+function AboutUs(props) {
+  const { privacy, termsAndConditions} = props;
 
-  render () {
-    const { progress } = this.state;
-    const progressBar = (progress) ? (<ProgressBar {...progress} />) : null;
+  const tandc = [
+    'See our ',
+    (<a key='tandc' onClick={termsAndConditions}>terms and conditions</a>),
+    '.'
+  ];
 
-    const forgetme = [
-      'You have the right to be forgotten. Clicking ',
-      (<a onClick={this.reset}>here</a>),
-      ' will delete all data sent from this device, including uploaded images.'
-    ];
+  const privacyPolicy = [
+    'See our ',
+    (<a key='tandc' onClick={privacy}>privacy policy</a>),
+      '.'
+  ];
 
-    return (
-      <div className='page'>
-        <Title text='About Us'/>
-        <Text dummyText={randomTextProps}/>
-        <Title text='The Deedit Team'/>
-        <Text dummyText={randomTextProps}/>
-        <Title text='Contact Us'/>
-        <Text dummyText={randomTextProps}/>
-        <Title text='Forget about me'/>
-        <Text contents={forgetme}/>
-        {progressBar}
-      </div>
-    );
-  }
+  return (
+    <div className='page'>
+      <Title text='About Us'/>
+      <Text dummyText={randomTextProps}/>
+      <Title text='The Deedit Team'/>
+      <Text dummyText={randomTextProps}/>
+      <Title text='Contact Us'/>
+      <Text dummyText={randomTextProps}/>
+      <Title text='T&C's/>
+      <Text contents={tandc} />
+      <Text contents={privacyPolicy} />
+    </div>
+  );
 }
 
 export default AboutUs;

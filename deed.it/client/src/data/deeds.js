@@ -25,7 +25,9 @@ const populateDeedTypesMap = (deedHierarchy) => {
   );
 };
 
-const appendDeedTypeProps = (deed) => ({ ...mappedDeedTypes[deed.deedTypeId], ...deed });
+const appendDeedTypeProps = (deed) => {
+  return {...mappedDeedTypes[deed.deedTypeId], ...deed}
+};
 
 const getDeedHierarchy = async() => {
   const deedHierarchy = await getData('deeditDeedHierarchy');
@@ -43,15 +45,6 @@ const createDeed = async(user, deedTypeId) => {
   };
   return postData('deeditCreateUserDeed', body);
 };
-
-/*
-const createSelectedDeed = async(user) => {
-  if (!user.selected.deedType) {
-    throw new Error('No selected deed type');
-  }
-  await createDeed(user, user.selected.deedType.id)
-};
-*/
 
 const getUserDeeds = async(user, force = false) => {
   if (!mappedDeedTypes) {

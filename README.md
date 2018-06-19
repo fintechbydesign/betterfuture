@@ -49,7 +49,7 @@ $ npm start
 ## Tuesday 19th TODO
 
 ### Server
-* pledge completion error
+* pledge completion error ✓
 * location fields for deed type
 * location coordinates for deed type?
 * all address options: http[s]://[wwww].deedit.org
@@ -58,6 +58,7 @@ $ npm start
 * refresh for Do Deed Again ✓
 * click on home page call to action ✓
 * Navbar - remove option ✓
+* picture expansion
 * icons
   - nav bar
   - deed type (remove white background)
@@ -67,9 +68,11 @@ $ npm start
 * deed photo - pre/post approval
 * click area size
 * map/directions for Social Bite deed type
+* isStateValid improvements
 * build optimisation
 
 ### UX / Icons
+* placeholder whilst images opening
 * expand/contract icons
 * getInvolvedAction on Home 
 * right arrow or '>'

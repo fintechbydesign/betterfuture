@@ -6,7 +6,9 @@ import Evidence from './Evidence';
 import Home from './Home';
 import MyProfile from './MyProfile';
 import PickADeed from './PickADeed';
+import Picture from './Picture';
 import Pledge from './Pledge';
+import Privacy from './Privacy';
 import Register from './Register';
 import TakePhoto from './TakePhoto';
 import TermsAndConditions from './TermsAndConditions';
@@ -49,8 +51,16 @@ export default {
     component: PickADeed,
     isStateValid: alwaysOK
   },
+  'picture': {
+    component: Picture,
+    isStateValid: alwaysOK
+  },
   'pledge': {
     component: Pledge,
+    isStateValid: alwaysOK
+  },
+  'privacy': {
+    component: Privacy,
     isStateValid: alwaysOK
   },
   'register': {

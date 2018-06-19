@@ -6,6 +6,7 @@ function MyAccordion (props) {
   const accordionItems = items.map((item, index) => {
     const { bodyClassName, className, content, title, titleClassName } = item;
     const itemProps = {
+      key: index,
       title,
       titleTag: 'div',
       className,

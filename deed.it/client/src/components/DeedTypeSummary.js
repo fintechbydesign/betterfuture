@@ -18,12 +18,15 @@ class DeedTypeSummary extends Component {
   constructor (props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-    this.state = { progress: null };
+    this.state = {
+      progress: null
+    };
   }
 
   onClick () {
     const { onClick } = this.props;
     this.setState({
+      ...this.state,
       progress: {
         duration: 3000,
         text: 'Assigning deed to you...'
@@ -35,17 +38,26 @@ class DeedTypeSummary extends Component {
   render () {
     const { date, month, time, address, town } = hardcoded;
     const { onClick, props, state } = this;
-    const { buttonText, className, deedType, hideButton, key } = props;
+    const { buttonText, className, deedType, hideButton, key, imageProps } = props;
     const { progress } = state;
     const { description, id, style } = deedType;
     const { color, icon } = style;
     const textStyle = { color };
-    const button = (hideButton) ? null : <Button text={buttonText} onClick={onClick}/>;
-    const progressBar = (progress) ? (<ProgressBar {...progress} color= 'white' />) : null;
+    const mergedImageProps = {
+      className: 'DeedTypeSummary-image',
+      src: icon,
+      ...imageProps,
+    };
+    const button = (hideButton)
+      ? null
+      : <Button text={buttonText} onClick={onClick}/>;
+    const progressBar = (progress)
+      ? (<ProgressBar {...progress} color= 'white' />)
+      : null;
     return (
       <div className={className} key={key}>
         <div className='DeedTypeSummary-image'>
-          <Image src={icon} className='DeedTypeSummary-image'/>
+          <Image { ...mergedImageProps } />
         </div>
         <Text text={id} className='DeedTypeSummary-1-line'/>
         <Text text={description} className='DeedTypeSummary-2-lines'/>
