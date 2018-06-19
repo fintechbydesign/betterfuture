@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Button from '../components/Button';
-import Image from '../components/Image';
 import RadioGroup from '../components/RadioGroup';
 import Text from '../components/Text';
 import TitleWithImage from '../components/TitleWithImage';
