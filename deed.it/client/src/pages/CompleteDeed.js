@@ -11,6 +11,7 @@ import { prepareUpload } from "../data/S3";
 import { getUserDeeds, REFRESH, updateDeed } from "../data/deeds";
 import { createEvent } from "../data/events";
 import './CompleteDeed.css';
+import {updateLocalUser} from "../data/user";
 
 const texts = [
   'Smashing it! See how all the good deeds being done are making a big impact in Edinburgh',
@@ -90,17 +91,16 @@ class CompleteDeed extends Component {
       });
       setProgress('Awarding badges...');
       const events = await this.createNewEvents();
-      /*
-      if (events.length > 0) {
-        this.updateImage(badgeImages[events[0].src]);
-      }
-      */
       events.forEach((event, index) => {
         setTimeout(this.updateImage.bind(this, badgeImages[event.src]), index * 2000 );
       })
       setProgress('Updating your profile...');
       // update user deeds before showing profile
       await getUserDeeds(user, REFRESH);
+      updateLocalUser({
+        ...user,
+        openDeedCount: user.openDeedCount - 1
+      });
       if (imageData) {
         setProgress('Uploading your photo...');
         await uploadPromise;

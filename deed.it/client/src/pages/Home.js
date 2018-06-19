@@ -71,23 +71,29 @@ function renderHappy (getInvolvedAction) {
 
 function Home (props) {
   const { aboutUs, myProfile, pickADeed, user } = props;
+  const { openDeedCount, registered } = user;
   const introText = 'Deedit is a social experiment running in Edinburgh throughout August.  ' +
     'We want to find out if encouraging lots of people to do small good deeds can add up to a much bigger positive outcome.';
   const aboutUsContents = [
     'If you want to know more about Deedit, who we are and what we do, ',
     (<a key='link' onClick={aboutUs}>visit our About Us page.</a>)
   ];
-  const getInvolvedAction = user.registered ? myProfile : pickADeed;
+  const titleText = (registered && openDeedCount > 0)
+    ? 'Are you all done?'
+    : 'So what are you waiting for?';
+  const buttonProps = (registered && openDeedCount > 0)
+    ? { onClick: myProfile, text: 'Report Deed Done' }
+    : { onClick: pickADeed, text: 'Get Involved Now' };
   return (
     <div className='page'>
       <Title text='Hi There' />
       <Text text={introText} />
       <Title text='Did you know?' />
-      {renderHomeless(getInvolvedAction)}
-      {renderGreen(getInvolvedAction)}
-      {renderHappy(getInvolvedAction)}
-      <Title text='So what are you waiting for?' />
-      <Button onClick={getInvolvedAction} text='Get involved now' />
+      {renderHomeless(pickADeed)}
+      {renderGreen(pickADeed)}
+      {renderHappy(pickADeed)}
+      <Title text={titleText} />
+      <Button { ...buttonProps } />
       <Text contents={aboutUsContents} />
     </div>
   );
