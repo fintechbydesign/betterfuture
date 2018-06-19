@@ -5,14 +5,6 @@ import ProgressBar from './ProgressBar';
 import Text from './Text';
 import './DeedTypeSummary.css';
 
-const hardcoded = {
-  date: 'Monday 6th',
-  month: 'August 2018',
-  time: '22:00',
-  address: 'George Street',
-  town: 'Edinburgh'
-}
-
 class DeedTypeSummary extends Component {
 
   constructor (props) {
@@ -36,11 +28,10 @@ class DeedTypeSummary extends Component {
   }
 
   render () {
-    const { date, month, time, address, town } = hardcoded;
     const { onClick, props, state } = this;
     const { buttonText, className, deedType, hideButton, key, imageProps } = props;
     const { progress } = state;
-    const { description, id, style } = deedType;
+    const { description, id, style, where, whereDetails, whereLink, when } = deedType;
     const { color, icon } = style;
     const textStyle = { color };
     const mergedImageProps = {
@@ -54,6 +45,14 @@ class DeedTypeSummary extends Component {
     const progressBar = (progress)
       ? (<ProgressBar {...progress} color= 'white' />)
       : null;
+
+    let addressDetails = null;
+    if (whereDetails) {
+      addressDetails = whereLink
+        ? (<Text contents={[(<a href={whereLink}>{whereDetails}</a>)]} className='DeedTypeSummary-callout-text' />)
+        : (<Text text={whereDetails} className='DeedTypeSummary-callout-text'/>);
+    }
+
     return (
       <div className={className} key={key}>
         <div className='DeedTypeSummary-image'>
@@ -65,16 +64,14 @@ class DeedTypeSummary extends Component {
           <div className='DeedTypeSummary-when flexContainerRow'>
             <Text text='When' className='DeedTypeSummary-callout-text DeedTypeSummary-vertical' style={textStyle}/>
             <div>
-              <Text text={date} className='DeedTypeSummary-callout-text DeedTypeSummary-emphasis'/>
-              <Text text={month} className='DeedTypeSummary-callout-text'/>
+              <Text text={when} className='DeedTypeSummary-callout-text DeedTypeSummary-emphasis'/>
             </div>
-            <Text text={time} className='DeedTypeSummary-callout-text DeedTypeSummary-time'/>
           </div>
           <div className='DeedTypeSummary-where flexContainerRow'>
             <Text text='Where' className='DeedTypeSummary-callout-text DeedTypeSummary-vertical' style={textStyle}/>
             <div>
-              <Text text={address} className='DeedTypeSummary-callout-text DeedTypeSummary-emphasis'/>
-              <Text text={town} className='DeedTypeSummary-callout-text'/>
+              <Text text={where} className='DeedTypeSummary-callout-text DeedTypeSummary-emphasis'/>
+              {addressDetails}
             </div>
           </div>
         </div>
