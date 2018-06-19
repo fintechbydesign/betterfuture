@@ -107,14 +107,16 @@ class PickADeed extends Component {
     };
     const accordionProps = { items, onChange }
     return (
-      <div>
+      <div className="page flexContainerColumn">
         <Title text='Pick A Mega Deed' className='PickADeed-title' />
         <div className={introClassName}>
           <Text text='Together we can tackle 3 big issues in Edinburgh.' />
           <Text text="How? By taking part you are collectively taking action towards improving Edinburgh's people and places." />
           <Text text='Choose the mega-deed you want to contribute to:' />
         </div>
-        <Accordion {...accordionProps} />
+        <div className="anchor-bottom">
+          <Accordion {...accordionProps} />
+        </div>
       </div>
     );
   }
