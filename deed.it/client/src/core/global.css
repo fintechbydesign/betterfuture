@@ -8,9 +8,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 3vh;
   color: #002E4A;
+}
+
+/* to be able to anchor to the bottom */
+.fullHeight {
+  min-height: 100vh;
 }
 
 .page {

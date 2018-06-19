@@ -83,7 +83,7 @@ class App extends Component {
     const { navigationMethods, nextPageProps, user } = this.state;
     const pageProps = { ...navigationMethods, ...nextPageProps, user };
     return (
-      <div className='flexContainerColumn'>
+      <div className='flexContainerColumn fullHeight'>
         <PageHeader />
         { this.selectPage(pageProps) }
         <GlobalNav {...pageProps} />
