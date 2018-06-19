@@ -1,9 +1,9 @@
-import communityFirst from './community_first.png';
-import communitySecond from './community_second.png';
-import greenFirst from './green_first.png';
-import greenSecond from './green_second.png';
-import socialFirst from './social_first.png';
-import socialSecond from './social_second.png';
+import communityFirst from './karma king.svg';
+import communitySecond from './diamond geezer.svg';
+import greenFirst from './zero waster champion.svg';
+import greenSecond from './eco warrior.svg';
+import socialFirst from './social bite star.svg';
+import socialSecond from './social bite ambassador.svg';
 
 export default {
   'Community Spirit_first': communityFirst,

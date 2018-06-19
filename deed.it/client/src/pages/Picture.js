@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from '../components/Image';
+import Text from '../components/Text';
 import './Picture.css';
 
 function Picture (props) {
@@ -10,8 +11,18 @@ function Picture (props) {
     src,
     type
   };
+  const textProps = {
+    className: 'Picture-text',
+    contents: [
+      'Back to ',
+      (<a key='link' onClick={myProfile}>My Profile</a>)
+    ]
+  }
   return (
-    <Image {...imageProps} />
+    <div>
+      <Image {...imageProps} />
+      <Text {...textProps} />
+    </div>
   );
 }
 

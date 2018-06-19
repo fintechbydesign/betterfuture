@@ -1,5 +1,5 @@
 import React from 'react';
-import flags from '../data/flags';
+import flags from '../../../common/src/images/flags';
 import Image from './Image';
 import Text from './Text';
 import './UserSummary.css';

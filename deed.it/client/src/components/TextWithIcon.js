@@ -6,7 +6,7 @@ import './TextWithIcon.css';
 function TextWithIcon (props) {
   return (
     <header className='flexContainerRow'>
-      <Image className='DeedSummary-image' alt='logo' src={props.image} />
+      <Image className='TextWithIcon-image' alt='logo' src={props.image} />
       <Text text={props.description} />
     </header>
   );

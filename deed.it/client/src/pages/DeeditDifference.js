@@ -4,7 +4,7 @@ import ProgressBar from '../components/ProgressBar';
 import Title from '../components/Title';
 import './DeeditDifference.css';
 
-const url = 'https://s3-eu-west-1.amazonaws.com/deedit-smallscreen-dashboard/mini_screen.png';
+const url = 'https://s3-eu-west-1.amazonaws.com/deedit-smallscreen-dashboard/LatestMiniDash.png';
 
 class DeeditDifference extends Component {
 

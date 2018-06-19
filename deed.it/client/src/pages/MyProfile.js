@@ -3,7 +3,7 @@ import Badge from '../components/Badge';
 import Button from '../components/Button';
 import DeedSummary from '../components/DeedSummary';
 import ProgressBar from '../components/ProgressBar';
-import  startDeed from '../components/startDeed';
+import startDeed from '../components/startDeed';
 import Text from '../components/Text';
 import Title from '../components/Title';
 import UserSummary from '../components/UserSummary';
@@ -86,11 +86,15 @@ class MyProfile extends Component {
     const { evidence } = this.props;
     const { inProgress } = this.state.deeds;
     const expand = (inProgress.length === 1);
-    const onClick = () => {
-      evidence({ deed });
-    };
+    const props = {
+      buttonText: "I've done it",
+      deed,
+      expand,
+      key: index,
+      onButtonClick: evidence.bind(null, { deed })
+    }
     return (
-      <DeedSummary buttonText="I've done it" deed={deed} expand={expand} key={index} onClick={onClick} />
+      <DeedSummary {...props} />
     )
   }
 
@@ -115,19 +119,14 @@ class MyProfile extends Component {
     const { inProgress } = this.state.deeds;
     const { src } = deed;
     const userHasInProgressDeed = (inProgress && inProgress.length > 0);
-    let props = {
+    const props = {
+      buttonText: 'Do it again',
       deed,
       hideButton: userHasInProgressDeed,
       onImageClick: (src) ? picture.bind(null, { src, type: 'userImage' }) : null,
-      key: index
+      key: index,
+      onButtonClick: this.doDeedAgain.bind(this, deed)
     };
-    if (userHasInProgressDeed) {
-      props = {
-        ...props,
-        buttonText: 'Do it again',
-        onButtonClick: this.doDeedAgain.bind(this, deed)
-      }
-    }
     return (
       <DeedSummary {...props} />
     )

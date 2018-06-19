@@ -9,7 +9,7 @@
 }
 
 .Button-default:disabled {
-  color: gray;
-  border: gray dotted 2px
+  color: lightgray;
+  border: lightgray dotted 2px
 }
 

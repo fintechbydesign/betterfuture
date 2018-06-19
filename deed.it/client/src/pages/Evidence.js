@@ -50,7 +50,7 @@ class Evidence extends Component {
     const labelText="We would like to capture your location so that we can show where the good deeds are being done." +
       "  You can let us know if you're OK with that.";
     const privacyContents = [
-      'We care about your privacy. You can read more in our',
+      'We care about your privacy. You can read more in our ',
       (<a key='link' onClick={privacy} >Privacy Notice</a> )
     ];
     const buttonDisabled = !page;
@@ -59,12 +59,12 @@ class Evidence extends Component {
         <Title text='Good Work' />
         <Text text='All you need to do now is send us some evidence to prove your deed is done.' />
         <RadioGroup radioOptions={this.state.radioOptions} />
-        <div>
+        <div className='Evidence-privacy-container' >
           <Text text="Where's your deed at" className='Evidence-bold' />
           <label htmlFor='location'>{labelText}</label>
           <input type='checkbox' id='location' onChange={this.toggleRecordLocation} checked={recordLocation} />
-          <Text contents={privacyContents} />
         </div>
+        <Text contents={privacyContents} />
         <Button onClick={this.nextPage} disabled={buttonDisabled} text="Next" />
       </div>
     );
