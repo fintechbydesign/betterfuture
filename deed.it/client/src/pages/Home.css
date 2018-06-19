@@ -4,6 +4,10 @@
     padding: 2vw;
 }
 
+.Home-superdeed-description-container {
+    justify-content: space-between;
+ }
+
 .Home-superdeed-icon {
     width: 30vw;
 }
@@ -12,10 +16,13 @@
     margin-top: 2vh;
 }
 
-
 .Home-text {
     margin: 0;
     text-align: left;
+}
+
+.Home-chevron {
+    height: 8vw;
 }
 
 .Home-xx-large-font {
