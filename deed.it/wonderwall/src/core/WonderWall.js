@@ -130,6 +130,7 @@ class WonderWall extends Component {
       const tileProps = {
         canPopup: popupContent && !showMenu,
         deedId,
+        tile,
         isPopup: false,
         key: numTiles - index - 1,
         setPopupContent: this.setPopupContent,

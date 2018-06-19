@@ -5,7 +5,7 @@
 
 .Popup {
   width: 640px;
-  height: 480px;
+  height: 640px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -15,4 +15,41 @@
   background-color: white;
   padding: 15px;
   animation: fadein 0.5s;
+}
+
+.Popup_time-labels {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 5px;
+}
+
+.Popup_information {
+  padding: 5px;
+}
+
+.Popup_time-label {
+  color: gray;
+  font: 400 30px system-ui;
+}
+
+.Popup_time-value {
+  color: black;
+  font: 400 30px system-ui;
+}
+
+.Popup_deed-type {
+  padding: 20px 0px;
+  color: green;
+  font: 400 30px system-ui;
+}
+
+.Popup_nickname {
+  padding: 10px 0px;
+  color: red;
+  font: 400 40px system-ui;
+  text-align: center;
 }
