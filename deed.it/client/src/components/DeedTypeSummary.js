@@ -22,13 +22,14 @@ class DeedTypeSummary extends Component {
   }
 
   onClick () {
+    const { onClick } = this.props;
     this.setState({
       progress: {
         duration: 3000,
         text: 'Assigning deed to you...'
       }
     });
-    this.props.onClick();
+    onClick();
   }
 
   render () {

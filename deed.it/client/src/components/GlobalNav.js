@@ -11,13 +11,12 @@ function NavItem (props) {
 }
 
 function GlobalNav (props) {
-  const { aboutUs, deeditDifference, home, myProfile, pickADeed, user } = props;
+  const { aboutUs, home, myProfile, pickADeed, user } = props;
   const myDeedsAction =  user.registered ? myProfile : pickADeed;
   return (
     <footer className='flexContainerRow GlobalNav-container'>
       <NavItem text='Home' onClick={home} />
       <NavItem text='My deeds' onClick={myDeedsAction} />
-      <NavItem text='Deedit difference' onClick={deeditDifference} />
       <NavItem text='About us' onClick={aboutUs} />
     </footer>
   );

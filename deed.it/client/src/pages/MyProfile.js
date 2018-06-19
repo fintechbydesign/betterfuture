@@ -56,6 +56,16 @@ class MyProfile extends Component {
     }
   }
 
+  async doDeedAgain (deed) {
+    const { error, myProfile, user } = this.props;
+    const fakeDeedType = {
+      id: deed.deedTypeId
+    };
+    await startDeed(user, fakeDeedType, { error, myProfile });
+    // TODO - minimise state
+    this.fetchDeeds();
+  }
+
   renderBadges () {
     const { events } = this.state;
     const badges = events.filter((event) => event.type = 'badge').map((event, index) => {
@@ -98,16 +108,6 @@ class MyProfile extends Component {
         </div>
       );
     }
-  }
-
-  async doDeedAgain (deed) {
-    const { error, myProfile, user } = this.props;
-    const fakeDeedType = {
-      id: deed.deedTypeId
-    };
-    await startDeed(user, fakeDeedType, { error, myProfile });
-    // TODO - minimise state
-    this.fetchDeeds();
   }
 
   renderPreviousDeed (deed, index) {

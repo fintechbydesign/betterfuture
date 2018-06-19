@@ -42,7 +42,10 @@ class DeedSummary extends Component {
         id: deedTypeId,
         style},
       hideButton,
-      onClick
+      onClick: async() => {
+        await onClick();
+        this.toggleExpansion();
+      }
     };
     const expandedContents = (expanded) ? (<DeedTypeSummary {...deedTypeProps} />) : null;
     return (

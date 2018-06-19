@@ -7,7 +7,7 @@ import Title from '../components/Title';
 import './Home.css';
 
 
-function renderHomeless () {
+function renderHomeless (getInvolvedAction) {
   return (
     <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[2].className}`}>
       <div className='flexContainerRow'>
@@ -19,7 +19,7 @@ function renderHomeless () {
         </div>
         <Image className='Home-superdeed-icon' src={superdeedStyles[2].icon} />
       </div>
-      <div className={`Home-call-to-action-container flexContainerRow`}>
+      <div className={`Home-call-to-action-container flexContainerRow`} onClick={getInvolvedAction}>
         <Text className='Home-text Home-large-font' text="You can help Edinburgh's homeless" />
         <Text className='Home-text Home-large-font' text='>' />
       </div>
@@ -27,7 +27,7 @@ function renderHomeless () {
   );
 }
 
-function renderGreen () {
+function renderGreen (getInvolvedAction) {
   return (
     <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[1].className}`}>
       <div className='flexContainerRow'>
@@ -40,7 +40,7 @@ function renderGreen () {
         </div>
         <Image className='Home-superdeed-icon' src={superdeedStyles[1].icon} />
       </div>
-      <div className={`Home-call-to-action-container flexContainerRow`}>
+      <div className={`Home-call-to-action-container flexContainerRow`} onClick={getInvolvedAction}>
         <Text className='Home-text Home-large-font' text="You can help Edinburgh be greener" />
         <Text className='Home-text Home-large-font' text='>' />
       </div>
@@ -48,7 +48,7 @@ function renderGreen () {
   );
 }
 
-function renderHappy () {
+function renderHappy (getInvolvedAction) {
   return (
     <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[0].className}`}>
       <div className='flexContainerRow'>
@@ -61,7 +61,7 @@ function renderHappy () {
         </div>
         <Image className='Home-superdeed-icon' src={superdeedStyles[0].icon} />
       </div>
-      <div className={`Home-call-to-action-container flexContainerRow`}>
+      <div className={`Home-call-to-action-container flexContainerRow`} onClick={getInvolvedAction}>
         <Text className='Home-text Home-large-font' text="You can build community spirit in Edinburgh" />
         <Text className='Home-text Home-large-font' text='>' />
       </div>
@@ -80,9 +80,9 @@ function Home (props) {
     <div className='page'>
       <Title text='Hi There' />
       <Title text='Did you know?' />
-      {renderHomeless()}
-      {renderGreen()}
-      {renderHappy()}
+      {renderHomeless(getInvolvedAction)}
+      {renderGreen(getInvolvedAction)}
+      {renderHappy(getInvolvedAction)}
       <Title text='So what are you waiting for?' />
       <Button onClick={getInvolvedAction} text='Get involved now' />
       <Text contents={aboutUsContents} />

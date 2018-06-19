@@ -55,21 +55,23 @@ $ npm start
 * all address options: http[s]://[wwww].deedit.org
 
 ### Client
-* refresh for Do Deed Again
-* click on home page call to action
-* Navbar - remove option and add icons
-* deed photo - pre/post approval
+* refresh for Do Deed Again ✓
+* click on home page call to action ✓
+* Navbar - remove option ✓
 * icons
+  - nav bar
   - deed type (remove white background)
   - avatar
   - handy wavey
   - nav bar
+* deed photo - pre/post approval
 * click area size
 * map/directions for Social Bite deed type
 * build optimisation
 
 ### UX / Icons
 * expand/contract icons
+* getInvolvedAction on Home 
 * right arrow or '>'
 * Deedit difference links (about page?)
 
@@ -79,6 +81,7 @@ $ npm start
   - location
   
 ### Nice to have
+* client deed photo expansion
 * client error logging (client/server)
 * client device logging (client/server)
 * wonderwall stats..?
