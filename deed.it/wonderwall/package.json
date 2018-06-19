@@ -49,7 +49,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "lint": "eslint ./src",
-    "publish": "npm run build && node ../publish.js build deedit.org/wonderwall"
+    "publish": "npm run build && node ../publish.js build wonderwall.deedit.org"
   },
   "proxy": "https://brg39dfup5.execute-api.eu-west-1.amazonaws.com/development/",
   "jest": {

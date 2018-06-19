@@ -13,7 +13,7 @@ const composeResponse = (statusCode, body) => ({
 });
 
 const generateTile = ({deedId, username, src, timestamp, type, ...extraFields}) => ({deedId, username, src, timestamp, type, ...extraFields});
-const timestampNewToOld = (a, b) => b.timestamp - a.timestamp;
+const timestampOldToNew = (a, b) => a.timestamp - b.timestamp;
 
 function createWonderwall(recentDeeds, deedStatus, recentNews, recentBadges) {
   const videos = recentDeeds.filter(deed => deed.evidenceType === 'video')
@@ -28,7 +28,7 @@ function createWonderwall(recentDeeds, deedStatus, recentNews, recentBadges) {
   const badges = recentBadges
     .map(event => generateTile({ ...event, timestamp: event.eventTimestamp, type: 'badge' }));
 
-  return [ ...videos, ...photos, ...news, ...badges].sort(timestampNewToOld);
+  return [ ...videos, ...photos, ...news, ...badges].sort(timestampOldToNew);
 }
 
 function getRecentDeeds(deedStatus, oldestTimestamp) {
