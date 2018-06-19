@@ -6,10 +6,10 @@ import socialFirst from './social bite star.svg';
 import socialSecond from './social bite ambassador.svg';
 
 export default {
-  'Community Spirit_first': communityFirst,
-  'Community Spirit_second': communitySecond,
-  'Make Edinburgh Green_first': greenFirst,
-  'Make Edinburgh Green_second': greenSecond,
-  'Support SocialBite_first': socialFirst,
-  'Support SocialBite_second': socialSecond
+  [`Help Edinburgh's Homeless_first`]: communityFirst,
+  [`Help Edinburgh's Homeless_second`]: communitySecond,
+  ['Help Edinburgh Go Green_first']: greenFirst,
+  ['Help Edinburgh Go Green_second']: greenSecond,
+  [`Help Edinburgh's Homeless_first`]: socialFirst,
+  [`Help Edinburgh's Homeless_second`]: socialSecond
 };
