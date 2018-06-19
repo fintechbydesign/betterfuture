@@ -10,6 +10,7 @@
 
 .CompleteDeed-image {
     width: 70vw;
+    align-self: center;
 }
 
 .CompleteDeed-fadein {
