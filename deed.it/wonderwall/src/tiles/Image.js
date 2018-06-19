@@ -31,7 +31,7 @@ class Image extends Component {
     const onLoad = this.show;
     const onClick = isPopup
       ? null
-      : setPopupContent.bind(null, (<Image isPopup {...this.props} />));
+      : setPopupContent.bind(null, (<Image {...this.props} isPopup />));
 
     const imgSrc = (typeof src !== 'string')
       ? src

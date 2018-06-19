@@ -29,7 +29,9 @@ exports.handler = function (event, ctx, callback) {
       }
     };
     Object.keys(extraAttribs).forEach(attrib => {
-      AttributeUpdates[attrib] = { Action: 'PUT', Value: eventBody[attrib] };
+      if (eventBody[attrib] !== "") {
+        AttributeUpdates[attrib] = { Action: 'PUT', Value: eventBody[attrib] };
+      }
     });
 
     const updateParams = {
