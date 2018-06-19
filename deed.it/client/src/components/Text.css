@@ -12,4 +12,9 @@
 
 .Text-text a {
   font-weight: bold;
+<<<<<<< HEAD
+=======
+  text-decoration: none;
+  color: #002E4A;
+>>>>>>> feature/where-details
 }
