@@ -1,6 +1,6 @@
-import greenIcon from '../images/green-deed-small.svg';
-import happyIcon from '../images/happy-deed-small.svg';
-import homelessIcon from '../images/socialbite-small.svg';
+import greenIcon from '../images/deed-green.svg';
+import happyIcon from '../images/deed-community-spirit.svg';
+import homelessIcon from '../images/deed-homelessness.svg';
 import './superDeedStyles.css';
 
 export default [

@@ -3,8 +3,8 @@ import Image from './Image';
 import Text from './Text';
 import './DeedSummary.css';
 import DeedTypeSummary from "./DeedTypeSummary";
-import expand from '../images/Add.svg';
-import contract from '../images/Remove.svg';
+import expand from '../images/chevron-down.svg';
+import contract from '../images/chevron-up.svg';
 
 class DeedSummary extends Component {
 
