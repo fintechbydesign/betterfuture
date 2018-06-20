@@ -179,7 +179,7 @@
 }
 .slick-dots li button:before
 {
-    font-family: 'Bungee Inline';
+    font-family: 'Bungee Inline', cursive;
     font-size: 20px;
 
     position: absolute;

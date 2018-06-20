@@ -16,7 +16,6 @@ import { createLocalUser, getLocalUser, removeLocalUser, removeUser } from '../d
 import Error from '../pages/Error.js';
 import GlobalNav from '../components/GlobalNav';
 import PageHeader from '../components/PageHeader';
-import pages from '../pages/pages';
 import './global.css';
 
 class App extends Component {
@@ -50,6 +49,7 @@ class App extends Component {
   }
 
   createNavigationMethods () {
+    const { pages } = this.props;
     const baseNavigationMethod = (pageName, nextPageProps) => {
       this.setState({...this.state, nextPageProps, pageName, user: getLocalUser()});
     };
@@ -65,6 +65,7 @@ class App extends Component {
   }
 
   selectPage (pageProps) {
+    const { pages } = this.props;
     const { pageName, user } = this.state;
     const pageMetaData = pages[pageName];
     if (pageMetaData) {

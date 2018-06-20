@@ -18,7 +18,7 @@ const alwaysOK = () => true;
 
 const containsUsername = (user) => !!user.username;
 
-export default {
+const pages = {
   'aboutUs': {
     component: AboutUs,
     isStateValid: alwaysOK
@@ -80,3 +80,5 @@ export default {
     isStateValid: alwaysOK
   }
 };
+
+export { pages };

@@ -25,9 +25,16 @@ const initUser = () => {
   }
 };
 
-getDeedHierarchy();
-initUser();
-ReactDOM.render(<App/>, document.getElementById('root'));
+const start = async() => {
+  getDeedHierarchy();
+  initUser();
+  const { pages } = await import(/* webpackChunkName: 'pages' */ './pages/pages');
+  ReactDOM.render(<App pages={pages} />, document.getElementById('root'));
 // registerServiceWorker();
-unregister();
+  unregister();
+};
+
+start();
+
+
 
