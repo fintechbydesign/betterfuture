@@ -1,18 +1,15 @@
 import React from 'react';
-import Img from 'react-image';
 import rootURLs from '../config/rootURLs';
-import placeholder from '../images/placeholder.svg';
 import './Image.css';
 
 function createSrc (props) {
-  if (!props.src) {
-    return [placeholder];
-  }
-  const key = props.type ? props.type : 'webImage';
+  const { src, type } = props;
+  const key = (type) ? type : 'webImage';
+
   if (key in rootURLs) {
-    return [`${rootURLs[key]}${props.src}`, placeholder];
+    return `${rootURLs[key]}${src}`;
   } else {
-    throw new Error(`Unknown image type '${props.type}'`);
+    throw new Error(`Unknown image type '${type}'`);
   }
 }
 
@@ -21,7 +18,7 @@ function Image (props) {
   const className = props.className ? props.className : 'Image-default';
   const src = createSrc(props);
   return (
-    <Img alt={alt} className={className} loader={props.loader} onClick={props.onClick} onLoad={props.onLoad} src={src} />
+    <img alt={alt} className={className} crossOrigin='anonymous' onClick={props.onClick} onLoad={props.onLoad} src={src} />
   );
 }
 
