@@ -30,13 +30,11 @@ class App extends Component {
 
   renderError () {
     return (
-      <div>
+      <div className='App-error-container'>
         <div className='App-error-title'>Sad face :-(</div>
-        <div className='App-error-msg'>
-          <div>Oh dear, your Deedit app has errored.</div>
-          <div>We are sorry.</div>
-          <div>Please refresh your browser tab to try again.</div>
-        </div>
+        <div className='App-error-msg'>Oh dear, your Deedit app has errored.</div>
+        <div className='App-error-msg'>We are sorry.</div>
+        <div className='App-error-msg'>Please refresh your browser tab to try again.</div>
       </div>
     );
   }
