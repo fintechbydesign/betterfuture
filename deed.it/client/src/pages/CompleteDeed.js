@@ -29,7 +29,7 @@ class CompleteDeed extends Component {
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
       imageSrc: (imageData) ? imageData : icon,
-      imageClass: 'CompleteDeed-fadein',
+      imageClass: 'fadein',
       progressPercent: 0,
       progressText: 'Reporting deed done...'
     }

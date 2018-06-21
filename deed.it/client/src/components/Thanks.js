@@ -32,7 +32,7 @@ function Thanks (props) {
   return (
     <div className={`Thanks-container ${className}`} >
       <div className='flexContainerRow Thanks-title'>
-        <Image src={icon} className='Thanks-image' />
+        <Image src={icon} className='Thanks-image fadein' />
         <Text text={texts[index].title} className='Thanks-title-text' />
       </div>
       <Text text={texts[index].text} />

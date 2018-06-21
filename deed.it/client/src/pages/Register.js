@@ -123,6 +123,7 @@ class Register extends Component {
       ? (<ProgressBar {...progress} color={color} />)
       : null;
 
+    // this is here to simply pre-load the image for the MyProfile page
     const hiddenFlag = (country)
       ? (<Image src={flags[country]} className='hidden' />)
       : null;

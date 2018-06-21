@@ -10,8 +10,10 @@ class DeedTypeSummary extends Component {
   constructor (props) {
     super(props);
     this.onClick = this.onClick.bind(this);
+    this.replaceIconImage = this.replaceIconImage.bind(this);
     this.state = {
-      progress: null
+      progress: null,
+      showIcon: true
     };
   }
 
@@ -27,18 +29,32 @@ class DeedTypeSummary extends Component {
     onClick();
   }
 
+  replaceIconImage () {
+    this.setState({
+      ...this.state,
+      showIcon: false
+    })
+  }
+
   render () {
     const { onClick, props, state } = this;
     const { buttonText, className, deedType, hideButton, key, imageProps } = props;
-    const { progress } = state;
+    const { progress, showIcon } = state;
     const { description, id, style, where, whereDetails, whereLink, when } = deedType;
     const { color, icon } = style;
     const textStyle = { color };
-    const mergedImageProps = {
-      className: 'DeedTypeSummary-image',
-      src: icon,
-      ...imageProps,
+    const iconImageProps = {
+      className: (showIcon) ? 'DeedTypeSummary-image' : 'hidden',
+      src: icon
     };
+    const replacementImageProps = {
+      ...imageProps,
+      className: (showIcon) ? 'hidden': 'DeedTypeSummary-image fadein',
+      onLoad: this.replaceIconImage
+    };
+    const replacementImage = (imageProps)
+      ? <Image { ...replacementImageProps } />
+      : null;
     const button = (hideButton)
       ? null
       : <Button text={buttonText} onClick={onClick}/>;
@@ -56,7 +72,8 @@ class DeedTypeSummary extends Component {
     return (
       <div className={className} key={key}>
         <div className='DeedTypeSummary-image'>
-          <Image { ...mergedImageProps } />
+          <Image { ...iconImageProps } />
+          {replacementImage}
         </div>
         <Text text={id} className='DeedTypeSummary-1-line'/>
         <Text text={description} className='DeedTypeSummary-2-lines'/>
