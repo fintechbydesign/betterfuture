@@ -65,7 +65,16 @@ class PickADeed extends Component {
       key: index,
       onClick: this.selectDeed
     };
-    return (<DeedTypeSummary {...props} />);
+    // note additional div as Carousel adds 'display-block' to outside div
+    return (
+      <div>
+        <div className='flexContainerRow'>
+          <div>&nbsp;</div>
+          <DeedTypeSummary {...props} />
+          <div>&nbsp;</div>
+        </div>
+      </div>
+    );
   }
 
   renderSuperDeed (superDeed, index) {
