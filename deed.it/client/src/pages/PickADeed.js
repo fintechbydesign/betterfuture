@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import Accordion from '../components/Accordion';
 import Carousel from '../components/Carousel';
 import DeedTypeSummary from '../components/DeedTypeSummary';
+import Image from '../components/Image';
 import ProgressBar from '../components/ProgressBar';
 import startDeed from '../components/startDeed';
 import Title from '../components/Title';
 import Text from '../components/Text';
 import { getDeedHierarchy } from '../data/deeds';
+import chevron from '../images/chevron.svg';
 import './PickADeed.css';
 
 const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'selectDeed'];
@@ -65,7 +67,29 @@ class PickADeed extends Component {
       key: index,
       onClick: this.selectDeed
     };
-    return (<DeedTypeSummary {...props} />);
+    // note additional div as Carousel adds 'display-block' to outside div
+    // <Image src={chevron} className='PickADeed-chevron' />
+    return (
+      <div>
+        <div className='flexContainerRow PickADeed-type-container'>
+          <div className='flexContainerColumn PickADeed-right-affordance'>
+            &nbsp;&nbsp;
+          </div>
+          <div className='flexContainerColumn PickADeed-left-affordance'>
+            &nbsp;&nbsp;
+          </div>
+          <DeedTypeSummary {...props} />
+          <div className='flexContainerColumn PickADeed-right-affordance'>
+            &nbsp;&nbsp;
+          </div>
+          <div className='flexContainerColumn PickADeed-left-affordance'>
+            <Image src={chevron} className='PickADeed-chevron' />
+            <Image src={chevron} className='PickADeed-chevron' />
+            <Image src={chevron} className='PickADeed-chevron' />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   renderSuperDeed (superDeed, index) {

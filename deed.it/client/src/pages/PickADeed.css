@@ -4,7 +4,6 @@
 
 .PickADeed-body {
     color: white;
-    padding: 1vh 1vh 0 1vh;
 }
 
 .PickADeed-header {
@@ -19,4 +18,23 @@
 
 .PickADeed-intro {
     margin: 1vh;
+}
+
+.PickADeed-type-container {
+
+}
+
+.PickADeed-left-affordance {
+    justify-content: space-evenly;
+    background: linear-gradient(0.25turn, white, #20BCA4);
+}
+
+.PickADeed-right-affordance {
+    justify-content: space-evenly;
+    background: linear-gradient(0.75turn, white, #20BCA4);
+}
+
+.PickADeed-chevron {
+    height: 8vw;
+    colour: #20BCA4;
 }
