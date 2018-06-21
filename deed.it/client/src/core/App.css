@@ -6,16 +6,15 @@
   height: 100vh;
   color: white;
   background-color: #002E4A;
+  font-size: xx-large;
 }
 
 .App-error-title {
   margin: 5vh 5vw;
   font-family: 'Bungee Inline', cursive;
-  font-size: 8vw;
 }
 
 .App-error-msg {
   margin: 5vh 5vw;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: xx-large;
 }

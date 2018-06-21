@@ -1,14 +1,14 @@
 import React from 'react';
 import Text from '../components/Text';
 import Title from '../components/Title';
+import { version } from '../../package';
+import './AboutUs.css';
 
 const randomTextProps = {
   count: 3,
   units: 'sentences',
   format: 'plain'
 };
-
-
 
 function AboutUs(props) {
   const { privacy, termsAndConditions} = props;
@@ -36,6 +36,7 @@ function AboutUs(props) {
       <Title text='T&C's/>
       <Text contents={tandc} />
       <Text contents={privacyPolicy} />
+      <Text text={`app version ${version}`} className='AboutUs-version' />
     </div>
   );
 }

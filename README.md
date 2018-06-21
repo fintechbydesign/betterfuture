@@ -39,11 +39,10 @@ $ npm start
 * image / content / layout review
 
 ### Client
-* deed type summary placeholder image
-* remove react-img + placeholder? 
-* build optimisation
 * legalese text
-* merge error logging
+* About us text
+* affordances for scrolling
+* version number in index?
 
 ### Wonderwall
 * popup content review
