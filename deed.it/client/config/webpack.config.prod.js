@@ -295,6 +295,10 @@ module.exports = {
       preload: {
         chunks: 'async',
         test: 'pages',
+      },
+      prefetch: {
+        chunks: 'async',
+        test: 'aws'
       }
     }),
     // Generate a manifest file which contains a mapping of all asset filenames
