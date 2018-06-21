@@ -8,8 +8,9 @@ function Error (props) {
   return (
     <div className='page'>
       <Title text='Sad Face :-(' />
-      <Instruction text='Oh dear, this prototype has errored:' />
+      <Instruction text='Oh dear, your Deedit app has errored:' />
       <Text text={errMsg} />
+      <Text text='We are sorry.' />
       <Text text='Use one of the navigation buttons below to continue' />
     </div>
   );

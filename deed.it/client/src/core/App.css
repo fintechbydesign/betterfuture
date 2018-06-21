@@ -1,0 +1,14 @@
+.App-error-title {
+  margin-top: 5vh;
+  padding: 2vw;
+  font-family: 'Bungee Inline', cursive;
+  font-size: 8vw;
+}
+
+.App-error-msg {
+  padding: 2vw;
+}
+
+.App-error-msg div {
+  margin-top: 3vh;
+}
