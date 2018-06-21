@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Button from '../components/Button';
+import DeedTypeSummary from '../components/DeedTypeSummary';
 import Dropdown from '../components/Dropdown';
 import Input from '../components/Input';
 import ProgressBar from '../components/ProgressBar';
@@ -10,8 +11,9 @@ import { registerUser } from '../data/user';
 import ages from '../data/age.js';
 import cities from '../data/city';
 import countries from '../data/country.js';
-import DeedTypeSummary from '../components/DeedTypeSummary';
+import flags from '../../../common/src/images/flags';
 import './Register.css';
+import Image from "../components/Image";
 
 const isScotland = (country) => country === 'Scotland';
 const methods = ['getStarted', 'updateAge', 'updateCity', 'updateCountry', 'updateNickname', 'updateProgress'];
@@ -121,6 +123,10 @@ class Register extends Component {
       ? (<ProgressBar {...progress} color={color} />)
       : null;
 
+    const hiddenFlag = (country)
+      ? (<Image src={flags[country]} className='hidden' />)
+      : null;
+
     return (
       <div className='page'>
         <Title text='Thank you!' />
@@ -142,6 +148,7 @@ class Register extends Component {
         <Button text='Get started >' onClick={this.getStarted} disabled={!buttonEnabled} />
         {progressBar}
         <Text contents={tandcs} />
+        {hiddenFlag}
       </div>
     );
   }

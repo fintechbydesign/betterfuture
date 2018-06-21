@@ -132,6 +132,7 @@ module.exports = {
           // A missing `test` is equivalent to a match.
           {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
+            exclude: [/(.*)Avatar-(.*)\.svg$/],
             loader: require.resolve('url-loader'),
             options: {
               limit: 25000,
