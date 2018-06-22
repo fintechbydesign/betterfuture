@@ -15,15 +15,6 @@ body {
   color: #002E4A;
 }
 
-/* to be able to anchor to the bottom */
-.fullHeight {
-  min-height: 100vh;
-}
-
-.anchor-bottom {
-  margin-top: auto;
-}
-
 .page {
   display: flex;
   flex-direction: column;

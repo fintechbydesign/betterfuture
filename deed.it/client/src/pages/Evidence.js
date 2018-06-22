@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import UAParser from 'ua-parser-js';
 import Button from '../components/Button';
 import RadioGroup from '../components/RadioGroup';
 import Text from '../components/Text';
@@ -7,21 +8,34 @@ import getLocation from '../data/location';
 import thumbsup from '../images/thumbs-up.svg';
 import './Evidence.css';
 
+
+
 class Evidence extends Component {
   constructor (props) {
     super(props);
     this.nextPage = this.nextPage.bind(this);
     this.toggleRecordLocation = this.toggleRecordLocation.bind(this);
-    const radioOptions = [
-      { name: 'evidence', text: 'Upload a photo', onChange: this.setPage.bind(this, 'uploadPhoto') },
-      { name: 'evidence', text: 'Take a photo', onChange: this.setPage.bind(this, 'takePhoto') },
-      { name: 'evidence', text: 'Sign the Deedit pledge', onChange: this.setPage.bind(this, 'pledge') }
-    ];
+    const radioOptions = this.selectRadioOptions.bind(this)();
     this.state = {
       page: null,
       radioOptions,
       recordLocation: true
     };
+  }
+
+  selectRadioOptions () {
+    const parser = new UAParser();
+    const os = parser.getOS();
+    return ('iOS' === os)
+      ? [
+        { name: 'evidence', text: 'Send a photo', onChange: this.setPage.bind(this, 'uploadPhoto') },
+        { name: 'evidence', text: 'Sign the Deedit pledge', onChange: this.setPage.bind(this, 'pledge') }
+      ]
+      : [
+        { name: 'evidence', text: 'Upload a photo', onChange: this.setPage.bind(this, 'uploadPhoto') },
+        { name: 'evidence', text: 'Take a photo', onChange: this.setPage.bind(this, 'takePhoto') },
+        { name: 'evidence', text: 'Sign the Deedit pledge', onChange: this.setPage.bind(this, 'pledge') }
+      ];
   }
 
   setPage (page) {

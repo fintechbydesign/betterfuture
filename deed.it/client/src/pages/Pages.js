@@ -30,6 +30,7 @@ import Register from "../pages/Register";
 import TakePhoto from "../pages/TakePhoto";
 import TermsAndConditions from "../pages/TermsAndConditions";
 import UploadPhoto from "../pages/UploadPhoto";
+import './Pages.css';
 
 const pages = {
   'aboutUs': AboutUs,
@@ -82,6 +83,7 @@ class Pages extends Component {
   createNavigationMethods () {
     const baseNavigationMethod = (pageName, nextPageProps) => {
       this.setState({...this.state, nextPageProps, pageName, user: getLocalUser()});
+      window.scrollTo(0, 0);
     };
     const navigationMethods = {};
     Object.keys(pages).forEach((pageName) => {
@@ -108,8 +110,8 @@ class Pages extends Component {
     const { navigationMethods, nextPageProps, user } = this.state;
     const pageProps = { ...navigationMethods, ...nextPageProps, user };
     return (
-      <div className='flexContainerColumn fullHeight'>
-        <PageHeader />
+      <div className='flexContainerColumn Pages-container'>
+        <PageHeader {...pageProps} />
         { this.selectPage(pageProps) }
         <GlobalNav {...pageProps} />
       </div>

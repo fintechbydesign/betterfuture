@@ -11,7 +11,7 @@ function Pledge (props) {
   const { completeDeed, deed, locationPromise } = props;
   const buttonProps = {
     onClick: completeDeed.bind(null, { deed, locationPromise } ),
-    text: 'I promise that I deed it >',
+    text: 'I promise that I deed it',
   };
   const imageProps = {
     className: 'Pledge-image',

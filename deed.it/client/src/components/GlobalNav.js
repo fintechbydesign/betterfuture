@@ -19,7 +19,7 @@ function GlobalNav (props) {
   const { aboutUs, home, myProfile, pickADeed, user } = props;
   const myDeedsAction =  user.registered ? myProfile : pickADeed;
   return (
-    <footer className='flexContainerRow GlobalNav-container anchor-bottom'>
+    <footer className='flexContainerRow GlobalNav-container'>
       <NavItem src={homeImage} text='Home' onClick={home} />
       <NavItem src={homeMyDeeds} text='My deeds' onClick={myDeedsAction} />
       <NavItem src={homeAboutUs} text='About us' onClick={aboutUs} />

@@ -98,6 +98,7 @@ class PickADeed extends Component {
       };
       return (<ProgressBar { ...progressProps } />);
     }
+    const titleText = (deedType) ? 'Pick A Deed' : 'Pick A Mega Deed';
     const introClassName = (deedType) ? 'hidden' : 'PickADeed-intro';
     const items = deedHierarchy.map((superDeed, index) => ({
       content: this.renderSuperDeed(superDeed, index),
@@ -117,13 +118,13 @@ class PickADeed extends Component {
     const accordionProps = { items, onChange }
     return (
       <div className="page flexContainerColumn">
-        <Title text='Pick A Mega Deed' className='PickADeed-title' />
+        <Title text={titleText}  className='PickADeed-title' />
         <div className={introClassName}>
           <Text text='Together we can tackle 3 big issues in Edinburgh.' />
-          <Text text="How? By taking part you are collectively taking action towards improving Edinburgh's people and places." />
-          <Text text='Choose the mega-deed you want to contribute to:' />
+          <Text text="How? By getting involved you are collectively taking action towards improving Edinburgh's people and places." />
+          <Text text='Choose the mega deed you want to contribute to:' />
         </div>
-        <div className="anchor-bottom">
+        <div className="PickADeed-accordion-container">
           <Accordion {...accordionProps} />
         </div>
       </div>

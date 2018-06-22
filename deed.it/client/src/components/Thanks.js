@@ -6,9 +6,12 @@ import './Thanks.css';
 
 const texts = [
   {
-    title: 'Thank you',
-    text: 'We really thank you for doing a good deed to help keep Edinburgh happy.',
-    content: ['You can see how all the small good deeds are adding up to big changes by visiting us in George Street, Edinburgh this August.']
+    title: 'Thank you from SocialBite',
+    text: 'A huge thankyou for supporting SocialBite with this good deed.',
+    content: [
+      'If you\'d like to donate further to their cause, ',
+      (<a onClick='https://www.justgiving.com/social-bite'>visit their JustGiving page.</a>)
+    ]
   },
   {
     title: 'Thank you',
@@ -16,12 +19,9 @@ const texts = [
     content: ['You can see how all the small good deeds are adding up to big changes by visiting us in George Street, Edinburgh this August.']
   },
   {
-    title: 'Thank you from SocialBite',
-    text: 'A huge thankyou for supporting SocialBite with this good deed.',
-    content: [
-      'If you\'d like to donate further to their cause, ',
-      (<a onClick='https://www.justgiving.com/social-bite'>visit their JustGiving page.</a>)
-    ]
+    title: 'Thank you',
+    text: 'We really thank you for doing a good deed to help keep Edinburgh happy.',
+    content: ['You can see how all the small good deeds are adding up to big changes by visiting us in George Street, Edinburgh this August.']
   }
 ];
 
