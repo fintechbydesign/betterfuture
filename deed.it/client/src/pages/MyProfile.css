@@ -1,6 +1,8 @@
 .MyProfile-badge {
     width: 15vw;
     height: 15vw;
+    position: relative;
+    float: left;
     /*padding-right: 15vw;*/
 }
 

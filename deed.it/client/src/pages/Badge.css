@@ -3,5 +3,6 @@
 }
 
 .Badge-image {
-    width: 100vw;
+    margin: 2vh auto 0 auto;
+    width: 90vw;
 }

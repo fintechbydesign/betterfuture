@@ -3,5 +3,6 @@
 }
 
 .Picture-image {
-    width: 100vw;
+    margin: 2vh auto;
+    width: 90vw;
 }

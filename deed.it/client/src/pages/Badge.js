@@ -6,7 +6,7 @@ import './Badge.css';
 function Badge (props) {
   const { myProfile, src } = props;
   const badgeProps = {
-    className: 'Badge-image',
+    imageClassName: 'Badge-image',
     index: 1,
     onClick: myProfile,
     src

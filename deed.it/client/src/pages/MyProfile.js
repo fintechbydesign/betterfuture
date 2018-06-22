@@ -73,7 +73,7 @@ class MyProfile extends Component {
       const { src } = event;
       const props = {
         ...event,
-        className: 'MyProfile-badge',
+        imageClassName: 'MyProfile-badge',
         key: index,
         onClick: badge.bind(null, { src })
       };

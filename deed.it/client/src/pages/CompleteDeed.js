@@ -6,7 +6,7 @@ import ProgressBar from '../components/ProgressBar';
 import Text from '../components/Text';
 import Thanks from '../components/Thanks';
 import Title from '../components/Title';
-import badgeImages from '../../../common/src/images/badgeImages';
+import badges from '../../../common/src/images/badges';
 import { prepareUpload } from "../data/S3";
 import { getUserDeeds, REFRESH, updateDeed } from "../data/deeds";
 import { createEvent } from "../data/events";
@@ -71,7 +71,12 @@ class CompleteDeed extends Component {
         newEvents.push({ src: `${superDeedId}_second`, ...eventProps });
         break;
       default:
-      // do nothing
+        // either one at random
+        if(Date.now() % 2 === 0) {
+          newEvents.push({ src: `${superDeedId}_first`, ...eventProps });
+        } else {
+          newEvents.push({ src: `${superDeedId}_second`, ...eventProps });
+        }
     }
     return Promise.all(newEvents.map(createEvent));
   }
@@ -92,7 +97,8 @@ class CompleteDeed extends Component {
       setProgress('Awarding badges...');
       const events = await this.createNewEvents();
       events.forEach((event, index) => {
-        setTimeout(this.updateImage.bind(this, badgeImages[event.src]), index * 2000 );
+        const { icon } = badges[event.src];
+        setTimeout(this.updateImage.bind(this, icon), index * 2000 );
       })
       setProgress('Updating your profile...');
       // update user deeds before showing profile
