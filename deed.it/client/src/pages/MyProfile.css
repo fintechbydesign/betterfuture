@@ -1,3 +1,9 @@
+.MyProfile-badge {
+    width: 15vw;
+    height: 15vw;
+    /*padding-right: 15vw;*/
+}
+
 .MyProfile-InProgress {
     text-align: center;
 }

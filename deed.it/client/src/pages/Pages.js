@@ -14,6 +14,7 @@
 import React, { Component } from 'react';
 import { createLocalUser, getLocalUser, removeLocalUser, removeUser } from '../data/user';
 import AboutUs from "../pages/AboutUs";
+import Badge from '../pages/Badge';
 import CompleteDeed from "../pages/CompleteDeed";
 import DeeditDifference from "../pages/DeeditDifference";
 import Error from '../pages/Error.js';
@@ -34,6 +35,7 @@ import './Pages.css';
 
 const pages = {
   'aboutUs': AboutUs,
+  'badge': Badge,
   'completeDeed': CompleteDeed,
   'deeditDifference': DeeditDifference,
   'evidence': Evidence,

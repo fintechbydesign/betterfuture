@@ -26,7 +26,7 @@ class DeedSummary extends Component {
   render () {
     const { buttonText, deed, hideButton, key, onButtonClick, onImageClick } = this.props;
     const { expanded } = this.state;
-    const { deedTypeId, description, src, style } = deed;
+    const { deedTypeId, description, src, style, when, where, whereDetails, whereLink } = deed;
     const { className } = style;
     const divClassName = `DeedSummary-container ${className}`;
     const toggleImageProps = {
@@ -47,7 +47,12 @@ class DeedSummary extends Component {
       deedType: {
         description,
         id: deedTypeId,
-        style},
+        style,
+        when,
+        where,
+        whereDetails,
+        whereLink
+      },
       hideButton,
       imageProps: deedImageProps,
       onClick: async() => {

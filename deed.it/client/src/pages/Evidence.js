@@ -8,14 +8,13 @@ import getLocation from '../data/location';
 import thumbsup from '../images/thumbs-up.svg';
 import './Evidence.css';
 
-
+const methods = ['nextPage', 'selectRadioOptions', 'toggleRecordLocation'];
 
 class Evidence extends Component {
   constructor (props) {
     super(props);
-    this.nextPage = this.nextPage.bind(this);
-    this.toggleRecordLocation = this.toggleRecordLocation.bind(this);
-    const radioOptions = this.selectRadioOptions.bind(this)();
+    methods.forEach((method) => this[method] = this[method].bind(this));
+    const radioOptions = this.selectRadioOptions();
     this.state = {
       page: null,
       radioOptions,
@@ -25,8 +24,8 @@ class Evidence extends Component {
 
   selectRadioOptions () {
     const parser = new UAParser();
-    const os = parser.getOS();
-    return ('iOS' === os)
+    const { name } = parser.getOS();
+    return ('iOS' === name)
       ? [
         { name: 'evidence', text: 'Send a photo', onChange: this.setPage.bind(this, 'uploadPhoto') },
         { name: 'evidence', text: 'Sign the Deedit pledge', onChange: this.setPage.bind(this, 'pledge') }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Badge from '../components/Badge';
+import BadgeIcon from '../components/BadgeIcon';
 import Button from '../components/Button';
 import DeedSummary from '../components/DeedSummary';
 import ProgressBar from '../components/ProgressBar';
@@ -67,9 +67,17 @@ class MyProfile extends Component {
   }
 
   renderBadges () {
+    const { badge } = this.props;
     const { events } = this.state;
     const badges = events.filter((event) => event.type = 'badge').map((event, index) => {
-      return (<div key={index}><Badge {...event} /></div>);
+      const { src } = event;
+      const props = {
+        ...event,
+        className: 'MyProfile-badge',
+        key: index,
+        onClick: badge.bind(null, { src })
+      };
+      return (<BadgeIcon {...props} />);
     });
     if (badges.length === 0) {
       return null;

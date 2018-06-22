@@ -81,7 +81,7 @@ class DeedTypeSummary extends Component {
           <div className='DeedTypeSummary-when flexContainerRow'>
             <Text text='When' className='DeedTypeSummary-callout-text DeedTypeSummary-vertical' style={textStyle}/>
             <div>
-              <Text text='Complete by:' className='DeedTypeSummary-callout-text' />
+              <Text text='Complete within:' className='DeedTypeSummary-callout-text' />
               <Text text={when} className='DeedTypeSummary-callout-text DeedTypeSummary-emphasis'/>
             </div>
           </div>
