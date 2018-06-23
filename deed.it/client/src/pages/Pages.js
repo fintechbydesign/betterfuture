@@ -13,24 +13,25 @@
 
 import React, { Component } from 'react';
 import { createLocalUser, getLocalUser, removeLocalUser, removeUser } from '../data/user';
-import AboutUs from "../pages/AboutUs";
-import Badge from '../pages/Badge';
-import CompleteDeed from "../pages/CompleteDeed";
-import DeeditDifference from "../pages/DeeditDifference";
-import Error from '../pages/Error.js';
-import Evidence from "../pages/Evidence";
+import AboutUs from './AboutUs';
+import Badge from './Badge';
+import CompleteDeed from './CompleteDeed';
+import DeeditDifference from './DeeditDifference';
+import Error from './Error.js';
+import Evidence from './Evidence';
 import GlobalNav from '../components/GlobalNav';
-import Home from "../pages/Home";
+import Home from './Home';
 import PageHeader from '../components/PageHeader';
-import MyProfile from "../pages/MyProfile";
-import PickADeed from "../pages/PickADeed";
-import Picture from "../pages/Picture";
-import Pledge from "../pages/Pledge";
-import Privacy from "../pages/Privacy";
-import Register from "../pages/Register";
-import TakePhoto from "../pages/TakePhoto";
-import TermsAndConditions from "../pages/TermsAndConditions";
-import UploadPhoto from "../pages/UploadPhoto";
+import MyProfile from './MyProfile';
+import PickADeed from './PickADeed';
+import Picture from './Picture';
+import Pledge from './Pledge';
+import Privacy from './Privacy';
+import Register from './Register';
+import TakePhoto from './TakePhoto';
+import TermsAndConditions from './TermsAndConditions';
+import UpdateAvailable from './UpdateAvailable';
+import UploadPhoto from './UploadPhoto';
 import './Pages.css';
 
 const pages = {
@@ -49,6 +50,7 @@ const pages = {
   'register': Register,
   'takePhoto': TakePhoto,
   'termsAndConditions': TermsAndConditions,
+  'updateAvailable': UpdateAvailable,
   'uploadPhoto': UploadPhoto
 };
 

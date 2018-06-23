@@ -1,0 +1,10 @@
+.UpdateNotification-icon {
+  height: 5vw;
+}
+
+.UpdateNotification-text {
+  color: orange;
+  font-size: 4vw;
+  font-weight: bold;
+  padding-bottom: 2vh;
+}
