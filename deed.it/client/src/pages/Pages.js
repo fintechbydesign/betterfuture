@@ -13,6 +13,7 @@
 
 import React, { Component } from 'react';
 import { createLocalUser, getLocalUser, removeLocalUser, removeUser } from '../data/user';
+import { unregister } from '../core/registerServiceWorker';
 import AboutUs from './AboutUs';
 import Badge from './Badge';
 import CompleteDeed from './CompleteDeed';
@@ -78,6 +79,7 @@ class Pages extends Component {
       }
       removeLocalUser();
       createLocalUser();
+      unregister();
       this.setState(this.createInitialState());
     } catch (err) {
       error({err});

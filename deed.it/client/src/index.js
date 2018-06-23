@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './core/App';
-import registerServiceWorker, { unregister } from './core/registerServiceWorker';
+import registerServiceWorker from './core/registerServiceWorker';
 
 import { createLocalUser, getLocalUser } from './data/user';
 import { getDeedHierarchy, getUserDeeds } from './data/deeds';
@@ -30,8 +30,7 @@ const start = async() => {
   initUser();
   const Pages = await import(/* webpackChunkName: 'pages' */ './pages/Pages');
   ReactDOM.render(<App Pages={Pages.default} />, document.getElementById('root'));
-// registerServiceWorker();
-  unregister();
+  registerServiceWorker();
 };
 
 start();
