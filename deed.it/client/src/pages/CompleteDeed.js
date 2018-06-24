@@ -87,6 +87,7 @@ class CompleteDeed extends Component {
     try {
       const { imageName, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
       const location = await locationPromise;
+      setProgress('Updating the deed...', (imageData) ? 20 : 0);
       await updateDeed({
         ...deed,
         ...location,
@@ -94,13 +95,13 @@ class CompleteDeed extends Component {
         src: imageName,
         status: (imageData) ? 'unapproved' : 'completed'
       });
-      setProgress('Awarding badges...');
+      setProgress('Awarding badges...', (imageData) ? 40 : 0);
       const events = await this.createNewEvents();
       events.forEach((event, index) => {
         const { icon } = badges[event.src];
         setTimeout(this.updateImage.bind(this, icon), index * 2000 );
       })
-      setProgress('Updating your profile...');
+      setProgress('Updating your profile...', (imageData) ? 60 : 0);
       // update user deeds before showing profile
       await getUserDeeds(user, REFRESH);
       updateLocalUser({
@@ -110,6 +111,8 @@ class CompleteDeed extends Component {
       if (imageData) {
         setProgress('Uploading your photo...');
         await uploadPromise;
+      } else {
+        setProgress(null, 100);
       }
     } catch (err) {
       error({err});

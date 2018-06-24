@@ -8,7 +8,7 @@ import getLocation from '../data/location';
 import thumbsup from '../images/thumbs-up.svg';
 import './Evidence.css';
 
-const methods = ['nextPage', 'selectRadioOptions', 'toggleAcceptTandCs', 'toggleRecordLocation'];
+const methods = ['nextPage', 'selectRadioOptions', 'toggleAcceptTandCs'];
 
 class Evidence extends Component {
   constructor (props) {
@@ -19,7 +19,6 @@ class Evidence extends Component {
       acceptTandCs: true,
       page: null,
       radioOptions,
-      recordLocation: true,
       requireTandCs: false
     };
   }
@@ -50,13 +49,6 @@ class Evidence extends Component {
     });
   }
 
-  toggleRecordLocation () {
-    this.setState({
-      ...this.state,
-      recordLocation: !this.state.recordLocation
-    });
-  }
-
   toggleAcceptTandCs () {
     this.setState({
       ...this.state,
@@ -66,21 +58,20 @@ class Evidence extends Component {
 
   nextPage () {
     const { deed } = this.props;
-    const { page, recordLocation } = this.state;
-    const locationPromise = (recordLocation) ? getLocation() : Promise.resolve();
+    const { page } = this.state;
+    const locationPromise = getLocation();
     this.props[page]({ deed, locationPromise });
   }
 
   render () {
     const { termsAndConditions } = this.props;
-    const { acceptTandCs, page, recordLocation, requireTandCs } = this.state;
+    const { acceptTandCs, page, requireTandCs } = this.state;
 
     const tandcsContent = [
       'By uploading a photo, you accept to abide by our ',
       (<a key='link' onClick={termsAndConditions} >Terms and Conditions</a> )
     ];
     const tandcsClass = (requireTandCs) ? 'Evidence-tandcs-container dropin' : 'hidden';
-
 
     const locationText="We would like to capture your location so that we can show where the good deeds are being done." +
       "  You can let us know if you're OK with that.";
@@ -98,8 +89,7 @@ class Evidence extends Component {
         </div>
         <div className='Evidence-location-container' >
           <Text text="Where's your deed at" className='Evidence-bold' />
-          <label htmlFor='location'>{locationText}</label>
-          <input type='checkbox' id='location' onChange={this.toggleRecordLocation} checked={recordLocation} />
+          <Text text={locationText} />
         </div>
         <Button onClick={this.nextPage} disabled={buttonDisabled} text="Next" />
       </div>
