@@ -27,19 +27,35 @@
         font-weight: normal;
         font-style: normal;
       }
+      @keyframes grow {
+        0%    { left: 0; width: 0; }
+        50%    { left: 0; width: 100%; }
+        100%  { left: 100%; width: 100%; }
+      }
       body {
         margin: 0;
       }
       .intro-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         text-align: center;
         height: 100vh;
         background-color: #002E4A;
+        margin: 0;
+        overflow: hidden;
       }
       .intro-text {
-        margin: 5vh 5vw;
+        margin: 0 auto;
+        padding: 5vh 5vw;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: xx-large;
+        color: white;
+      }
+      .intro-animation {
+        position: relative;
+        animation: grow linear 10s infinite;
+        border-bottom: white solid 5px;
+        left: 0px;
+        margin: 0;
+        padding: 5vh 0;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: xx-large;
         color: white;
@@ -61,8 +77,9 @@
         <div class="intro-text">
           We won’t be long!
         </div>
+        <div class="intro-animation">
+        </div>
       </div>
-
     </div>
   </body>
 </html>
