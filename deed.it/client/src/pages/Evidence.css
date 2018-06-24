@@ -1,5 +1,9 @@
-.Evidence-privacy-container {
+.Evidence-tandcs-container {
     margin-bottom: 1vh;
+}
+
+.Evidence-location-container {
+    margin: 2vh 0;
 }
 
 .Evidence-bold {

@@ -94,7 +94,7 @@ class Register extends Component {
     const { age, country, nickname, progress } = this.state;
     const { className, color } = deedType.style;
 
-    const cityClassName = isScotland(country) ? 'Register-show' : 'hidden';
+    const cityClassName = isScotland(country) ? 'Register-show dropin' : 'hidden';
     const buttonEnabled = age && country && nickname  && nickname.trim().length >= 2;
 
     const tandcs = [

@@ -14,7 +14,8 @@ const getContent = (content, index) => {
 const getContents = (contents) => contents.map(getContent);
 
 function Text (props) {
-  const { className, contents, dummyText , style, text } = props;
+  const { className, containerType, contents, dummyText, htmlFor, style, text } = props;
+  const ContainerType = (containerType) ? containerType : 'div';
   const divClassName = className ? `Text-text ${className}` : 'Text-text';
   const divContents = (contents)
     ? getContents(contents)
@@ -23,7 +24,7 @@ function Text (props) {
     : (text)
     ? getText(text)
     : 'Missing Text';
-  return <div className={divClassName} style={style}>{divContents}</div>;
+  return <ContainerType className={divClassName} htmlFor={htmlFor} style={style}>{divContents}</ContainerType>;
 }
 
 export default Text;

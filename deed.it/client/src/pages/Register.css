@@ -1,11 +1,5 @@
-@keyframes dropin {
-    from { max-height: 0; }
-    to   { max-height: 200px; }
-}
-
 .Register-show {
     overflow: hidden;
-    animation: dropin 1s;
     text-align: center;
     width: 100%;
 }

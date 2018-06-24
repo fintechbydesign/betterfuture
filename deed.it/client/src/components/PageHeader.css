@@ -1,7 +1,7 @@
 .PageHeader_container {
   background-color: #002E4A;
   justify-content: space-around;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .PageHeader_image {
