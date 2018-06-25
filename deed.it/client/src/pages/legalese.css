@@ -1,3 +1,14 @@
-Legalese-container {
-    font-size: xx-small;
+.Legalese-container {
+    text-align: justify;
+}
+
+.Legalese-container h1 {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.Legalese-container a {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #002E4A;
 }

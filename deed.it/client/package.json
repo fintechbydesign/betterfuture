@@ -1,10 +1,9 @@
 {
   "name": "deed.it",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "dependencies": {
     "aws-sdk": "^2.247.1",
-    "lorem-ipsum": "^1.0.4",
     "rc-progress": "^2.2.5",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
