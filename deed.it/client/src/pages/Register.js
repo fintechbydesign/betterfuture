@@ -16,7 +16,18 @@ import './Register.css';
 import Image from "../components/Image";
 
 const isScotland = (country) => country === 'Scotland';
-const methods = ['getStarted', 'updateAge', 'updateCity', 'updateCountry', 'updateNickname', 'updateProgress'];
+
+const isUnderage = (age) => age === '0-13';
+
+const methods = [
+  'getStarted',
+  'toggleUnderAge',
+  'updateAge',
+  'updateCity',
+  'updateCountry',
+  'updateNickname',
+  'updateProgress'
+];
 
 class Register extends Component {
   constructor (props) {
@@ -27,8 +38,16 @@ class Register extends Component {
       city: undefined,
       country: undefined,
       nickname: undefined,
-      progress: null
+      progress: null,
+      underage: false
     };
+  }
+
+  toggleUnderAge () {
+    this.setState({
+      ...this.state,
+      underage: !this.state.underage
+    });
   }
 
   updateAge (age) {
@@ -91,11 +110,18 @@ class Register extends Component {
 
   render () {
     const { deedType, termsAndConditions } = this.props;
-    const { age, country, nickname, progress } = this.state;
+    const { age, city, country, nickname, progress, underage } = this.state;
     const { className, color } = deedType.style;
 
-    const cityClassName = isScotland(country) ? 'Register-show dropin' : 'hidden';
-    const buttonEnabled = age && country && nickname  && nickname.trim().length >= 2;
+    const cityClassName = isScotland(country) ? 'Register-show-city dropin' : 'hidden';
+    const underageClassName = isUnderage(age) ? 'Register-show-age dropin' : 'hidden';
+    const buttonEnabled
+      = age
+      && (!isUnderage(age) || underage)
+      && country
+      && (!isScotland(country) || city)
+      && nickname
+      && nickname.trim().length >= 2;
 
     const tandcs = [
       'Read our ',
@@ -146,6 +172,10 @@ class Register extends Component {
         </div>
         <Text text='What age are you?' className='Text-label' />
         <Dropdown options={ages} onChange={this.updateAge} placeholder='Please select your age...'/>
+        <div className={underageClassName} >
+          <Text containerType='label' text='My parent/guardian has given permission for me to take part in deedit' htmlFor='underage' />
+          <input type='checkbox' id='underage' onChange={this.toggleUnderAge} checked={underage} />
+        </div>
         <Button text='Get started >' onClick={this.getStarted} disabled={!buttonEnabled} />
         {progressBar}
         <Text contents={tandcs} />

@@ -1,7 +1,15 @@
-.Register-show {
+.Register-show-city {
     overflow: hidden;
     text-align: center;
     width: 100%;
+}
+
+.Register-show-age {
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: justify;
+    width: 90%;
+    font-size: smaller;
 }
 
 .Register-deed-type {

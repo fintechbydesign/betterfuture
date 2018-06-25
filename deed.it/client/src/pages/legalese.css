@@ -5,10 +5,22 @@
 .Legalese-container h1 {
     font-size: larger;
     font-weight: bold;
+    text-align: left;
 }
 
 .Legalese-container a {
     font-weight: bold;
     text-decoration: underline;
     color: #002E4A;
+}
+
+.Legalese-container table {
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.Legalese-container table tr td {
+    border:  #002E4A solid 1px;
+    padding: 1px;
+    vertical-align: top;
 }
