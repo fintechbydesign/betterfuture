@@ -8,12 +8,13 @@
 
 .PickADeed-header {
     color: white;
-    padding: 1vh;
+    padding: 2vh;
+    font-family: 'Bungee Inline';
 }
 
 .PickADeed-title {
-    padding-left: 16px;
-    margin: 1vh;
+    padding-left: 1vh;
+    margin: 2vh 1vh;
 }
 
 .PickADeed-intro {

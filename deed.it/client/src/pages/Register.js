@@ -125,7 +125,7 @@ class Register extends Component {
 
     const tandcs = [
       'Read our ',
-      (<a key='link' onClick={termsAndConditions}>terms and conditions</a>),
+      (<a key='link' onClick={termsAndConditions}>Terms of Use</a>),
       ' if you want to understand how we use your data.'
     ];
 
@@ -178,7 +178,7 @@ class Register extends Component {
         </div>
         <Button text='Get started >' onClick={this.getStarted} disabled={!buttonEnabled} />
         {progressBar}
-        <Text contents={tandcs} />
+        <Text contents={tandcs} className='Register-tandc' />
         {hiddenFlag}
       </div>
     );

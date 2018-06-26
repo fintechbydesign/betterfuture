@@ -68,8 +68,8 @@ class Evidence extends Component {
     const { acceptTandCs, page, requireTandCs } = this.state;
 
     const tandcsContent = [
-      'By uploading a photo, you accept to abide by our ',
-      (<a key='link' onClick={termsAndConditions} >Terms and Conditions</a> )
+      'By uploading a photo, you accept our ',
+      (<a key='link' onClick={termsAndConditions} >Terms of Use</a> )
     ];
     const tandcsClass = (requireTandCs) ? 'Evidence-tandcs-container dropin' : 'hidden';
 

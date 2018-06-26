@@ -88,7 +88,7 @@ class DeedTypeSummary extends Component {
           <div className='DeedTypeSummary-where flexContainerRow'>
             <Text text='Where' className='DeedTypeSummary-callout-text DeedTypeSummary-vertical' style={textStyle}/>
             <div>
-              <Text text={where} className='DeedTypeSummary-callout-text DeedTypeSummary-emphasis'/>
+              <Text text={where} className='DeedTypeSummary-callout-text'/>
               {addressDetails}
             </div>
           </div>

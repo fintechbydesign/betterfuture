@@ -1,6 +1,5 @@
 .DeedTypeSummary-image {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 1vh auto;
   width: 30vw;
 }
 
@@ -18,10 +17,13 @@
   background-color: white;
   color: #002E4A;
   padding: 1vh;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
 }
 
 .DeedTypeSummary-callout-text {
   margin: 0 1vh 0 0;
+  text-align: left;
 }
 
 .DeedTypeSummary-when {

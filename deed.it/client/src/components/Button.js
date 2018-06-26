@@ -2,7 +2,7 @@ import React from 'react';
 import './Button.css';
 import './Component.css';
 
-const defaultClasses = 'Button-default Component-default';
+const defaultClasses = 'Component-default Button-default';
 
 function Button (props) {
   const className = props.className ? `${defaultClasses} ${props.className}` : defaultClasses;

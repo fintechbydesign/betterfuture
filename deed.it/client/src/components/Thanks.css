@@ -1,5 +1,5 @@
 .Thanks-container {
-  margin: 5px 0;
+  margin-bottom: 3vh;
   padding: 2vw;
 }
 
@@ -8,10 +8,20 @@
 }
 
 .Thanks-image {
-  width: 30vw;
+  width: 15vw;
+  padding-bottom: 3vh;
+}
+
+.Thanks-text {
+    color: white;
+  }
+
+.Thanks-text a {
+  color: white;
 }
 
 .Thanks-title-text {
   color: white;
   font-weight: bold;
+  padding-left: 3vw;
 }

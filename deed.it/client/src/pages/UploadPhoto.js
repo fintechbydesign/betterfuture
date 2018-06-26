@@ -60,7 +60,7 @@ class UploadPhoto extends Component {
       return {
         buttonProps: {
           onClick: completeDeed.bind(null, { deed, imageData, locationPromise } ),
-          text: 'Send picture as evidence >'
+          text: 'Send picture as evidence'
         },
         imageClass: 'flexFixedSize UploadPhoto-image',
         inputText: 'Change the picture',
@@ -103,7 +103,7 @@ class UploadPhoto extends Component {
     setupFn();
     return (
       <div className='page'>
-        <Title text='Upload a photo of your deed.' />
+        <Title text='Upload a photo of your deed' />
         <img ref={this.image} alt='what will be submitted' className={imageClass} />
         <canvas ref={this.canvas} className='hidden' />
         {this.renderInput(inputText)}
