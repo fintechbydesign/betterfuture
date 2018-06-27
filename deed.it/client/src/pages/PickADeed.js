@@ -67,7 +67,7 @@ class PickADeed extends Component {
     };
     // note additional div as Carousel adds 'display-block' to outside div
     return (
-      <div>
+      <div key={index}>
         <div className='flexContainerRow'>
           <div>&nbsp;</div>
           <DeedTypeSummary {...props} />

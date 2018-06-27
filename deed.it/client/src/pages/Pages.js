@@ -59,6 +59,10 @@ class Pages extends Component {
   constructor (props) {
     super(props);
     this.reset = this.reset.bind(this);
+    this.updateHistory= this.updateHistory.bind(this);
+    if (window.history) {
+      window.onpopstate = this.interceptBackButton.bind(this);
+    }
     this.state = this.createInitialState();
     this.state.navigationMethods = this.createNavigationMethods();
   }
@@ -68,6 +72,24 @@ class Pages extends Component {
       pageName: 'home',
       user: getLocalUser()
     };
+  }
+
+  updateHistory () {
+    if (window.history) {
+      const { pageName } = this.state;
+      window.history.pushState({ pageName }, pageName);
+    }
+  }
+
+  interceptBackButton (event) {
+    console.log(`Back button intercepted: ${event}`);
+    this.state.navigationMethods['home']();
+    /*
+    const { pageName } = event.state;
+    if (pageName && pageName in this.state.navigationMethods) {
+      this.state.navigationMethods[pageName]();
+    }
+    */
   }
 
   async reset () {
@@ -88,6 +110,7 @@ class Pages extends Component {
 
   createNavigationMethods () {
     const baseNavigationMethod = (pageName, nextPageProps) => {
+      this.updateHistory();
       this.setState({...this.state, nextPageProps, pageName, user: getLocalUser()});
       window.scrollTo(0, 0);
     };
