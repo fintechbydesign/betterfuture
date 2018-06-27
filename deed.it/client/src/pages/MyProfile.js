@@ -38,7 +38,7 @@ class MyProfile extends Component {
   }
 
   async fetchDeeds () {
-    const { error, user } = this.props;
+    const { fetchError, user } = this.props;
     try {
       const { completed, rejected, unapproved, events, inProgress } = await getUserDeeds(user);
       this.setState({
@@ -52,7 +52,7 @@ class MyProfile extends Component {
         events
       });
     } catch (err) {
-      error({err});
+      fetchError({err});
     }
   }
 
@@ -62,7 +62,6 @@ class MyProfile extends Component {
       id: deed.deedTypeId
     };
     await startDeed(user, fakeDeedType, { error, myProfile });
-    // TODO - minimise state
     this.fetchDeeds();
   }
 
@@ -85,7 +84,7 @@ class MyProfile extends Component {
       return (
         <div>
           <Title text='Badges' />
-          <div className='flexContainerRow'>
+          <div className='flexContainerRow MyProfile-badge-container'>
             {badges}
           </div>
         </div>
@@ -159,6 +158,8 @@ class MyProfile extends Component {
 
   render () {
     const { deeds } = this.state;
+    const { user } = this.props;
+
     if (!deeds) {
       const progressProps = {
         duration: 3000,
@@ -169,7 +170,6 @@ class MyProfile extends Component {
       };
       return (<ProgressBar { ...progressProps } />);
     }
-    const { user } = this.props;
 
     return (
       <div className='page'>

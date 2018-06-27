@@ -1,9 +1,12 @@
+.MyProfile-badge-container {
+    overflow: hidden;
+}
+
 .MyProfile-badge {
     width: 100%;
     height: 15vw;
     position: relative;
     float: left;
-    /*padding-right: 15vw;*/
 }
 
 .MyProfile-InProgress {

@@ -1,4 +1,3 @@
-import delay from './delay';
 import rootURLs from '../config/rootURLs';
 
 const headers = {
@@ -16,8 +15,6 @@ const postOptions = {
   method: 'POST'
 };
 
-const DELAY = 0;
-
 const REFRESH = true;
 
 // a cache of Promises per endpoint
@@ -30,7 +27,6 @@ const createGetPromise = (endpoint) => {
   return new Promise(async(resolve, reject) => {
     const endPoint = `${rootURLs.data}${endpoint}`;
     try {
-      await delay(DELAY);
       const response = await fetch(endPoint, getOptions);
       if (response.ok) {
         const json = await response.json();
@@ -57,7 +53,6 @@ const getData = (endpoint, force = false) => {
 
 const postData = async(endpoint, body) => {
   const endPoint = `${rootURLs.data}${endpoint}`;
-  await delay(DELAY);
   const options = { ...postOptions };
   if (body) {
     options.body = JSON.stringify(body);

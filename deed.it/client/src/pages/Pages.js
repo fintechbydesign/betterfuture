@@ -20,6 +20,7 @@ import CompleteDeed from './CompleteDeed';
 import DeeditDifference from './DeeditDifference';
 import Error from './Error.js';
 import Evidence from './Evidence';
+import FetchError from './FetchError';
 import GlobalNav from '../components/GlobalNav';
 import Home from './Home';
 import PageHeader from '../components/PageHeader';
@@ -42,6 +43,7 @@ const pages = {
   'deeditDifference': DeeditDifference,
   'evidence': Evidence,
   'error': Error,
+  'fetchError': FetchError,
   'home': Home,
   'myProfile': MyProfile,
   'pickADeed': PickADeed,
@@ -55,16 +57,19 @@ const pages = {
   'uploadPhoto': UploadPhoto
 };
 
+// const statelessPages = ['aboutUs', 'deeditDifference', 'home', 'pickADeed', 'termsAndConditions'];
+
 class Pages extends Component {
   constructor (props) {
     super(props);
     this.reset = this.reset.bind(this);
     this.updateHistory= this.updateHistory.bind(this);
-    if (window.history) {
-      window.onpopstate = this.interceptBackButton.bind(this);
-    }
     this.state = this.createInitialState();
     this.state.navigationMethods = this.createNavigationMethods();
+    if (window.history) {
+      this.updateHistory();
+      window.onpopstate = this.interceptBackButton.bind(this);
+    }
   }
 
   createInitialState () {
@@ -82,14 +87,11 @@ class Pages extends Component {
   }
 
   interceptBackButton (event) {
-    console.log(`Back button intercepted: ${event}`);
-    this.state.navigationMethods['home']();
     /*
     const { pageName } = event.state;
-    if (pageName && pageName in this.state.navigationMethods) {
-      this.state.navigationMethods[pageName]();
-    }
+    const previousPage = statelessPages.includes(pageName) ? pageName : 'home';
     */
+    this.state.navigationMethods['home']();
   }
 
   async reset () {

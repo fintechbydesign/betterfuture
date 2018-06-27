@@ -4,10 +4,11 @@ import Title from './Title';
 import './TitleWithImage.css';
 
 function TitleWithImage (props) {
-  const { src, text } = props;
+  const { animation, src, text } = props;
+  const imgClass = (animation) ? `TitleWithImage-icon ${animation}` : 'TitleWithImage-icon';
   return (
     <div className='flexContainerRow TitleWithImage-container' >
-      <Image src={src} className='TitleWithImage-icon' />
+      <Image src={src} className={imgClass} />
       <Title text={text} />
     </div>
   );

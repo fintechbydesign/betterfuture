@@ -8,6 +8,19 @@
   to   { max-height: 100px; }
 }
 
+@keyframes wave {
+  10% { transform:rotate(-20deg); }
+  20% { transform:rotate(40deg); }
+  30% { transform:rotate(-40deg); }
+  40% { transform:rotate(40deg); }
+  50% { transform:rotate(-40deg); }
+  60% { transform:rotate(40deg); }
+  70% { transform:rotate(-40deg); }
+  80% { transform:rotate(40deg); }
+  90% { transform:rotate(-20deg); }
+  100% { transform:rotate(0deg); }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -60,5 +73,9 @@ body {
 
 .dropin {
   animation: dropin 1s;
+}
+
+.wave {
+  animation:wave 2s ease-in-out;
 }
 

@@ -29,6 +29,7 @@ class PickADeed extends Component {
   }
 
   async fetchDeeds () {
+    const { fetchError } = this.props;
     try {
       const deedHierarchy = await getDeedHierarchy();
       this.setState({
@@ -36,7 +37,7 @@ class PickADeed extends Component {
         deedHierarchy
       });
     } catch (err) {
-      this.props.error({err});
+      fetchError({err});
     }
   }
 
