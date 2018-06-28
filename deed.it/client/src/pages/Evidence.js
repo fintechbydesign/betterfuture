@@ -80,7 +80,7 @@ class Evidence extends Component {
 
     return (
       <div className='page'>
-        <TitleWithImage src={thumbsup} text='Good Work' />
+        <TitleWithImage animation='zoom' src={thumbsup} text='Good Work' />
         <Text text='All you need to do now is send us some evidence to prove your deed is done.' />
         <RadioGroup radioOptions={this.state.radioOptions} />
         <div className={tandcsClass} >
