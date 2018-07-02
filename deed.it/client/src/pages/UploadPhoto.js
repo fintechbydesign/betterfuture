@@ -4,7 +4,7 @@ import Title from '../components/Title';
 import { initS3 } from '../data/S3';
 import './UploadPhoto.css';
 
-const methods = ['fileSelected', 'renderInput', 'showPhoto', 'storeImage', 'getUIProperties'];
+const methods = ['fileSelected', 'renderInput', 'rotateImage', 'setState', 'showPhoto', 'storeImage', 'getUIProperties'];
 
 class UploadPhoto extends Component {
 
@@ -43,13 +43,35 @@ class UploadPhoto extends Component {
     this.setState({...this.state, imageData });
   }
 
+  rotateImage () {
+    const { state, setState } = this;
+    const canvas = this.canvas.current;
+    const { height, width } = canvas;
+    const context = canvas.getContext('2d');
+    context.imageSmoothingEnabled = false;
+
+    const image = new Image();
+    image.src = canvas.toDataURL();
+
+    image.onload = function () {
+      canvas.width = height;
+      canvas.height = width;
+      context.translate(canvas.width, canvas.height / canvas.width);
+      context.rotate(Math.PI / 2);
+      context.drawImage(image, 0, 0);
+      const imageData = canvas.toDataURL('image/png');
+      setState({...state, imageData});
+    }
+  }
+
   showPhoto () {
     this.image.current.src = this.state.imageData;
   }
 
   getUIProperties () {
-    const { imageData } = this.state;
-    const { completeDeed, deed, locationPromise } = this.props;
+    const { props, rotateImage, state } = this;
+    const { imageData } = state;
+    const { completeDeed, deed, locationPromise } = props;
     if (imageData) {
       // show picture
       return {
@@ -59,6 +81,10 @@ class UploadPhoto extends Component {
         },
         imageClass: 'flexFixedSize UploadPhoto-image',
         inputText: 'Change the picture',
+        rotateProps: {
+          onClick: rotateImage,
+          text: 'Rotate the picture'
+        },
         setupFn: this.showPhoto
       };
     } else {
@@ -67,6 +93,7 @@ class UploadPhoto extends Component {
         buttonProps: null,
         imageClass: 'hidden',
         inputText: 'Select a picture',
+        rotateProps: null,
         setupFn: () => null
       };
     }
@@ -93,14 +120,16 @@ class UploadPhoto extends Component {
   }
 
   render () {
-    const { buttonProps, imageClass, inputText, setupFn } = this.getUIProperties();
+    const { buttonProps, imageClass, inputText, rotateProps, setupFn } = this.getUIProperties();
     const button = buttonProps ? (<Button {...buttonProps} />) : null;
+    const rotateButton = rotateProps ? (<Button {...rotateProps} />) : null;
     setupFn();
     return (
       <div className='page'>
         <Title text='Upload a photo of your deed' />
         <img ref={this.image} alt='what will be submitted' className={imageClass} />
         <canvas ref={this.canvas} className='hidden' />
+        {rotateButton}
         {this.renderInput(inputText)}
         {button}
       </div>

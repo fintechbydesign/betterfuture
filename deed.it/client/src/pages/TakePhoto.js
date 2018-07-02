@@ -42,26 +42,19 @@ class TakePhoto extends Component {
   rotateImage () {
     const { state, setState } = this;
     const canvas = this.canvas.current;
-    let { height, width } = canvas;
+    const { height, width } = canvas;
     const context = canvas.getContext('2d');
+    context.imageSmoothingEnabled = false;
 
     const image = new Image();
     image.src = canvas.toDataURL();
 
     image.onload = function () {
-      // reset the canvas with new dimensions
-      canvas.width = width;
-      canvas.height = height;
-      width = canvas.width;
-      height = canvas.height;
-      context.save();
-      // translate and rotate
-      context.translate(width, height / width);
+      canvas.width = height;
+      canvas.height = width;
+      context.translate(canvas.width, canvas.height / canvas.width);
       context.rotate(Math.PI / 2);
-      // draw the previows image, now rotated
       context.drawImage(image, 0, 0);
-      context.restore();
-      // save
       const imageData = canvas.toDataURL('image/png');
       setState({...state, imageData});
     }
@@ -88,7 +81,19 @@ class TakePhoto extends Component {
           text: 'Send picture as evidence'
         },
         imageClass: 'TakePhoto-image',
-        instruction: 'Click/press the picture to try again',
+        instruction: [
+          'Now you can:',
+          (<ul key='rotate'>
+            <li>
+              Click the picture to try again
+            </li>
+            <li>
+              Click
+              <a onClick={this.rotateImage}> here </a>
+              to rotate the image
+            </li>
+          </ul>)
+        ],
         setupFn: this.showPhoto,
         videoClass: 'hidden'
       };
@@ -97,7 +102,7 @@ class TakePhoto extends Component {
       return {
         buttonProps: null,
         imageClass: 'hidden',
-        instruction: 'Click/press the video to take a picture',
+        instruction: ['Click/press the video to take a picture'],
         setupFn: this.startVideo,
         videoClass: ''
       };
@@ -115,9 +120,9 @@ class TakePhoto extends Component {
     return (
       <div className='page'>
         <Title text='Take a photo of your deed.' />
-        <Text text={instruction} />
+        <Text contents={instruction} />
         <video ref={this.video} autoPlay onClick={this.captureVideo} className={videoClass} />
-        <img ref={this.image} alt='what will be submitted' onClick={this.rotateImage} className={imageClass} />
+        <img ref={this.image} alt='what will be submitted' onClick={this.reset} className={imageClass} />
         <canvas ref={this.canvas} className='hidden' />
         {button}
       </div>
