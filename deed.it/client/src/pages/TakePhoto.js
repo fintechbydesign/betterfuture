@@ -7,7 +7,7 @@ import Title from '../components/Title.js';
 import { initS3 } from '../data/S3';
 import './TakePhoto.css';
 
-const methods = ['captureVideo', 'reset', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
+const methods = ['captureVideo', 'reset', 'rotateImage', 'setState', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
 
 class TakePhoto extends Component {
   constructor (props) {
@@ -37,6 +37,34 @@ class TakePhoto extends Component {
     canvas.getContext('2d').drawImage(src, 0, 0, width, height);
     const imageData = canvas.toDataURL('image/png');
     this.setState({...this.state, imageData });
+  }
+
+  rotateImage () {
+    const { state, setState } = this;
+    const canvas = this.canvas.current;
+    let { height, width } = canvas;
+    const context = canvas.getContext('2d');
+
+    const image = new Image();
+    image.src = canvas.toDataURL();
+
+    image.onload = function () {
+      // reset the canvas with new dimensions
+      canvas.width = width;
+      canvas.height = height;
+      width = canvas.width;
+      height = canvas.height;
+      context.save();
+      // translate and rotate
+      context.translate(width, height / width);
+      context.rotate(Math.PI / 2);
+      // draw the previows image, now rotated
+      context.drawImage(image, 0, 0);
+      context.restore();
+      // save
+      const imageData = canvas.toDataURL('image/png');
+      setState({...state, imageData});
+    }
   }
 
   captureVideo () {
@@ -89,7 +117,7 @@ class TakePhoto extends Component {
         <Title text='Take a photo of your deed.' />
         <Text text={instruction} />
         <video ref={this.video} autoPlay onClick={this.captureVideo} className={videoClass} />
-        <img ref={this.image} alt='what will be submitted' onClick={this.reset} className={imageClass} />
+        <img ref={this.image} alt='what will be submitted' onClick={this.rotateImage} className={imageClass} />
         <canvas ref={this.canvas} className='hidden' />
         {button}
       </div>
