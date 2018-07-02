@@ -4,7 +4,7 @@ import Title from '../components/Title';
 import { initS3 } from '../data/S3';
 import './UploadPhoto.css';
 
-const methods = ['fileSelected', 'renderInput', 'sendPhoto', 'showPhoto', 'storeImage', 'getUIProperties'];
+const methods = ['fileSelected', 'renderInput', 'showPhoto', 'storeImage', 'getUIProperties'];
 
 class UploadPhoto extends Component {
 
@@ -45,11 +45,6 @@ class UploadPhoto extends Component {
 
   showPhoto () {
     this.image.current.src = this.state.imageData;
-  }
-
-  sendPhoto () {
-    // sendPhoto(this.props.user, this.state.imageData);
-    this.props.notImplemented();
   }
 
   getUIProperties () {

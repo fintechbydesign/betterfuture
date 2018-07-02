@@ -7,7 +7,7 @@ import Title from '../components/Title.js';
 import { initS3 } from '../data/S3';
 import './TakePhoto.css';
 
-const methods = ['captureVideo', 'reset', 'sendPhoto', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
+const methods = ['captureVideo', 'reset', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
 
 class TakePhoto extends Component {
   constructor (props) {
@@ -49,11 +49,6 @@ class TakePhoto extends Component {
     this.image.current.src = this.state.imageData;
   }
 
-  sendPhoto () {
-    // sendPhoto(this.props.user, this.state.imageData);
-    this.props.notImplemented();
-  }
-
   getUIProperties () {
     const { imageData } = this.state;
     const { completeDeed, deed, locationPromise } = this.props;
@@ -62,7 +57,7 @@ class TakePhoto extends Component {
       return {
         buttonProps: {
           onClick: completeDeed.bind(null, { deed, imageData, locationPromise } ),
-          text: 'Send picture as evidence >'
+          text: 'Send picture as evidence'
         },
         imageClass: 'TakePhoto-image',
         instruction: 'Click/press the picture to try again',
