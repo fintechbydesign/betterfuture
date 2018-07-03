@@ -78,9 +78,11 @@ class UploadPhoto extends Component {
     image.onload = function () {
       canvas.width = height;
       canvas.height = width;
+      context.save();
       context.translate(canvas.width, canvas.height / canvas.width);
       context.rotate(angle);
       context.drawImage(image, 0, 0);
+      context.restore();
       const imageData = canvas.toDataURL('image/png');
       setState({...state, imageData});
     }
@@ -116,7 +118,7 @@ class UploadPhoto extends Component {
     const { renderInput, rotateImage } = this;
     return (
       <div className='flexContainerRow UploadPhoto-toolbar'>
-        <div className='UploadPhoto-toolbar-item' onClick={rotateImage.bind(null, (Math.PI / -2))} >
+        <div className='UploadPhoto-toolbar-item' onClick={rotateImage.bind(null, (3 * Math.PI / 2))} >
           <ImageComponent src={temp} className='UploadPhoto-toolbar-image'/>
           <div>Rotate left</div>
         </div>
@@ -159,8 +161,10 @@ class UploadPhoto extends Component {
       <div className='page'>
         <Title text='Upload a photo of your deed' />
         <canvas ref={canvas} className='hidden' />
-        <img alt='what will be submitted' {...imageProps} />
-        {imageControls}
+        <div className='UploadPhoto-container'>
+          <img alt='what will be submitted' {...imageProps} />
+          {imageControls}
+        </div>
         <Button {...buttonProps} />
       </div>
     );
