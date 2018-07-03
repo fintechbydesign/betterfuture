@@ -1,7 +1,27 @@
-.UploadPhoto-hidden {
-  visibility: hidden;
-}
-
 .UploadPhoto-image {
   height: 320px;
+}
+
+.UploadPhoto-toolbar {
+  justify-content: space-evenly;
+  background-color: #002E4A;
+}
+
+.UploadPhoto-toolbar label {
+  width: 25%;
+}
+
+.UploadPhoto-toolbar-item {
+  width: 25%;
+  padding: 1px;
+  margin: 0 1vw;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.UploadPhoto-toolbar-image {
+  height: 5vw;
+  margin-right: 3vw;
 }

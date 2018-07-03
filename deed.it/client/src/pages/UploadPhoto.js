@@ -1,13 +1,16 @@
 import React, { createRef, Component } from 'react';
 import Button from '../components/Button';
+import ImageComponent from '../components/Image';
 import Title from '../components/Title';
 import { initS3 } from '../data/S3';
+import temp from '../images/nav-aboutus.svg';
 import './UploadPhoto.css';
 
 const methods = [
   'autoOpenFileDialog',
   'fileSelected',
   'renderInput',
+  'renderToolbar',
   'rotateImage',
   'setState',
   'showPhoto',
@@ -87,15 +90,15 @@ class UploadPhoto extends Component {
     this.references.image.current.src = this.state.imageData;
   }
 
-  renderInput (text) {
+  renderInput (text, labelClass) {
     const { fileSelected, references } = this;
     const labelProps = {
       htmlFor: 'choose',
-      className: 'Component-default Button-default'
+      className: labelClass
     };
     const inputProps = {
       accept: 'image/*',
-      className: 'UploadPhoto-hidden',
+      className: 'hidden',
       id: 'choose',
       onChange: fileSelected,
       ref: references.input,
@@ -109,8 +112,28 @@ class UploadPhoto extends Component {
     );
   }
 
+  renderToolbar () {
+    const { renderInput, rotateImage } = this;
+    return (
+      <div className='flexContainerRow UploadPhoto-toolbar'>
+        <div className='UploadPhoto-toolbar-item' onClick={rotateImage.bind(null, (Math.PI / -2))} >
+          <ImageComponent src={temp} className='UploadPhoto-toolbar-image'/>
+          <div>Rotate left</div>
+        </div>
+        <div className='UploadPhoto-toolbar-item'>
+          <ImageComponent src={temp} className='UploadPhoto-toolbar-image'/>
+          {renderInput('Change picture')}
+        </div>
+        <div className='UploadPhoto-toolbar-item' onClick={rotateImage.bind(null, (Math.PI / 2))} >
+          <ImageComponent src={temp} className='UploadPhoto-toolbar-image'/>
+          <div>Rotate right</div>
+        </div>
+      </div>
+    );
+  };
+
   render () {
-    const { props, references, rotateImage, showPhoto, state } = this;
+    const { props, renderInput, renderToolbar, references, showPhoto, state } = this;
     const { completeDeed, deed, locationPromise } = props;
     const { canvas, image } = references;
     const { imageData } = state;
@@ -119,13 +142,10 @@ class UploadPhoto extends Component {
       className: (imageData) ? 'flexFixedSize UploadPhoto-image' : 'hidden',
       ref: image,
     };
-    const rotateProps = {
-      className: (imageData) ? '' : 'hidden',
-      onClick: rotateImage.bind(this, (Math.PI / 2)),
-      text: 'Rotate the picture'
-    };
-    const inputText = (imageData) ? 'Change the picture' : 'Select a picture';
-    const sendProps = {
+    const imageControls = (imageData)
+      ? renderToolbar()
+      : renderInput('Select a picture', 'Component-default Button-default');
+    const buttonProps = {
       className: (imageData) ? '' : 'hidden',
       onClick: completeDeed.bind(null, { deed, imageData, locationPromise } ),
       text: 'Send picture as evidence'
@@ -140,9 +160,8 @@ class UploadPhoto extends Component {
         <Title text='Upload a photo of your deed' />
         <canvas ref={canvas} className='hidden' />
         <img alt='what will be submitted' {...imageProps} />
-        <Button {...rotateProps} />
-        {this.renderInput(inputText)}
-        <Button {...sendProps} />
+        {imageControls}
+        <Button {...buttonProps} />
       </div>
     );
   }

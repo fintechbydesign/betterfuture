@@ -46,6 +46,10 @@ body {
   color: #002E4A;
 }
 
+button {
+  display: block;
+}
+
 .page {
   display: flex;
   flex-direction: column;
