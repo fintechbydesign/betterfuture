@@ -4,19 +4,14 @@
 
 .UploadPhoto-toolbar {
   justify-content: space-evenly;
-  background-color: #002E4A;
-}
-
-.UploadPhoto-toolbar label {
-  width: 25%;
 }
 
 .UploadPhoto-toolbar-item {
-  width: 25%;
-  padding: 1px;
-  margin: 0 1vw;
+  width: 50%;
+  padding: 1vh;
+  background-color: #002E4A;
+  margin: 1vh 0 0 1vw;
   color: white;
-  text-align: center;
   display: flex;
   flex-direction: row;
 }

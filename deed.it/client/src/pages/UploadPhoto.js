@@ -116,17 +116,13 @@ class UploadPhoto extends Component {
     const { renderInput, rotateImage } = this;
     return (
       <div className='flexContainerRow UploadPhoto-toolbar'>
-        <div className='UploadPhoto-toolbar-item' onClick={rotateImage.bind(null, (Math.PI / -2))} >
-          <ImageComponent src={temp} className='UploadPhoto-toolbar-image'/>
-          <div>Rotate left</div>
-        </div>
         <div className='UploadPhoto-toolbar-item'>
           <ImageComponent src={temp} className='UploadPhoto-toolbar-image'/>
-          {renderInput('Change picture')}
+          {renderInput('Change')}
         </div>
         <div className='UploadPhoto-toolbar-item' onClick={rotateImage.bind(null, (Math.PI / 2))} >
           <ImageComponent src={temp} className='UploadPhoto-toolbar-image'/>
-          <div>Rotate right</div>
+          <div>Rotate</div>
         </div>
       </div>
     );
