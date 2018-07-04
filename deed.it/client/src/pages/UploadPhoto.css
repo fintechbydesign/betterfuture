@@ -6,6 +6,12 @@
   justify-content: space-evenly;
 }
 
+.UploadPhoto-toolbar-title {
+  font-family: 'Bungee Inline';
+  font-size: 7vw;
+  margin: 1vh 0;
+}
+
 .UploadPhoto-toolbar-item {
   width: 50%;
   padding: 1vh;

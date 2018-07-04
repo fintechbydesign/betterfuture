@@ -4,20 +4,22 @@
 
 import React, { createRef, Component } from 'react';
 import Button from '../components/Button';
+import ImageComponent from '../components/Image';
 import Text from '../components/Text.js';
 import Title from '../components/Title.js';
 import { initS3 } from '../data/S3';
+import temp from '../images/nav-aboutus.svg';
 import './TakePhoto.css';
 
 const methods = [
     'captureVideo',
+    'renderToolbar',
     'reset',
     'rotateImage',
     'setState',
     'showPhoto',
     'startVideo',
-    'storeImage',
-    'getUIProperties'
+    'storeImage'
 ];
 
 class TakePhoto extends Component {
@@ -83,63 +85,71 @@ class TakePhoto extends Component {
     this.references.image.current.src = this.state.imageData;
   }
 
-  getUIProperties () {
-    const { imageData } = this.state;
-    const { completeDeed, deed, locationPromise } = this.props;
-    if (imageData) {
-      // show picture
-      return {
-        buttonProps: {
-          onClick: completeDeed.bind(null, { deed, imageData, locationPromise }),
-          text: 'Send picture as evidence'
-        },
-        imageClass: 'TakePhoto-image',
-        instruction: [
-          'Now you can:',
-          (<ul key='rotate'>
-            <li>
-              Click the picture to try again
-            </li>
-            <li>
-              Click
-              <a onClick={this.rotateImage}> here </a>
-              to rotate the image
-            </li>
-          </ul>)
-        ],
-        setupFn: this.showPhoto,
-        videoClass: 'hidden'
-      };
-    } else {
-      // show video
-      return {
-        buttonProps: null,
-        imageClass: 'hidden',
-        instruction: ['Click/press the video to take a picture'],
-        setupFn: this.startVideo,
-        videoClass: ''
-      };
-    }
-  }
-
   reset () {
     this.setState({ ...this.state, imageData: undefined });
   }
 
+  renderToolbar () {
+    const { reset, rotateImage } = this;
+    return (
+      <div>
+        <Text className='TakePhoto-toolbar-title' text='Happy with your snap?' />
+        <div className='flexContainerRow TakePhoto-toolbar'>
+          <div className='TakePhoto-toolbar-item' onClick={reset} >
+            <ImageComponent src={temp} className='TakePhoto-toolbar-image' />
+            <div>Change</div>
+          </div>
+          <div className='TakePhoto-toolbar-item' onClick={rotateImage} >
+            <ImageComponent src={temp} className='TakePhoto-toolbar-image' />
+            <div>Rotate</div>
+          </div>
+      </div>
+      </div>
+    );
+  }
+
   render () {
-    const { references } = this;
+    const { captureVideo, props, renderToolbar, references, reset, showPhoto, startVideo, state } = this;
     const { canvas, image, video } = references;
-    const { buttonProps, imageClass, instruction, setupFn, videoClass } = this.getUIProperties();
-    const button = buttonProps ? (<Button {...buttonProps} />) : null;
-    setupFn();
+    const { completeDeed, deed, locationPromise } = props;
+    const { imageData } = state;
+
+    const videoContainerProps = {
+      className: (imageData) ? 'hidden' : 'TakePhoto-video-container',
+      onClick: captureVideo
+    };
+
+    const imageProps = {
+      className: (imageData) ? 'TakePhoto-image' : 'hidden',
+      onClick: reset,
+      ref: image
+    };
+
+    const toolbar = (imageData) ? renderToolbar() : null;
+
+    const buttonProps = {
+      className: (imageData) ? '' : 'hidden',
+      onClick: completeDeed.bind(null, { deed, imageData, locationPromise }),
+      text: 'Send Snap'
+    };
+
+    if (imageData) {
+      showPhoto();
+    } else {
+      startVideo();
+    }
+
     return (
       <div className='page'>
         <Title text='Take a photo of your deed.' />
-        <Text contents={instruction} />
-        <video ref={video} autoPlay onClick={this.captureVideo} className={videoClass} />
-        <img ref={image} alt='what will be submitted' onClick={this.reset} className={imageClass} />
+        <div {...videoContainerProps} >
+          <video autoPlay className='TakePhoto-image' ref={video} />
+          <Text className='TakePhoto-video-instruction' text='Touch to take a picture' />
+        </div>
+        <img  alt='what will be submitted' {...imageProps} />
+        {toolbar}
         <canvas ref={canvas} className='hidden' />
-        {button}
+        <Button {...buttonProps} />
       </div>
     );
   }

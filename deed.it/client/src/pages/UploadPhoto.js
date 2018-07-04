@@ -3,6 +3,7 @@
 import React, { createRef, Component } from 'react';
 import Button from '../components/Button';
 import ImageComponent from '../components/Image';
+import Text from '../components/Text.js';
 import Title from '../components/Title';
 import { initS3 } from '../data/S3';
 import temp from '../images/nav-aboutus.svg';
@@ -66,7 +67,7 @@ class UploadPhoto extends Component {
     this.setState({ ...this.state, imageData });
   }
 
-  rotateImage (angle) {
+  rotateImage () {
     const { references, state, setState } = this;
     const canvas = references.canvas.current;
     const { height, width } = canvas;
@@ -80,7 +81,7 @@ class UploadPhoto extends Component {
       canvas.width = height;
       canvas.height = width;
       context.translate(canvas.width, canvas.height / canvas.width);
-      context.rotate(angle);
+      context.rotate(Math.PI / 2);
       context.drawImage(image, 0, 0);
       const imageData = canvas.toDataURL('image/png');
       setState({...state, imageData});
@@ -116,14 +117,17 @@ class UploadPhoto extends Component {
   renderToolbar () {
     const { renderInput, rotateImage } = this;
     return (
-      <div className='flexContainerRow UploadPhoto-toolbar'>
-        <div className='UploadPhoto-toolbar-item'>
-          <ImageComponent src={temp} className='UploadPhoto-toolbar-image' />
-          {renderInput('Change')}
-        </div>
-        <div className='UploadPhoto-toolbar-item' onClick={rotateImage.bind(null, (Math.PI / 2))} >
-          <ImageComponent src={temp} className='UploadPhoto-toolbar-image' />
-          <div>Rotate</div>
+      <div>
+        <Text className='UploadPhoto-toolbar-title' text='Happy with your snap?' />
+        <div className='flexContainerRow UploadPhoto-toolbar'>
+          <div className='UploadPhoto-toolbar-item'>
+            <ImageComponent src={temp} className='UploadPhoto-toolbar-image' />
+            {renderInput('Change')}
+          </div>
+          <div className='UploadPhoto-toolbar-item' onClick={rotateImage} >
+            <ImageComponent src={temp} className='UploadPhoto-toolbar-image' />
+            <div>Rotate</div>
+          </div>
         </div>
       </div>
     );
@@ -145,7 +149,7 @@ class UploadPhoto extends Component {
     const buttonProps = {
       className: (imageData) ? '' : 'hidden',
       onClick: completeDeed.bind(null, { deed, imageData, locationPromise }),
-      text: 'Send picture as evidence'
+      text: 'Send Snap'
     };
 
     if (imageData) {
