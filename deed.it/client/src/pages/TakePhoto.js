@@ -8,7 +8,8 @@ import ImageComponent from '../components/Image';
 import Text from '../components/Text.js';
 import Title from '../components/Title.js';
 import { initS3 } from '../data/S3';
-import temp from '../images/nav-aboutus.svg';
+import changeIcon from '../images/newphoto-icon.svg';
+import rotateIcon from '../images/rotate-icon.svg';
 import './TakePhoto.css';
 
 const methods = [
@@ -95,13 +96,13 @@ class TakePhoto extends Component {
       <div>
         <Text className='TakePhoto-toolbar-title' text='Happy with your snap?' />
         <div className='flexContainerRow TakePhoto-toolbar'>
-          <div className='TakePhoto-toolbar-item' onClick={reset} >
-            <ImageComponent src={temp} className='TakePhoto-toolbar-image' />
-            <div>Change</div>
-          </div>
           <div className='TakePhoto-toolbar-item' onClick={rotateImage} >
-            <ImageComponent src={temp} className='TakePhoto-toolbar-image' />
+            <ImageComponent src={rotateIcon} className='TakePhoto-toolbar-image' />
             <div>Rotate</div>
+          </div>
+          <div className='TakePhoto-toolbar-item' onClick={reset} >
+            <ImageComponent src={changeIcon} className='TakePhoto-toolbar-image' />
+            <div>Change</div>
           </div>
       </div>
       </div>

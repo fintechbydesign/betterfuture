@@ -1,6 +1,7 @@
 import greenIcon from '../images/deed-green.svg';
 import happyIcon from '../images/deed-community-spirit.svg';
 import homelessIcon from '../images/social-bite-deed.svg';
+import homelessHomeIcon from '../images/homeless-deed-icon.svg';
 import './superDeedStyles.css';
 
 export default [
@@ -10,6 +11,7 @@ export default [
     className: 'SuperDeed-homeless',
     id: 'Support SocialBite',
     icon: homelessIcon,
+    homeIcon: homelessHomeIcon,
     index: 0
   },
   {
@@ -18,6 +20,7 @@ export default [
     className: 'SuperDeed-green',
     id: 'Make Edinburgh Green',
     icon: greenIcon,
+    homeIcon: greenIcon,
     index: 1
   },
   {
@@ -26,6 +29,7 @@ export default [
     className: 'SuperDeed-happy',
     id: 'Community Spirit',
     icon: happyIcon,
+    homeIcon: happyIcon,
     index: 2
   }
 ];

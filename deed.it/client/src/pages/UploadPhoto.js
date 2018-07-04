@@ -6,7 +6,8 @@ import ImageComponent from '../components/Image';
 import Text from '../components/Text.js';
 import Title from '../components/Title';
 import { initS3 } from '../data/S3';
-import temp from '../images/nav-aboutus.svg';
+import changeIcon from '../images/newphoto-icon.svg';
+import rotateIcon from '../images/rotate-icon.svg';
 import './UploadPhoto.css';
 
 const methods = [
@@ -120,13 +121,13 @@ class UploadPhoto extends Component {
       <div>
         <Text className='UploadPhoto-toolbar-title' text='Happy with your snap?' />
         <div className='flexContainerRow UploadPhoto-toolbar'>
-          <div className='UploadPhoto-toolbar-item'>
-            <ImageComponent src={temp} className='UploadPhoto-toolbar-image' />
-            {renderInput('Change')}
-          </div>
           <div className='UploadPhoto-toolbar-item' onClick={rotateImage} >
-            <ImageComponent src={temp} className='UploadPhoto-toolbar-image' />
+            <ImageComponent src={rotateIcon} className='UploadPhoto-toolbar-image' />
             <div>Rotate</div>
+          </div>
+          <div className='UploadPhoto-toolbar-item'>
+            <ImageComponent src={changeIcon} className='UploadPhoto-toolbar-image' />
+            {renderInput('Change')}
           </div>
         </div>
       </div>

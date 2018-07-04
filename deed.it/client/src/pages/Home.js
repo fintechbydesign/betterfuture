@@ -19,7 +19,7 @@ function renderHomeless (getInvolvedAction) {
           <Text className='Home-text Home-x-large-font' text='people' />
           <Text className='Home-text Home-large-plain-font' text='will sleep rough tonight in Edinburgh' />
         </div>
-        <Image className='Home-superdeed-icon' src={superdeedStyles[0].icon} />
+        <Image className='Home-superdeed-icon' src={superdeedStyles[0].homeIcon} />
       </div>
       <div className={`Home-call-to-action-container flexContainerRow`}>
         <Text className='Home-text Home-large-font' text="Help Edinburgh's homeless" />
@@ -40,7 +40,7 @@ function renderGreen (getInvolvedAction) {
           <Text className='Home-text Home-x-large-font' text='a year' />
           <Text className='Home-text Home-large-plain-font' text='on landfill waste' />
         </div>
-        <Image className='Home-superdeed-icon' src={superdeedStyles[1].icon} />
+        <Image className='Home-superdeed-icon' src={superdeedStyles[1].homeIcon} />
       </div>
       <div className={`Home-call-to-action-container flexContainerRow`} >
         <Text className='Home-text Home-large-font' text='Help Edinburgh be greener' />
@@ -61,7 +61,7 @@ function renderHappy (getInvolvedAction) {
           <Text className='Home-text Home-x-large-plain-font' text='in Scotland feel' />
           <Text className='Home-text Home-large-plain-font' text='lonely all the time' />
         </div>
-        <Image className='Home-superdeed-icon' src={superdeedStyles[2].icon} />
+        <Image className='Home-superdeed-icon' src={superdeedStyles[2].homeIcon} />
       </div>
       <div className={`Home-call-to-action-container flexContainerRow`} >
         <Text className='Home-text Home-large-font' text='Build community spirit in Edinburgh' />
