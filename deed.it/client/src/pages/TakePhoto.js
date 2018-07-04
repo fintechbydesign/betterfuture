@@ -14,9 +14,11 @@ class TakePhoto extends Component {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {};
-    this.video = createRef();
-    this.canvas = createRef();
-    this.image = createRef();
+    this.references = {
+      canvas: createRef(),
+      image: createRef(),
+      video: createRef()
+    };
   }
 
   componentDidMount () {
@@ -25,13 +27,13 @@ class TakePhoto extends Component {
 
   startVideo () {
     const constraints = { video: true };
-    const handleSuccess = (stream) => this.video.current.srcObject = stream;
+    const handleSuccess = (stream) => this.references.current.srcObject = stream;
     const handleError = (error) => console.error(error);
     navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
   }
 
   storeImage (src, width, height) {
-    const canvas = this.canvas.current;
+    const canvas = this.references.canvas.current;
     canvas.width = width;
     canvas.height = height;
     canvas.getContext('2d').drawImage(src, 0, 0, width, height);
@@ -40,8 +42,8 @@ class TakePhoto extends Component {
   }
 
   rotateImage () {
-    const { state, setState } = this;
-    const canvas = this.canvas.current;
+    const { references, setState, state } = this;
+    const canvas = references.canvas.current;
     const { height, width } = canvas;
     const context = canvas.getContext('2d');
     context.imageSmoothingEnabled = false;
@@ -61,13 +63,13 @@ class TakePhoto extends Component {
   }
 
   captureVideo () {
-    const video = this.video.current;
+    const video = this.references.video.current;
     const { videoWidth, videoHeight } = video;
     this.storeImage(video, videoWidth, videoHeight);
   }
 
   showPhoto () {
-    this.image.current.src = this.state.imageData;
+    this.references.image.current.src = this.state.imageData;
   }
 
   getUIProperties () {
