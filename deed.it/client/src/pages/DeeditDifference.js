@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Image from '../components/Image'
+import Image from '../components/Image';
 import ProgressBar from '../components/ProgressBar';
 import Text from '../components/Text';
 import Title from '../components/Title';
@@ -11,11 +11,10 @@ const timeout = 9000;
 
 // three modes : fetch / show / timeout
 class DeeditDifference extends Component {
-
   constructor (props) {
     super(props);
     this.show = this.show.bind(this);
-    this.state = { mode: 'fetch' }
+    this.state = { mode: 'fetch' };
   }
 
   componentDidMount () {
@@ -61,12 +60,12 @@ class DeeditDifference extends Component {
     const errorProps = {
       className: (mode === 'timeout') ? 'DeeditDifference-show' : 'hidden',
       text: 'Sorry - deedit statistics cannot be shown at this time. :-('
-    }
+    };
     return (
       <div className='page'>
-        <Title text='Small deeds make a big difference'/>
-        <ProgressBar { ...progressProps } />
-        <Image { ...imageProps } />
+        <Title text='Small deeds make a big difference' />
+        <ProgressBar {...progressProps} />
+        <Image {...imageProps} />
         <Text {...errorProps} />
       </div>
     );

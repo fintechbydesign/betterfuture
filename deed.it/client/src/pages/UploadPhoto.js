@@ -1,3 +1,5 @@
+/* global Image */
+
 import React, { createRef, Component } from 'react';
 import Button from '../components/Button';
 import ImageComponent from '../components/Image';
@@ -18,10 +20,9 @@ const methods = [
 ];
 
 class UploadPhoto extends Component {
-
   constructor (props) {
     super(props);
-    methods.forEach((method) => this[method] = this[method].bind(this));
+    methods.forEach((method) => { this[method] = this[method].bind(this); });
     this.state = {};
     this.references = {
       canvas: createRef(),
@@ -62,7 +63,7 @@ class UploadPhoto extends Component {
     canvas.height = height;
     canvas.getContext('2d').drawImage(src, 0, 0, width, height);
     const imageData = canvas.toDataURL('image/png');
-    this.setState({...this.state, imageData });
+    this.setState({ ...this.state, imageData });
   }
 
   rotateImage (angle) {
@@ -83,7 +84,7 @@ class UploadPhoto extends Component {
       context.drawImage(image, 0, 0);
       const imageData = canvas.toDataURL('image/png');
       setState({...state, imageData});
-    }
+    };
   }
 
   showPhoto () {
@@ -117,16 +118,16 @@ class UploadPhoto extends Component {
     return (
       <div className='flexContainerRow UploadPhoto-toolbar'>
         <div className='UploadPhoto-toolbar-item'>
-          <ImageComponent src={temp} className='UploadPhoto-toolbar-image'/>
+          <ImageComponent src={temp} className='UploadPhoto-toolbar-image' />
           {renderInput('Change')}
         </div>
         <div className='UploadPhoto-toolbar-item' onClick={rotateImage.bind(null, (Math.PI / 2))} >
-          <ImageComponent src={temp} className='UploadPhoto-toolbar-image'/>
+          <ImageComponent src={temp} className='UploadPhoto-toolbar-image' />
           <div>Rotate</div>
         </div>
       </div>
     );
-  };
+  }
 
   render () {
     const { props, renderInput, renderToolbar, references, showPhoto, state } = this;
@@ -136,16 +137,16 @@ class UploadPhoto extends Component {
 
     const imageProps = {
       className: (imageData) ? 'flexFixedSize UploadPhoto-image' : 'hidden',
-      ref: image,
+      ref: image
     };
     const imageControls = (imageData)
       ? renderToolbar()
       : renderInput('Select a picture', 'Component-default Button-default');
     const buttonProps = {
       className: (imageData) ? '' : 'hidden',
-      onClick: completeDeed.bind(null, { deed, imageData, locationPromise } ),
+      onClick: completeDeed.bind(null, { deed, imageData, locationPromise }),
       text: 'Send picture as evidence'
-    }
+    };
 
     if (imageData) {
       showPhoto();

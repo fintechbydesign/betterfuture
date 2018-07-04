@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import Image from './Image';
 import Text from './Text';
 import './DeedSummary.css';
-import DeedTypeSummary from "./DeedTypeSummary";
+import DeedTypeSummary from './DeedTypeSummary';
 import expand from '../images/chevron-down.svg';
 import contract from '../images/chevron-up.svg';
 
 class DeedSummary extends Component {
-
   constructor (props) {
     super(props);
     this.toggleExpansion = this.toggleExpansion.bind(this);
     this.state = {
       expanded: props.expand
-    }
+    };
   }
 
   toggleExpansion () {
@@ -36,10 +35,10 @@ class DeedSummary extends Component {
     };
     const deedImageProps = (src)
       ? {
-          onClick: onImageClick,
-          src,
-          type: 'userImage'
-        }
+        onClick: onImageClick,
+        src,
+        type: 'userImage'
+      }
       : null;
     const deedTypeProps = {
       buttonText,
@@ -65,7 +64,7 @@ class DeedSummary extends Component {
       <div className={divClassName} key={key}>
         <div onClick={this.toggleExpansion}>
           <Image {...toggleImageProps} />
-          <Text text={deedTypeId}/>
+          <Text text={deedTypeId} />
         </div>
         {expandedContents}
       </div>

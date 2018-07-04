@@ -5,7 +5,7 @@ let mappedDeedTypes;
 
 const populateDeedTypesMap = (deedHierarchy) => {
   // add styles to each superdeed and to their child deed types
-  for (let index = 0 ; index < deedHierarchy.length; index++) {
+  for (let index = 0; index < deedHierarchy.length; index++) {
     deedHierarchy[index].style = superDeedStyles[index];
     deedHierarchy[index].deedTypes.forEach((deedType) => deedType.style = superDeedStyles[index]);
   }
@@ -26,7 +26,7 @@ const populateDeedTypesMap = (deedHierarchy) => {
 };
 
 const appendDeedTypeProps = (deed) => {
-  return {...mappedDeedTypes[deed.deedTypeId], ...deed}
+  return {...mappedDeedTypes[deed.deedTypeId], ...deed};
 };
 
 const getDeedHierarchy = async() => {
@@ -69,7 +69,7 @@ const updateDeed = async(deed) => {
   const { id: deedId, status: deedStatus, evidenceType, latitude, longitude, src } = deed;
   const endPoint = 'deeditSetDeedStatus';
   return postData(endPoint, { deedId, deedStatus, evidenceType, latitude, longitude, src });
-}
+};
 
 export {
   createDeed,

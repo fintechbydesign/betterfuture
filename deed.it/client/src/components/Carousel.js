@@ -1,5 +1,5 @@
 import React from 'react';
-import Slider from "react-slick";
+import Slider from 'react-slick';
 import './Carousel.css';
 // import './slick.css';
 // import './slick-theme.css';
@@ -10,13 +10,13 @@ const defaultProps = {
   infinite: true,
   speed: 500,
   slidesToShow: 1,
-  slidesToScroll: 1,
+  slidesToScroll: 1
 };
 
 const defaultAnimateProps = {
   autoplay: true,
   autoplaySpeed: 0
-}
+};
 
 function Carousel (props) {
   const { animate, selected, slides, ...theRest } = props;
@@ -26,7 +26,7 @@ function Carousel (props) {
     ...animateProps,
     ...theRest,
     afterChange: selected
-  }
+  };
   return (
     <Slider {...sliderProps} >
       {slides}

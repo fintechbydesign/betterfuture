@@ -57,7 +57,7 @@ const postData = async(endpoint, body) => {
   if (body) {
     options.body = JSON.stringify(body);
   }
-  console.log('PostData body"', JSON.stringify(options,null,2));
+  console.log('PostData body"', JSON.stringify(options, null, 2));
   const response = await fetch(endPoint, options);
   if (!response.ok) {
     throw createError(endPoint, response);

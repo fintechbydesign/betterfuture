@@ -28,4 +28,4 @@ export default [
     icon: happyIcon,
     index: 2
   }
-  ];
+];

@@ -1,5 +1,5 @@
-import { createDeed, getUserDeeds, REFRESH } from "../data/deeds";
-import { updateLocalUser } from "../data/user";
+import { createDeed, getUserDeeds, REFRESH } from '../data/deeds';
+import { updateLocalUser } from '../data/user';
 
 async function startDeed (user, deedType, pages) {
   const { error, myProfile } = pages;
@@ -16,6 +16,5 @@ async function startDeed (user, deedType, pages) {
     error({err});
   }
 }
-
 
 export default startDeed;

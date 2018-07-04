@@ -5,12 +5,12 @@ import { version } from '../../package';
 import './AboutUs.css';
 import './legalese.css';
 
-function AboutUs(props) {
+function AboutUs (props) {
   const { privacy, termsAndConditions} = props;
 
   return (
     <div className='page'>
-      <Title text="It's all about us"/>
+      <Title text="It's all about us" />
       <div className='Legalese-container'>
         <h1>
           Wondering what Deedit is all about?
@@ -53,7 +53,7 @@ function AboutUs(props) {
           Contact Us
         </h1>
         <p>
-          You can get in touch on email at <a href="mailto:info@deedit.org">info@deedit.org</a>
+          You can get in touch on email at <a href='mailto:info@deedit.org'>info@deedit.org</a>
         </p>
       </div>
       <Text text={`app version ${version}`} className='AboutUs-version' />

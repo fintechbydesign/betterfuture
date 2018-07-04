@@ -3,7 +3,6 @@ import { Line } from 'rc-progress';
 import './ProgressBar.css';
 
 class ProgressBar extends Component {
-
   static getDerivedStateFromProps (props, state) {
     return { ...state, ...props };
   }
@@ -15,7 +14,7 @@ class ProgressBar extends Component {
     const { duration } = props;
     if (duration) {
       const autoIncrementInterval = duration / 20;
-      this.state = { autoIncrementInterval, percent: 0 }
+      this.state = { autoIncrementInterval, percent: 0 };
       setTimeout(this.autoIncrement, autoIncrementInterval);
     }
   }
@@ -30,23 +29,23 @@ class ProgressBar extends Component {
 
   autoIncrementProgress () {
     const { autoIncrementInterval, percent } = this.state;
-      let increment;
-      if (percent > 100 ) {
-        increment = -percent;
-      } else if (percent < 50) {
-        increment = 10;
-      } else if (percent < 80) {
-        increment = 5;
-      } else {
-        increment = 1;
-      }
-      const newPercent = percent + increment;
-      this.setState({
-        ...this.state,
-        percent: newPercent
-      });
+    let increment;
+    if (percent > 100) {
+      increment = -percent;
+    } else if (percent < 50) {
+      increment = 10;
+    } else if (percent < 80) {
+      increment = 5;
+    } else {
+      increment = 1;
+    }
+    const newPercent = percent + increment;
+    this.setState({
+      ...this.state,
+      percent: newPercent
+    });
     const interval = (newPercent === 0) ? 3 * autoIncrementInterval : autoIncrementInterval;
-      setTimeout(this.autoIncrement, interval);
+    setTimeout(this.autoIncrement, interval);
   }
 
   render () {
@@ -59,9 +58,7 @@ class ProgressBar extends Component {
       ? '#D9D9D9'
       : (percent < 1)
       ? '#D9D9D9'
-      : (color)
-      ? color
-      : '#002E4A';
+      : (color) || '#002E4A';
     const lineProps = {
       percent,
       strokeColor

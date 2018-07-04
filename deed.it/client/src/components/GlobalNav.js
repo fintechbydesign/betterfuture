@@ -9,7 +9,7 @@ function NavItem (props) {
   const { onClick, text, src } = props;
   return (
     <div className='GlobalNav-item' onClick={onClick}>
-      <Image src={src} className='GlobalNav-image'/>
+      <Image src={src} className='GlobalNav-image' />
       <div>{text}</div>
     </div>
   );
@@ -17,7 +17,7 @@ function NavItem (props) {
 
 function GlobalNav (props) {
   const { aboutUs, home, myProfile, pickADeed, user } = props;
-  const myDeedsAction =  user.registered ? myProfile : pickADeed;
+  const myDeedsAction = user.registered ? myProfile : pickADeed;
   return (
     <footer className='flexContainerRow GlobalNav-container'>
       <NavItem src={homeImage} text='Home' onClick={home} />

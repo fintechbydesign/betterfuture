@@ -17,7 +17,7 @@ function Badge (props) {
       'Back to ',
       (<a key='link' onClick={myProfile}>My Profile</a>)
     ]
-  }
+  };
   return (
     <div>
       <BadgeIcon {...badgeProps} />

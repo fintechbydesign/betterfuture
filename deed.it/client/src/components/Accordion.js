@@ -12,7 +12,7 @@ function MyAccordion (props) {
       className,
       bodyClassName,
       titleClassName
-    }
+    };
     return (<AccordionItem {...itemProps} >{content}</AccordionItem>);
   });
 

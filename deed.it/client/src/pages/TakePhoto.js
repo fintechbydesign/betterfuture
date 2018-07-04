@@ -1,3 +1,5 @@
+/* global Image */
+
 // with thanks to https://www.html5rocks.com/en/tutorials/getusermedia/intro/
 
 import React, { createRef, Component } from 'react';
@@ -7,12 +9,21 @@ import Title from '../components/Title.js';
 import { initS3 } from '../data/S3';
 import './TakePhoto.css';
 
-const methods = ['captureVideo', 'reset', 'rotateImage', 'setState', 'showPhoto', 'startVideo', 'storeImage', 'getUIProperties'];
+const methods = [
+    'captureVideo',
+    'reset',
+    'rotateImage',
+    'setState',
+    'showPhoto',
+    'startVideo',
+    'storeImage',
+    'getUIProperties'
+];
 
 class TakePhoto extends Component {
   constructor (props) {
     super(props);
-    methods.forEach((method) => this[method] = this[method].bind(this));
+    methods.forEach((method) => { this[method] = this[method].bind(this); });
     this.state = {};
     this.references = {
       canvas: createRef(),
@@ -27,7 +38,7 @@ class TakePhoto extends Component {
 
   startVideo () {
     const constraints = { video: true };
-    const handleSuccess = (stream) => this.references.current.srcObject = stream;
+    const handleSuccess = (stream) => { this.references.video.current.srcObject = stream; };
     const handleError = (error) => console.error(error);
     navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
   }
@@ -38,7 +49,7 @@ class TakePhoto extends Component {
     canvas.height = height;
     canvas.getContext('2d').drawImage(src, 0, 0, width, height);
     const imageData = canvas.toDataURL('image/png');
-    this.setState({...this.state, imageData });
+    this.setState({ ...this.state, imageData });
   }
 
   rotateImage () {
@@ -59,7 +70,7 @@ class TakePhoto extends Component {
       context.drawImage(image, 0, 0);
       const imageData = canvas.toDataURL('image/png');
       setState({...state, imageData});
-    }
+    };
   }
 
   captureVideo () {
@@ -79,7 +90,7 @@ class TakePhoto extends Component {
       // show picture
       return {
         buttonProps: {
-          onClick: completeDeed.bind(null, { deed, imageData, locationPromise } ),
+          onClick: completeDeed.bind(null, { deed, imageData, locationPromise }),
           text: 'Send picture as evidence'
         },
         imageClass: 'TakePhoto-image',
@@ -116,6 +127,8 @@ class TakePhoto extends Component {
   }
 
   render () {
+    const { references } = this;
+    const { canvas, image, video } = references;
     const { buttonProps, imageClass, instruction, setupFn, videoClass } = this.getUIProperties();
     const button = buttonProps ? (<Button {...buttonProps} />) : null;
     setupFn();
@@ -123,9 +136,9 @@ class TakePhoto extends Component {
       <div className='page'>
         <Title text='Take a photo of your deed.' />
         <Text contents={instruction} />
-        <video ref={this.video} autoPlay onClick={this.captureVideo} className={videoClass} />
-        <img ref={this.image} alt='what will be submitted' onClick={this.reset} className={imageClass} />
-        <canvas ref={this.canvas} className='hidden' />
+        <video ref={video} autoPlay onClick={this.captureVideo} className={videoClass} />
+        <img ref={image} alt='what will be submitted' onClick={this.reset} className={imageClass} />
+        <canvas ref={canvas} className='hidden' />
         {button}
       </div>
     );

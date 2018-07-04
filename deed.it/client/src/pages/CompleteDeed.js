@@ -7,11 +7,11 @@ import Text from '../components/Text';
 import Thanks from '../components/Thanks';
 import Title from '../components/Title';
 import badges from '../../../common/src/images/badges';
-import { prepareUpload } from "../data/S3";
-import { getUserDeeds, REFRESH, updateDeed } from "../data/deeds";
-import { createEvent } from "../data/events";
+import { prepareUpload } from '../data/S3';
+import { getUserDeeds, REFRESH, updateDeed } from '../data/deeds';
+import { createEvent } from '../data/events';
 import './CompleteDeed.css';
-import {updateLocalUser} from "../data/user";
+import {updateLocalUser} from '../data/user';
 
 const texts = [
   'Smashing it! See how all the good deeds being done are making a big impact in Edinburgh',
@@ -21,18 +21,17 @@ const texts = [
 const methods = ['createNewEvents', 'createUploadArtifacts', 'setProgress', 'updateImage'];
 
 class CompleteDeed extends Component {
-
   constructor (props) {
     super(props);
     const { deed, imageData } = this.props;
     const { icon } = deed.style;
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
-      imageSrc: (imageData) ? imageData : icon,
+      imageSrc: (imageData) || icon,
       imageClass: 'fadein',
       progressPercent: 0,
       progressText: 'Reporting deed done...'
-    }
+    };
   }
 
   async createUploadArtifacts () {
@@ -43,17 +42,17 @@ class CompleteDeed extends Component {
       const uploadProgress = await prepareUpload(deed, imageName, imageData);
       uploadProgress.on('httpUploadProgress', (progress) => {
         const { loaded, total } = progress;
-        const percentage = Math.round( 100 * loaded / total );
+        const percentage = Math.round(100 * loaded / total);
         setProgress(null, percentage);
       });
       const uploadPromise = uploadProgress.promise();
       return { imageName, uploadPromise };
     } else {
-      return { uploadPromise:  Promise.resolve() };
+      return { uploadPromise: Promise.resolve() };
     }
   }
 
-  async createNewEvents()  {
+  async createNewEvents () {
     const { deed, user } = this.props;
     const { nickname, username } = user;
     const { id: deedId, superDeedId } = deed;
@@ -72,7 +71,7 @@ class CompleteDeed extends Component {
         break;
       default:
         // either one at random
-        if(Date.now() % 2 === 0) {
+        if (Date.now() % 2 === 0) {
           newEvents.push({ src: `${superDeedId}_first`, ...eventProps });
         } else {
           newEvents.push({ src: `${superDeedId}_second`, ...eventProps });
@@ -99,8 +98,8 @@ class CompleteDeed extends Component {
       const events = await this.createNewEvents();
       events.forEach((event, index) => {
         const { icon } = badges[event.src];
-        setTimeout(this.updateImage.bind(this, icon), index * 2000 );
-      })
+        setTimeout(this.updateImage.bind(this, icon), index * 2000);
+      });
       setProgress('Updating your profile...', (imageData) ? 60 : 0);
       // update user deeds before showing profile
       await getUserDeeds(user, REFRESH);
@@ -121,12 +120,10 @@ class CompleteDeed extends Component {
 
   setProgress (text, percent) {
     const { state } = this;
-    const progressPercent = (percent) ? percent : state.progressPercent;
+    const progressPercent = (percent) || state.progressPercent;
     const progressText = (progressPercent === 100)
       ? 'All done'
-      : (text)
-        ? text
-        : state.progressText;
+      : (text) || state.progressText;
     this.setState({
       ...state,
       progressPercent,
@@ -174,6 +171,6 @@ class CompleteDeed extends Component {
 CompleteDeed.propTypes = {
   deed: PropTypes.object.isRequired,
   imageData: PropTypes.string
-}
+};
 
 export default CompleteDeed;

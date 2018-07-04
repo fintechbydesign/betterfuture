@@ -5,13 +5,13 @@ const positionsObject = {
 };
 
 const getLocation = () => new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(
+  navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(`Position found: ${JSON.stringify(position,null, 2)}`);
+        console.log(`Position found: ${JSON.stringify(position, null, 2)}`);
         const location = {
           longitude: position.coords.longitude,
           latitude: position.coords.latitude
-        }
+        };
         resolve(location);
       },
       (err) => {
@@ -20,7 +20,7 @@ const getLocation = () => new Promise((resolve, reject) => {
       },
       positionsObject
     );
-  }
+}
 );
 const noService = () => Promise.resolve(null);
 

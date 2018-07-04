@@ -29,7 +29,7 @@ class Evidence extends Component {
     const takePhoto = this.setPage.bind(this, 'takePhoto');
     const pledge = this.setPage.bind(this, 'pledge');
     const upload = this.setPage.bind(this, 'uploadPhoto');
-    return ('iOS' === name)
+    return (name === 'iOS')
       ? [
         { name: 'evidence', text: 'Send a photo', onChange: upload },
         { name: 'evidence', text: 'Sign the Deedit pledge', onChange: pledge }
@@ -69,11 +69,11 @@ class Evidence extends Component {
 
     const tandcsContent = [
       'By uploading a photo, you accept our ',
-      (<a key='link' onClick={termsAndConditions} >Terms of Use</a> )
+      (<a key='link' onClick={termsAndConditions} >Terms of Use</a>)
     ];
     const tandcsClass = (requireTandCs) ? 'Evidence-tandcs-container dropin' : 'hidden';
 
-    const locationText="We would like to capture your location so that we can show where the good deeds are being done." +
+    const locationText = 'We would like to capture your location so that we can show where the good deeds are being done.' +
       "  You can let us know if you're OK with that.";
 
     const buttonDisabled = !page || (requireTandCs && !acceptTandCs);
@@ -91,7 +91,7 @@ class Evidence extends Component {
           <Text text="Where's your deed at" className='Evidence-bold' />
           <Text text={locationText} />
         </div>
-        <Button onClick={this.nextPage} disabled={buttonDisabled} text="Next" />
+        <Button onClick={this.nextPage} disabled={buttonDisabled} text='Next' />
       </div>
     );
   }

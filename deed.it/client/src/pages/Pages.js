@@ -63,7 +63,7 @@ class Pages extends Component {
   constructor (props) {
     super(props);
     this.reset = this.reset.bind(this);
-    this.updateHistory= this.updateHistory.bind(this);
+    this.updateHistory = this.updateHistory.bind(this);
     this.state = this.createInitialState();
     this.state.navigationMethods = this.createNavigationMethods();
     if (window.history) {

@@ -7,26 +7,25 @@ import './global.css';
 const methods = ['renderError', 'logError'];
 
 class App extends Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props);
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = { error: null };
   }
 
-  componentDidCatch(error, info) {
-    console.log( `App error caught: ${error} : ${info}`);
+  componentDidCatch (error, info) {
+    console.log(`App error caught: ${error} : ${info}`);
     this.logError(error.message, info);
     this.setState({ error });
   }
 
-  async logError(error, info) {
+  async logError (error, info) {
     try {
       const { userAgent } = navigator;
       const body = { error, info, userAgent, version };
       await postData('deeditLogError', body);
     } catch (err) {
-      console.log( `Error logging error ${err}`);
+      console.log(`Error logging error ${err}`);
     }
   }
 

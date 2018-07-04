@@ -23,8 +23,8 @@ function TermsAndConditions (props) {
          Who we are
         </h1>
         <p>
-          The Project is organised and run by Tesco Personal Finance plc, trading as 'Tesco Bank' trading as '"Tesco Bank' and part of the Tesco Group (<a href="www.tescoplc.com/about-us">www.tescoplc.com/about-us</a>) ("Tesco Bank", "we", "us", "our") and is a part of a showcase of prototypes and interactive installations by Edinburgh University.  The deedit project will run from 2 – 25 August (inclusive) as part of an exhibition called "Data Pipe Dreams: Glimpses of a Near Future".
-          To find out more, go to: <a href="www.designinformatics.org/event/data-pipe-dreams">www.designinformatics.org/event/data-pipe-dreams</a>.
+          The Project is organised and run by Tesco Personal Finance plc, trading as 'Tesco Bank' trading as '"Tesco Bank' and part of the Tesco Group (<a href='www.tescoplc.com/about-us'>www.tescoplc.com/about-us</a>) ("Tesco Bank", "we", "us", "our") and is a part of a showcase of prototypes and interactive installations by Edinburgh University.  The deedit project will run from 2 – 25 August (inclusive) as part of an exhibition called "Data Pipe Dreams: Glimpses of a Near Future".
+          To find out more, go to: <a href='www.designinformatics.org/event/data-pipe-dreams'>www.designinformatics.org/event/data-pipe-dreams</a>.
         </p>
         <p>
           As part of the Edinburgh festival, Tesco Bank is partnering with Social Bite, a local charity which aims to eradicate homelessness in Edinburgh.
@@ -124,7 +124,7 @@ function TermsAndConditions (props) {
           Contact Us
         </h1>
         <p>
-          Please contact us at <a href="mailto:hi@deedit.org">hi@deedit.org</a> or call 0345 0716155
+          Please contact us at <a href='mailto:hi@deedit.org'>hi@deedit.org</a> or call 0345 0716155
         </p>
       </div>
     </div>

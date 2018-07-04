@@ -46,13 +46,13 @@ const registerUser = async(user) => {
     registered: true
   });
   return getLocalUser();
-}
+};
 
 const removeUser = async(user) => {
   const { username } = user;
   const endpoint = 'deeditRemoveUser';
   await postData(endpoint, { username });
-}
+};
 
 export {
   createLocalUser,

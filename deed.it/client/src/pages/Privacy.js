@@ -5,7 +5,6 @@ import Title from '../components/Title';
 import './legalese.css';
 
 class Privacy extends Component {
-
   constructor (props) {
     super(props);
     this.reset = this.reset.bind(this);
@@ -34,7 +33,7 @@ class Privacy extends Component {
 
     return (
       <div className='page'>
-        <Title text='Deedit Privacy Policy'/>
+        <Title text='Deedit Privacy Policy' />
         <div className='Legalese-container'>
           <h1>
             Introduction
@@ -83,7 +82,7 @@ class Privacy extends Component {
           <p>
             We will share information with our third party website and data hosting provider, Amazon Web Services ("AWS").  We do this so that we can host and operate the deedit website.  AWS may send personal data outside the European Economic Area. For more information, including on how we safeguard your personal information when this occurs, see below: ‘Transferring your personal information out of the EEA'.
           </p>
-           <h1>
+          <h1>
               How long your personal information will be kept
            </h1>
           <p>
@@ -166,7 +165,7 @@ class Privacy extends Component {
           </h1>
           <p>
             The Information Commissioner’s Office is the UK’s independent authority set up to uphold information rights, and promote data privacy for individuals. Their website is
-            <a href="www.ico.org.uk"> www.ico.org.uk</a>.
+            <a href='www.ico.org.uk'> www.ico.org.uk</a>.
           </p>
           <p>
             If you have a complaint or concern about how we have handled your personal data and we have not been able to sort it out to your satisfaction, you have the right to lodge a complaint with the ICO.
@@ -191,7 +190,7 @@ class Privacy extends Component {
           </p>
 
         </div>
-        <Text contents={forgetme}/>
+        <Text contents={forgetme} />
         {progressBar}
       </div>
     );

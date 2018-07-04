@@ -4,7 +4,7 @@ import './Image.css';
 
 function createSrc (props) {
   const { src, type } = props;
-  const key = (type) ? type : 'webImage';
+  const key = (type) || 'webImage';
 
   if (key in rootURLs) {
     return `${rootURLs[key]}${src}`;

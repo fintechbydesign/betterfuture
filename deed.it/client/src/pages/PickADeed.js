@@ -49,7 +49,7 @@ class PickADeed extends Component {
   }
 
   selectDeed () {
-    const {  error, myProfile, register, user } = this.props;
+    const { error, myProfile, register, user } = this.props;
     const { registered } = user;
     const { deedType } = this.state;
     if (registered) {
@@ -61,7 +61,7 @@ class PickADeed extends Component {
 
   renderDeedType (deedType, index) {
     const props = {
-      buttonText:'Do this deed',
+      buttonText: 'Do this deed',
       deedType,
       key: index,
       onClick: this.selectDeed
@@ -97,7 +97,7 @@ class PickADeed extends Component {
         },
         text: 'Fetching available deeds...'
       };
-      return (<ProgressBar { ...progressProps } />);
+      return (<ProgressBar {...progressProps} />);
     }
     const titleText = (deedType) ? 'Pick A Deed' : 'Pick A Mega Deed';
     const introClassName = (deedType) ? 'hidden' : 'PickADeed-intro';
@@ -109,23 +109,23 @@ class PickADeed extends Component {
       titleClassName: `PickADeed-header ${superDeed.style.className}`
     }));
     const onChange = ({activeItems}) => {
-      if(activeItems.length) {
+      if (activeItems.length) {
         const index = activeItems[0];
         this.setSelected(deedHierarchy[index].deedTypes[0]);
       } else {
         this.setSelected();
       }
     };
-    const accordionProps = { items, onChange }
+    const accordionProps = { items, onChange };
     return (
-      <div className="page flexContainerColumn">
-        <Title text={titleText}  className='PickADeed-title' />
+      <div className='page flexContainerColumn'>
+        <Title text={titleText} className='PickADeed-title' />
         <div className={introClassName}>
           <Text text='Together we can tackle 3 big issues in Edinburgh.' />
           <Text text="How? By getting involved you are collectively taking action towards improving Edinburgh's people and places." />
           <Text text='Choose the mega deed you want to contribute to:' />
         </div>
-        <div className="PickADeed-accordion-container">
+        <div className='PickADeed-accordion-container'>
           <Accordion {...accordionProps} />
         </div>
       </div>

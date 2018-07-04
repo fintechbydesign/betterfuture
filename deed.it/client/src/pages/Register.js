@@ -13,7 +13,7 @@ import cities from '../data/city';
 import countries from '../data/country.js';
 import flags from '../../../common/src/images/flags';
 import './Register.css';
-import Image from "../components/Image";
+import Image from '../components/Image';
 
 const isScotland = (country) => country === 'Scotland';
 
@@ -102,7 +102,7 @@ class Register extends Component {
       };
       updatedUser = await registerUser(updatedUser);
       this.updateProgress('Assigning the deed to you...');
-      startDeed(updatedUser, deedType,  { error, myProfile });
+      startDeed(updatedUser, deedType, { error, myProfile });
     } catch (err) {
       error({err});
     }
@@ -115,13 +115,13 @@ class Register extends Component {
 
     const cityClassName = isScotland(country) ? 'Register-show-city dropin' : 'hidden';
     const underageClassName = isUnderage(age) ? 'Register-show-age dropin' : 'hidden';
-    const buttonEnabled
-      = age
-      && (!isUnderage(age) || underage)
-      && country
-      && (!isScotland(country) || city)
-      && nickname
-      && nickname.trim().length >= 2;
+    const buttonEnabled =
+      age &&
+      (!isUnderage(age) || underage) &&
+      country &&
+      (!isScotland(country) || city) &&
+      nickname &&
+      nickname.trim().length >= 2;
 
     const tandcs = [
       'Read our ',
@@ -157,12 +157,12 @@ class Register extends Component {
     return (
       <div className='page'>
         <Title text='Thank you!' />
-        <Text text='You have picked:'/>
+        <Text text='You have picked:' />
         <div {...summaryContainerProps} >
           <DeedTypeSummary {...summaryProps} />
         </div>
         <Text text='Before you get started, we just need a few details so we can track the progress of your deeds.' />
-        <Text text='What can we call you?' className='Text-label'/>
+        <Text text='What can we call you?' className='Text-label' />
         <Input {...nickNameProps} />
         <Text text='Where are you from?' className='Text-label' />
         <Dropdown options={countries} onChange={this.updateCountry} placeholder='Please select your country...' />
@@ -171,7 +171,7 @@ class Register extends Component {
           <Dropdown options={cities} onChange={this.updateCity} placeholder='Please select your city...' />
         </div>
         <Text text='What age are you?' className='Text-label' />
-        <Dropdown options={ages} onChange={this.updateAge} placeholder='Please select your age...'/>
+        <Dropdown options={ages} onChange={this.updateAge} placeholder='Please select your age...' />
         <div className={underageClassName} >
           <Text containerType='label' text='My parent/guardian has given permission for me to take part in deedit' htmlFor='underage' />
           <input type='checkbox' id='underage' onChange={this.toggleUnderAge} checked={underage} />

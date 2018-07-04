@@ -6,12 +6,11 @@ import Title from '../components/Title';
 import scoutsHonour from '../images/pledge.svg';
 import './Pledge.css';
 
-
 function Pledge (props) {
   const { completeDeed, deed, locationPromise } = props;
   const buttonProps = {
-    onClick: completeDeed.bind(null, { deed, locationPromise } ),
-    text: 'I promise that I deed it',
+    onClick: completeDeed.bind(null, { deed, locationPromise }),
+    text: 'I promise that I deed it'
   };
   const imageProps = {
     className: 'Pledge-image',

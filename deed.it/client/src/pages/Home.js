@@ -11,7 +11,7 @@ import './Home.css';
 
 function renderHomeless (getInvolvedAction) {
   return (
-    <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[0].className}`}  onClick={getInvolvedAction}>
+    <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[0].className}`} onClick={getInvolvedAction}>
       <div className={`Home-superdeed-description-container flexContainerRow`}>
         <div className='flexContainerColumn'>
           <Text className='Home-text Home-x-large-plain-font' text='More than' />
@@ -31,7 +31,7 @@ function renderHomeless (getInvolvedAction) {
 
 function renderGreen (getInvolvedAction) {
   return (
-    <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[1].className}`}  onClick={getInvolvedAction}>
+    <div className={`Home-superdeed-container flexContainerColumn ${superdeedStyles[1].className}`} onClick={getInvolvedAction}>
       <div className={`Home-superdeed-description-container flexContainerRow`}>
         <div className='flexContainerColumn'>
           <Text className='Home-text Home-large-plain-font' text='Edinburgh spends' />
@@ -43,8 +43,8 @@ function renderGreen (getInvolvedAction) {
         <Image className='Home-superdeed-icon' src={superdeedStyles[1].icon} />
       </div>
       <div className={`Home-call-to-action-container flexContainerRow`} >
-        <Text className='Home-text Home-large-font' text="Help Edinburgh be greener" />
-        <Image src={chevron}  className='Home-chevron' />
+        <Text className='Home-text Home-large-font' text='Help Edinburgh be greener' />
+        <Image src={chevron} className='Home-chevron' />
       </div>
     </div>
   );
@@ -64,8 +64,8 @@ function renderHappy (getInvolvedAction) {
         <Image className='Home-superdeed-icon' src={superdeedStyles[2].icon} />
       </div>
       <div className={`Home-call-to-action-container flexContainerRow`} >
-        <Text className='Home-text Home-large-font' text="Build community spirit in Edinburgh" />
-        <Image src={chevron}  className='Home-chevron' />
+        <Text className='Home-text Home-large-font' text='Build community spirit in Edinburgh' />
+        <Image src={chevron} className='Home-chevron' />
       </div>
     </div>
   );
@@ -95,7 +95,7 @@ function Home (props) {
       {renderGreen(pickADeed)}
       {renderHappy(pickADeed)}
       <Title text={titleText} />
-      <Button { ...buttonProps } />
+      <Button {...buttonProps} />
       <Text contents={aboutUsContents} />
     </div>
   );

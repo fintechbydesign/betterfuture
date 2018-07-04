@@ -3,7 +3,6 @@ import Image from './Image';
 import Text from './Text';
 import './Thanks.css';
 
-
 const texts = [
   {
     title: 'Thank you from SocialBite',
@@ -36,7 +35,7 @@ function Thanks (props) {
         <Text text={texts[index].title} className='Thanks-title-text' />
       </div>
       <Text text={texts[index].text} className='Thanks-text' />
-      <Text contents={texts[index].content} className='Thanks-text'/>
+      <Text contents={texts[index].content} className='Thanks-text' />
     </div>
   );
 }

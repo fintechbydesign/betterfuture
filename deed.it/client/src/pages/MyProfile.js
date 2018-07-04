@@ -116,7 +116,7 @@ class MyProfile extends Component {
       return summaries;
     } else {
       return (
-        <div  className='MyProfile-InProgress'>
+        <div className='MyProfile-InProgress'>
           <Text text='You have no current deed' />
           <Button onClick={pickADeed} text='Pick a deed' />
         </div>
@@ -153,7 +153,7 @@ class MyProfile extends Component {
     return (<div>
       <Title text='Previous Deeds' />
       {previousDeeds}
-      </div>);
+    </div>);
   }
 
   render () {
@@ -168,7 +168,7 @@ class MyProfile extends Component {
         },
         text: 'Fetching your deeds...'
       };
-      return (<ProgressBar { ...progressProps } />);
+      return (<ProgressBar {...progressProps} />);
     }
 
     return (
