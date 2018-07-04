@@ -16,7 +16,22 @@ function AboutUs (props) {
           Wondering what Deedit is all about?
         </h1>
         <p>
-          Deedit is a social activism campaign running in Edinburgh throughout August.  We want to find out if encouraging lots of people to do small good deeds can add up to a much bigger outcome.
+          Deedit is a social activism campaign running in Edinburgh throughout August.  We want to find out if encouraging lots of people to do small good deeds can add up to a much bigger positive outcome.
+        </p>
+        <h1>
+          Who are we?
+        </h1>
+        <p>
+          We are project team who have developed this concept as pat of a showcase of interactive installations, created in collaboration between tesco Bank and Edinburgh University.
+        </p>
+        <p>
+          You can visit Deedit at an exhibition called <a href='https://www.eca.ed.ac.uk/event/data-pipe-dreams-glimpses-near-future' >Data Pipe Dreams: Glimpses of a near future</a> from 2-25 August on George St., Edinburgh.
+        </p>
+        <h1>
+          Contact Us
+        </h1>
+        <p>
+          You can get in touch on email at <a href='mailto:info@deedit.org'>info@deedit.org</a>
         </p>
         <h1>How does it all work?</h1>
         <p>
@@ -38,22 +53,10 @@ function AboutUs (props) {
           You can read more about <a onClick={privacy}>how we use your data</a> and our full <a onClick={termsAndConditions}>terms of use</a> if you want to know more.
         </p>
         <h1>
-          Who are we?
-        </h1>
-        <p>
-          Just a group of folk that work together (doing entry different day jobs!) in Edinburgh who are curious about how we can make a difference to our beautiful city.  The Edinburgh Fringe Festival gives us a unique opportunity to test out our theory about how encouraging mass good deeds really can add up.
-        </p>
-        <h1>
           Who are Social Bite?
         </h1>
         <p>
           Social Bite is on a mission to build a collaborative movement to end homelessness in Scoltand  They make houses available to the homeless and fund a support resource for people to sustain their tenancies, integrating the vulnerable and marginalised back into society - where they belong.
-        </p>
-        <h1>
-          Contact Us
-        </h1>
-        <p>
-          You can get in touch on email at <a href='mailto:info@deedit.org'>info@deedit.org</a>
         </p>
       </div>
       <Text text={`app version ${version}`} className='AboutUs-version' />

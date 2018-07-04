@@ -29,14 +29,16 @@ class Evidence extends Component {
     const takePhoto = this.setPage.bind(this, 'takePhoto');
     const pledge = this.setPage.bind(this, 'pledge');
     const upload = this.setPage.bind(this, 'uploadPhoto');
+    const separator = (<Text className='Evidence-separator' text='or' />);
+
     return (name === 'iOS')
       ? [
-        { name: 'evidence', text: 'Send a photo', onChange: upload },
+        { name: 'evidence', text: 'Send a photo', onChange: upload, separator },
         { name: 'evidence', text: 'Sign the Deedit pledge', onChange: pledge }
       ]
       : [
-        { name: 'evidence', text: 'Upload a photo', onChange: upload },
-        { name: 'evidence', text: 'Take a photo', onChange: takePhoto },
+        { name: 'evidence', text: 'Upload a photo', onChange: upload, separator },
+        { name: 'evidence', text: 'Take a photo', onChange: takePhoto, separator },
         { name: 'evidence', text: 'Sign the Deedit pledge', onChange: pledge }
       ];
   }

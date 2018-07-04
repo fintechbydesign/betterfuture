@@ -9,3 +9,9 @@
 .Evidence-bold {
     font-weight: bold;
 }
+
+.Evidence-separator {
+    padding-left: 10vw;
+    font-family: 'Bungee Inline';
+    font-size: 8vw;
+}

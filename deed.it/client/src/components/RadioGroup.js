@@ -2,12 +2,13 @@ import React from 'react';
 import './RadioGroup.css';
 
 function renderRadio (radioOption, index) {
-  const { onChange, name, text } = radioOption;
+  const { onChange, name, separator, text } = radioOption;
   const id = `id_${index}`;
   return (
     <div key={id} >
       <input type='radio' id={id} name={name} onChange={onChange} />
       <label htmlFor={id}>{text}</label>
+      {separator}
     </div>
   );
 }
