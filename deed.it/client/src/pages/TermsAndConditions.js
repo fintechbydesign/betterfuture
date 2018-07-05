@@ -1,10 +1,12 @@
 import React from 'react';
+import Back from '../components/Back';
 import Title from '../components/Title';
 import './legalese.css';
 
 function TermsAndConditions (props) {
   return (
     <div className='page'>
+      <Back back={props.back} />
       <Title text='Terms of Use' />
       <div className='Legalese-container'>
         <h1>
@@ -127,6 +129,7 @@ function TermsAndConditions (props) {
           Please contact us at <a href='mailto:hi@deedit.org'>hi@deedit.org</a> or call 0345 0716155
         </p>
       </div>
+      <Back back={props.back} />
     </div>
   );
 }

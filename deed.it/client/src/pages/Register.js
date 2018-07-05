@@ -91,7 +91,7 @@ class Register extends Component {
   }
 
   async getStarted () {
-    const { deedType, error, myProfile, user } = this.props;
+    const { deedType, error, exhort, user } = this.props;
     const { age, city, country, nickname } = this.state;
     try {
       this.updateProgress('Registering you as a deedit do-er!');
@@ -102,7 +102,7 @@ class Register extends Component {
       };
       updatedUser = await registerUser(updatedUser);
       this.updateProgress('Assigning the deed to you...');
-      startDeed(updatedUser, deedType, { error, myProfile });
+      startDeed(updatedUser, deedType, { error, exhort });
     } catch (err) {
       error({err});
     }

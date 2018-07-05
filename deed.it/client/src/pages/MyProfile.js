@@ -57,11 +57,11 @@ class MyProfile extends Component {
   }
 
   async doDeedAgain (deed) {
-    const { error, myProfile, user } = this.props;
+    const { error, exhort, user } = this.props;
     const fakeDeedType = {
       id: deed.deedTypeId
     };
-    await startDeed(user, fakeDeedType, { error, myProfile });
+    await startDeed(user, fakeDeedType, { error, exhort });
     this.fetchDeeds();
   }
 

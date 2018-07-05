@@ -20,6 +20,7 @@ import CompleteDeed from './CompleteDeed';
 import DeeditDifference from './DeeditDifference';
 import Error from './Error.js';
 import Evidence from './Evidence';
+import Exhort from './Exhort';
 import FetchError from './FetchError';
 import GlobalNav from '../components/GlobalNav';
 import Home from './Home';
@@ -43,6 +44,7 @@ const pages = {
   'deeditDifference': DeeditDifference,
   'evidence': Evidence,
   'error': Error,
+  'exhort': Exhort,
   'fetchError': FetchError,
   'home': Home,
   'myProfile': MyProfile,

@@ -2,7 +2,7 @@ import { createDeed, getUserDeeds, REFRESH } from '../data/deeds';
 import { updateLocalUser } from '../data/user';
 
 async function startDeed (user, deedType, pages) {
-  const { error, myProfile } = pages;
+  const { error, exhort } = pages;
   try {
     await createDeed(user, deedType.id);
     // update user deeds before showing profile
@@ -11,7 +11,7 @@ async function startDeed (user, deedType, pages) {
       ...user,
       openDeedCount: user.openDeedCount + 1
     });
-    myProfile();
+    exhort();
   } catch (err) {
     error({err});
   }

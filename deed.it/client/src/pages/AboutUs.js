@@ -1,4 +1,5 @@
 import React from 'react';
+import Back from '../components/Back';
 import Text from '../components/Text';
 import Title from '../components/Title';
 import { version } from '../../package';
@@ -10,6 +11,7 @@ function AboutUs (props) {
 
   return (
     <div className='page'>
+      <Back back={props.back} />
       <Title text="It's all about us" />
       <div className='Legalese-container'>
         <h1>
@@ -59,6 +61,7 @@ function AboutUs (props) {
           Social Bite is on a mission to build a collaborative movement to end homelessness in Scoltand  They make houses available to the homeless and fund a support resource for people to sustain their tenancies, integrating the vulnerable and marginalised back into society - where they belong.
         </p>
       </div>
+      <Back back={props.back} />
       <Text text={`app version ${version}`} className='AboutUs-version' />
     </div>
   );

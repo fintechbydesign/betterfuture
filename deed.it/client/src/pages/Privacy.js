@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Back from '../components/Back';
 import ProgressBar from '../components/ProgressBar';
 import Text from '../components/Text';
 import Title from '../components/Title';
@@ -22,6 +23,7 @@ class Privacy extends Component {
   }
 
   render () {
+    const { back } = this.props;
     const { progress } = this.state;
     const progressBar = (progress) ? (<ProgressBar {...progress} />) : null;
 
@@ -33,6 +35,7 @@ class Privacy extends Component {
 
     return (
       <div className='page'>
+        <Back back={back} />
         <Title text='Deedit Privacy Policy' />
         <div className='Legalese-container'>
           <h1>
@@ -192,6 +195,7 @@ class Privacy extends Component {
         </div>
         <Text contents={forgetme} />
         {progressBar}
+        <Back back={back} />
       </div>
     );
   }
