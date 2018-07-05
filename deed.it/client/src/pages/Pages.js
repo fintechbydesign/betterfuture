@@ -57,16 +57,15 @@ const pages = {
   'uploadPhoto': UploadPhoto
 };
 
-// const statelessPages = ['aboutUs', 'deeditDifference', 'home', 'pickADeed', 'termsAndConditions'];
-
 class Pages extends Component {
   constructor (props) {
     super(props);
+    this.back = this.back.bind(this);
     this.reset = this.reset.bind(this);
     this.updateHistory = this.updateHistory.bind(this);
     this.state = this.createInitialState();
     this.state.navigationMethods = this.createNavigationMethods();
-    if (window.history) {
+    if(window.history) {
       this.updateHistory();
       window.onpopstate = this.interceptBackButton.bind(this);
     }
@@ -75,23 +74,54 @@ class Pages extends Component {
   createInitialState () {
     return {
       pageName: 'home',
-      user: getLocalUser()
+      user: getLocalUser(),
+      previousPage: null
     };
   }
 
-  updateHistory () {
-    if (window.history) {
-      const { pageName } = this.state;
-      window.history.pushState({ pageName }, pageName);
-    }
+  createNavigationMethods () {
+    const baseNavigationMethod = (pageName, nextPageProps, clearPreviousPage) => {
+      this.setState({
+        ...this.state,
+        nextPageProps,
+        pageName,
+        previousPage: this.updateHistory(clearPreviousPage),
+        user: getLocalUser()
+      });
+      window.scrollTo(0, 0);
+    };
+    const navigationMethods = {};
+    Object.keys(pages).forEach((pageName) => {
+      navigationMethods[pageName] = baseNavigationMethod.bind(null, pageName);
+    });
+    navigationMethods.back = this.back;
+    navigationMethods.reset = this.reset;
+    navigationMethods.notImplemented = () => {
+      alert('Not implemented');
+    };
+    return navigationMethods;
   }
 
   interceptBackButton (event) {
-    /*
-    const { pageName } = event.state;
-    const previousPage = statelessPages.includes(pageName) ? pageName : 'home';
-    */
-    this.state.navigationMethods['home']();
+    this.back();
+  }
+
+  updateHistory (clearPreviousPage) {
+    const { pageName, nextPageProps } = this.state;
+    if (window.history) {
+      window.history.pushState(pageName, pageName);
+    }
+    return (clearPreviousPage) ? null : { pageName, nextPageProps };
+  }
+
+  back () {
+    const { navigationMethods, previousPage } = this.state;
+    if (previousPage) {
+      const { pageName, nextPageProps } = previousPage;
+      navigationMethods[pageName](nextPageProps, true);
+    } else {
+      this.state.navigationMethods['home'](null, true);
+    }
   }
 
   async reset () {
@@ -108,23 +138,6 @@ class Pages extends Component {
     } catch (err) {
       error({err});
     }
-  }
-
-  createNavigationMethods () {
-    const baseNavigationMethod = (pageName, nextPageProps) => {
-      this.updateHistory();
-      this.setState({...this.state, nextPageProps, pageName, user: getLocalUser()});
-      window.scrollTo(0, 0);
-    };
-    const navigationMethods = {};
-    Object.keys(pages).forEach((pageName) => {
-      navigationMethods[pageName] = baseNavigationMethod.bind(null, pageName);
-    });
-    navigationMethods.reset = this.reset;
-    navigationMethods.notImplemented = () => {
-      alert('Not implemented');
-    };
-    return navigationMethods;
   }
 
   selectPage (pageProps) {
