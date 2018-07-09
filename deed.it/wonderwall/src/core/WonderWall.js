@@ -20,9 +20,14 @@ const methods = [
   'addPhoto',
   'addTile',
   'addVideo',
+  'alternateRender',
+  'getNextRender',
+  'renderWall',
+  'renderStats',
   'setPopupContent',
   'updateState'
 ];
+
 
 class WonderWall extends Component {
   constructor (props) {
@@ -30,10 +35,16 @@ class WonderWall extends Component {
     methods.forEach((method) => { this[method] = this[method].bind(this); });
     this.state = {
       admin: !!window.ADMIN_MODE,
+      currentRender: 'renderWall',
       debug: false,
       latestNews: undefined,
       popupContent: undefined,
+      renderDurations: {
+        renderWall: 4 * 60 * 1000,
+        renderStats: 30 * 1000,
+      },
       showMenu: false,
+      statsURL: 'https://s3-eu-west-1.amazonaws.com/deedit-smallscreen-dashboard/FullScreenMercuryViz.png',
       tiles: [],
       tileFilter: () => true,
       usernames: new Set()
@@ -53,7 +64,29 @@ class WonderWall extends Component {
       fetchUnapprovedEvidence(callbackEvents);
     } else {
       startPolling(callbackEvents);
+      this.alternateRender();
     }
+  }
+
+  alternateRender () {
+    const { currentRender, renderDurations, showMenu } = this.state;
+    const nextRender = (showMenu) ? currentRender : this.getNextRender();
+    const alternate = () => {
+      this.updateState({currentRender: nextRender});
+      this.alternateRender();
+    };
+    setTimeout( alternate, renderDurations[currentRender]);
+  }
+
+  getNextRender = () => {
+    const { currentRender, renderDurations } = this.state;
+    const keys = Object.keys(renderDurations);
+    let pos = keys.indexOf(currentRender);
+    pos = pos + 1;
+    if (pos === keys.length) {
+      pos = 0;
+    }
+    return keys[pos];
   }
 
   addAdmin (photo) {
@@ -121,8 +154,18 @@ class WonderWall extends Component {
     });
   }
 
-  render () {
-    const { admin, debug, latestNews, showMenu, popupContent, tiles, tileFilter } = this.state;
+  renderStats () {
+    const { statsURL } = this.state;
+    return (
+      <div className='Wonderwall_container'>
+        <img alt='deedit stats' className='Wonderwall_stats' src={statsURL} />
+      </div>
+    )
+  }
+
+  renderWall () {
+    const { addPhoto, addNews, addVideo, alternateRender, setPopupContent, state, updateState } = this;
+    const { admin, debug, latestNews, showMenu, popupContent, renderDurations, statsURL, tiles, tileFilter } = state;
     const filteredTiles = tiles.filter(tileFilter);
     const numTiles = filteredTiles.length;
     const mappedTiles = filteredTiles.map((tile, index) => {
@@ -133,7 +176,7 @@ class WonderWall extends Component {
         tile,
         isPopup: false,
         key: numTiles - index - 1,
-        setPopupContent: this.setPopupContent,
+        setPopupContent,
         src
       };
       switch (tile.type) {
@@ -151,10 +194,13 @@ class WonderWall extends Component {
     });
 
     const menuProps = {
+      alternateRender,
       debug,
       showMenu,
       popupVisible: !!popupContent,
-      updateState: this.updateState
+      renderDurations,
+      statsURL,
+      updateState
     };
 
     const tickerProps = {
@@ -162,16 +208,16 @@ class WonderWall extends Component {
     };
 
     const debugProps = {
-      addPhoto: this.addPhoto,
-      addVideo: this.addVideo,
+      addPhoto,
+      addVideo,
       enable: debug,
-      addNews: this.addNews
+      addNews
     };
 
     const popupProps = {
       content: popupContent,
       menuVisible: showMenu,
-      setPopupContent: this.setPopupContent
+      setPopupContent
     };
 
     const background = (admin)
@@ -183,7 +229,7 @@ class WonderWall extends Component {
       : (<Menu {...menuProps} />);
 
     return (
-      <div>
+      <div className='Wonderwall_container'>
         {background}
         {mappedTiles}
         {menu}
@@ -192,6 +238,11 @@ class WonderWall extends Component {
         <Popup {...popupProps} />
       </div>
     );
+  }
+
+  render () {
+    const { currentRender } = this.state;
+    return this[currentRender]();
   }
 }
 

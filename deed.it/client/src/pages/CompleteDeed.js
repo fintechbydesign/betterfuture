@@ -110,6 +110,7 @@ class CompleteDeed extends Component {
       if (imageData) {
         setProgress('Uploading your photo...');
         await uploadPromise;
+        setProgress(null, 100);
       } else {
         setProgress(null, 100);
       }

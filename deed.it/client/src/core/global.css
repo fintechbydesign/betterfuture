@@ -50,6 +50,11 @@ button {
   display: block;
 }
 
+input[type="checkbox"] {
+  margin-left: 3vw;
+  transform:scale(2, 2);
+}
+
 .page {
   display: flex;
   flex-direction: column;

@@ -109,7 +109,7 @@ class Register extends Component {
   }
 
   render () {
-    const { deedType, termsAndConditions } = this.props;
+    const { deedType, privacy } = this.props;
     const { age, city, country, nickname, progress, underage } = this.state;
     const { className, color } = deedType.style;
 
@@ -125,8 +125,8 @@ class Register extends Component {
 
     const tandcs = [
       'Read our ',
-      (<a key='link' onClick={termsAndConditions}>Terms of Use</a>),
-      ' if you want to understand how we use your data.'
+      (<a key='link' onClick={privacy}>Privacy Statement</a>),
+      ' if you want to understand how we use your data'
     ];
 
     const nickNameProps = {
@@ -173,7 +173,7 @@ class Register extends Component {
         <Text text='What age are you?' className='Text-label' />
         <Dropdown options={ages} onChange={this.updateAge} placeholder='Please select your age...' />
         <div className={underageClassName} >
-          <Text containerType='label' text='My parent/guardian has given permission for me to take part in deedit' htmlFor='underage' />
+          <Text containerType='label' text='I, as parent/guardian, give permission for the above child to take part in Deedit.' htmlFor='underage' />
           <input type='checkbox' id='underage' onChange={this.toggleUnderAge} checked={underage} />
         </div>
         <Button text='Get started >' onClick={this.getStarted} disabled={!buttonEnabled} />

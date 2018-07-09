@@ -4,9 +4,10 @@ import Title from '../components/Title';
 import './legalese.css';
 
 function TermsAndConditions (props) {
+  const { back, privacy } = props;
   return (
     <div className='page'>
-      <Back back={props.back} />
+      <Back back={back} />
       <Title text='Terms of Use' />
       <div className='Legalese-container'>
         <h1>
@@ -26,13 +27,13 @@ function TermsAndConditions (props) {
         </h1>
         <p>
           The Project is organised and run by Tesco Personal Finance plc, trading as 'Tesco Bank' trading as '"Tesco Bank' and part of the Tesco Group (<a href='www.tescoplc.com/about-us'>www.tescoplc.com/about-us</a>) ("Tesco Bank", "we", "us", "our") and is a part of a showcase of prototypes and interactive installations by Edinburgh University.  The deedit project will run from 2 – 25 August (inclusive) as part of an exhibition called "Data Pipe Dreams: Glimpses of a Near Future".
-          To find out more, go to: <a href='www.designinformatics.org/event/data-pipe-dreams'>www.designinformatics.org/event/data-pipe-dreams</a>.
+          To find out more, go to: <a href='www.designinformatics.org/event/data-pipe-dreams' target='_blank' >www.designinformatics.org/event/data-pipe-dreams</a>.
         </p>
         <p>
           As part of the Edinburgh festival, Tesco Bank is partnering with Social Bite, a local charity which aims to eradicate homelessness in Edinburgh.
         </p>
         <p>
-          These Terms of Use, together with the deedit privacy policy, govern your participation in the Project and use of deedit webapp. When you provide information through your participation in the Project, you agree to these terms.   If you do not agree to these terms, including the privacy policy, please do not upload anything to deedit.  These Terms of Use constitute an agreement between you and Tesco Bank.
+          These Terms of Use, together with the deedit Privacy Statement, govern your participation in the Project and use of deedit webapp. When you provide information through your participation in the Project, you agree to these terms.   If you do not agree to these terms, including the privacy policy, please do not upload anything to deedit.  These Terms of Use constitute an agreement between you and Tesco Bank.
         </p>
         <h1>
           How we use your data
@@ -58,7 +59,8 @@ function TermsAndConditions (props) {
           We do not capture any other information like device operating systems, IP addresses, signals, data etc.
         </p>
         <p>
-          For more details as to how we will use and store your data, please see our privacy policy.
+          For more details as to how we will use and store your data, please see our
+          <a onClick={privacy}> Privacy Statement</a>.
         </p>
         <h1>
           What happens to the data collected during the Project

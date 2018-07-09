@@ -92,6 +92,7 @@ class PickADeed extends Component {
     if (!deedHierarchy) {
       const progressProps = {
         duration: 3000,
+        infinite: true,
         style: {
           fontSize: 'large'
         },

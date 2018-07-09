@@ -1,8 +1,10 @@
 import React from 'react';
 import Back from '../components/Back';
+import Image from '../components/Image'
 import Text from '../components/Text';
 import Title from '../components/Title';
 import { version } from '../../package';
+import TescoBank from '../images/TescoBank.svg'
 import './AboutUs.css';
 import './legalese.css';
 
@@ -26,6 +28,10 @@ function AboutUs (props) {
         <p>
           We are project team who have developed this concept as pat of a showcase of interactive installations, created in collaboration between tesco Bank and Edinburgh University.
         </p>
+        <div className='flexContainerRow' >
+          <Image src={TescoBank} className='AboutUs-image' />
+          <Image src={TescoBank} className='AboutUs-image' />
+        </div>
         <p>
           You can visit Deedit at an exhibition called <a href='https://www.eca.ed.ac.uk/event/data-pipe-dreams-glimpses-near-future' >Data Pipe Dreams: Glimpses of a near future</a> from 2-25 August on George St., Edinburgh.
         </p>
@@ -33,7 +39,7 @@ function AboutUs (props) {
           Contact Us
         </h1>
         <p>
-          You can get in touch on email at <a href='mailto:info@deedit.org'>info@deedit.org</a>
+          You can get in touch on email at <a href='mailto:hi@deedit.org'>hi@deedit.org</a>
         </p>
         <h1>How does it all work?</h1>
         <p>
@@ -58,7 +64,7 @@ function AboutUs (props) {
           Who are Social Bite?
         </h1>
         <p>
-          Social Bite is on a mission to build a collaborative movement to end homelessness in Scoltand  They make houses available to the homeless and fund a support resource for people to sustain their tenancies, integrating the vulnerable and marginalised back into society - where they belong.
+          Social Bite is on a mission to build a collaborative movement to end homelessness in Scotland. They make houses available to the homeless and fund a support resource for people to sustain their tenancies, integrating the vulnerable and marginalised back into society - where they belong.
         </p>
       </div>
       <Back back={props.back} />

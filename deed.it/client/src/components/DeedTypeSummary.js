@@ -64,7 +64,7 @@ class DeedTypeSummary extends Component {
     let addressDetails = null;
     if (whereDetails) {
       addressDetails = whereLink
-        ? (<Text contents={[(<a key='link' href={whereLink}>{whereDetails}</a>)]} className='DeedTypeSummary-callout-text' />)
+        ? (<Text contents={[(<a key='link' href={whereLink} target='_blank'>{whereDetails}</a>)]} className='DeedTypeSummary-callout-text' />)
         : (<Text text={whereDetails} className='DeedTypeSummary-callout-text' />);
     }
 

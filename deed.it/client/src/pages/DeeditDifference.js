@@ -46,6 +46,7 @@ class DeeditDifference extends Component {
     const progressProps = {
       className: (mode === 'fetch') ? 'DeeditDifference-show' : 'hidden',
       duration: 3000,
+      infinite: true,
       style: {
         'font-size': 'large'
       },

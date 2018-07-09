@@ -16,7 +16,7 @@ class Evidence extends Component {
     methods.forEach((method) => this[method] = this[method].bind(this));
     const radioOptions = this.selectRadioOptions();
     this.state = {
-      acceptTandCs: true,
+      acceptTandCs: false,
       page: null,
       radioOptions,
       requireTandCs: false
@@ -37,8 +37,8 @@ class Evidence extends Component {
         { name: 'evidence', text: 'Sign the Deedit pledge', onChange: pledge }
       ]
       : [
-        { name: 'evidence', text: 'Upload a photo', onChange: upload, separator },
-        { name: 'evidence', text: 'Take a photo', onChange: takePhoto, separator },
+        { name: 'evidence', text: 'Upload a photo', onChange: upload },
+        { name: 'evidence', text: 'Take a photo', onChange: takePhoto },
         { name: 'evidence', text: 'Sign the Deedit pledge', onChange: pledge }
       ];
   }
@@ -66,13 +66,20 @@ class Evidence extends Component {
   }
 
   render () {
-    const { termsAndConditions } = this.props;
+    const { privacy, termsAndConditions } = this.props;
     const { acceptTandCs, page, requireTandCs } = this.state;
 
     const tandcsContent = [
-      'By uploading a photo, you accept our ',
-      (<a key='link' onClick={termsAndConditions} >Terms of Use</a>)
+      'By uploading a photo, you agree to abide  by our ',
+      (<a key='link' onClick={termsAndConditions} >Terms of Use</a>),
+      '.'
     ];
+
+    const privacyContent = [
+      'To see how we use your data see our ',
+      (<a key='link' onClick={privacy} >Privacy Statement</a>)
+    ];
+
     const tandcsClass = (requireTandCs) ? 'Evidence-tandcs-container dropin' : 'hidden';
 
     const locationText = 'We would like to capture your location so that we can show where the good deeds are being done.' +
@@ -85,13 +92,13 @@ class Evidence extends Component {
         <TitleWithImage animation='zoom' src={thumbsup} text='Good Work' />
         <Text text='All you need to do now is send us some evidence to prove your deed is done.' />
         <RadioGroup radioOptions={this.state.radioOptions} />
+        <div className='Evidence-location-container' >
+          <Text text={locationText} />
+        </div>
         <div className={tandcsClass} >
+          <Text contents={privacyContent} className='Evidence-privacy' />
           <Text containerType='label' contents={tandcsContent} htmlFor='tandcs' />
           <input type='checkbox' id='tandcs' onChange={this.toggleAcceptTandCs} checked={acceptTandCs} />
-        </div>
-        <div className='Evidence-location-container' >
-          <Text text="Where's your deed at" className='Evidence-bold' />
-          <Text text={locationText} />
         </div>
         <Button onClick={this.nextPage} disabled={buttonDisabled} text='Next' />
       </div>

@@ -28,9 +28,9 @@ class ProgressBar extends Component {
   }
 
   autoIncrementProgress () {
-    const { autoIncrementInterval, percent } = this.state;
+    const { autoIncrementInterval, infinite, percent } = this.state;
     let increment;
-    if (percent > 100) {
+    if (infinite && percent > 100) {
       increment = -percent;
     } else if (percent < 50) {
       increment = 10;
@@ -49,16 +49,17 @@ class ProgressBar extends Component {
   }
 
   render () {
-    const {className, color, percent, style, text} = this.state;
+    const {className, color, infinite, percent, style, text} = this.state;
     const containerProps = {
       className: (className) ? `ProgressBar-container ${className}` : 'ProgressBar-container',
       style: { ...style, color }
     };
-    const strokeColor = (percent > 99)
-      ? '#D9D9D9'
-      : (percent < 1)
-      ? '#D9D9D9'
-      : (color) || '#002E4A';
+    let strokeColor = color || '#002E4A';
+    if (infinite) {
+      if (percent < 1 || percent > 99 ) {
+        strokeColor = '#D9D9D9';
+      }
+    }
     const lineProps = {
       percent,
       strokeColor

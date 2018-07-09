@@ -9,7 +9,7 @@ const texts = [
     text: 'A huge thank you for supporting SocialBite with this good deed.',
     content: [
       'If you\'d like to donate further to their cause, ',
-      (<a onClick='https://www.justgiving.com/social-bite'>visit their JustGiving page.</a>)
+      (<a href='https://www.justgiving.com/social-bite' rel='noreferrer noopener' target='_blank'>visit their JustGiving page.</a>)
     ]
   },
   {

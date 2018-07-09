@@ -163,6 +163,7 @@ class MyProfile extends Component {
     if (!deeds) {
       const progressProps = {
         duration: 3000,
+        infinite: true,
         style: {
           fontSize: 'large'
         },

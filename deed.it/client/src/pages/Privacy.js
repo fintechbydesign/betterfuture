@@ -168,7 +168,7 @@ class Privacy extends Component {
           </h1>
           <p>
             The Information Commissioner’s Office is the UK’s independent authority set up to uphold information rights, and promote data privacy for individuals. Their website is
-            <a href='www.ico.org.uk'> www.ico.org.uk</a>.
+            <a href='http://www.ico.org.uk' rel='noreferrer noopener' target='_blank' > www.ico.org.uk</a>.
           </p>
           <p>
             If you have a complaint or concern about how we have handled your personal data and we have not been able to sort it out to your satisfaction, you have the right to lodge a complaint with the ICO.
