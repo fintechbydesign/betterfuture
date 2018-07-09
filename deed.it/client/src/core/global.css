@@ -52,7 +52,7 @@ button {
 
 input[type="checkbox"] {
   margin-left: 3vw;
-  transform:scale(2, 2);
+  transform:scale(1.5, 1.5);
 }
 
 .page {
