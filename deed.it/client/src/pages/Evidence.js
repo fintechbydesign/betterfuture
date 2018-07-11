@@ -8,7 +8,7 @@ import getLocation from '../data/location';
 import thumbsup from '../images/thumbs-up.svg';
 import './Evidence.css';
 
-const methods = ['nextPage', 'selectRadioOptions', 'toggleAcceptTandCs'];
+const methods = ['nextPage', 'selectRadioOptions'];
 
 class Evidence extends Component {
   constructor (props) {
@@ -16,10 +16,8 @@ class Evidence extends Component {
     methods.forEach((method) => this[method] = this[method].bind(this));
     const radioOptions = this.selectRadioOptions();
     this.state = {
-      acceptTandCs: false,
       page: null,
-      radioOptions,
-      requireTandCs: false
+      radioOptions
     };
   }
 
@@ -46,15 +44,7 @@ class Evidence extends Component {
   setPage (page) {
     this.setState({
       ...this.state,
-      page,
-      requireTandCs: ['takePhoto', 'uploadPhoto'].includes(page)
-    });
-  }
-
-  toggleAcceptTandCs () {
-    this.setState({
-      ...this.state,
-      acceptTandCs: !this.state.acceptTandCs
+      page
     });
   }
 
@@ -67,10 +57,10 @@ class Evidence extends Component {
 
   render () {
     const { privacy, termsAndConditions } = this.props;
-    const { acceptTandCs, page, requireTandCs } = this.state;
+    const { page } = this.state;
 
     const tandcsContent = [
-      'By uploading a photo, you agree to abide  by our ',
+      'By uploading a photo, or signing the Deedit pledge, you agree to our ',
       (<a key='link' onClick={termsAndConditions} >Terms of Use</a>),
       '.'
     ];
@@ -80,12 +70,12 @@ class Evidence extends Component {
       (<a key='link' onClick={privacy} >Privacy Statement</a>)
     ];
 
-    const tandcsClass = (requireTandCs) ? 'Evidence-tandcs-container dropin' : 'hidden';
-
     const locationText = 'We would like to capture your location so that we can show where the good deeds are being done.' +
       "  You can let us know if you're OK with that.";
 
-    const buttonDisabled = !page || (requireTandCs && !acceptTandCs);
+    const tandcsClass = (page) ? 'Evidence-tandcs-container dropin' : 'hidden';
+
+    const buttonDisabled = !page;
 
     return (
       <div className='page'>
@@ -96,11 +86,10 @@ class Evidence extends Component {
           <Text text={locationText} />
         </div>
         <div className={tandcsClass} >
-          <Text contents={privacyContent} className='Evidence-privacy' />
-          <Text containerType='label' contents={tandcsContent} htmlFor='tandcs' />
-          <input type='checkbox' id='tandcs' onChange={this.toggleAcceptTandCs} checked={acceptTandCs} />
+          <Text contents={tandcsContent} />
         </div>
-        <Button onClick={this.nextPage} disabled={buttonDisabled} text='Next' />
+        <Button onClick={this.nextPage} disabled={buttonDisabled} text='I Agree' />
+        <Text contents={privacyContent} className='Evidence-privacy' />
       </div>
     );
   }

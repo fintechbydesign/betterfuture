@@ -18,7 +18,7 @@ const texts = [
   'You\'re on a roll... there are still more deeds to be done!'
 ];
 
-const methods = ['createNewEvents', 'createUploadArtifacts', 'setProgress', 'updateImage'];
+const methods = ['createNewEvents', 'createUploadArtifacts', 'setProgress', 'updateBadge'];
 
 class CompleteDeed extends Component {
   constructor (props) {
@@ -27,8 +27,9 @@ class CompleteDeed extends Component {
     const { icon } = deed.style;
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
-      imageSrc: (imageData) || icon,
+      badge: null,
       imageClass: 'fadein',
+      imageSrc: (imageData) || icon,
       progressPercent: 0,
       progressText: 'Reporting deed done...'
     };
@@ -86,7 +87,7 @@ class CompleteDeed extends Component {
     try {
       const { imageName, uploadPromise } = await this.createUploadArtifacts(deed, imageData);
       const location = await locationPromise;
-      setProgress('Updating the deed...', (imageData) ? 20 : 0);
+      setProgress('Updating the deed...', (imageData) ? 15 : 0);
       await updateDeed({
         ...deed,
         ...location,
@@ -94,13 +95,13 @@ class CompleteDeed extends Component {
         src: imageName,
         status: (imageData) ? 'unapproved' : 'completed'
       });
-      setProgress('Awarding badges...', (imageData) ? 40 : 0);
+      setProgress('Awarding badges...', (imageData) ? 30 : 0);
       const events = await this.createNewEvents();
       events.forEach((event, index) => {
-        const { icon } = badges[event.src];
-        setTimeout(this.updateImage.bind(this, icon), index * 2000);
+        const badge = badges[event.src];
+        setTimeout(this.updateBadge.bind(this, badge), index * 2000);
       });
-      setProgress('Updating your profile...', (imageData) ? 60 : 0);
+      setProgress('Updating your profile...', (imageData) ? 45 : 0);
       // update user deeds before showing profile
       await getUserDeeds(user, REFRESH);
       updateLocalUser({
@@ -121,21 +122,20 @@ class CompleteDeed extends Component {
 
   setProgress (text, percent) {
     const { state } = this;
-    const progressPercent = (percent) || state.progressPercent;
-    const progressText = (progressPercent === 100)
-      ? 'All done'
-      : (text) || state.progressText;
+    const { progressPercent, progressText } = state;
+    const newProgress = (percent && percent > progressPercent) ? percent : progressPercent;
+    const newText = (newProgress === 100) ? 'All done' : (text) || progressText;
     this.setState({
       ...state,
-      progressPercent,
-      progressText
+      progressPercent: newProgress,
+      progressText: newText
     });
   }
 
-  updateImage (imageSrc) {
+  updateBadge (badge) {
     this.setState({
       ...this.state,
-      imageSrc
+      badge
     });
   }
 
@@ -143,12 +143,15 @@ class CompleteDeed extends Component {
     const { props, state } = this;
     const { deed, deeditDifference, pickADeed } = props;
     const { color } = deed.style;
-    const { progressPercent, progressText, imageClass, imageSrc } = state;
+    const { badge, progressPercent, progressText, imageClass, imageSrc } = state;
     const imageProps = {
       className: `CompleteDeed-image ${imageClass}`,
-      src: imageSrc,
+      src: (badge) ? badge.icon : imageSrc,
       type: 'appImage'
     };
+    const badgeText = (badge)
+      ? (<Text className='CompleteDeed-badge-text' style={badge.style} text={badge.text} />)
+      : null;
     const progressProps = {
       color,
       percent: progressPercent,
@@ -158,6 +161,7 @@ class CompleteDeed extends Component {
       <div className='page'>
         <Title text='You Deed It!' />
         <Image {...imageProps} />
+        {badgeText}
         <ProgressBar {...progressProps} />
         <Text text={texts[0]} />
         <Button text='See how it all adds up' onClick={deeditDifference} />
