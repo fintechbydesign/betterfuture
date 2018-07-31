@@ -142,7 +142,8 @@ class CompleteDeed extends Component {
   render () {
     const { props, state } = this;
     const { deed, deeditDifference, pickADeed } = props;
-    const { color } = deed.style;
+    const { style, superDeedId } = deed;
+    const { color } = style;
     const { badge, progressPercent, progressText, imageClass, imageSrc } = state;
     const imageProps = {
       className: `CompleteDeed-image ${imageClass}`,
@@ -157,6 +158,7 @@ class CompleteDeed extends Component {
       percent: progressPercent,
       text: progressText
     };
+    const additionalText = (superDeedId === "Help Edinburgh's Homeless" ) ? <Text text={texts[1]} /> : null;
     return (
       <div className='page'>
         <Title text='You Deed It!' />
@@ -166,7 +168,7 @@ class CompleteDeed extends Component {
         <Text text={texts[0]} />
         <Button text='See how it all adds up' onClick={deeditDifference} />
         <Thanks deed={deed} />
-        <Text text={texts[1]} />
+        {additionalText}
         <Button text='Do another deed' onClick={pickADeed} />
       </div>
     );

@@ -5,6 +5,7 @@ import Text from '../components/Text';
 import Title from '../components/Title';
 import { version } from '../../package';
 import TescoBank from '../images/TescoBank.svg'
+import UniLogo from '../images/uni-logo.png'
 import './AboutUs.css';
 import './legalese.css';
 
@@ -26,14 +27,14 @@ function AboutUs (props) {
           Who are we?
         </h1>
         <p>
-          We are project team who have developed this concept as pat of a showcase of interactive installations, created in collaboration between tesco Bank and Edinburgh University.
+          We are project team who have developed this concept as part of a showcase of interactive installations, created in collaboration between Tesco Bank and Edinburgh University.
         </p>
         <div className='flexContainerRow' >
-          <Image src={TescoBank} className='AboutUs-image' />
+          <Image src={UniLogo} className='AboutUs-image' />
           <Image src={TescoBank} className='AboutUs-image' />
         </div>
         <p>
-          You can visit Deedit at an exhibition called <a href='https://www.eca.ed.ac.uk/event/data-pipe-dreams-glimpses-near-future' >Data Pipe Dreams: Glimpses of a near future</a> from 2-25 August on George St., Edinburgh.
+          You can visit Deedit at an exhibition called <a href='https://www.eca.ed.ac.uk/event/data-pipe-dreams-glimpses-near-future' rel='noreferrer noopener' target='_blank' >Data Pipe Dreams: Glimpses of a near future</a> from 2-25 August on George St., Edinburgh.
         </p>
         <h1>
           Contact Us
@@ -49,7 +50,7 @@ function AboutUs (props) {
           All our deeds are super simple to complete - even the kids can get involved.
         </p>
         <p>
-          We record the deeds that are done so can measure the difference all you kind hearted people are making to our three causes.
+          We record the deeds that are done so we can measure the difference all you kind hearted people are making to our three causes.
         </p>
         <h1>
           What we do with the data you give us?

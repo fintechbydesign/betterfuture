@@ -1,5 +1,5 @@
-import england from './Avatar-England.svg';
-import scotland from './Avatar-Scotland.svg';
+import england from './Avatar-Avatar-England.svg';
+import scotland from './Avatar-Avatar-Scotland.svg';
 import wales from './Avatar-Wales.svg';
 import northernireland from './Avatar-NIreland.svg';
 import usa from './Avatar-USA.svg';

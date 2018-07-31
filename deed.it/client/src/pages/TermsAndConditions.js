@@ -11,10 +11,10 @@ function TermsAndConditions (props) {
       <Title text='Terms of Use' />
       <div className='Legalese-container'>
         <h1>
-          Welcome to deedit
+          Welcome to Deedit
         </h1>
         <p>
-         The deedit project (the "Project") is a digital social experiment to prove that the smallest action can make a positive difference to Edinburgh.   We want to see whether people are willing to do a small good deed to help a local cause, like homelessness.
+         The Deedit project (the "Project") is a digital social experiment to prove that the smallest action can make a positive difference to Edinburgh.   We want to see whether people are willing to do a small good deed to help a local cause, like homelessness.
         </p>
         <h1>
           How it works
@@ -26,14 +26,14 @@ function TermsAndConditions (props) {
          Who we are
         </h1>
         <p>
-          The Project is organised and run by Tesco Personal Finance plc, trading as 'Tesco Bank' trading as '"Tesco Bank' and part of the Tesco Group (<a href='www.tescoplc.com/about-us'>www.tescoplc.com/about-us</a>) ("Tesco Bank", "we", "us", "our") and is a part of a showcase of prototypes and interactive installations by Edinburgh University.  The deedit project will run from 2 – 25 August (inclusive) as part of an exhibition called "Data Pipe Dreams: Glimpses of a Near Future".
+          The Project is organised and run by Tesco Personal Finance plc, trading as 'Tesco Bank' trading as '"Tesco Bank' and part of the Tesco Group (<a href='www.tescoplc.com/about-us'>www.tescoplc.com/about-us</a>) ("Tesco Bank", "we", "us", "our") and is a part of a showcase of prototypes and interactive installations by Edinburgh University.  The Deedit project will run from 2 – 25 August (inclusive) as part of an exhibition called "Data Pipe Dreams: Glimpses of a Near Future".
           To find out more, go to: <a href='www.designinformatics.org/event/data-pipe-dreams' target='_blank' >www.designinformatics.org/event/data-pipe-dreams</a>.
         </p>
         <p>
           As part of the Edinburgh festival, Tesco Bank is partnering with Social Bite, a local charity which aims to eradicate homelessness in Edinburgh.
         </p>
         <p>
-          These Terms of Use, together with the deedit Privacy Statement, govern your participation in the Project and use of deedit webapp. When you provide information through your participation in the Project, you agree to these terms.   If you do not agree to these terms, including the privacy policy, please do not upload anything to deedit.  These Terms of Use constitute an agreement between you and Tesco Bank.
+          These Terms of Use, together with the Deedit Privacy Statement, govern your participation in the Project and use of deedit webapp. When you provide information through your participation in the Project, you agree to these terms.   If you do not agree to these terms, including the privacy policy, please do not upload anything to deedit.  These Terms of Use constitute an agreement between you and Tesco Bank.
         </p>
         <h1>
           How we use your data
@@ -81,7 +81,7 @@ function TermsAndConditions (props) {
           We want the Project to be as open and inclusive as possible, but we also want it to be safe, secure and in accordance with the law. Anyone can participate, but if you are under 13 years old, you will need the permission of your parent/guardian before participating.
         </p>
         <h1>
-          How You Can't Use deedit.
+          How You Can't Use Deedit.
         </h1>
         <p>
           For the Project to be enjoyed by a broad community, whilst also ensuring it is safe, we all need to do our part.

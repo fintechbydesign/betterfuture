@@ -55,6 +55,10 @@ input[type="checkbox"] {
   transform:scale(1.5, 1.5);
 }
 
+div label {
+  padding-left: 2vw;
+}
+
 .page {
   display: flex;
   flex-direction: column;

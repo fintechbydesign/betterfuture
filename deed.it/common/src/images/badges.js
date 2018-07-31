@@ -39,13 +39,13 @@ export default {
     style: {
       color: '#FF6112'
     },
-    text: "SocialBite Star"
+    text: "Social Bite Star"
   },
   'Help Edinburgh\'s Homeless_second': {
     icon: socialSecond,
     style: {
       color: '#FF6112'
     },
-    text: "SocialBite Ambassador"
+    text: "Social Bite Ambassador"
   }
 };

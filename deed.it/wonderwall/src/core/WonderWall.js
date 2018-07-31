@@ -28,6 +28,11 @@ const methods = [
   'updateState'
 ];
 
+const generateCasheBustingUrl = (url) => {
+  const cacheBuster = Date.now();
+  return `${url}?${cacheBuster}`;
+}
+
 
 class WonderWall extends Component {
   constructor (props) {
@@ -156,9 +161,10 @@ class WonderWall extends Component {
 
   renderStats () {
     const { statsURL } = this.state;
+    const src = generateCasheBustingUrl(statsURL);
     return (
       <div className='Wonderwall_container'>
-        <img alt='deedit stats' className='Wonderwall_stats' src={statsURL} />
+        <img alt='deedit stats' className='Wonderwall_stats' src={src} />
       </div>
     )
   }

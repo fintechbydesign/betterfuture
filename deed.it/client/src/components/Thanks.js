@@ -5,22 +5,22 @@ import './Thanks.css';
 
 const texts = [
   {
-    title: 'Thank you from SocialBite',
-    text: 'A huge thank you for supporting SocialBite with this good deed.',
+    title: 'Thank you from Social Bite',
+    text: 'A huge thank you for supporting Social Bite with this good deed.',
     content: [
       'If you\'d like to donate further to their cause, ',
       (<a href='https://www.justgiving.com/social-bite' rel='noreferrer noopener' target='_blank'>visit their JustGiving page.</a>)
     ]
   },
   {
-    title: 'Thank you',
-    text: 'We really thank you for doing a good deed to help keep Edinburgh green.',
-    content: [] // 'You can see how all the small good deeds are adding up to big changes by visiting us in George Street, Edinburgh this August.']
+    title: 'Thank you for doing a good deed for us today',
+    text: "You're on a roll... there are still more deeds to be done!",
+    content: []
   },
   {
-    title: 'Thank you',
-    text: 'We really thank you for doing a good deed to help keep Edinburgh happy.',
-    content: [] // 'You can see how all the small good deeds are adding up to big changes by visiting us in George Street, Edinburgh this August.']
+    title: 'Thank you for doing a good deed for us today',
+    text: "You're on a roll... there are still more deeds to be done!",
+    content: []
   }
 ];
 

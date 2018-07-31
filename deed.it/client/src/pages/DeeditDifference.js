@@ -5,9 +5,15 @@ import Text from '../components/Text';
 import Title from '../components/Title';
 import './DeeditDifference.css';
 
-const url = 'https://s3-eu-west-1.amazonaws.com/deedit-smallscreen-dashboard/LatestMiniDash.png';
+const timeout = 15000;
 
-const timeout = 9000;
+// const url = 'https://s3-eu-west-1.amazonaws.com/deedit-smallscreen-dashboard/LatestMiniDash.png';
+const url = 'https://s3-eu-west-1.amazonaws.com/deedit-bigscreen-dashboard/LatestBigDash.png';
+
+const generateUrl = () => {
+  const cacheBuster = Date.now();
+  return `${url}?${cacheBuster}`;
+}
 
 // three modes : fetch / show / timeout
 class DeeditDifference extends Component {
@@ -45,10 +51,10 @@ class DeeditDifference extends Component {
     const { mode } = this.state;
     const progressProps = {
       className: (mode === 'fetch') ? 'DeeditDifference-show' : 'hidden',
-      duration: 3000,
+      duration: timeout,
       infinite: true,
       style: {
-        'font-size': 'large'
+        'fontSize': 'large'
       },
       text: 'Fetching latest statistics...'
     };
@@ -56,7 +62,7 @@ class DeeditDifference extends Component {
       alt: 'Deedit statistics',
       className: (mode === 'show') ? 'DeeditDifference-show' : 'hidden',
       onLoad: this.show,
-      src: url
+      src: generateUrl()
     };
     const errorProps = {
       className: (mode === 'timeout') ? 'DeeditDifference-show' : 'hidden',

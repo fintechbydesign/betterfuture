@@ -6,10 +6,12 @@
 .DeedTypeSummary-1-line {
   font-weight: bold;
   overflow: hidden;
+  color: white;
 }
 
 .DeedTypeSummary-2-lines {
   min-height: 2.8em;
+  color: white;
 }
 
 .DeedTypeSummary-callout {

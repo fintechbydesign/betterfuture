@@ -48,7 +48,7 @@ class Privacy extends Component {
             We take your privacy very seriously. Please read this Privacy Policy carefully as it contains important information on who we are and how and why we collect, store, use and share your personal information. It also explains your rights in relation to your personal information and how to contact us or supervisory authorities in the event you have a complaint.
           </p>
           <p>
-            This Privacy Policy applies to your participation in the deedit project (the "Project") and use of the deedit website at www.deedit.org (the "Website").
+            This Privacy Policy applies to your participation in the Deedit project (the "Project") and use of the Deedit website at www.deedit.org (the "Website").
           </p>
           <h1>
           Who we are referring to when we say "we", "us", "our" and "you" in this Privacy Policy
@@ -83,7 +83,7 @@ class Privacy extends Component {
             Who we share your personal information with
           </h1>
           <p>
-            We will share information with our third party website and data hosting provider, Amazon Web Services ("AWS").  We do this so that we can host and operate the deedit website.  AWS may send personal data outside the European Economic Area. For more information, including on how we safeguard your personal information when this occurs, see below: ‘Transferring your personal information out of the EEA'.
+            We will share information with our third party website and data hosting provider, Amazon Web Services ("AWS").  We do this so that we can host and operate the Deedit website.  AWS may send personal data outside the European Economic Area. For more information, including on how we safeguard your personal information when this occurs, see below: ‘Transferring your personal information out of the EEA'.
           </p>
           <h1>
               How long your personal information will be kept
@@ -183,7 +183,7 @@ class Privacy extends Component {
             Changes to this Privacy Policy
           </h1>
           <p>
-            We may change this Privacy Policy from time to time—when we do we will inform you via the deedit website.
+            We may change this Privacy Policy from time to time—when we do we will inform you via the Deedit website.
           </p>
           <h1>
             Contact us for more information about how we handle your personal data

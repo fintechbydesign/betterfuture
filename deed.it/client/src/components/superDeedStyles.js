@@ -9,7 +9,7 @@ export default [
     'background-color': '#FF6112',
     color: '#FF6112',
     className: 'SuperDeed-homeless',
-    id: 'Support SocialBite',
+    id: 'Support Social Bite',
     icon: homelessIcon,
     homeIcon: homelessHomeIcon,
     index: 0
