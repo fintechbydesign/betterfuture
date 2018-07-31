@@ -41,13 +41,13 @@
 }
 
 .DeedTypeSummary-time {
-  font-family: 'Bungee Inline', cursive;
+  font-family: 'Bungee Inline';
   font-size: x-large;
   margin-left: 3vh;
 }
 
 .DeedTypeSummary-vertical {
-  font-family: 'Bungee Inline', cursive;
+  font-family: 'Bungee Inline';
   transform: rotate(180deg);
   writing-mode: vertical-lr;
 }

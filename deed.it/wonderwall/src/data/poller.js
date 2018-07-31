@@ -4,7 +4,7 @@ const URL = 'deeditWonderwallLatest';
 const ONE_SECOND = 1000;
 const ONE_HOUR = 60 * 60 * 1000;
 const POLL_INTERVAL = 15 * ONE_SECOND;
-const PREFERRED_INITIAL_NUMBER_OF_TILES = 20;
+const PREFERRED_INITIAL_NUMBER_OF_TILES = 100;
 
 let latestTileTimestamp;
 let callbackEvents;

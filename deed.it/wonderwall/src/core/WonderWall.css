@@ -5,6 +5,11 @@
 
 .Wonderwall_container {
   animation: fadein 4s;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  background-image: url('../images/wonderwall-background.png');
+  background-repeat: repeat;
 }
 
 .WonderWall_background {

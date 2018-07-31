@@ -33,19 +33,7 @@ Dev mode (hot  module replacement etc.), from wonderwall root diractory:
 $ npm start
 ``` 
 
-## Tuesday 19th REMAINING TODO
 
-### UX
-* image / content / layout review
-
-### Client
-* legalese text
-* About us text
-* affordances for scrolling
-* version number in index?
-
-### Wonderwall
-* popup content review
 
 
 

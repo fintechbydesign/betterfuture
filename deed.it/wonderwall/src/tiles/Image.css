@@ -4,6 +4,7 @@
 
 .Image_appear {
   animation: fadein 1s;
+  padding: 0.5vh 0;
 }
 
 @keyframes fadein {

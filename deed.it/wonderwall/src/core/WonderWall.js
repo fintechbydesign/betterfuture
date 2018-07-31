@@ -49,7 +49,7 @@ class WonderWall extends Component {
         renderStats: 30 * 1000,
       },
       showMenu: false,
-      statsURL: 'https://s3-eu-west-1.amazonaws.com/deedit-smallscreen-dashboard/FullScreenMercuryViz.png',
+      statsURL: 'https://s3-eu-west-1.amazonaws.com/deedit-bigscreen-dashboard/LatestBigDash.png',
       tiles: [],
       tileFilter: () => true,
       usernames: new Set()
@@ -226,9 +226,12 @@ class WonderWall extends Component {
       setPopupContent
     };
 
+    /*
     const background = (admin)
       ? null
       : (<img src='./images/wonderwall.png' alt='wonderwall background' className='WonderWall_background' />);
+      */
+    const background = null;
 
     const menu = (admin)
       ? null
