@@ -7,6 +7,7 @@ import Text from '../components/Text';
 import Thanks from '../components/Thanks';
 import Title from '../components/Title';
 import badges from '../../../common/src/images/badges';
+import { imageSuffix } from '../config/imageConstants';
 import { prepareUpload } from '../data/S3';
 import { getUserDeeds, REFRESH, updateDeed } from '../data/deeds';
 import { createEvent } from '../data/events';
@@ -38,8 +39,9 @@ class CompleteDeed extends Component {
   async createUploadArtifacts () {
     const { props, setProgress } = this;
     const { deed, imageData } = props;
+    console.log('createUploadArtifacts imageData: ', imageData);
     if (imageData) {
-      const imageName = `${deed.id}.jpeg`;
+      const imageName = `${deed.id}.${imageSuffix}`;
       const uploadProgress = await prepareUpload(deed, imageName, imageData);
       uploadProgress.on('httpUploadProgress', (progress) => {
         const { loaded, total } = progress;

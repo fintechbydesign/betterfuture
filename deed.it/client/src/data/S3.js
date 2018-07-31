@@ -1,4 +1,4 @@
-import imageFormat from '../config/imageFormat';
+import { imageFormat } from '../config/imageConstants';
 
 const apiVersion = '2006-03-01';
 const region = 'eu-west-1';

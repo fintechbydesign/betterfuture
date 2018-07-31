@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import ImageComponent from '../components/Image';
 import Text from '../components/Text.js';
 import Title from '../components/Title';
-import imageFormat from '../config/imageFormat';
+import { imageFormat } from '../config/imageConstants';
 import { initS3 } from '../data/S3';
 import changeIcon from '../images/newphoto-icon.svg';
 import rotateIcon from '../images/rotate-icon.svg';
