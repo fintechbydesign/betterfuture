@@ -5,6 +5,7 @@ import Button from '../components/Button';
 import ImageComponent from '../components/Image';
 import Text from '../components/Text.js';
 import Title from '../components/Title';
+import imageFormat from '../config/imageFormat';
 import { initS3 } from '../data/S3';
 import changeIcon from '../images/newphoto-icon.svg';
 import rotateIcon from '../images/rotate-icon.svg';
@@ -64,7 +65,7 @@ class UploadPhoto extends Component {
     canvas.width = width;
     canvas.height = height;
     canvas.getContext('2d').drawImage(src, 0, 0, width, height);
-    const imageData = canvas.toDataURL('image/png');
+    const imageData = canvas.toDataURL(imageFormat);
     this.setState({ ...this.state, imageData });
   }
 
@@ -84,7 +85,7 @@ class UploadPhoto extends Component {
       context.translate(canvas.width, canvas.height / canvas.width);
       context.rotate(Math.PI / 2);
       context.drawImage(image, 0, 0);
-      const imageData = canvas.toDataURL('image/png');
+      const imageData = canvas.toDataURL(imageFormat);
       setState({...state, imageData});
     };
   }

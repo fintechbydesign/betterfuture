@@ -39,7 +39,7 @@ class CompleteDeed extends Component {
     const { props, setProgress } = this;
     const { deed, imageData } = props;
     if (imageData) {
-      const imageName = `${deed.id}.png`;
+      const imageName = `${deed.id}.jpeg`;
       const uploadProgress = await prepareUpload(deed, imageName, imageData);
       uploadProgress.on('httpUploadProgress', (progress) => {
         const { loaded, total } = progress;

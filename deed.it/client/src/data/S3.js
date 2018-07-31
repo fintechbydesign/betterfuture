@@ -1,3 +1,5 @@
+import imageFormat from '../config/imageFormat';
+
 const apiVersion = '2006-03-01';
 const region = 'eu-west-1';
 const IdentityPoolId = 'eu-west-1:38d36f69-6926-4e31-9d57-b56861af58b6';
@@ -39,7 +41,7 @@ const prepareUpload = async(deed, imageName, image) => {
   const [S3, Body] = await Promise.all([initS3(), b64ToUint8Array(image)]);
   const params = {
     ACL: 'public-read',
-    ContentType: 'image/png',
+    ContentType: imageFormat,
     Body,
     Key: imageName
   };
