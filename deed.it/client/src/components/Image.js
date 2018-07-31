@@ -22,7 +22,7 @@ function Image (props) {
   const className = props.className ? props.className : 'Image-default';
   const src = createSrc(props);
   return (isEmbeddedSvg(src))
-    ? (<object type="image/svg+xml" alt={alt} className={className} crossOrigin='anonymous' onClick={props.onClick} onLoad={props.onLoad} data={src}></object>)
+    ? (<object type="image/svg+xml" alt={alt} aria-label={alt} className={className} crossOrigin='anonymous' onClick={props.onClick} onLoad={props.onLoad} data={src}></object>)
     : (<img alt={alt} className={className} crossOrigin='anonymous' onClick={props.onClick} onLoad={props.onLoad} src={src} />);
 }
 

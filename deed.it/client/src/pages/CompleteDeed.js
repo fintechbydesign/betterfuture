@@ -39,7 +39,6 @@ class CompleteDeed extends Component {
   async createUploadArtifacts () {
     const { props, setProgress } = this;
     const { deed, imageData } = props;
-    console.log('createUploadArtifacts imageData: ', imageData);
     if (imageData) {
       const imageName = `${deed.id}.${imageSuffix}`;
       const uploadProgress = await prepareUpload(deed, imageName, imageData);

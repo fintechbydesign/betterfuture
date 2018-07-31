@@ -1,6 +1,7 @@
 import React from 'react';
 import Back from '../components/Back';
 import Title from '../components/Title';
+import { emailAddress } from '../config/email';
 import './legalese.css';
 
 function TermsAndConditions (props) {
@@ -128,7 +129,7 @@ function TermsAndConditions (props) {
           Contact Us
         </h1>
         <p>
-          Please contact us at <a href='mailto:hi@deedit.org'>hi@deedit.org</a> or call 0345 0716155
+          Please contact us at <a href='mailto:{emailAddress}'>{emailAddress}</a> or call 0345 0716155
         </p>
       </div>
       <Back back={props.back} />

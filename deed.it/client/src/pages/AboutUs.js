@@ -3,6 +3,7 @@ import Back from '../components/Back';
 import Image from '../components/Image'
 import Text from '../components/Text';
 import Title from '../components/Title';
+import { emailAddress } from '../config/email';
 import { version } from '../../package';
 import TescoBank from '../images/TescoBank.svg'
 import UniLogo from '../images/uni-logo.png'
@@ -40,7 +41,7 @@ function AboutUs (props) {
           Contact Us
         </h1>
         <p>
-          You can get in touch on email at <a href='mailto:hi@deedit.org'>hi@deedit.org</a>
+          You can get in touch on email at <a href='mailto:{emailAddress}'>{emailAddress}</a>
         </p>
         <h1>How does it all work?</h1>
         <p>

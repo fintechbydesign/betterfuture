@@ -23,14 +23,18 @@ class Evidence extends Component {
 
   selectRadioOptions () {
     const parser = new UAParser();
-    const { name } = parser.getOS();
+    const { name, version } = parser.getOS();
     const takePhoto = this.setPage.bind(this, 'takePhoto');
     const pledge = this.setPage.bind(this, 'pledge');
     const upload = this.setPage.bind(this, 'uploadPhoto');
     const separator = (<Text className='Evidence-separator' text='or' />);
 
     return (name === 'iOS')
+      ? (version.startsWith('9'))
       ? [
+        { name: 'evidence', text: 'Sign the Deedit pledge', onChange: pledge }
+      ]
+      : [
         { name: 'evidence', text: 'Send a photo', onChange: upload, separator },
         { name: 'evidence', text: 'Sign the Deedit pledge', onChange: pledge }
       ]
