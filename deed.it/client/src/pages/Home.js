@@ -88,7 +88,7 @@ function Home (props) {
     : { onClick: pickADeed, text: 'Get Involved Now' };
   return (
     <div className='page'>
-      <TitleWithImage animation='wave' src={wavingHand} text='Hi There' />
+      <TitleWithImage alt='Yo!' animation='wave' src={wavingHand} text='Hi There' />
       <Text text={introText} />
       <Title text='Did you know?' />
       {renderHomeless(pickADeed)}
