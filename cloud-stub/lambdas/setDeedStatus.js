@@ -42,12 +42,8 @@ async function isUserPreApproved(deedId) {
   }
 }
 
-// setDeedStatus
-exports.handler = function (event, ctx, callback) {
-  const eventBody = JSON.parse(event.body);
-  const { deedId, deedStatus, ...extraAttribs } = eventBody;
-
-  if (deedId && deedStatus) {
+function updateDeedStatus(deedId, deedStatus, eventBody, extraAttribs, preApprove) {
+  return new Promise((resolve, reject) => {
     // The basic attributes update is are status
     const AttributeUpdates = {
       deedStatus: {
@@ -63,8 +59,6 @@ exports.handler = function (event, ctx, callback) {
         Value: (deedStatus === 'completed') ? 1 : 0
       }
     };
-
-    const preApprove = isUserPreApproved(deedId) && deedStatus === 'unapproved';
     if (preApprove) {
       AttributeUpdates.completedTimestamp = { Action: 'PUT', Value: `${Date.now()}` };
       AttributeUpdates.deedStatus.Value = 'completed';
@@ -87,11 +81,30 @@ exports.handler = function (event, ctx, callback) {
 
     docClient.update(updateParams, function (error, data) {
       if (error) {
-        callback(null, composeResponse(500, error.message));
+        reject(error);
       } else {
-        callback(null, composeResponse(200, JSON.stringify(data)));
+        resolve(data);
       }
     });
+  });
+}
+
+// setDeedStatus
+exports.handler = async function (event, ctx, callback) {
+  const eventBody = JSON.parse(event.body);
+  const { deedId, deedStatus, ...extraAttribs } = eventBody;
+
+  if (deedId && deedStatus) {
+    try {
+      const isPreapproved = await isUserPreApproved(deedId);
+      const preApprove = isPreapproved && deedStatus === 'unapproved';
+
+      const data = await updateDeedStatus(deedId, deedStatus, eventBody, extraAttribs, preApprove);
+
+      callback(null, composeResponse(200, JSON.stringify(data)));
+    } catch (error) {
+      callback(null, composeResponse(500, error.message));
+    }
   } else {
     callback(null, composeResponse(422, 'Missing deedId or deedStatus'));
   }
