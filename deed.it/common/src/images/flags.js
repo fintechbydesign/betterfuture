@@ -17,7 +17,7 @@ import norway from './Avatar-Norway.svg';
 import poland from './Avatar-Poland.svg';
 import spain from './Avatar-Spain.svg';
 import sweden from './Avatar-Sweden.svg';
-import other from './Avatar-Wales.svg';
+import other from './Avatar-Globe.svg';
 
 
 export default {
