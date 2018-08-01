@@ -3,6 +3,11 @@
     text-align: right;
 }
 
+.AboutUs-image-container {
+    align-items: center;
+    justify-content: space-evenly;
+}
+
 .AboutUs-image {
     width: 40%
 }

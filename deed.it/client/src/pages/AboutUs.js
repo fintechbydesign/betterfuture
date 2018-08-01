@@ -30,7 +30,7 @@ function AboutUs (props) {
         <p>
           We are project team who have developed this concept as part of a showcase of interactive installations, created in collaboration between Tesco Bank and Edinburgh University.
         </p>
-        <div className='flexContainerRow' >
+        <div className='AboutUs-image-container flexContainerRow' >
           <Image src={UniLogo} className='AboutUs-image' />
           <Image src={TescoBank} className='AboutUs-image' />
         </div>
