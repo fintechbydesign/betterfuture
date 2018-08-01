@@ -1,0 +1,28 @@
+.SocialMedia_container {
+  margin: 1vh 0;
+  justify-content: space-evenly;
+  font-size: small;
+  font-weight: bold;
+  color: white;
+}
+
+.SocialMedia_facebook {
+  border-radius: 5px;
+  align-items: center;
+  background-color: #3b5998;
+  padding-right: 5px;
+}
+
+.SocialMedia_twitter {
+  border-radius: 5px;
+  align-items: center;
+  background-color: #00aced;
+  padding-right: 5px;
+}
+
+.SocialMedia_whatsapp {
+  border-radius: 5px;
+  align-items: center;
+  background-color: #2cb742;
+  padding-right: 5px;
+}

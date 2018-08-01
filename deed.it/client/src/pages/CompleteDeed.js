@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '../components/Button';
 import Image from '../components/Image';
 import ProgressBar from '../components/ProgressBar';
+import SocialMedia from '../components/SocialMedia';
 import Text from '../components/Text';
 import Thanks from '../components/Thanks';
 import Title from '../components/Title';
@@ -13,6 +14,7 @@ import { getUserDeeds, REFRESH, updateDeed } from '../data/deeds';
 import { createEvent } from '../data/events';
 import './CompleteDeed.css';
 import {updateLocalUser} from '../data/user';
+
 
 const texts = [
   'Smashing it! See how all the good deeds being done are making a big impact in Edinburgh',
@@ -154,6 +156,9 @@ class CompleteDeed extends Component {
     const badgeText = (badge)
       ? (<Text className='CompleteDeed-badge-text' style={badge.style} text={badge.text} />)
       : null;
+    const socialMedia = (badge)
+      ? (<SocialMedia />)
+      : null;
     const progressProps = {
       color,
       percent: progressPercent,
@@ -166,6 +171,7 @@ class CompleteDeed extends Component {
         <Image {...imageProps} />
         {badgeText}
         <ProgressBar {...progressProps} />
+        {socialMedia}
         <Text text={texts[0]} />
         <Button text='See how it all adds up' onClick={deeditDifference} />
         <Thanks deed={deed} />
