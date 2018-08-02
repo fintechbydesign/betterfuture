@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { version } from '../../package';
 import './Menu.css';
 
 class Menu extends Component {
@@ -46,6 +47,7 @@ class Menu extends Component {
     const updateStatsURL = (event) => {
       updateState({ statsURL: event.target.value });
     }
+    const versionText = `wonderwall version ${version}`;
     return (
       <div className='Menu'>
         <h3>WonderWall Options</h3>
@@ -57,6 +59,7 @@ class Menu extends Component {
         </div>
         <label htmlFor='statsURL'>URL for data viz:</label>
         <input type='text' id='statsURL' onChange={updateStatsURL} size='80' value={statsURL} />
+        <div className='Menu_version'>{versionText}</div>
         <button id='ok' className='Menu_ok' onClick={close} >OK</button>
       </div>
     );
