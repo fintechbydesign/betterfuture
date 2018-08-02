@@ -9,7 +9,7 @@ class Image extends Component {
   constructor (props) {
     super(props);
     this.show = this.show.bind(this);
-    const imageDimensions = (props.imageDimensions) ? props.imageDimensions : getImageDimensions(FIXED_HEIGHT);
+    const imageDimensions = (props.imageDimensions) ? props.imageDimensions : getImageDimensions(FIXED_HEIGHT, props.isPopup);
     this.state = { hidden: true, imageDimensions };
   }
 

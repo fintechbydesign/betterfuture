@@ -4,8 +4,6 @@
 }
 
 .Popup {
-  width: 640px;
-  height: 640px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -13,6 +11,7 @@
   border-radius: 25px;
   z-index: 2;
   background-color: white;
+  color: #002E4A;
   padding: 15px;
   animation: fadein 0.5s;
 }
@@ -32,24 +31,21 @@
 }
 
 .Popup_time-label {
-  color: gray;
   font: 400 30px system-ui;
 }
 
 .Popup_time-value {
-  color: black;
   font: 400 30px system-ui;
 }
 
 .Popup_deed-type {
   padding: 20px 0px;
-  color: green;
   font: 400 30px system-ui;
+  text-align: center;
 }
 
 .Popup_nickname {
   padding: 10px 0px;
-  color: red;
   font: 400 40px system-ui;
   text-align: center;
 }

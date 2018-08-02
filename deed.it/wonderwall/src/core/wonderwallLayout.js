@@ -12,7 +12,7 @@ const getViewportDimensions = () => {
   };
 }
 
-const getImageDimensions = (layout) => {
+const getImageDimensions = (layout, isPopup) => {
   const viewport = getViewportDimensions();
   let actuaLayout;
   const isLandscape = viewport.width > viewport.height;
@@ -21,22 +21,23 @@ const getImageDimensions = (layout) => {
   } else {
     actuaLayout = (isLandscape) ? FIXED_WIDTH_LANDSCAPE : FIXED_WIDTH_PORTRAIT;
   }
+  const popupMultiplier = (isPopup) ? 2 : 1;
   switch(actuaLayout) {
     case FIXED_HEIGHT_LANDSCAPE:
       return {
-        height: Math.floor(viewport.height/3.3)
+        height: Math.floor(viewport.height/3.3) * popupMultiplier
       };
     case FIXED_WIDTH_LANDSCAPE:
       return {
-        width: Math.floor(viewport.width/5)
+        width: Math.floor(viewport.width/6) * popupMultiplier
       };
     case FIXED_HEIGHT_PORTRAIT:
       return {
-        height: Math.floor(viewport.height/11)
+        height: Math.floor(viewport.height/11) * popupMultiplier
       };
     case FIXED_WIDTH_PORTRAIT:
       return {
-        width: Math.floor(viewport.width/3.3)
+        width: Math.floor(viewport.width/3.3) * popupMultiplier
       };
     default:
       throw new Error(`Unknown wonderwall layout ${layout}`);
