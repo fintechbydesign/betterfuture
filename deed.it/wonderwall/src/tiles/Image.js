@@ -1,38 +1,16 @@
 /* eslint jsx-a11y/alt-text:0 */
 
 import React, { Component } from 'react';
+import { getImageDimensions, FIXED_HEIGHT } from '../core/wonderwallLayout';
 import './Image.css';
-
-const getViewportDimensions = () => {
-  return {
-    width: Math.max(document.documentElement.clientWidth, window.innerWidth || 0),
-    height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-  };
-}
-
-const getImageDimensions = (mode) => {
-  const viewport = getViewportDimensions();
-  switch(mode) {
-    case 'fixedHeight':
-      return {
-        height: Math.floor(viewport.height/11)
-      };
-    case 'fixedWidth':
-      return {
-        width: Math.floor(viewport.width/3.3)
-      };
-    default:
-      throw new Error(`Unknown image dimension mode ${mode}`);
-  }
-
-};
 
 class Image extends Component {
 
   constructor (props) {
     super(props);
     this.show = this.show.bind(this);
-    this.state = { hidden: true, imageDimensions: getImageDimensions('fixedHeight')}
+    const imageDimensions = (props.imageDimensions) ? props.imageDimensions : getImageDimensions(FIXED_HEIGHT);
+    this.state = { hidden: true, imageDimensions };
   }
 
   show () {

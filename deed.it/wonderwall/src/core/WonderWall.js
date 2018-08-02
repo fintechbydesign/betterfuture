@@ -226,20 +226,12 @@ class WonderWall extends Component {
       setPopupContent
     };
 
-    /*
-    const background = (admin)
-      ? null
-      : (<img src='./images/wonderwall.png' alt='wonderwall background' className='WonderWall_background' />);
-      */
-    const background = null;
-
     const menu = (admin)
       ? null
       : (<Menu {...menuProps} />);
 
     return (
       <div className='Wonderwall_container'>
-        {background}
         {mappedTiles}
         {menu}
         <Ticker {...tickerProps} />

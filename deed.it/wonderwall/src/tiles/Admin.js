@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from '../components/Button';
 import Image from './Image';
 import { approve, disapprove } from "../data/approvals";
+import { getImageDimensions, FIXED_WIDTH } from '../core/wonderwallLayout';
 import './Admin.css';
 
 class Admin extends Component {
@@ -10,7 +11,7 @@ class Admin extends Component {
     super(props);
     this.show = this.show.bind(this);
     this.hide = this.hide.bind(this);
-    this.state = { hidden: true };
+    this.state = { hidden: true, imageDimensions: getImageDimensions(FIXED_WIDTH) };
   }
 
   show () {
@@ -23,9 +24,9 @@ class Admin extends Component {
 
   render () {
     const { deedId } = this.props;
-    const { hidden } = this.state;
+    const { hidden, imageDimensions } = this.state;
     const className = hidden ? 'Admin_Hide' : 'Admin_Show';
-    const imgProps = {...this.props, alt: 'unapproved evidence', showParent: this.show };
+    const imgProps = {...this.props, imageDimensions, alt: 'unapproved evidence', showParent: this.show };
     const approveClicked = async() => {
       await approve(deedId);
       this.hide();
