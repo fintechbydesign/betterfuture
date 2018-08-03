@@ -11,12 +11,13 @@ import './SocialMedia.css';
 
 const facebookProps = {
   url: 'https://www.deedit.org',
-  msg:"I’ve deed it for Edinburgh. You can too at www.deedit.org."
+  quote:"I’ve deed it for Edinburgh. You can too at www.deedit.org."
 };
 
 const twitterProps = {
   url: 'https://www.deedit.org',
-  title:"I’ve deed it for Edinburgh. You can too at "
+  title:"I’ve deed it for Edinburgh. You can too at ",
+  hashtags: ['#deedit']
 };
 
 const whatsappProps = {

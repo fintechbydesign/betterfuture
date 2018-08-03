@@ -45,7 +45,7 @@ class WonderWall extends Component {
       latestNews: undefined,
       popupContent: undefined,
       renderDurations: {
-        renderWall: 4 * 60 * 1000,
+        renderWall: 30 * 1000,
         renderStats: 30 * 1000,
       },
       showMenu: false,
