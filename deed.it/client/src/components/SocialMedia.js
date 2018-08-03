@@ -17,7 +17,7 @@ const facebookProps = {
 const twitterProps = {
   url: 'https://www.deedit.org',
   title:"I’ve deed it for Edinburgh. You can too at ",
-  hashtags: ['#deedit']
+  hashtags: ['deedit']
 };
 
 const whatsappProps = {

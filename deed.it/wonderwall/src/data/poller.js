@@ -53,10 +53,10 @@ const poll = async() => {
 
 const start = async(events) => {
   callbackEvents = events;
-  const oneDayAgo = Date.now() - 24 * ONE_HOUR * 3;
+  const twoDaysAgo = Date.now() - 48 * ONE_HOUR;
   let tiles = [];
   let timestamp = Date.now();
-  while (tiles.length < PREFERRED_INITIAL_NUMBER_OF_TILES && timestamp > oneDayAgo) {
+  while (tiles.length < PREFERRED_INITIAL_NUMBER_OF_TILES && timestamp > twoDaysAgo) {
     console.log(`timestamp: ${timestamp}; num of tiles: ${tiles.length}`);
     timestamp = timestamp - ONE_HOUR;
     tiles = await getLatestTiles(timestamp); 
