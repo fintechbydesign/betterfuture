@@ -18,7 +18,7 @@ function Congrats(props) {
 }
 
 function Badge (props) {
-  const { myProfile, src } = props;
+  const { myProfile, home, src, user } = props;
   const { explanation } = badges[src];
   const badgeProps = {
     imageClassName: 'Badge-image',
@@ -26,11 +26,14 @@ function Badge (props) {
     onClick: myProfile,
     src
   };
+  const destination = (user.registered)
+    ? { page: myProfile, text: 'My Profile' }
+    : { page: home, text: 'Home' };
   const textProps = {
     className: 'Badge-text',
     contents: [
       'Back to ',
-      (<a key='link' onClick={myProfile}>My Profile</a>)
+      (<a key='link' onClick={destination.page}>{destination.text}</a>)
     ]
   };
   return (

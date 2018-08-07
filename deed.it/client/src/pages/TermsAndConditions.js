@@ -128,7 +128,7 @@ function TermsAndConditions (props) {
         </p>
         <h1>
           Contact Us
-          <EasterEgg onClick={badge.bind(null, {src: 'EasterEgg_Legal_Beagle'})} />
+          <EasterEgg badge={badge} easterEgg='EasterEgg_Legal_Beagle' />
         </h1>
         <p>
           Please contact us at <a href='mailto:{emailAddress}'>{emailAddress}</a> or&nbsp;call&nbsp;0345&nbsp;0716155

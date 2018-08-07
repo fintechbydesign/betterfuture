@@ -13,6 +13,7 @@ import './MyProfile.css';
 const methods = [
   'doDeedAgain',
   'fetchDeeds',
+  'renderBadge',
   'renderBadges',
   'renderInProgress',
   'renderInProgressDeed',
@@ -65,19 +66,29 @@ class MyProfile extends Component {
     this.fetchDeeds();
   }
 
-  renderBadges () {
+  renderBadge (index, src) {
     const { badge } = this.props;
+    const props = {
+      src,
+      imageClassName: 'MyProfile-badge',
+      key: index,
+      onClick: badge.bind(null, { src })
+    };
+    return (<BadgeIcon {...props} />);
+  }
+
+  renderBadges () {
+    const { badge, user } = this.props;
     const { events } = this.state;
     const badges = events.filter((event) => event.type = 'badge').map((event, index) => {
       const { src } = event;
-      const props = {
-        ...event,
-        imageClassName: 'MyProfile-badge',
-        key: index,
-        onClick: badge.bind(null, { src })
-      };
-      return (<BadgeIcon {...props} />);
+      return this.renderBadge(index, src);
     });
+    if (user.easterEggs) {
+      user.easterEggs.forEach((easterEgg, index) => {
+        badges.push(this.renderBadge(badges.length, easterEgg));
+      });
+    }
     if (badges.length === 0) {
       return null;
     } else {
