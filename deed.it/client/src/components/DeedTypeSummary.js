@@ -37,7 +37,7 @@ class DeedTypeSummary extends Component {
 
   render () {
     const { onClick, props, state } = this;
-    const { buttonText, className, deedType, hideButton, key, imageProps } = props;
+    const { buttonText, className, deedType, disableButton, hideButton, key, imageProps } = props;
     const { progress, showIcon } = state;
     const { description, id, style, where, whereDetails, whereLink, when } = deedType;
     const { color, icon } = style;
@@ -56,7 +56,7 @@ class DeedTypeSummary extends Component {
       : null;
     const button = (hideButton)
       ? null
-      : <Button text={buttonText} onClick={onClick} />;
+      : <Button disabled={disableButton} onClick={onClick} text={buttonText} />;
     const progressBar = (progress)
       ? (<ProgressBar {...progress} color='white' />)
       : null;

@@ -9,7 +9,7 @@ import Text from '../components/Text';
 import { getDeedHierarchy } from '../data/deeds';
 import './PickADeed.css';
 
-const methods = ['fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'selectDeed'];
+const methods = ['enableSelect', 'fetchDeeds', 'renderDeedType', 'renderSuperDeed', 'setSelected', 'selectDeed'];
 
 class PickADeed extends Component {
   constructor (props) {
@@ -17,7 +17,8 @@ class PickADeed extends Component {
     methods.forEach((method) => this[method] = this[method].bind(this));
     this.state = {
       deedHierarchy: null,
-      deedType: null
+      deedType: null,
+      selectEnabled: true
     };
   }
 
@@ -41,26 +42,37 @@ class PickADeed extends Component {
     }
   }
 
+  enableSelect (enable) {
+    this.setState({
+      ...this.state,
+      selectEnabled: enable
+    });
+  }
+
   setSelected (deedType) {
     this.setState({
       ...this.state,
-      deedType
+      deedType,
+      selectEnabled: true
     });
   }
 
   selectDeed () {
     const { error, exhort, register, user } = this.props;
-    const { registered } = user;
-    const { deedType } = this.state;
-    if (registered) {
-      startDeed(user, deedType, { error, exhort });
-    } else {
-      register({ deedType });
+    const { deedType, selectEnabled } = this.state;
+    if (selectEnabled) {
+      if (user.registered) {
+        startDeed(user, deedType, {error, exhort});
+      } else {
+        register({deedType});
+      }
     }
   }
 
   renderDeedType (deedType, index) {
+    const { selectEnabled } = this.state;
     const props = {
+      disableButton: !selectEnabled,
       buttonText: 'Do this deed',
       deedType,
       key: index,
@@ -81,7 +93,8 @@ class PickADeed extends Component {
   renderSuperDeed (superDeed, index) {
     const slides = superDeed.deedTypes.map((deedType, index) => this.renderDeedType(deedType, index));
     const selected = (index) => this.setSelected(superDeed.deedTypes[index]);
-    const props = { selected, slides };
+    const beforeChange = () => this.enableSelect(false);
+    const props = { beforeChange, selected, slides };
     return (
       <Carousel {...props} />
     );

@@ -17,9 +17,25 @@
     margin-top: 2vh;
 }
 
+.Home-map-container {
+    align-items: flex-start;
+}
+
+.Home-map {
+    width: 40vw;
+}
+
+.Home-map-text {
+    margin-left: 2vw;
+}
+
 .Home-text {
     margin: 0;
     text-align: left;
+}
+
+.Home-button {
+    margin-top: 1vh;
 }
 
 .Home-chevron {

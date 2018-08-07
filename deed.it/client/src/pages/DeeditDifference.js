@@ -4,6 +4,7 @@ import ProgressBar from '../components/ProgressBar';
 import Text from '../components/Text';
 import Title from '../components/Title';
 import './DeeditDifference.css';
+import Back from "../components/Back";
 
 const timeout = 15000;
 
@@ -48,6 +49,7 @@ class DeeditDifference extends Component {
   }
 
   render () {
+    const { back } = this.props;
     const { mode } = this.state;
     const progressProps = {
       className: (mode === 'fetch') ? 'DeeditDifference-show' : 'hidden',
@@ -70,10 +72,12 @@ class DeeditDifference extends Component {
     };
     return (
       <div className='page'>
+        <Back back={back} />
         <Title text='Small deeds make a big difference' />
         <ProgressBar {...progressProps} />
         <Image {...imageProps} />
         <Text {...errorProps} />
+        <Back back={back} />
       </div>
     );
   }

@@ -6,6 +6,7 @@ import Text from '../components/Text';
 import Title from '../components/Title';
 import TitleWithImage from '../components/TitleWithImage';
 import chevron from '../images/chevron.svg';
+import exampleMap from '../images/example-map.png';
 import wavingHand from '../images/waving-hand.svg';
 import './Home.css';
 
@@ -72,7 +73,7 @@ function renderHappy (getInvolvedAction) {
 }
 
 function Home (props) {
-  const { aboutUs, myProfile, pickADeed, user } = props;
+  const { aboutUs, deeditDifference, myProfile, pickADeed, user } = props;
   const { openDeedCount, registered } = user;
   const introText = 'Deedit is a social experiment running in Edinburgh throughout August.  ' +
     'We want to find out if encouraging lots of people to do small good deeds can add up to a much bigger positive outcome.';
@@ -80,22 +81,29 @@ function Home (props) {
     'If you want to know more about Deedit, who we are and what we do, ',
     (<a key='link' onClick={aboutUs}>visit our About Us page.</a>)
   ];
-  const titleText = (registered && openDeedCount > 0)
-    ? 'Are you all done?'
-    : 'So what are you waiting for?';
   const buttonProps = (registered && openDeedCount > 0)
-    ? { onClick: myProfile, text: 'Report Deed Done' }
-    : { onClick: pickADeed, text: 'Get Involved Now' };
+    ? { className: 'Home-button', onClick: myProfile, text: 'Report Deed Done' }
+    : { className: 'Home-button', onClick: pickADeed, text: 'Pick A Deed' };
   return (
     <div className='page'>
       <TitleWithImage alt='Yo!' animation='wave' src={wavingHand} text='Hi There' />
       <Text text={introText} />
-      <Title text='Did you know?' />
+      <Title text='Deedit Difference' />
+      <div className='flexContainerRow Home-map-container'>
+        <Image src={exampleMap} className='Home-map' />
+        <div  className='Home-map-text'>
+          <Text text="We're already making a difference for Edinburgh" />
+          <Button onClick={deeditDifference} text='See How' />
+        </div>
+      </div>
+      <Title text='Get Involved Today' />
+      <Text text='All you need is a smartphone and five minutes...' />
+      <Button {...buttonProps} />
+      <Title text='Did You Know..?' />
       {renderHomeless(pickADeed)}
       {renderGreen(pickADeed)}
       {renderHappy(pickADeed)}
-      <Title text={titleText} />
-      <Button {...buttonProps} />
+      <Title text='Who We Are' />
       <Text contents={aboutUsContents} />
     </div>
   );

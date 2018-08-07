@@ -7,10 +7,10 @@ function Error (props) {
   return (
     <div className='page'>
       <Title text='Sad Face :-(' />
-      <Text text='Oh dear, your Deedit app has errored:' />
+      <Text text='Oh dear, we are sorry, your Deedit app has errored:' />
       <Text text={errMsg} />
-      <Text text='We are sorry.' />
-      <Text text='Use one of the navigation buttons below to continue' />
+      <Text text="We’d love you to #deedit." />
+      <Text text="The best experience is by phone so grab your mobile phone and capture your good deed at deedit.org." />
     </div>
   );
 }
