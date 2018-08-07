@@ -4,6 +4,8 @@ import greenFirst from './zero waster champion.svg';
 import greenSecond from './eco warrior.svg';
 import socialFirst from './social bite star.svg';
 import socialSecond from './social bite ambassador.svg';
+import legalBeagle from './easter_egg-T+cs.svg';
+import nosyParker from './easter_egg-nosy_parker.svg';
 
 export default {
   'Help Edinburgh\'s Community Spirit_first': {
@@ -47,5 +49,15 @@ export default {
       color: '#FF6112'
     },
     text: "Social Bite Ambassador"
+  },
+  'EasterEgg_Legal_Beagle' : {
+    explanation: 'You have been awarded this badge for reading ALL the way through our Terms of Use!',
+    icon: legalBeagle,
+    text: "Legal Beagle"
+  },
+  'EasterEgg_Nosy_Parker' : {
+    explanation: 'You have been awarded this badge for clicking on unexplained icons!',
+    icon: nosyParker,
+    text: 'Nosy Parker'
   }
 };

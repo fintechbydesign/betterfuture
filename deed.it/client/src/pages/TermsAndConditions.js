@@ -1,11 +1,12 @@
 import React from 'react';
 import Back from '../components/Back';
+import EasterEgg from "../components/EasterEgg";
 import Title from '../components/Title';
 import { emailAddress } from '../config/email';
 import './legalese.css';
 
 function TermsAndConditions (props) {
-  const { back, privacy } = props;
+  const { back, badge, privacy } = props;
   return (
     <div className='page'>
       <Back back={back} />
@@ -127,9 +128,10 @@ function TermsAndConditions (props) {
         </p>
         <h1>
           Contact Us
+          <EasterEgg onClick={badge.bind(null, {src: 'EasterEgg_Legal_Beagle'})} />
         </h1>
         <p>
-          Please contact us at <a href='mailto:{emailAddress}'>{emailAddress}</a> or call 0345 0716155
+          Please contact us at <a href='mailto:{emailAddress}'>{emailAddress}</a> or&nbsp;call&nbsp;0345&nbsp;0716155
         </p>
       </div>
       <Back back={props.back} />
