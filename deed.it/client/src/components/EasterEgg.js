@@ -16,13 +16,14 @@ function addEasterEggToLocalUser (easterEgg) {
 }
 
 function EasterEgg (props) {
-  const { badge, easterEgg } = props;
+  const { badge, className, easterEgg } = props;
+  const spanClassName = className ? `EasterEgg-text ${className}` : 'EasterEgg-text';
   const onClick = () => {
     addEasterEggToLocalUser(easterEgg);
     badge({src: easterEgg});
   }
   return (
-    <span className='EasterEgg-text' onClick={onClick}>&nbsp;!&nbsp;</span>
+    <span className={spanClassName} onClick={onClick}>&nbsp;!&nbsp;</span>
   );
 }
 

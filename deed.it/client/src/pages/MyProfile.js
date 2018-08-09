@@ -68,17 +68,18 @@ class MyProfile extends Component {
 
   renderBadge (index, src) {
     const { badge } = this.props;
+    const easterEgg = (index === 1) ? 'EasterEgg_Nosy_Parker' : null;
     const props = {
-      src,
       imageClassName: 'MyProfile-badge',
       key: index,
-      onClick: badge.bind(null, { src })
+      onClick: badge.bind(null, { src, easterEgg }),
+      src
     };
     return (<BadgeIcon {...props} />);
   }
 
   renderBadges () {
-    const { badge, user } = this.props;
+    const { user } = this.props;
     const { events } = this.state;
     const badges = events.filter((event) => event.type = 'badge').map((event, index) => {
       const { src } = event;

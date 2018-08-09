@@ -4,6 +4,7 @@ import Text from '../components/Text';
 import Title from '../components/Title';
 import badges from '../../../common/src/images/badges';
 import './Badge.css';
+import EasterEgg from "../components/EasterEgg";
 
 function Congrats(props) {
   const { explanation } = props;
@@ -18,7 +19,7 @@ function Congrats(props) {
 }
 
 function Badge (props) {
-  const { myProfile, home, src, user } = props;
+  const { badge, easterEgg, home, myProfile, src, user } = props;
   const { explanation } = badges[src];
   const badgeProps = {
     imageClassName: 'Badge-image',
@@ -36,11 +37,15 @@ function Badge (props) {
       (<a key='link' onClick={destination.page}>{destination.text}</a>)
     ]
   };
+  const renderEasterEgg = (easterEgg)
+    ? <EasterEgg badge={badge} className='Badge-easter-egg' easterEgg={easterEgg} />
+    : null;
   return (
     <div>
       <Congrats explanation={explanation} />
       <BadgeIcon {...badgeProps} />
       <Text {...textProps} />
+      {renderEasterEgg}
     </div>
   );
 }

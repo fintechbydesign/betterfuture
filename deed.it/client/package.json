@@ -1,6 +1,6 @@
 {
   "name": "deed.it",
-  "version": "0.2.21",
+  "version": "0.2.22",
   "private": true,
   "dependencies": {
     "aws-sdk": "^2.247.1",

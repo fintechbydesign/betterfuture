@@ -9,12 +9,12 @@ function BadgeIcon (props) {
   const { icon, style, text } = badges[src];
   const containerProps = {
     className: (containerClassName) ? `BadgeIcon-container ${containerClassName}` : 'BadgeIcon-container',
-    key: index
+    key: index,
+    onClick
   };
   const imageProps = {
     alt: 'badge',
     className: imageClassName,
-    onClick,
     src: icon,
     type: 'appImage'
   };

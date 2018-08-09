@@ -12,7 +12,8 @@
  */
 
 import React, { Component } from 'react';
-import { createLocalUser, getLocalUser, removeLocalUser, removeUser } from '../data/user';
+import {createLocalUser, getLocalUser, registerUser, removeLocalUser, removeUser} from '../data/user';
+import defaultPreApprovedUser from '../data/defaultPreApprovedUser';
 import { unregister } from '../core/registerServiceWorker';
 import AboutUs from './AboutUs';
 import Badge from './Badge';
@@ -127,15 +128,23 @@ class Pages extends Component {
   }
 
   async reset () {
-    const { error } = this.state.navigationMethods;
+    const { state } = this;
+    const { navigationMethods, user } = state;
+    const { error } = navigationMethods;
+    const isPreApprovedUser = (user.nickname === defaultPreApprovedUser.nickname);
     try {
-      const { user } = this.state;
-      if (user.nickname) {
+      if (user.nickname && !isPreApprovedUser) {
         await removeUser(user);
       }
       removeLocalUser();
-      createLocalUser();
-      unregister();
+      if (isPreApprovedUser) {
+        await registerUser({
+          ...createLocalUser(),
+          ...defaultPreApprovedUser
+        });
+      } else {
+        unregister();
+      }
       this.setState(this.createInitialState());
     } catch (err) {
       error({err});
