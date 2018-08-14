@@ -23,7 +23,8 @@ const reportError = (errMsg) => {
 const getLatestTiles = async(timestamp) => {
   const endpoint = `${URL}?oldestTimestamp=${timestamp}`;
   try {
-    return await getData(endpoint);
+    const tiles = await getData(endpoint);
+    return tiles.filter((tile) => tile.type === 'photo');
   } catch (err) {
     reportError(err.message);
     return [];
@@ -53,12 +54,14 @@ const poll = async() => {
 
 const start = async(events) => {
   callbackEvents = events;
-  const twoDaysAgo = Date.now() - 48 * ONE_HOUR;
+  const sixHours = 6 * ONE_HOUR;
+  const fiveDaysAgo = Date.now() - 10 * 24 * ONE_HOUR;
   let tiles = [];
   let timestamp = Date.now();
-  while (tiles.length < PREFERRED_INITIAL_NUMBER_OF_TILES && timestamp > twoDaysAgo) {
-    console.log(`timestamp: ${timestamp}; num of tiles: ${tiles.length}`);
-    timestamp = timestamp - ONE_HOUR;
+  while (tiles.length < PREFERRED_INITIAL_NUMBER_OF_TILES && timestamp > fiveDaysAgo) {
+    const date = new Date(timestamp);
+    console.log(`timestamp: ${date.toString()}; num of tiles: ${tiles.length}`);
+    timestamp = timestamp - sixHours;
     tiles = await getLatestTiles(timestamp); 
   }
   processTiles(tiles);
